@@ -2,9 +2,9 @@
 <div align="center">
 <a href="https://github.com/youngseok-1">조영석 : PM 프로젝트 매니저</a>
 <br>
-[이호준 : 형상 관리자](https://github.com/Pear1yCode)
+<a href="https://github.com/Pear1yCode>이호준 : 형상 관리자</a>
 <br>
-[이은서 : DB 관리자](https://github.com/manbeao)
+<a href="https://github.com/manbeao>이은서 : DB 관리자</a>
 <br>
-[황순빈 : DB 관리자](https://github.com/soonbin2)
+<a href="https://github.com/soonbin2">황순빈 : DB 관리자</a>
 </div>
