@@ -9,4 +9,4 @@
 <a href="https://github.com/soonbin2">황순빈 : DB 관리자</a>
 </div>
 
-![footer](https://capsule-render.vercel.app/api?type=transparent&text=TY&animation=twinkling&&section=footer&size=20)
+![footer](https://capsule-render.vercel.app/api?type=transparent&text=TY&animation=twinkling&&section=footer&size=15)
