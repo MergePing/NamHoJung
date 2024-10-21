@@ -2,6 +2,8 @@
 
 # Project Description
 
+## 목차 (수정 예정)
+
 ## 1. Over view of the project (개요)
 - 우리의 프로젝트는 공포에 어울리는 새로운 MBTI와 공포 커뮤니티를 접목시킨 사이트를 만들었습니다.
 
