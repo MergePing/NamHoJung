@@ -1,4 +1,5 @@
-# 기본 규칙
+# Collaboration Rules
+
 ## branch
 ### master
 #### 최종 배포를 위한 브랜치
