@@ -59,6 +59,8 @@
 ### 기능 구현
 24-10 ~
 
-## 7. 
+## 7. Introducing the project feature
+
+### Main page
 
 ![footer](https://capsule-render.vercel.app/api?type=transparent&text=감사합니다.&animation=twinkling&&section=footer&size=15)
