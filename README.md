@@ -24,8 +24,6 @@
 ![Static Badge](https://img.shields.io/badge/DB%20%EB%A7%A4%EB%8B%88%EC%A0%80-%EC%9D%B4%EC%9D%80%EC%84%9C-skyblue?style=for-the-badge&labelColor=pink)
 ![Static Badge](https://img.shields.io/badge/DB%20%EB%A7%A4%EB%8B%88%EC%A0%80-%ED%99%A9%EC%88%9C%EB%B9%88-%23C8D703?style=for-the-badge&labelColor=%23F50560)
 
-
-
 ## 3. Development environment (개발 환경) / 수정예정
 
 ### Front
