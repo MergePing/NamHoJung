@@ -65,6 +65,14 @@
 ### Database
 - MySQL
 
+### 사용 폰트
+[배달의민족 주아](http://font.woowahan.com/jua/)
+
+[SUIT 산스](https://sun.fo/suit/)
+
+[CAFE24 Ssurround air]((https://fonts.cafe24.com/))
+
+
 ## 4. [Team Rules](https://github.com/MergePing/Thymeleaf_Practice_For_Mergeping/blob/main/COLLABORATION_RULES.md)
 
 ## 5. Project work division (업무 구분) / 수정예정
