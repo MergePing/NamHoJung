@@ -48,7 +48,7 @@
 ### Front
 
 ### Back-end
-- IntelliJ
+- JAVA
 
 ### Version & issue Management
 - Github
