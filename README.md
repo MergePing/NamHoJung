@@ -12,17 +12,36 @@
 - MBTI를 통한 공포의 높은 접근성을 허물고 커뮤니티에서의 서로의 상호작용을 통해 공포를 부정적으로 보는 사람들도 쉽게 접근할 수 있도록 구성했습니다.
 
 ## 3. Team member (팀) / 수정예정
-<div align="center">
+<div align="center" display:"inline-block">
+<div>
 <a href="https://github.com/youngseok-1"><img src="https://github.com/user-attachments/assets/b2b48a3c-a03f-41ee-b9e3-b91a29257bc9" alt="조영석"></a>
-<a href="https://github.com/Pear1yCode"><img src="https://github.com/user-attachments/assets/b249f651-6270-4fad-b968-ef890ea476e5" alt="이호준"></a>
-<a href="https://github.com/manbeao"><img src="https://github.com/user-attachments/assets/f77dcc53-2e80-4646-b23e-30d3f6c7dc97" alt="이은서"></a>
-<a href="https://github.com/soonbin2"><img src="https://github.com/user-attachments/assets/b9f735fd-d1cf-44e2-ada3-6d1d8eb81fe0" alt="황순빈"></a>
+    
+![Static Badge](https://img.shields.io/badge/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EB%A7%A4%EB%8B%88%EC%A0%80-%EC%A1%B0%EC%98%81%EC%84%9D-yellow?style=for-the-badge&labelColor=black)
+
 </div>
 
-![Static Badge](https://img.shields.io/badge/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EB%A7%A4%EB%8B%88%EC%A0%80-%EC%A1%B0%EC%98%81%EC%84%9D-yellow?style=for-the-badge&labelColor=black)
+<div>
+<a href="https://github.com/Pear1yCode"><img src="https://github.com/user-attachments/assets/b249f651-6270-4fad-b968-ef890ea476e5" alt="이호준"></a>
+
 ![Static Badge](https://img.shields.io/badge/%ED%98%95%EC%83%81%EA%B4%80%EB%A6%AC%EC%9E%90-%EC%9D%B4%ED%98%B8%EC%A4%80-%232B79E0?style=for-the-badge&labelColor=%23502BE0)
+
+</div>
+
+<div>
+<a href="https://github.com/manbeao"><img src="https://github.com/user-attachments/assets/f77dcc53-2e80-4646-b23e-30d3f6c7dc97" alt="이은서"></a>
+
 ![Static Badge](https://img.shields.io/badge/DB%20%EB%A7%A4%EB%8B%88%EC%A0%80-%EC%9D%B4%EC%9D%80%EC%84%9C-skyblue?style=for-the-badge&labelColor=pink)
+
+</div>
+
+<div>
+<a href="https://github.com/soonbin2"><img src="https://github.com/user-attachments/assets/b9f735fd-d1cf-44e2-ada3-6d1d8eb81fe0" alt="황순빈"></a>
+
 ![Static Badge](https://img.shields.io/badge/DB%20%EB%A7%A4%EB%8B%88%EC%A0%80-%ED%99%A9%EC%88%9C%EB%B9%88-%23C8D703?style=for-the-badge&labelColor=%23F50560)
+
+</div>
+
+</div>
 
 ## 3. Development environment (개발 환경) / 수정예정
 
@@ -60,7 +79,9 @@
 ### 기능 구현
 24-10 ~
 
-## 7. Introducing the project feature
+## 7. font
+
+## 8. Introducing the project feature
 
 ### Main page
 - 기본적으로 Nav bar가 상단에 존재하며 회원가입, 로그인, 로그아웃, MBTI 검사, 게시글로 이동, 마이페이지 등의 기능을 수행합니다.
