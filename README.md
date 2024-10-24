@@ -70,7 +70,7 @@
 
 [SUIT 산스](https://sun.fo/suit/)
 
-[CAFE24 Ssurround air]((https://fonts.cafe24.com/))
+[CAFE24 Ssurround air](https://fonts.cafe24.com/)
 
 
 ## 4. [Team Rules](https://github.com/MergePing/Thymeleaf_Practice_For_Mergeping/blob/main/COLLABORATION_RULES.md)
