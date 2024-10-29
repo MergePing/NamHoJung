@@ -1,7 +1,7 @@
 # Collaboration Rules
 
 ## branch
-### master
+### main
 #### 최종 배포를 위한 브랜치
 1. develop 브랜치에서 문제가 없이 병합됐고 기능에 문제가 없을 경우, 해당 브랜치에 최종 병합
 
