@@ -60,6 +60,7 @@
 - style : 코드 스타일 혹은 포맷 수정 <br/>
 - refactor : 코드 리팩토링 수정 <br/>
 - test : 테스트 시 <br/>
+- create : 양식 생성
 
 ### 예시
 feat:PlusFunction/20241021
