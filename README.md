@@ -11,6 +11,8 @@
 ### 7. [개발 기간](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#7-development-period-%EA%B0%9C%EB%B0%9C-%EA%B8%B0%EA%B0%84--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
 ### 8. [주요 기능 소개](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#8-introducing-the-project-feature-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C)
 
+![footer](https://capsule-render.vercel.app/api?type=transparent&text=프로젝트&animation=twinkling&&section=footer&size=15)
+
 ## 1. Over view of the project (개요)
 - 우리의 프로젝트는 공포에 어울리는 새로운 MBTI와 공포 커뮤니티를 접목시킨 사이트를 만들었습니다.
 #### [목차로 이동](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#%EB%AA%A9%EC%B0%A8)
