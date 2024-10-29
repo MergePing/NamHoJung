@@ -1,3 +1,15 @@
+-- 계정 권한 부여 및 스키마 생성 
+
+CREATE USER 'ohgiraffers'@'%' IDENTIFIED BY  'ohgiraffers';
+
+SELECT * FROM user;
+
+CREATE DATABASE horrordb;
+
+GRANT ALL PRIVILEGES ON horrordb.* TO 'ohgiraffers'@'%';
+
+USE horrordb;
+
 DROP TABLE `TBL_ACTION`;
 
 CREATE TABLE  IF NOT EXISTS `TBL_ACTION`
@@ -179,5 +191,3 @@ CREATE TABLE `TBL_USER`
 
 ALTER TABLE `TBL_USER`
  ADD CONSTRAINT `TBL_USER_PK` PRIMARY KEY ( `USER_NO` );
-
-
