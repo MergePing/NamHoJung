@@ -63,7 +63,7 @@
 - create : 양식 생성
 
 ### 예시
-feat:PlusFunction/20241021
+feat:PlusFunction/2024-10-21
 
 <hr>
 
