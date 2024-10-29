@@ -7,13 +7,18 @@
 ### 3. [팀 소개](https://github.com/MergePing/NamHoJung/edit/main/README.md#3-team-member-%ED%8C%80--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
 ### 4. [개발 환경](https://github.com/MergePing/NamHoJung/edit/main/README.md#3-development-environment-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
 ### 5. [팀 규칙](https://github.com/MergePing/NamHoJung/edit/main/README.md#5-team-rules)
+### 6. [업무 구분](https://github.com/MergePing/NamHoJung/edit/main/README.md#6-project-work-division-%EC%97%85%EB%AC%B4-%EA%B5%AC%EB%B6%84--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
+### 7. [개발 기간](https://github.com/MergePing/NamHoJung/edit/main/README.md#7-development-period-%EA%B0%9C%EB%B0%9C-%EA%B8%B0%EA%B0%84--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
+### 8. [주요 기능 소개](https://github.com/MergePing/NamHoJung/edit/main/README.md#8-introducing-the-project-feature-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C)
 
 ## 1. Over view of the project (개요)
 - 우리의 프로젝트는 공포에 어울리는 새로운 MBTI와 공포 커뮤니티를 접목시킨 사이트를 만들었습니다.
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
 
 ## 2. Goals of the project (목적)
 - 공포 MBTI를 통해 공감을 이끌고 서로의 경험을 공유하며 공감과 취미를 즐길 수 있게하여 공포의 접근성을 낮추고자 하였습니다.
 - MBTI를 통한 공포의 높은 접근성을 허물고 커뮤니티에서의 서로의 상호작용을 통해 공포를 부정적으로 보는 사람들도 쉽게 접근할 수 있도록 구성했습니다.
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
 
 ## 3. Team member (팀)
 <div align="center" display:"inline-block">
@@ -47,6 +52,8 @@
 
 </div>
 
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
+
 ## 4. Development environment (개발 환경) / 수정예정
 
 ### Front
@@ -76,10 +83,17 @@
 
 [CAFE24 Ssurround air](https://fonts.cafe24.com/)
 
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
 
-## 5. [Team Rules](https://github.com/MergePing/Thymeleaf_Practice_For_Mergeping/blob/main/COLLABORATION_RULES.md)
+## 5. 팀 가이드라인 & 규칙
+[Team Guideline](https://github.com/MergePing/NamHoJung/blob/main/team_rules/team_guideline.md)
+[Team Rules](https://github.com/MergePing/NamHoJung/blob/main/team_rules/team_rules.md)
+
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
 
 ## 6. Project work division (업무 구분) / 수정예정
+
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
 
 ## 7. Development period (개발 기간) / 수정예정
 ### 전체 개발 기간
@@ -95,7 +109,9 @@
 ### 기능 구현
 24-10-28 ~ 24-11-15
 
-## 8. Introducing the project feature
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
+
+## 8. Introducing the project feature (주요 기능 소개)
 
 ### Main page
 - 기본적으로 Nav bar가 상단에 존재하며 사이트 소개, 회원가입, 로그인, 로그아웃, MBTI 검사, 게시글로 이동, 마이페이지 등의 기능을 수행합니다.
@@ -178,5 +194,6 @@
 - 관리자는 신고된 사용자가 규정을 어겼다고 판단했을 경우 패널티를 줄 수 있습니다.
 - 관리자는 신고된 사용자가 적법하다고 판단했을 경우 신고를 취소하거나 이미 처리된 신고에 한해서 신고를 제거할 수 있습니다.
 
+#### [목차로 이동](https://github.com/MergePing/NamHoJung/edit/main/README.md#%EB%AA%A9%EC%B0%A8)
 
 ![footer](https://capsule-render.vercel.app/api?type=transparent&text=감사합니다.&animation=twinkling&&section=footer&size=15)
