@@ -86,8 +86,8 @@
 #### [목차로 이동](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#%EB%AA%A9%EC%B0%A8)
 
 ## 5. 팀 가이드라인 & 규칙
-### [Team Guideline](https://github.com/MergePing/NamHoJung/blob/main/team_rules/team_guideline.md)
-### [Team Rules](https://github.com/MergePing/NamHoJung/blob/main/team_rules/team_rules.md)
+### [Team Guideline](https://github.com/MergePing/NamHoJung/blob/main/.github/team_rules/team_guideline.md)
+### [Team Rules](https://github.com/MergePing/NamHoJung/blob/main/.github/team_rules/team_rules.md)
 
 #### [목차로 이동](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#%EB%AA%A9%EC%B0%A8)
 
