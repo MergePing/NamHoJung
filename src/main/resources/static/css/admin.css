@@ -1,0 +1,245 @@
+
+.container {
+
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+
+    background: #FFFFFF;
+}
+
+.nav{
+
+    position: absolute;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+}
+
+.nav ul li a {
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    text-decoration: none;
+}
+
+#intro {
+
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+}
+
+
+
+#notice {
+
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+}
+
+
+#post {
+
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+}
+
+
+#mbti {
+    position: absolute;
+    width: 86px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #C9E6CA;
+
+
+}
+
+#mypage {
+
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+}
+
+#logout {
+
+
+    position: absolute;
+    width: 65px;
+    height: 21px;
+    left: 1685px;
+    top: 29px;
+
+}
+#signup {
+
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+}
+    body {
+
+
+        background-size: cover;
+        /* serene-garden-scene-rainy-night-illuminated-by-lamp-post-generative-ai 1 */
+
+        position: absolute;
+        width: 1920px;
+        height: 1280px;
+        left: 0px;
+        top: 34px;
+
+
+
+    }
+
+
+
+main {
+    position: absolute;
+    width: 1493px;
+    height: 748px;
+    left: 214px;
+    top: 205px;
+
+    background: #3B572D;
+}
+
+.management-buttons button {
+
+    width: 320px;
+    height: 231px;
+    background: #1C6C2B;
+    border-radius: 70px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    color: #FFFFFF;
+}
+
+
+#btn1 {
+    margin-left: 82px;
+    margin-top: 89px;
+}
+
+#btn2 {
+    margin-left: 86px;
+    margin-top: 89px;
+}
+
+#btn3 {
+    margin-left: 82px;
+    margin-top: 107px;
+}
+
+#btn4 {
+    margin-left: 86px;
+}
+
+
+.profile-section {
+    position: absolute;
+    right: 50px;
+    top: 49px;
+    width: 500px;
+    height: 650px;
+    background: #0E2913;
+    border-radius: 10px;
+    padding: 20px;
+    color: #FFFFFF;
+    margin-bottom: 50px;
+    font-size: 25px;
+
+}
+
+
+#profile-pic {
+    width: 168px;
+    height: 168px;
+    margin: 0 auto;
+    background: url("/static/images/image 131.png") no-repeat center center;
+    background-size: cover;
+    border-radius: 100px;
+}
+
+#profile-button {
+    width: 291px;
+    height: 65px;
+    margin: 20px auto 0;
+    background: #408D1C;
+    border-radius: 50px;
+    display: block;
+
+
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+#hello {
+    text-align: center;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    margin-top: auto;
+    margin-bottom: 23px;
+
+    color: #FFFFFF;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
