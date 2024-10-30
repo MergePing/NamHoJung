@@ -2,10 +2,176 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    
+    <title>남호정</title>
+    <link rel="stylesheet" href="../../static/css/reset.css">
+    <link rel="stylesheet" href="../../static/css/mainpage.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <img src="../../static/images/main/nav-logo-dark.png" alt="상단 로고">
+            <span>소개</span>
+            <span>공지사항</span>
+            <span>게시판</span>
+            <span>MBTI 검사</span>
+            <span>마이페이지</span>
+            <span>로그인</span>
+            <span>회원가입</span>
+        </nav>
+            <script>
 
+            </script>
+    </header>
+<main>
+    <div class="main1">
+    <div class="qickBtn">
+        <img src="../../static/images/main/folating-btn-dark.png" id="light" class="tr" alt="플로팅 버튼">
+        <img src="../../static/images/main/folating-btn-click-dark.png" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img src="../../static/images/main/top-btn-dark.png" class="dn" id="top" alt="탑버튼">
+            <img src="../../static/images/main/light-btn-dark.png" class="dn" id="mode" alt="테마 변경">
+            <img src="../../static/images/main/test-btn-dark.png" class="dn" id="test" alt="MBTI 테스트">
+        </div>
+        <script>
+            const floatBtn1 = document.getElementById("light");
+            const floatBtn2 = document.getElementById("dark");
+            const qickMenu1 =document.getElementById("top");
+            const qickMenu2 =document.getElementById("mode");
+            const qickMenu3 =document.getElementById("test");
+
+            floatBtn1.addEventListener('click',function (){
+                floatBtn1.classList.toggle('dn');
+                floatBtn2.classList.toggle('dn');
+                qickMenu1.classList.toggle('dn');
+                qickMenu2.classList.toggle('dn');
+                qickMenu3.classList.toggle('dn');
+            });
+
+            floatBtn2.addEventListener('click',function (){
+                floatBtn1.classList.toggle('dn');
+                floatBtn2.classList.toggle('dn');
+                qickMenu1.classList.toggle('dn');
+                qickMenu2.classList.toggle('dn');
+                qickMenu3.classList.toggle('dn');
+            });
+
+        </script>
+    </div>
+    <div class="logo"><img src="../../static/images/main/main-logo-dark.png" alt="남호정 메인 로고"></div>
+    <div class="subtitle"><img src="../../static/images/main/main-subtitle-dark.png" alt="남이 이야기 해주는 호러정원"></div>
+    <img class="bg" src="../../static/images/main/main-dark-bg.png" alt="다크모드 메인페이지 배경화면">
+    <div class="mainbox tr" id="mainbox"><p id="black">나의 공포 MBTI는?</p></div>
+    </div>
+        <script>
+            const mainLink = document.getElementById("mainbox");
+            const black = document.getElementById("black");
+            mainLink.addEventListener('mouseover',function (){
+                mainLink.style.backgroundColor="#4A7236";
+                mainLink.style.border="1px solid white";
+                black.style.color="#000";
+            });
+            mainLink.addEventListener('mouseout',function (){
+                mainLink.style.backgroundColor="#0E2913";
+                mainLink.style.border="none";
+                black.style.color="#FFF";
+            });
+
+        </script>
+    <div class="main2">
+        <h2>베스트 정원</h2>
+        <img src="../../static/images/main/main2-dark-bg.png" alt="나뭇가지">
+        <div class="fristbest">
+            <img src="../../static/images/main/main2-img1.png" alt="베스트 게시물 이미지1">
+            <p>싸이코패스 테스트</p>
+            <span>유명한 싸이코패스 테스트인데 한번씩 해보세요.<br>
+                <br>
+                아파트에 사는 어떤 사람이 살인사건을 목격했는데 칼을 든 살인마가 그 사람을 발견하고 칼을 쳐 들며 ... </span>
+            <img src="../../static/images/main/main2-img2.png" alt="베스트 게시물 이미지2">
+            <p>동굴속의 아이들</p>
+            <span> 어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이<br>
+                    있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는<br>
+                    산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나<br>
+                    있었다고 합니다. 충격적이게 그 동굴 안에는 이상...</span>
+            <img src="../../static/images/main/main2-img3.png" alt="베스트 게시물 이미지3">
+            <p>암흑이 두려운 사람</p>
+            <span>
+                혹시 이럴 때 안무서우신가요?<br>
+                머리감을 때 눈을 감을 수밖에 없는데 귀신이 앞에 있<br>
+                는다는 상상을 하거나, 무언가 나를 지켜보고 있다거나<br>
+                하는 상상이요. 한번 상상하고 나서는 자꾸 두려워지...
+            </span>
+            <img src="../../static/images/main/main2-img4.png" alt="베스트 게시물 이미지4">
+            <p>어릴 때 경험담</p>
+            <span>
+                서울 오기 전에 시골에 살았었는데, 시골학교에서 <br>
+                옆 마을 폐가로 담력테스트를 한다고 하루를 전교생이<br>
+                소풍가듯이 간 적이 있었는데 거기서 화장실을 갔거든<br>
+                그런데 화장실만 가면 이상한 말이 들리는거야?  원...
+            </span>
+        </div>
+    </div>
+    <div class="main3">
+        <img src="../../static/images/main/main-dark-bg3.png" id="calendarbg">
+        <h1 id="monthTitle"></h1>
+        <div id="calendar"></div>
+        <button id="checkAttendanceBtn">출석 체크 하기</button>
+        <script src="scripts.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const calendar = document.getElementById('calendar');
+                const checkAttendanceBtn = document.getElementById('checkAttendanceBtn');
+                const monthTitle = document.getElementById('monthTitle');
+                const date = new Date();
+                const month = date.getMonth();
+                const year = date.getFullYear();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const today = date.getDate();
+                const monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1월", "1월"];
+                const dayNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+                // 월 표시
+                monthTitle.textContent = monthNames[month];
+
+                // 요일 헤더 추가
+                dayNames.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.classList.add('day-header');
+                    dayHeader.textContent = day;
+                    calendar.appendChild(dayHeader);
+                });
+
+                // 첫 번째 날의 요일에 맞추어 빈 칸 추가
+                const firstDayOfMonth = new Date(year, month, 1).getDay();
+                for (let i = 0; i < firstDayOfMonth; i++) {
+                    const emptyDiv = document.createElement('div');
+                    calendar.appendChild(emptyDiv);
+                }
+
+                // 달력 만들기
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.classList.add('day-cell');
+                    dayDiv.textContent = i;
+                    dayDiv.id = `day-${i}`;
+                    calendar.appendChild(dayDiv);
+                }
+
+                // 출석 체크 버튼 클릭 이벤트
+                checkAttendanceBtn.addEventListener('click', function() {
+                    document.getElementById(`day-${today}`).classList.add('checked');
+                    document.getElementById("checkAttendanceBtn").style.backgroundColor="#0E2813";
+                    document.getElementById("checkAttendanceBtn").style.width="560px";
+                    document.getElementById("checkAttendanceBtn").style.color="#C0CBBC";
+                    document.getElementById("checkAttendanceBtn").style.left="400px";
+                    document.getElementById("checkAttendanceBtn").textContent="출석체크를 완료 했습니다";
+                });
+            });
+
+        </script>
+    </div>
+</main>
+<footer>
+
+</footer>
 </body>
 </html>
