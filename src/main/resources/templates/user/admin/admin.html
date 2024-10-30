@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>관리자 메인 페이지</title>
-    <link rel="stylesheet" href="../../../static/css/admin.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <link rel="stylesheet" href="/static/css/modal.css">
 </head>
 <body>
 
 <div class="container">
-    <img class = "img" src="/static/images/serene-garden-scene-rainy-night-illuminated-by-lamp-post-generative-ai 1.png">
+    <img class="img" src="/static/images/serene-garden-scene-rainy-night-illuminated-by-lamp-post-generative-ai 1.png">
     <header>
         <nav class="nav">
             <ul>
@@ -29,17 +30,37 @@
                 <button id="btn1">공지사항 관리</button>
                 <button id="btn2">게시물 관리</button>
             </div>
-            <div class="button-r"></div>
-            <button id="btn3">회원 관리</button>
-            <button id="btn4">신고 관리</button>
+            <div class="button-row">
+                <button id="btn3">회원 관리</button>
+                <button id="btn4">신고 관리</button>
+            </div>
         </div>
 
         <div class="profile-section">
             <div id="profile-pic"></div>
-            <button id="profile-button">프로필 변경</button>
+            <button id="profile-button" onclick="openModal()">프로필 변경</button>
             <p id="hello">OOO 관리자님 안녕하세요!</p>
         </div>
     </main>
 </div>
-</body>
-</html>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h2>사진을 업로드해주세요</h2>
+        <input type="file" id="fileInput">
+        <div class="modal-buttons">
+            <button class="cancel-btn" onclick="closeModal()">취소</button>
+            <button class="upload-btn">등록</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+</script>
