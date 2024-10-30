@@ -1,0 +1,425 @@
+.resolution{
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+
+    background: #FFFFFF;
+}
+
+.background {
+    position: relative;
+    width: 1920px;
+    height: 1100px;
+}
+
+/*상단 네비바*/
+.nav{
+    position: absolute;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+}
+
+.nav2{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+}
+
+.notice{
+
+    position: absolute;
+    left: 59.11%;
+    right: 36.61%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+.info{
+    position: absolute;
+    left: 53.96%;
+    right: 43.85%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E5CA;
+
+}
+
+.mbti{
+    position: absolute;
+    left: 72.55%;
+    right: 22.97%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+
+.myPage{
+    position: absolute;
+    left: 80%;
+    right: 14.69%;
+    top: 32.91%;
+    bottom: 34.18%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+.login{
+    position: absolute;
+    left: 88.12%;
+    right: 9.32%;
+    top: 36.71%;
+    bottom: 36.71%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    z-index: 1;
+    color: #A3DA87;
+
+}
+.sign{
+    position: absolute;
+    left: 92.29%;
+    right: 4.22%;
+    top: 36.71%;
+    bottom: 36.71%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+.post{
+    position: absolute;
+    left: 66.35%;
+    right: 30.42%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+/* login 영역 폰트 이슈로 임시대체 */
+.logo{
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+    font-family: 'Sandoll Ggigigig';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 45px;
+}
+
+/*.logo {*/
+/*    position: absolute;*/
+/*    width: 82px;*/
+/*    height: 45px;*/
+/*    left: 48px;*/
+/*    top: 18px;*/
+
+/*    font-family: 'Sandoll Ggigigig';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 45px;*/
+/*    line-height: 45px;*/
+
+/*    color: #C9E6CA;*/
+/*}*/
+
+/*여기까지 상단 네비바*/
+
+.uiBack {
+    position: absolute;
+    width: 1656px;
+    height: 746px;
+    left: calc(50% - 1656px/2);
+    top: calc(50% - 746px/2 + 65px);
+
+    background: #0E2913;
+}
+
+.signupText {
+    position: absolute;
+    width: 327px;
+    height: 62px;
+    left: calc(50% - 327px/2 - 0.5px);
+    top: 301px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 62px;
+
+    color: #FFFFFF;
+}
+
+.character {
+    position: absolute;
+    width: 626px;
+    height: 417px;
+    left: 211px;
+    top: 689px;
+    z-index:99
+}
+
+/*!* Component 7 *!
+
+position: absolute;
+width: 1920px;
+height: 79px;
+left: 1px;
+top: 0px;
+
+
+
+!* Rectangle 48 *!
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+background: #0E2913;
+box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+
+
+!* 공지사항 *!
+
+position: absolute;
+left: 59.11%;
+right: 36.61%;
+top: 34.18%;
+bottom: 32.91%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 26px;
+!* identical to box height *!
+
+color: #C9E6CA;
+
+
+
+!* 소개 *!
+
+position: absolute;
+left: 53.96%;
+right: 43.85%;
+top: 34.18%;
+bottom: 32.91%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 26px;
+!* identical to box height *!
+
+color: #C9E5CA;
+
+
+
+!* mbti검사 *!
+
+position: absolute;
+left: 72.55%;
+right: 22.97%;
+top: 34.18%;
+bottom: 32.91%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 26px;
+!* identical to box height *!
+
+color: #C9E6CA;
+
+
+
+!* 마이페이지 *!
+
+position: absolute;
+left: 80%;
+right: 14.69%;
+top: 32.91%;
+bottom: 34.18%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 26px;
+!* identical to box height *!
+
+color: #C9E6CA;
+
+
+
+!* 로그인 *!
+
+position: absolute;
+left: 88.12%;
+right: 9.32%;
+top: 36.71%;
+bottom: 36.71%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 21px;
+!* identical to box height *!
+
+color: #C9E6CA;
+
+
+
+!* 회원가입 *!
+
+position: absolute;
+left: 92.29%;
+right: 4.22%;
+top: 36.71%;
+bottom: 36.71%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 21px;
+!* identical to box height *!
+
+color: #A3DA87;
+
+
+
+!* 게시판 *!
+
+position: absolute;
+left: 66.35%;
+right: 30.42%;
+top: 34.18%;
+bottom: 32.91%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 26px;
+!* identical to box height *!
+
+color: #C9E6CA;
+
+
+
+!* 휴대폰 본인 확인을 완료해주세요 *!
+
+position: absolute;
+width: 453px;
+height: 44px;
+left: calc(50% - 453px/2 - 0.5px);
+top: 390px;
+
+font-family: 'SUIT';
+font-style: normal;
+font-weight: 600;
+font-size: 35px;
+line-height: 44px;
+!* identical to box height *!
+
+color: #FFFFFF;
+
+
+
+!* image 146 *!
+
+position: absolute;
+width: 676px;
+height: 450px;
+left: calc(50% - 676px/2 - 28px);
+top: 469px;
+
+background: url(image.png);
+
+
+!* 남호정 *!
+
+position: absolute;
+width: 82px;
+height: 45px;
+left: 48px;
+top: 18px;
+
+font-family: 'Sandoll Ggigigig';
+font-style: normal;
+font-weight: 400;
+font-size: 45px;
+line-height: 45px;
+!* identical to box height *!
+
+color: #C9E6CA;*/
+
