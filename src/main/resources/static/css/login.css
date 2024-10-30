@@ -1,0 +1,463 @@
+.resolution{
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+    z-index: 0;
+
+    background: #FFFFFF;
+}
+
+.backgroundBasic{
+    position: absolute;
+    width: 1920px;
+    height: 1041px;
+    left: 0px;
+    top: 40px;
+    z-index: -1;
+
+    background: #0B1B06;
+}
+
+.nav{
+    position: absolute;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+}
+
+.nav2{
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+}
+
+.notice{
+
+    position: absolute;
+    left: 59.11%;
+    right: 36.61%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+color: #C9E6CA;
+}
+
+.info{
+    position: absolute;
+    left: 53.96%;
+    right: 43.85%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E5CA;
+
+}
+
+.mbti{
+    position: absolute;
+    left: 72.55%;
+    right: 22.97%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+
+.myPage{
+position: absolute;
+left: 80%;
+right: 14.69%;
+top: 32.91%;
+bottom: 34.18%;
+
+font-family: 'BM JUA_OTF';
+font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 26px;
+z-index: 1;
+
+color: #C9E6CA;
+}
+
+.login{
+    position: absolute;
+    left: 88.12%;
+    right: 9.32%;
+    top: 36.71%;
+    bottom: 36.71%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    z-index: 1;
+    color: #A3DA87;
+
+}
+.sign{
+    position: absolute;
+    left: 92.29%;
+    right: 4.22%;
+    top: 36.71%;
+    bottom: 36.71%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+.post{
+    position: absolute;
+    left: 66.35%;
+    right: 30.42%;
+    top: 34.18%;
+    bottom: 32.91%;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    z-index: 1;
+
+    color: #C9E6CA;
+}
+
+.background01{
+    position: absolute;
+    width: 1920px;
+    height: 995px;
+    left: 0px;
+    top: 86px;
+
+    background-blend-mode: overlay;
+    opacity: 0.9;
+}
+
+.background02{
+
+    position: absolute;
+    width: 1920px;
+    height: 995px;
+    left: 0px;
+    top: 40px;
+
+    background-blend-mode: overlay;
+
+}
+
+.loginDiv{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 835.5px;
+    height: 710px;
+    left: calc(50% - 835.5px/2 - 0.25px);
+    top: calc(50% - 710px/2 + 44px);
+
+    background: #4A7236;
+    border: 50px solid #407525;
+}
+
+.loginBox{
+    position: absolute;
+    width: 158px;
+    height: 129px;
+    left: 1175px;
+    top: 590px;
+
+    background: #FFDC25;
+    border: 1px solid #000000;
+}
+
+.loginBox:active{
+    margin-left: 5px;
+    margin-top: 5px;
+    box-shadow: 3px 3px 3px black;
+}
+
+.search{
+    position: absolute;
+    width: 176px;
+    height: 26px;
+    left: 850px;
+    top: 844px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    z-index: 1;
+
+    color: #FFFFFF;
+}
+
+
+.saveId {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    left: 788px;
+    top: 741px;
+
+    border: 2px solid #FFFFFF;
+}
+
+.saveIdLabel {
+    position: absolute;
+    width: 120px;
+    height: 26px;
+    left: 829px;
+    top: 747px;
+
+    font-family: 'BM JUA_TTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+}
+
+.idDiv{
+    position: absolute;
+    width: 340px;
+    height: 59px;
+    left: calc(50% - 340px/2 - 15px);
+    top: 558px;
+    padding-left: 20px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+    border:black 2px solid;
+
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff');format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-size: 25px;
+}
+
+.idDiv:focus{
+    background: #D4D4D4;
+}
+
+.pwdDiv {
+    position: absolute;
+    width: 340px;
+    height: 59px;
+    left: calc(50% - 340px/2 - 15px);
+    top: 665px;
+    padding-left: 20px;
+    border:black 2px solid;
+
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24SsurroundAir';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff'); format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-size: 25px;
+}
+
+.pwdDiv:focus{
+    background: #D4D4D4;
+}
+
+.id{
+    position: absolute;
+    width: 150px;
+    height: 35px;
+    left: 623px;
+    top: 570px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.loginText{
+    position: absolute;
+    width: 146px;
+    height: 62px;
+    left: calc(50% - 146px/2);
+    top: 301px;
+
+    font-family: 'BM JUA_TTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 62px;
+
+    color: #FFFFFF;
+}
+
+.loginGuide{
+    position: absolute;
+    width: 754px;
+    height: 44px;
+    left: calc(50% - 754px/2 + 1px);
+    top: 433px;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 44px;
+
+    color: #FFFFFF;
+}
+
+.pwd{
+    position: absolute;
+    width: 133px;
+    height: 35px;
+    left: 617px;
+    top: 683px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
+
+/* loginFail 부분*/
+.searchButton{
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+
+    position: absolute;
+    left: 1195px;
+    top: 585px;
+
+    background: #FF0000;
+    border: 10px solid #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 100px;
+
+    width: 130px;
+    height: 26px;
+
+    font-family: 'BM JUA_TTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+    z-index: 1;
+
+    color: #FFFFFF;
+
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.searchButton:active{
+    margin-left: 5px;
+    margin-top: 5px;
+    box-shadow: 3px 3px 3px black;
+}
+
+.warning {
+    position: absolute;
+    width: 369px;
+    height: 26px;
+    left: 760px;
+    top: 796px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    z-index: 1;
+
+    color: #FF0000;
+}
+
+/* login 영역 폰트 이슈로 임시대체 */
+.logo{
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+    font-family: 'Sandoll Ggigigig';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 45px;
+}
+
+/*.logo {*/
+/*    position: absolute;*/
+/*    width: 82px;*/
+/*    height: 45px;*/
+/*    left: 48px;*/
+/*    top: 18px;*/
+
+/*    font-family: 'Sandoll Ggigigig';*/
+/*    font-style: normal;*/
+/*    font-weight: 400;*/
+/*    font-size: 45px;*/
+/*    line-height: 45px;*/
+
+/*    color: #C9E6CA;*/
+/*}*/
