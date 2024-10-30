@@ -3,8 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="../../../static/css/reset.css">
+    <link rel="stylesheet" href="../../../static/css/mypage.css">
 </head>
 <body>
+
+    <header>
+        <button class ="mypagebtn1" id="mypageBtn">마이페이지</button>
+    </header>
+
+    <aside id="myPageAside">
+        <p class="mypagefont">마이페이지</p>
+        <img src="../../../static/images/mypageimages/profile.png" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+        <p id="nickname" class="nicknamefont">닉네임 : 뽀로로</p>
+        <p id="rank" class="rankfont">등급: 어쩌구</p>
+        <p class="infofont" id="info">개인 정보</p>
+        <p class="activefont">활동 기록</p>
+        <p class="MBTIfont">MBTI</p>
+        <p class="logoutfont">로그아웃</p>
+    </aside>
+    <div class="rankpopup" id="rank-popup">
+        <p class="scorefont">활동 점수 : </p>
+        <p class="nextfont">다음 등급 : </p>
+        <p class="needfont">필요 점수 : </p>
+    </div>
+    <div class="modal-overlay" id="modaloverlay"></div>
+
+    <div class="pwdpopup" id="pwd-popup">
+        <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
+        <div class="pwd-container">
+        <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="비밀번호">
+        <span class="toggle-password" id="togglePassword">&#128065;</span>
+        </div>
+
+        <div class="popup-buttons">
+            <button id="closePopupBtn" class="cancle-btn">취소</button>
+            <button id="submitPasswordBtn" class="confirm-btn">확인</button>
+        </div>
+
+    </div>
+
+    <script>
+        // JavaScript로 토글 기능 추가
+        const mypageBtn = document.getElementById("mypageBtn");
+        const myPageAside = document.getElementById("myPageAside");
+
+        // 버튼 클릭 시 aside 창 표시/숨김 전환
+        mypageBtn.addEventListener("click", () => {
+            if (myPageAside.classList.contains("show")) {
+                // 보이는 상태라면 숨기기
+                myPageAside.classList.remove("show");
+                setTimeout(() => {
+                    myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로
+                }, 400); // transition과 동일한 시간 설정
+            } else {
+                // 숨겨진 상태라면 보이게 하기
+                myPageAside.style.display = "block"; // 먼저 display를 block으로 설정
+                setTimeout(() => {
+                    myPageAside.classList.add("show");
+                }, 10); // 약간의 지연 시간 후에 show 클래스 추가
+            }
+        });
+
+        const gradeElement = document.getElementById('rank');
+        const popup = document.getElementById('rank-popup');
+
+        gradeElement.addEventListener('mouseenter', () => {
+            popup.style.display = 'block'; // 팝업 표시
+        });
+
+        gradeElement.addEventListener('mouseleave', () => {
+            popup.style.display = 'none'; // 팝업 숨기기
+        });
+
+        const personalInfoBtn = document.getElementById('info');
+        const passwordPopup = document.getElementById('pwd-popup');
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('pwdInput');
+        const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+        const modalOverlay = document.getElementById('modaloverlay');
+
+        personalInfoBtn.addEventListener('click', () => {
+            passwordPopup.style.display = 'block';// 비밀번호 팝업 표시
+            // modalOverlay.style.display = 'block';
+            // document.body.style.overflow = 'hidden';
+        });
+
+        closePopupBtn.addEventListener('click', () => {
+            passwordPopup.style.display = 'none'; // 비밀번호 팝업 숨기기
+            // modalOverlay.style.display = 'none'; // 오버레이 숨기기
+            // document.body.style.overflow = '';
+        });
+
+        // 팝업 외부 클릭 시 닫기
+        // window.addEventListener('click', (event) => {
+        //     if (event.target === passwordPopup) {
+        //         passwordPopup.style.display = 'none';
+        //     }
+        // });
+        // 비밀번호 보기/숨기기 토글
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
+        });
+        // 확인 버튼 클릭 시 다른 URL로 이동
+        submitPasswordBtn.addEventListener('click', () => {
+            // URL을 원하는 주소로 변경하세요
+            location.href = 'https://www.example.com';
+        });
+
+        // // 개인정보 버튼 클릭 시 모달 및 오버레이 표시
+        // personalInfoBtn.addEventListener('click', () => {
+        //     passwordPopup.style.display = 'block';
+        //     modalOverlay.style.display = 'block';
+        // });
+        // // 취소 버튼 클릭 시 모달 및 오버레이 숨기기
+        // closePopupBtn.addEventListener('click', () => {
+        //     passwordPopup.style.display = 'none';
+        //     modalOverlay.style.display = 'none';
+        // });
+        // // 오버레이 클릭 시 모달 및 오버레이 숨기기
+        // modalOverlay.addEventListener('click', () => {
+        //     passwordPopup.style.display = 'none';
+        //     modalOverlay.style.display = 'none';
+        // });
+    </script>
 
 </body>
 </html>
