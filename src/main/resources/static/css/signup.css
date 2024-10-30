@@ -186,7 +186,7 @@
 
 /*여기까지 상단 네비바*/
 
-.uiBack {
+.uiBack{
     position: absolute;
     width: 1656px;
     height: 746px;
@@ -196,7 +196,7 @@
     background: #0E2913;
 }
 
-.signupText {
+.signupText{
     position: absolute;
     width: 327px;
     height: 62px;
@@ -212,13 +212,13 @@
     color: #FFFFFF;
 }
 
-.character {
+.character{
     position: absolute;
     width: 626px;
     height: 417px;
     left: 211px;
     top: 689px;
-    z-index:99
+    z-index: 99;
 }
 
 .signupGuide{
@@ -237,7 +237,7 @@
     color: #FFFFFF;
 }
 
-.phone {
+.phone{
     position: absolute;
     width: 676px;
     height: 450px;
@@ -249,10 +249,19 @@
     border-radius: 1000px;
     }
 
-    .phone:active {
+    .phone:active{
         margin-left: 5px;
         margin-top: 5px;
         box-shadow: 1px 1px 1px 1px lightyellow;
         transform: scale(0.95);
+    }
+
+    .tree{
+        position: absolute;
+        width: 1920px;
+        height: 1000px;
+        left: 0px;
+        top: 79px;
+        z-index: 1;
     }
 
