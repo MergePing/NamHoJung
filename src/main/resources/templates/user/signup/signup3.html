@@ -37,23 +37,31 @@
   <button class="agreeButton2">모두 동의</button>
   <button class="agreeButton3">모두 동의</button>
   <button class="agreeAllButton">전체 동의</button>
-  <button class="next" onclick="modal">다음</button>
+  <button class="next">다음</button>
 
   <div class="modalBlur">
     <div class="modalGuide">
-      <h1 style="color:white;">만 12세 이하의 어린이는 콘텐츠 이용에\n주의가 필요합니다.</h1>
+      <h1 style="color:white;">만 12세 이하의 어린이는 콘텐츠 이용에 주의가 필요합니다.</h1>
     </div>
   </div>
 
   <div class="modalBlur2">
     <div class="modalGuide2">
-      <h1 style="color:white;">약관에 동의하지 않았습니다.\n동의를 모두 완료해주세요.</h1>
+      <h1 style="color:white;">약관에 동의하지 않았습니다.</h1>
     </div>
   </div>
 </div>
 <script>
   const $buttons = document.querySelectorAll('.agreeButton, .agreeButton2, .agreeButton3');
   const $all = document.querySelector('.agreeAllButton');
+
+  const modal = document.querySelector('.modalBlur');
+  const btnOpenModal=document.querySelector('.next');
+  const btnCloseModal=document.querySelector('.modalBlur');
+
+  const modal2 = document.querySelector('.modalBlur2');
+  const btnOpenModal2=document.querySelector('.next');
+  const btnCloseModal2=document.querySelector('.modalBlur2');
 
   $buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -76,7 +84,21 @@
   }
 
   // 모달
+  btnOpenModal.addEventListener("click", () => {
+    const allActive = Array.from($buttons).every(button => button.classList.contains('active'));
 
+    if (allActive) {
+      modal.style.display = "flex";
+      setTimeout(() => {
+        window.location.href = "signup4.html";
+              }, 1500);
+    } else {
+      modal2.style.display = "block";
+      btnCloseModal2.addEventListener("click", () => {
+        modal2.style.display = "none";
+      });
+    }
+  });
 </script>
 </body>
 </html>

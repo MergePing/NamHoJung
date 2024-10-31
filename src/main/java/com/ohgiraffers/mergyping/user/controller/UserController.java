@@ -43,6 +43,6 @@ public class UserController {
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
 
-        return "user/admin/adminmanagement";
+        return "/user/admin/adminmanagement";
     }
 }

@@ -12,9 +12,9 @@ public class MainController {
         return "/main/main";
     }
 
-    @GetMapping("/intro/intro.html")
+    @GetMapping("/intro")
     public String intro(){return "/main/intro/intro";}
 
-    @GetMapping("/notice/notice.html")
+    @GetMapping("/notice")
     public String notice(){return "/notice/notice";}
 }
