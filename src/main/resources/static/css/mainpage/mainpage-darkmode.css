@@ -322,6 +322,15 @@ main .main2 h2{
 }
 
 
+main #gost{
+    z-index: 22;
+    position: absolute;
+    width: 838px;
+    height: 383px;
+    left: 170px;
+    top: 1660px;
+}
+
 main .main2 img{
    position: absolute;
     top: 1400px;

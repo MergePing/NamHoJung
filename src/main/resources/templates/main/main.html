@@ -37,18 +37,21 @@
     </style>
 </head>
 <body>
+
 <header>
+
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고">
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="window.location.href='/intro/intro.html'">소개</span>
-        <span>공지사항</span>
+        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
         <span>게시판</span>
         <span>MBTI 검사</span>
         <span>마이페이지</span>
         <span>로그인</span>
         <span>회원가입</span>
     </nav>
+
 </header>
 
 <main>
@@ -70,7 +73,7 @@
         <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면">
         <div class="mainbox tr" id="mainbox"><p id="black">나의 공포 MBTI는?</p></div>
     </div>
-
+<img th:src="@{/images/main/main2-best.png}" id="gost">
     <div class="main2">
         <h2>베스트 정원</h2>
         <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지">
@@ -118,6 +121,7 @@
 <footer>
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>
+
 <script>
     const floatBtn1 = document.getElementById("light");
     const floatBtn2 = document.getElementById("dark");
