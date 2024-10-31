@@ -342,6 +342,25 @@
     transform: scale(0.95);
 }
 
+.TermsOfUse{
+    position: absolute;
+    width: 307px;
+    height: 62px;
+    left: 815px;
+    top: 250px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 62px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+    z-index: 99;
+
+}
+
 .modalGuide, .modalGuide2, .modalGuide3{
     position:absolute;
 
@@ -500,8 +519,8 @@
 }
 
 .agreeAllButton{
-    top:25.5%;
-    left:47%;
+    top:310px;
+    left:907px;
 }
 
 .active{
