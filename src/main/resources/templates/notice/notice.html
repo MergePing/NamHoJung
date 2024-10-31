@@ -3,8 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/notice.css}">
+    <style>
+        /*손전등*/
+        :root {
+            --cursorX: 70vw;
+            --cursorY: 70vh;
+        }
+        :root:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999999;
+            background: radial-gradient(
+                    circle 15vmax at var(--cursorX) var(--cursorY),
+                    rgba(0,0,0,0) 0%,
+                    rgba(0,0,0,.5) 80%,
+                    rgba(0,0,0,.95) 100%)
+        }
+
+        * {
+            box-sizing: border-box;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-kerning: auto;
+        }
+    </style>
 </head>
 <body>
 
+<header>
+
+    <nav>
+        <!--네비바-->
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <span onclick="window.location.href='/intro/intro.html'">소개</span>
+        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
+        <span>게시판</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+
+</header>
+
+<main>
+
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
+            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+        </div>
+    </div>
+
+    <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
+    <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
+
+    <div class="tab">
+        <p id="all">전체</p>
+        <p id="alert">알림</p>
+    </div>
+
+    <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요"> <label><img th:src="@{/images/notice/Search-btn.png}"></label>
+
+    <div id="notice1" class="notice allContent">
+        <span>01</span>
+        <div><span>공지</span></div>
+        <span>[공지] 2024년 11월 서비스 오픈 안내</span>
+        <span>2024.10.24</span>
+        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+    </div>
+
+    <div id="notice2" class="notice allContent">
+        <span>02</span>
+        <div><span>공지</span></div>
+        <span>[알림] 다크모드, 라이트 모드 변경 설정 방법</span>
+        <span>2024.10.23</span>
+        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+    </div>
+
+    <div id="notice3" class="notice alertContent allContent">
+        <span>03</span>
+        <div><span>알림</span></div>
+        <span>[공지] 2024년 11월 서비스 오픈 안내</span>
+        <span>2024.10.23</span>
+        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+    </div>
+
+    <div id="notice4" class="notice allContent">
+        <span>04</span>
+        <div><span>공지</span></div>
+        <span>[공지] 2024년 11월 서비스 오픈 안내</span>
+        <span>2024.10.22</span>
+        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+    </div>
+
+    <div class="pageNum">
+        <img th:src="@{/images/notice/pre-btn.png}">
+        <p>1</p>
+        <img th:src="@{/images/notice/next-btn.png}">
+    </div>
+
+</main>
+
+<footer>
+    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
+</footer>
+
 </body>
+<script>
+    const all = document.getElementById("all");
+    const alert = document.getElementById("alert");
+    const allContent = document.querySelectorAll('.allContent');
+    const alertContent = document.querySelectorAll('.alertContent');
+
+    alert.addEventListener('click',function (){
+        all.style.color="#BEBEBE";
+        all.style.borderBottom="none";
+        alert.style.color="#fff";
+        alert.style.borderBottom="#fff solid 3px";
+        allContent.forEach(notice => notice.classList.remove("active"));
+        alertContent.forEach(notice => notice.classList.add("active"));
+    });
+
+    all.addEventListener('click',function (){
+        alert.style.color="#BEBEBE";
+        alert.style.borderBottom="none";
+        all.style.color="#fff";
+        all.style.borderBottom="#fff solid 3px";
+        alertContent.forEach(notice => notice.classList.remove("active"));
+        allContent.forEach(notice => notice.classList.add("active"));
+    });
+
+    allContent.forEach(notice => notice.classList.add(('active'))
+    );
+
+</script>
+
+<script>
+    const floatBtn1 = document.getElementById("light");
+    const floatBtn2 = document.getElementById("dark");
+    const qickMenu1 =document.getElementById("top");
+    const qickMenu2 =document.getElementById("mode");
+    const qickMenu3 =document.getElementById("test");
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
+    floatBtn1.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+    });
+
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
+    floatBtn2.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+
+    });
+
+    <!--top 버튼 클릭시 화면 상단이동-->
+    setTimeout(function() {
+        qickMenu1.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }, 3000);
+
+</script>
+<script>
+    function update(e){
+        var x = e.clientX || e.touches[0].clientX
+        var y = e.clientY || e.touches[0].clientY
+
+        document.documentElement.style.setProperty('--cursorX', x + 'px')
+        document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+    document.addEventListener('mousemove',update)
+    document.addEventListener('touchmove',update)
+</script>
 </html>

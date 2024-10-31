@@ -14,4 +14,7 @@ public class MainController {
 
     @GetMapping("/intro/intro.html")
     public String intro(){return "/main/intro/intro";}
+
+    @GetMapping("/notice/notice.html")
+    public String notice(){return "/notice/notice";}
 }
