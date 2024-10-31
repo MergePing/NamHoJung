@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../../../static/css/reset.css">
-    <link rel="stylesheet" href="../../../static/css/mypage.css">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
 </head>
 <body>
 
@@ -14,8 +14,8 @@
 
     <aside id="myPageAside">
         <p class="mypagefont">마이페이지</p>
-        <img src="../../../static/images/mypageimages/profile.png" alt="프로필 사진" class="profile-photo" id="profilePhoto">
-        <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${nickname}"></span></p>
+        <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+        <p id="nickname" class="nicknamefont">닉네임 : <span th:object="${myPageDTO.userName}"></span></p>
         <p id="rank" class="rankfont">등급: 어쩌구</p>
         <p class="infofont" id="info">개인 정보</p>
         <p class="activefont">활동 기록</p>
@@ -38,7 +38,7 @@
 
         <div class="popup-buttons">
             <button id="closePopupBtn" class="cancle-btn">취소</button>
-            <button id="submitPasswordBtn" class="confirm-btn">확인</button>
+            <button onclick="location.href='/userinfo'" id="submitPasswordBtn" class="confirm-btn">확인</button>
         </div>
 
     </div>
@@ -108,11 +108,7 @@
             passwordInput.setAttribute('type', type);
             togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
         });
-        // 확인 버튼 클릭 시 다른 URL로 이동
-        submitPasswordBtn.addEventListener('click', () => {
-            // URL을 원하는 주소로 변경하세요
-            location.href = 'https://www.example.com';
-        });
+
 
         // // 개인정보 버튼 클릭 시 모달 및 오버레이 표시
         // personalInfoBtn.addEventListener('click', () => {

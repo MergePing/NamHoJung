@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.ohgiraffers.mergyping.user")
-@MapperScan(basePackages = "com.ohgiraffers.mergyping.user.model.dao", annotationClass = Mapper.class)
 public class Application {
 
     public static void main(String[] args) {

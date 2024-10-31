@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/mypageinfo.css}">
+</head>
+<body>
+    <header>
+        <button class ="mypagebtn1" id="mypageBtn">마이페이지</button>
+    </header>
+    <div class="infopopup">
+        <h2>개인 정보</h2>
+        <div class="profile-image"></div>
+        <button class="btn-upload">사진수정</button>
+
+        <div class="input-group">
+            <label for="nickname">닉네임</label>
+            <input type="text" id="nickname" placeholder="뽀로로">
+            <button class="btn-check">중복확인</button>
+        </div>
+
+        <div class="input-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" placeholder="••••••••">
+            <button class="btn-show">보기</button>
+        </div>
+
+        <div class="input-group">
+            <label for="phone">전화번호</label>
+            <input type="text" id="phone" placeholder="01034562789">
+            <button class="btn-confirm">인증</button>
+        </div>
+
+        <div class="input-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" placeholder="honggildong@gmail.com">
+            <button class="btn-confirm">인증</button>
+        </div>
+
+        <button class="btn-cancel">취소</button>
+        <button class="btn-submit">수정</button>
+
+    </div>
+
+</body>
+</html>
