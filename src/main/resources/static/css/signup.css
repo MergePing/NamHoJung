@@ -218,7 +218,7 @@
     height: 417px;
     left: 211px;
     top: 689px;
-    z-index: 99;
+    z-index: 2;
 }
 
 .signupGuide{
@@ -247,6 +247,7 @@
     border: none;
     cursor: pointer;
     border-radius: 1000px;
+    z-index: 2;
     }
 
     .phone:active{
@@ -264,4 +265,277 @@
         top: 79px;
         z-index: 1;
     }
+
+/*  회원가입 2  */
+
+.phoneNumber{
+    position: absolute;
+    width: 793px;
+    height: 81px;
+    left: calc(50% - 793px/2 + 0.5px);
+    top: 500px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    z-index:2;
+    padding-left: 20px;
+}
+
+.phoneNumber:focus{
+    background: #D9D9D9;
+}
+
+.authNumber{
+    position: absolute;
+    width: 793px;
+    height: 81px;
+    left: calc(50% - 793px/2 + 0.5px);
+    top: 627px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    z-index:3;
+    padding-left: 20px;
+}
+
+.authNumber:focus{
+    background: #D9D9D9;
+}
+
+.authButton{
+    position: absolute;
+    width: 136px;
+    height: 47px;
+    left: 1210px;
+    top: 520px;
+
+    box-sizing: border-box;
+
+    background: #0E2913;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 31px;
+    z-index:5;
+
+    color: #FFFFFF;
+}
+
+.authButton:active{
+    box-shadow: 1px 1px 1px 1px lightyellow;
+    transform: scale(0.95);
+}
+
+.modalGuide{
+    position:absolute;
+
+    justify-content: center;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 205px;
+    z-index:7;
+    text-align: center;
+
+    box-sizing: border-box;
+
+    width: 1008px;
+    height: 205px;
+    left: calc(50% - 1008px/2);
+    top: 448.5px;
+
+    background: #3B572D;
+    border: 5px solid #FFFFFF;
+    box-shadow: 0px 4px 17.8px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+}
+.modalBlur{
+    position:absolute;
+    display:none;
+
+    justify-content: center;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:6;
+}
+
+.authConfirm{
+        position: absolute;
+        width: 170px;
+        height: 47px;
+        left: 1190px;
+        top: 647px;
+        display: none;
+
+        box-sizing: border-box;
+
+        background: #0E2913;
+        border: 2px solid #FFFFFF;
+        border-radius: 50px;
+
+        font-family: 'SUIT';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 25px;
+        line-height: 31px;
+        z-index:5;
+
+        color: #FFFFFF;
+}
+
+.authConfirm:active{
+    box-shadow: 1px 1px 1px 1px lightyellow;
+    transform: scale(0.95);
+}
+
+.agree, .agree2, .agree3{
+    width:265px;
+    height:350px;
+    border: 5px solid black;
+    overflow-y: scroll;
+    font-size: 20px;
+    padding: 10px;
+    line-height: 25px;
+    border-radius: 15px;
+    color:black;
+    font-weight: 1000;
+
+    position: absolute;
+    width: 297px;
+    height: 373px;
+    left: 453px;
+    top: 358px;
+    z-index:5;
+
+    background: white;
+}
+
+::-webkit-scrollbar{
+    width: 30px;
+}
+::-webkit-scrollbar-track{
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb{
+    background: #888;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #555;
+}
+
+.agree2{
+    position: absolute;
+    width: 297px;
+    height: 373px;
+    left: 812px;
+    top: 358px;
+
+    background: white;
+}
+.agree3{
+    position: absolute;
+    width: 297px;
+    height: 373px;
+    left: 1173px;
+    top: 358px;
+
+    background: white;
+}
+
+.agreeButton, .agreeButton2, .agreeButton3, .agreeAllButton{
+
+    position: absolute;
+    width: 136px;
+    height: 44px;
+
+    box-sizing: border-box;
+    background: #0E2913;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+
+    left: 545px;
+    top: 761px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 44px;
+    text-align: center;
+    cursor:pointer;
+    z-index:10;
+
+    color: #FFFFFF;
+}
+
+.agreeButton2{
+    left: 907px;
+}
+
+.agreeButton3{
+    left: 1267px;
+}
+
+.agreeAllButton{
+    top:25.5%;
+    left:47%;
+}
+
+.active{
+    background: #4B9D21;
+}
+
+.next{
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    left: 890px;
+    top: 850px;
+
+    background: #66934F;
+    border-radius: 50px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    z-index: 10;
+    cursor:pointer;
+
+    color: #FFFFFF;
+}
+
+.next:active{
+    background: #4B9D21;
+    margin-left: 1px;
+    margin-bottom: 1px;
+    box-shadow: 1px 1px 1px black;
+}
+
 
