@@ -6,13 +6,45 @@ body{
     color: #000000;
     overflow-x: hidden;
 }
+
 .dn{
     display: none;
 }
+
 .tr{
     transition: all 0.7s;
 }
-/*---------------nav------------------*/
+
+.animate-show {
+    animation: show 0.5s forwards;
+}
+
+.animate-hide {
+    animation: hide 0.5s forwards;
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes hide {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+        /*---------------nav------------------*/
 nav{
     position: fixed;
     width: 1920px;
@@ -47,6 +79,7 @@ nav span:nth-child(2) {
     font-size: 25px;
     line-height: 26px;
     color: #C9E6CA;
+    transition: all 1s;
 }
 
 
@@ -57,12 +90,12 @@ nav span:nth-child(3){
     height: 26px;
     left: 1135px;
     top: 27px;
-
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
     color: #C9E6CA;
+    transition: all 1s;
 }
 
 
@@ -79,6 +112,7 @@ nav span:nth-child(4){
     font-size: 25px;
     line-height: 26px;
     color: #C9E6CA;
+    transition: all 1s;
 }
 
 
@@ -95,6 +129,7 @@ nav span:nth-child(5){
     font-size: 25px;
     line-height: 26px;
     color: #C9E6CA;
+    transition: all 1s;
 }
 
 
@@ -111,6 +146,7 @@ nav span:nth-child(6){
     font-size: 25px;
     line-height: 26px;
     color: #C9E6CA;
+    transition: all 1s;
 }
 
 
@@ -121,12 +157,12 @@ nav span:nth-child(7){
     height: 21px;
     left: 1692px;
     top: 29px;
-
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 20px;
     line-height: 21px;
     color: #C9E6CA;
+    transition: all 1s;
 }
 
 
@@ -143,6 +179,13 @@ nav span:nth-child(8){
     font-size: 20px;
     line-height: 21px;
     color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
 }
 
 
@@ -426,8 +469,6 @@ main .main3 #calendarbg{
 }
 
 
-
-
 #calendar {
     position: absolute;
     display: grid;
@@ -437,13 +478,14 @@ main .main3 #calendarbg{
     left: 185px;
 }
 
-#calendar .day-header, #calendar .day-cell {
+ #calendar .day-cell {
     padding: 20px;
     text-align: center;
 }
-
+#calendar .day-header{
+    padding-top: 20px;
+}
 #calendar div {
-    padding: 20px;
     text-align: center;
     font-family: 'Calistoga';
     font-style: normal;
@@ -479,6 +521,21 @@ main .main3 #checkAttendanceBtn{
 }
 
 
+main .main3 #hand{
+    position: absolute;
+    left: 176px;
+    top: 3029px;
+    z-index: -1;
+}
+
+
+main .main3 .gosthand{
+    position: absolute;
+    width: 922px;
+    left: 102px;
+    top: 2920px;
+}
+
 main .main3 #monthTitle{
     /* 10 */
     position: absolute;
@@ -496,11 +553,37 @@ main .main3 #monthTitle{
     font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
-    font-size: 25px;/* 일요일 */
-    width: 65px;
+    font-size: 25px;
     color: #C8D2C2;
 }
 
-.checked {
-    background: black;
+
+.checked img {
+    position: absolute;
+    z-index: 555;
+    top: 416px;
+    left: 450px;
+}
+
+/*---------------footer------------------*/
+footer .footer{
+    position: absolute;
+    width: 1920px;
+    height: 69px;
+    top: 3720px;
+    background: #0E2913;
+    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
+}
+
+footer .footer p{
+    position: absolute;
+    height: 31px;
+    font-family: 'SUIT';
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: 0.05em;
+    color: #D5D5D5;
+    left: 750px;
+    top: 20px;
 }

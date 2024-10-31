@@ -2,9 +2,130 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ABOUT 남호정</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/mainpage/intro/intro.css}">
+    <style>
+         손전등
+        :root {
+            --cursorX: 70vw;
+            --cursorY: 70vh;
+        }
+        :root:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999999;
+            background: radial-gradient(
+                    circle 15vmax at var(--cursorX) var(--cursorY),
+                    rgba(0,0,0,0) 0%,
+                    rgba(0,0,0,.5) 80%,
+                    rgba(0,0,0,.95) 100%)
+        }
+
+        * {
+            box-sizing: border-box;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-kerning: auto;
+        }
+    </style>
 </head>
 <body>
+<header>
+    <nav>
+        <!--네비바-->
+        <img th:src="@{/images/intro/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/main/main.html'">
+        <span>소개</span>
+        <span>공지사항</span>
+        <span>게시판</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+</header>
+<main>
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/intro/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/intro/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/intro/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/intro/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
+            <img th:src="@{/images/intro/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+        </div>
+    </div>
+    
+<img th:src="@{/images/intro/intro-dark-bg.png}" id="bg">
+<img th:src="@{/images/intro/intro-logo-dark.png}" id="mainlogo">
 
+    <p id="introduce">[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내</p>
+
+    <p id="introduce2">[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월</p>
+
+    <div id="btn"><p>확인</p></div>
+</main>
+<footer>
+    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
+</footer>
 </body>
+
+<script>
+    const floatBtn1 = document.getElementById("light");
+    const floatBtn2 = document.getElementById("dark");
+    const qickMenu1 =document.getElementById("top");
+    const qickMenu2 =document.getElementById("mode");
+    const qickMenu3 =document.getElementById("test");
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
+    floatBtn1.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+    });
+
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
+    floatBtn2.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+
+    });
+
+    <!--top 버튼 클릭시 화면 상단이동-->
+    setTimeout(function() {
+        qickMenu1.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }, 3000);
+
+</script>
+<script>
+    function update(e){
+        var x = e.clientX || e.touches[0].clientX
+        var y = e.clientY || e.touches[0].clientY
+
+        document.documentElement.style.setProperty('--cursorX', x + 'px')
+        document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+    document.addEventListener('mousemove',update)
+    document.addEventListener('touchmove',update)
+</script>
 </html>
