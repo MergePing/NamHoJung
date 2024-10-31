@@ -537,4 +537,28 @@
     box-shadow: 1px 1px 1px black;
 }
 
+.background02{
+
+    position: absolute;
+    width: 1920px;
+    height: 995px;
+    left: 0px;
+    top: 40px;
+
+    background-blend-mode: overlay;
+}
+
+.uiBackSign{
+    /* Rectangle 77 */
+
+    position: absolute;
+    width: 1671px;
+    height: 710px;
+    left: 124px;
+    top: 280px;
+
+    background: #4A7236;
+
+}
+
 
