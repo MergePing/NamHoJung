@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>로그인 실패 화면(상자 안열린 상태) - 필요없을 수 있는 부분</title>
     <link rel="stylesheet" href="/static/css/login.css" />
     <link rel="stylesheet" href="/static/css/reset.css" />
 </head>
 <body>
 <div class="resolution">
     <div class="backgroundBasic"></div>
-    <img class="background01" src="/static/images/login/background01.png" alt="배경">
-    <img class="background02" src="/static/images/login/background02.png" alt="배경">
+    <img class="background01" th:src="@{/images/login/background01.png}" alt="배경">
+    <img class="background02" th:src="@{/images/login/background02.png}" alt="배경">
     <div class="nav">
         <div class="nav2">
             <!--                    <div class="logo">남호정</div>-->
-            <img class="logo" src="/static/images/login/logo.png">
+            <img class="logo" th:src="@{/images/login/logo.png}" alt="로고">
             <p class="notice">공지사항</p>
             <p class="info">소개</p>
             <p class="mbti">mbti검사</p>
@@ -28,7 +28,7 @@
     <p class="loginText">로그인</p>
     <p class="loginGuide">회원가입 시 입력한 아이디와 비밀번호를 입력해주세요.</p>
     <button type="submit">
-        <img class="loginBox" src="/static/images/login/loginbox.png" alt="로그인박스">
+        <img class="loginBox" th:src="@{/images/login/loginbox.png}" alt="로그인박스">
     </button>
     <p class="search">ID / 비밀번호 찾기</p>
     <form>
