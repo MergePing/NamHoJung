@@ -1,0 +1,523 @@
+.resolution{
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+
+    background: #FFFFFF;
+}
+
+.signupInfoText{
+
+    position: absolute;
+    width: 217px;
+    height: 62px;
+    left: calc(50% - 215px/2 - 0.5px);
+    top: 125px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 62px;
+    color: #FFFFFF;
+}
+
+.signupGuideText{
+    position: absolute;
+    width: 367px;
+    height: 44px;
+    left: calc(50% - 358px/2);
+    top: 202px;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 44px;
+    color: #FFFFFF;
+}
+
+.uiBackSign{
+
+    position: absolute;
+    width: 1671px;
+    height: 710px;
+    left: 124px;
+    top: 280px;
+
+    background: #4A7236;
+}
+
+.background02{
+
+    position: absolute;
+    width: 1920px;
+    height: 995px;
+    left: 0px;
+    top: 40px;
+
+    background-blend-mode: overlay;
+}
+
+.idLabel{
+    position: absolute;
+    width: 140px;
+    height: 35px;
+    left: 232px;
+    top: 358px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
+
+.idInput{
+    position: absolute;
+    width: 634px;
+    height: 59px;
+    left: calc(50% - 634px/2 - 138px);
+    top: 340px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+    color: #3F3F3F;
+    border:2px solid black;
+}
+
+.idInput:focus{
+    background: #D9D9D9;
+}
+
+.idInput::placeholder {
+    color: transparent;
+}
+
+.idInput:focus::placeholder {
+    color: #3F3F3F;
+}
+
+.pwdLabel{
+    position: absolute;
+    width: 200px;
+    height: 39px;
+    left: 232px;
+    top: 444px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
+
+.pwdInput{
+    position: absolute;
+    width: 634px;
+    height: 59px;
+    left: calc(50% - 634px/2 - 138px);
+    top: 426px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+    color: #3F3F3F;
+    border:2px solid black;
+}
+
+.pwdInput:focus{
+    background: #D9D9D9;
+}
+
+.pwdInput::placeholder {
+    color: transparent;
+}
+
+.pwdInput:focus::placeholder {
+    color: #3F3F3F;
+}
+
+.pwdConfirmLabel{
+    position: absolute;
+    width: 250px;
+    height: 39px;
+    left: 232px;
+    top: 530px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
+
+.pwdConfirmInput{
+    position: absolute;
+    width: 634px;
+    height: 59px;
+    left: calc(50% - 634px/2 - 138px);
+    top: 512px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+    color: #3F3F3F;
+    border:2px solid black;
+}
+
+.pwdConfirmInput:focus{
+    background: #D9D9D9;
+}
+
+.pwdConfirmInput::placeholder {
+    color: transparent;
+}
+
+.pwdConfirmInput:focus::placeholder {
+    color: #3F3F3F;
+}
+
+.nicknameLabel{
+    position: absolute;
+    width: 250px;
+    height: 39px;
+    left: 232px;
+    top: 616px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
+.nicknameInput{
+    position: absolute;
+    width: 634px;
+    height: 59px;
+    left: calc(50% - 634px/2 - 138px);
+    top: 598px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+    color: #3F3F3F;
+    border:2px solid black;
+}
+
+.nicknameInput:focus{
+    background: #D9D9D9;
+}
+
+.nicknameInput::placeholder {
+    color: transparent;
+}
+
+.nicknameInput:focus::placeholder {
+    color: #3F3F3F;
+}
+
+.emailLabel{
+
+    position: absolute;
+    width: 104px;
+    height: 35px;
+    left: 264px;
+    top: 718px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+
+
+}
+
+.emailInput{
+    position: absolute;
+    width: 213px;
+    height: 59px;
+    left: calc(50% - 213px/2 - 348.5px);
+    top: 706px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+    color: #3F3F3F;
+    border:2px solid black;
+}
+
+.emailInput:focus{
+    background: #D9D9D9;
+}
+
+.emailMain{
+    position: absolute;
+    width: 52px;
+    height: 65px;
+    left: 765px;
+    top: 703px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 50px;
+    line-height: 65px;
+
+    color: #FFFFFF;
+}
+
+input.box{
+        box-sizing: border-box;
+        margin-left: 5px;
+        padding: 5px 0 5px 20px;
+        border: 2px solid black;
+        color: #383838;
+        background-color: #ffffff;
+
+        position: absolute;
+        width: 324px;
+        height: 59px;
+        left: 830px;
+        top: 706px;
+
+        background: #A4A4A4;
+        border-radius: 50px;
+        font-family: 'Cafe24 Ssurround air';
+        font-style: normal;
+        font-weight: 900;
+        font-size: 25px;
+        line-height: 65px;
+
+        color: #FFFFFF;
+}
+
+select.box{
+    box-sizing: border-box;
+    margin-left: 5px;
+    padding: 5px 0 5px 20px;
+    border: 2px solid black;
+    color: #383838;
+    background-color: #ffffff;
+
+    position: absolute;
+    width: 324px;
+    height: 59px;
+    left: 830px;
+    top: 706px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 25px;
+    line-height: 65px;
+
+    color: #FFFFFF;
+}
+
+option{
+    font-size: 16px;
+}
+
+.info .box#domain-list option {
+    font-size: 14px;
+    background-color: #ffffff;
+}
+
+
+/*---------------nav------------------*/
+nav{
+    position: fixed;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+nav img{
+    /* 남호정 */
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+}
+
+nav span:nth-child(2) {
+    /* 소개 */
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #A3DA87;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
+}
+
+
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}

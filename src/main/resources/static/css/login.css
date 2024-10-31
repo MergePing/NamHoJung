@@ -277,6 +277,14 @@ color: #C9E6CA;
     background: #D4D4D4;
 }
 
+.idDiv::placeholder {
+    color: transparent;
+}
+
+.idDiv:focus::placeholder {
+    color: #3F3F3F;
+}
+
 .pwdDiv {
     position: absolute;
     width: 340px;
@@ -299,6 +307,14 @@ color: #C9E6CA;
 
 .pwdDiv:focus{
     background: #D4D4D4;
+}
+
+.pwdDiv::placeholder {
+    color: transparent;
+}
+
+.pwdDiv:focus::placeholder {
+    color: #3F3F3F;
 }
 
 .id{
