@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>남호정</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/mainpage.css}">
+    <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-darkmode.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-lightmode.css}">-->
     <style>
-        /* Flashlight Overlay */
+        /* 손전등 */
         :root {
             --cursorX: 70vw;
             --cursorY: 70vh;
@@ -62,65 +63,14 @@
             <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
             <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
         </div>
-        <script>
-            const floatBtn1 = document.getElementById("light");
-            const floatBtn2 = document.getElementById("dark");
-            const qickMenu1 =document.getElementById("top");
-            const qickMenu2 =document.getElementById("mode");
-            const qickMenu3 =document.getElementById("test");
 
-            <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
-            floatBtn1.addEventListener('click',function (){
-                floatBtn1.classList.toggle('dn');
-                floatBtn2.classList.toggle('dn');
-                qickMenu1.classList.toggle('dn');
-                qickMenu2.classList.toggle('dn');
-                qickMenu3.classList.toggle('dn');
-            });
-
-
-            <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
-            floatBtn2.addEventListener('click',function (){
-                floatBtn1.classList.toggle('dn');
-                floatBtn2.classList.toggle('dn');
-                qickMenu1.classList.toggle('dn');
-                qickMenu2.classList.toggle('dn');
-                qickMenu3.classList.toggle('dn');
-
-            });
-
-            <!--top 버튼 클릭시 화면 상단이동-->
-            setTimeout(function() {
-                qickMenu1.addEventListener('click', function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                });
-            }, 3000);
-
-        </script>
     </div>
     <div class="logo"><img th:src="@{/images/main/main-logo-dark.png}" alt="남호정 메인 로고"></div>
     <div class="subtitle"><img th:src="@{/images/main/main-subtitle-dark.png}" alt="남이 이야기 해주는 호러정원"></div>
     <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면">
     <div class="mainbox tr" id="mainbox"><p id="black">나의 공포 MBTI는?</p></div>
     </div>
-        <script>
-            const mainLink = document.getElementById("mainbox");
-            const black = document.getElementById("black");
-            mainLink.addEventListener('mouseover',function (){
-                mainLink.style.backgroundColor="#4A7236";
-                mainLink.style.border="1px solid white";
-                black.style.color="#000";
-            });
-            mainLink.addEventListener('mouseout',function (){
-                mainLink.style.backgroundColor="#0E2913";
-                mainLink.style.border="none";
-                black.style.color="#FFF";
-            });
 
-        </script>
     <div class="main2">
         <h2>베스트 정원</h2>
         <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지">
@@ -154,6 +104,7 @@
             </span>
         </div>
     </div>
+
     <div class="main3">
         <img th:src="@{/images/main/main3-gost-hand-dark.png}" style="mix-blend-mode: screen" class="gosthand">
         <img th:src="@{/images/main/main-dark-bg3.png}" id="calendarbg">
@@ -161,74 +112,128 @@
         <h1 id="monthTitle"></h1>
         <div id="calendar"></div>
         <button id="checkAttendanceBtn">출석 체크 하기</button>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const calendar = document.getElementById('calendar');
-                const checkAttendanceBtn = document.getElementById('checkAttendanceBtn');
-                const monthTitle = document.getElementById('monthTitle');
-                const date = new Date();
-                const month = date.getMonth();
-                const year = date.getFullYear();
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-                const today = date.getDate();
-                const monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1월", "1월"];
-                const dayNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-
-                // 월 표시
-                monthTitle.textContent = monthNames[month];
-
-                // 요일 헤더 추가
-                dayNames.forEach(day => {
-                    const dayHeader = document.createElement('div');
-                    dayHeader.classList.add('day-header');
-                    dayHeader.textContent = day;
-                    calendar.appendChild(dayHeader);
-                });
-
-                // 첫 번째 날의 요일에 맞추어 빈 칸 추가
-                const firstDayOfMonth = new Date(year, month, 1).getDay();
-                for (let i = 0; i < firstDayOfMonth; i++) {
-                    const emptyDiv = document.createElement('div');
-                    calendar.appendChild(emptyDiv);
-                }
-
-                // 달력 만들기
-                for (let i = 1; i <= daysInMonth; i++) {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.classList.add('day-cell');
-                    dayDiv.textContent = i;
-                    dayDiv.id = `day-${i}`;
-                    calendar.appendChild(dayDiv);
-                }
-
-                // 출석 체크 버튼 클릭 이벤트
-                checkAttendanceBtn.addEventListener('click', function() {
-                    document.getElementById(`day-${today}`).classList.add('checked');
-                    document.getElementById("checkAttendanceBtn").style.backgroundColor="#0E2813";
-                    document.getElementById("checkAttendanceBtn").style.width="560px";
-                    document.getElementById("checkAttendanceBtn").style.color="#C0CBBC";
-                    document.getElementById("checkAttendanceBtn").style.left="400px";
-                    document.getElementById("checkAttendanceBtn").textContent="출석체크를 완료 했습니다";
-                });
-                checkAttendanceBtn.addEventListener('click', function() {
-                    const todayDiv = document.getElementById(`day-${today}`);
-                    todayDiv.classList.add('checked');
-
-                    document.getElementById("hand").classList.remove("dn");
-
-                    if (!todayDiv.querySelector('img')) {
-                        const img = document.createElement('img');
-                        img.src = '/images/main/check mark.png';
-                        todayDiv.appendChild(img);
-                    }
-                });
-            });
-        </script>
     </div>
 </main>
+
 <footer>
 <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>
+    <script>
+        const floatBtn1 = document.getElementById("light");
+        const floatBtn2 = document.getElementById("dark");
+        const qickMenu1 =document.getElementById("top");
+        const qickMenu2 =document.getElementById("mode");
+        const qickMenu3 =document.getElementById("test");
+
+        <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
+        floatBtn1.addEventListener('click',function (){
+            floatBtn1.classList.toggle('dn');
+            floatBtn2.classList.toggle('dn');
+            qickMenu1.classList.toggle('dn');
+            qickMenu2.classList.toggle('dn');
+            qickMenu3.classList.toggle('dn');
+        });
+
+
+        <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
+        floatBtn2.addEventListener('click',function (){
+            floatBtn1.classList.toggle('dn');
+            floatBtn2.classList.toggle('dn');
+            qickMenu1.classList.toggle('dn');
+            qickMenu2.classList.toggle('dn');
+            qickMenu3.classList.toggle('dn');
+
+        });
+
+        <!--top 버튼 클릭시 화면 상단이동-->
+        setTimeout(function() {
+            qickMenu1.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }, 3000);
+
+    </script>
+    <script>
+        const mainLink = document.getElementById("mainbox");
+        const black = document.getElementById("black");
+        mainLink.addEventListener('mouseover',function (){
+            mainLink.style.backgroundColor="#4A7236";
+            mainLink.style.border="1px solid white";
+            black.style.color="#000";
+        });
+        mainLink.addEventListener('mouseout',function (){
+            mainLink.style.backgroundColor="#0E2913";
+            mainLink.style.border="none";
+            black.style.color="#FFF";
+        });
+
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const calendar = document.getElementById('calendar');
+            const checkAttendanceBtn = document.getElementById('checkAttendanceBtn');
+            const monthTitle = document.getElementById('monthTitle');
+            const date = new Date();
+            const month = date.getMonth();
+            const year = date.getFullYear();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = date.getDate();
+            const monthNames = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1월", "1월"];
+            const dayNames = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+            // 월 표시
+            monthTitle.textContent = monthNames[month];
+
+            // 요일 헤더 추가
+            dayNames.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.classList.add('day-header');
+                dayHeader.textContent = day;
+                calendar.appendChild(dayHeader);
+            });
+
+            // 첫 번째 날의 요일에 맞추어 빈 칸 추가
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const emptyDiv = document.createElement('div');
+                calendar.appendChild(emptyDiv);
+            }
+
+            // 달력 만들기
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('day-cell');
+                dayDiv.textContent = i;
+                dayDiv.id = `day-${i}`;
+                calendar.appendChild(dayDiv);
+            }
+
+            // 출석 체크 버튼 클릭 이벤트
+            checkAttendanceBtn.addEventListener('click', function() {
+                document.getElementById(`day-${today}`).classList.add('checked');
+                document.getElementById("checkAttendanceBtn").style.backgroundColor="#0E2813";
+                document.getElementById("checkAttendanceBtn").style.width="560px";
+                document.getElementById("checkAttendanceBtn").style.color="#C0CBBC";
+                document.getElementById("checkAttendanceBtn").style.left="400px";
+                document.getElementById("checkAttendanceBtn").textContent="출석체크를 완료 했습니다";
+            });
+            checkAttendanceBtn.addEventListener('click', function() {
+                const todayDiv = document.getElementById(`day-${today}`);
+                todayDiv.classList.add('checked');
+
+                document.getElementById("hand").classList.remove("dn");
+
+                if (!todayDiv.querySelector('img')) {
+                    const img = document.createElement('img');
+                    img.src = '/images/main/check mark.png';
+                    todayDiv.appendChild(img);
+                }
+            });
+        });
+    </script>
     <script>
         function update(e){
             var x = e.clientX || e.touches[0].clientX
@@ -240,5 +245,7 @@
         document.addEventListener('mousemove',update)
         document.addEventListener('touchmove',update)
     </script>
+
+<!--라이트 모드-->
 </body>
 </html>
