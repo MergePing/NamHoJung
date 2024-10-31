@@ -192,7 +192,7 @@ main {
     width: 168px;
     height: 168px;
     margin: 0 auto;
-    background: url("/static/images/admin/image 131.png") no-repeat center center;
+    background: url("/static/images/admin/defaultprofile.png") no-repeat center center;
     background-size: cover;
     border-radius: 100px;
 }
