@@ -3,13 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>남호정</title>
-    <link rel="stylesheet" href="../../static/css/reset.css">
-    <link rel="stylesheet" href="../../static/css/mainpage.css">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/mainpage.css}">
+    <style>
+        /* Flashlight Overlay */
+        :root {
+            --cursorX: 70vw;
+            --cursorY: 70vh;
+        }
+        :root:before {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999999;
+            background: radial-gradient(
+                    circle 15vmax at var(--cursorX) var(--cursorY),
+                    rgba(0,0,0,0) 0%,
+                    rgba(0,0,0,.5) 80%,
+                    rgba(0,0,0,.95) 100%)
+        }
+
+         * {
+             box-sizing: border-box;
+             text-rendering: optimizeLegibility;
+             -webkit-font-smoothing: antialiased;
+             -moz-osx-font-smoothing: grayscale;
+             font-kerning: auto;
+         }
+    </style>
 </head>
 <body>
     <header>
         <nav>
-            <img src="../../static/images/main/nav-logo-dark.png" alt="상단 로고">
+            <!--네비바-->
+            <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고">
             <span>소개</span>
             <span>공지사항</span>
             <span>게시판</span>
@@ -18,19 +48,19 @@
             <span>로그인</span>
             <span>회원가입</span>
         </nav>
-            <script>
-
-            </script>
     </header>
+
 <main>
+    <!--메인 1페이지-->
     <div class="main1">
     <div class="qickBtn">
-        <img src="../../static/images/main/folating-btn-dark.png" id="light" class="tr" alt="플로팅 버튼">
-        <img src="../../static/images/main/folating-btn-click-dark.png" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/main/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/main/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
         <div class="clikbtn tr">
-            <img src="../../static/images/main/top-btn-dark.png" class="dn" id="top" alt="탑버튼">
-            <img src="../../static/images/main/light-btn-dark.png" class="dn" id="mode" alt="테마 변경">
-            <img src="../../static/images/main/test-btn-dark.png" class="dn" id="test" alt="MBTI 테스트">
+            <img th:src="@{/images/main/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
+            <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
         </div>
         <script>
             const floatBtn1 = document.getElementById("light");
@@ -39,6 +69,7 @@
             const qickMenu2 =document.getElementById("mode");
             const qickMenu3 =document.getElementById("test");
 
+            <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
             floatBtn1.addEventListener('click',function (){
                 floatBtn1.classList.toggle('dn');
                 floatBtn2.classList.toggle('dn');
@@ -47,19 +78,32 @@
                 qickMenu3.classList.toggle('dn');
             });
 
+
+            <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
             floatBtn2.addEventListener('click',function (){
                 floatBtn1.classList.toggle('dn');
                 floatBtn2.classList.toggle('dn');
                 qickMenu1.classList.toggle('dn');
                 qickMenu2.classList.toggle('dn');
                 qickMenu3.classList.toggle('dn');
+
             });
+
+            <!--top 버튼 클릭시 화면 상단이동-->
+            setTimeout(function() {
+                qickMenu1.addEventListener('click', function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }, 3000);
 
         </script>
     </div>
-    <div class="logo"><img src="../../static/images/main/main-logo-dark.png" alt="남호정 메인 로고"></div>
-    <div class="subtitle"><img src="../../static/images/main/main-subtitle-dark.png" alt="남이 이야기 해주는 호러정원"></div>
-    <img class="bg" src="../../static/images/main/main-dark-bg.png" alt="다크모드 메인페이지 배경화면">
+    <div class="logo"><img th:src="@{/images/main/main-logo-dark.png}" alt="남호정 메인 로고"></div>
+    <div class="subtitle"><img th:src="@{/images/main/main-subtitle-dark.png}" alt="남이 이야기 해주는 호러정원"></div>
+    <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면">
     <div class="mainbox tr" id="mainbox"><p id="black">나의 공포 MBTI는?</p></div>
     </div>
         <script>
@@ -79,20 +123,20 @@
         </script>
     <div class="main2">
         <h2>베스트 정원</h2>
-        <img src="../../static/images/main/main2-dark-bg.png" alt="나뭇가지">
+        <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지">
         <div class="fristbest">
-            <img src="../../static/images/main/main2-img1.png" alt="베스트 게시물 이미지1">
+            <img th:src="@{/images/main/main2-img1.png}" alt="베스트 게시물 이미지1">
             <p>싸이코패스 테스트</p>
             <span>유명한 싸이코패스 테스트인데 한번씩 해보세요.<br>
                 <br>
                 아파트에 사는 어떤 사람이 살인사건을 목격했는데 칼을 든 살인마가 그 사람을 발견하고 칼을 쳐 들며 ... </span>
-            <img src="../../static/images/main/main2-img2.png" alt="베스트 게시물 이미지2">
+            <img th:src="@{/images/main/main2-img2.png}" alt="베스트 게시물 이미지2">
             <p>동굴속의 아이들</p>
             <span> 어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이<br>
                     있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는<br>
                     산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나<br>
                     있었다고 합니다. 충격적이게 그 동굴 안에는 이상...</span>
-            <img src="../../static/images/main/main2-img3.png" alt="베스트 게시물 이미지3">
+            <img th:src="@{/images/main/main2-img3.png}" alt="베스트 게시물 이미지3">
             <p>암흑이 두려운 사람</p>
             <span>
                 혹시 이럴 때 안무서우신가요?<br>
@@ -100,7 +144,7 @@
                 는다는 상상을 하거나, 무언가 나를 지켜보고 있다거나<br>
                 하는 상상이요. 한번 상상하고 나서는 자꾸 두려워지...
             </span>
-            <img src="../../static/images/main/main2-img4.png" alt="베스트 게시물 이미지4">
+            <img th:src="@{/images/main/main2-img4.png}" alt="베스트 게시물 이미지4">
             <p>어릴 때 경험담</p>
             <span>
                 서울 오기 전에 시골에 살았었는데, 시골학교에서 <br>
@@ -111,11 +155,12 @@
         </div>
     </div>
     <div class="main3">
-        <img src="../../static/images/main/main-dark-bg3.png" id="calendarbg">
+        <img th:src="@{/images/main/main3-gost-hand-dark.png}" style="mix-blend-mode: screen" class="gosthand">
+        <img th:src="@{/images/main/main-dark-bg3.png}" id="calendarbg">
+        <img th:src="@{/images/main/main3-hand-dark.png}" id="hand" class="dn">
         <h1 id="monthTitle"></h1>
         <div id="calendar"></div>
         <button id="checkAttendanceBtn">출석 체크 하기</button>
-        <script src="scripts.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 const calendar = document.getElementById('calendar');
@@ -165,13 +210,35 @@
                     document.getElementById("checkAttendanceBtn").style.left="400px";
                     document.getElementById("checkAttendanceBtn").textContent="출석체크를 완료 했습니다";
                 });
-            });
+                checkAttendanceBtn.addEventListener('click', function() {
+                    const todayDiv = document.getElementById(`day-${today}`);
+                    todayDiv.classList.add('checked');
 
+                    document.getElementById("hand").classList.remove("dn");
+
+                    if (!todayDiv.querySelector('img')) {
+                        const img = document.createElement('img');
+                        img.src = '/images/main/check mark.png';
+                        todayDiv.appendChild(img);
+                    }
+                });
+            });
         </script>
     </div>
 </main>
 <footer>
-
+<div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>
+    <script>
+        function update(e){
+            var x = e.clientX || e.touches[0].clientX
+            var y = e.clientY || e.touches[0].clientY
+
+            document.documentElement.style.setProperty('--cursorX', x + 'px')
+            document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+        document.addEventListener('mousemove',update)
+        document.addEventListener('touchmove',update)
+    </script>
 </body>
 </html>
