@@ -12,6 +12,6 @@ public class MainController {
         return "/main/main";
     }
 
-    @GetMapping("/intro")
+    @GetMapping("/intro/intro.html")
     public String intro(){return "/main/intro/intro";}
 }
