@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원조회</title>
+    <link rel="stylesheet" th:href="@{/css/adminmanagement.css}">
+</head>
+<body>
+<div class="container">
+    <div class="background">
+        <img class="img" th:src="@{/images/admin/background.png}" alt="배경 이미지">
+    </div>
+
+    <header>
+        <nav>
+            <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고">
+            <span>소개</span>
+            <span>공지사항</span>
+            <span>게시판</span>
+            <span>MBTI 검사</span>
+            <span>마이페이지</span>
+            <span>로그인</span>
+            <span>회원가입</span>
+        </nav>
+    </header>
+
+    <!-- 검색창 -->
+    <input type="text" placeholder="검색어를 입력하세요" id="search1" class="search-box">
+
+    <!-- 분류 창 -->
+    <main class="main">
+        <div class="top-nav">
+            <span>회원번호</span>
+            <span>회원닉네임</span>
+            <span>등급</span>
+            <span>회원 이름</span>
+            <span>신고횟수</span>
+            <span>탈퇴여부</span>
+        </div>
+
+        <!-- 회원 리스트 -->
+        <div class="member-list">
+            <!-- 타임리프로 조회 -->
+            <div th:each="user : ${userList}" class="member-item">
+                <span th:text="${user.userNo}"></span>
+                <span th:text="${user.userId}"></span>
+                <span th:text="${user.level}"></span>
+                <span th:text="${user.userName}"></span>
+                <span th:text="${user.reportCount}"></span>
+                <span th:text="${user.isDeleted ? '탈퇴' : '활성'}"></span>
+            </div>
+        </div>
+        <!-- 페이지네이션 -->
+        <div class="pagination">
+            <!-- 페이지 번호 링크 -->
+            <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
+        <a th:href="@{/admin/users(page=${i})}"
+           th:text="${i}"
+           th:classappend="${i == currentPage} ? 'active' : ''"></a>
+    </span>
+        </div>
+    </main>
+
+<!--&lt;!&ndash; 모달 창 &ndash;&gt;
+<div id="userModal" class="modal">
+    <div class="modal-content">
+       <h2>회원 정보</h2>
+        <img class="profile-photo" th:src="${/images/admin/defaultprofile.png}" alt="기본 프로필">
+        <button class="deactivate-btn">영구탈퇴</button>
+
+        <div class="user-info">
+            <p>닉네임 : <span id="nickname" th:text="${user.userId}"></span></p>
+        </div>
+    </div>-->
+</div>
+</body>
+</html>
