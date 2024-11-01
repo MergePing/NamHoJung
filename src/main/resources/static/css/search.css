@@ -1,0 +1,406 @@
+.resolution{
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+
+    background: #FFFFFF;
+}
+
+.background02{
+
+    position: absolute;
+    width: 1920px;
+    height: 995px;
+    left: 0px;
+    top: 40px;
+
+    background-blend-mode: overlay;
+}
+
+.searchUiBox{
+    position: absolute;
+    width: 1039px;
+    height: 710px;
+    left: calc(50% - 1039px/2 + 0.5px);
+    top: calc(50% - 710px/2 + 44px);
+
+    background: #0E2913;
+
+}
+
+.searchGuide{
+    position: absolute;
+    width: 513px;
+    height: 62px;
+    left: calc(50% - 513px/2 - 1.5px);
+    top: 332px;
+
+    font-family: 'BM JUA_TTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 62px;
+
+    color: #FFFFFF;
+}
+
+.searchGuide2{
+
+    position: absolute;
+    width: 731px;
+    height: 44px;
+    left: calc(50% - 731px/2 - 0.5px);
+    top: 414px;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 44px;
+
+    color: #FFFFFF;
+}
+
+.searchId, .searchPwd{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    left: 652px;
+    top: 510px;
+
+    background: #D9D9D9;
+    box-shadow: 15px 15px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 25px;
+
+    font-family: 'BM JUA_TTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 62px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.searchPwd{
+    left:1011px;
+}
+.searchId:active, .searchPwd:active{
+    margin-left: 2px;
+    margin-top: 2px;
+    box-shadow: 1px 1px 1px black;
+}
+
+.phone{
+    position: absolute;
+    width: 676px;
+    height: 450px;
+    left: calc(50% - 676px/2 - 28px);
+    top: 469px;
+}
+
+.phone:active{
+    margin-left: 5px;
+    margin-top: 5px;
+    transform: scale(0.95);
+}
+
+.phoneNumber{
+    position: absolute;
+    width: 793px;
+    height: 81px;
+    left: calc(50% - 793px/2 + 0.5px);
+    top: 500px;
+    padding-left:20px;
+
+    background: #a4a4a4;
+    border-radius: 50px;
+
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 44px;
+
+    color: #333333;
+}
+
+.phoneNumber:focus{
+    background: #D9D9D9;
+}
+
+.authNumber{
+    position: absolute;
+    width: 793px;
+    height: 81px;
+    left: calc(50% - 793px/2 + 0.5px);
+    top: 620px;
+    padding-left:20px;
+
+    background: #a4a4a4;
+    border-radius: 50px;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 44px;
+
+    color: #333333;
+}
+
+.authNumber:focus{
+    background: #D9D9D9;
+}
+
+.next{
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    left: 877px;
+    top: 800px;
+
+    background: #0E2913;
+    border-radius: 50px;
+    border:white 2px solid;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 48px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.next:active{
+    margin-left: 2px;
+    margin-top: 2px;
+    box-shadow: 1px 1px 1px black;
+}
+
+.modalBlur{
+    position:absolute;
+    display:none;
+    justify-content: center;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:6;
+}
+
+.modalGuide, .modalGuide2{
+    position:absolute;
+
+    justify-content: center;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 50px; padding-top: 50px;
+    text-align: center;
+
+    box-sizing: border-box;
+
+    width: 1000px;
+    height: 300px;
+    top: 448.5px;
+
+    background: #3B572D;
+    border: 5px solid #FFFFFF;
+    box-shadow: 0px 4px 17.8px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+}
+
+.modalGuide2{
+    line-height: 100px;
+}
+
+.loginButton{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    background: #3B572D;
+    border: 10px solid #FFFFFF;
+    border-radius: 100px;
+    top: 200px;
+    left: 430px;
+
+    width: 122px;
+    height: 63px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 100px;
+
+    color: #FFFFFF;
+}
+
+.loginButton:active{
+    margin-left: 2px;
+    margin-top: 2px;
+}
+
+/*---------------nav------------------*/
+nav{
+    position: fixed;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+nav img{
+    /* 남호정 */
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+}
+
+nav span:nth-child(2) {
+    /* 소개 */
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #A3DA87;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
+}
+
+
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}

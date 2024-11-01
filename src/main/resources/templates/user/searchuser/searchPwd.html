@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 찾기</title>
+  <link rel="stylesheet" href="/static/css/search.css">
+  <link rel="stylesheet" href="/static/css/reset.css">
+</head>
+<body>
+<div class="resolution">
+  <img class="background01" src="/static/images/login/background01.png" alt="배경">
+  <img class="background02" src="/static/images/login/background02.png" alt="배경">
+  <nav>
+    <!--네비바-->
+    <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/main'">
+    <span onclick="window.location.href='/intro/intro.html'">소개</span>
+    <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
+    <span>게시판</span>
+    <span>MBTI 검사</span>
+    <span>마이페이지</span>
+    <span>로그인</span>
+    <span>회원가입</span>
+  </nav>
+  <div class="searchUiBox"></div>
+  <p class="searchGuide" style="left:806px">비밀번호 찾기</p>
+  <p class="searchGuide2" style="left:833px">임시비밀번호 발급</p>
+  <input type="text" class="phoneNumber" name="phone" maxlength="7" placeholder="아이디를 입력해주세요." minlength="1">
+  <input type="text" class="authNumber" name="authNumber" maxlength="4" placeholder="휴대폰 번호 뒤 4자리를 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" minlength="4">
+  <button type="submit" class="next">확인</button>
+
+  <!-- 인증 모달 -->
+  <div class="modalBlur">
+    <div class="modalGuide2">
+      <h1 style="color:white;">고객님의 휴대폰 번호로 임시비밀번호가 발급되었습니다.</h1>
+      <button type="submit" class="loginButton">로그인</button>
+    </div>
+  </div>
+</div>
+<script>
+  // 비밀번호 찾았을 때 모달
+  const modal = document.querySelector('.modalBlur');
+  const btnOpenModal=document.querySelector('.next');
+  const btnCloseModal=document.querySelector('.loginButton');
+
+  btnOpenModal.addEventListener("click", ()=>{
+    modal.style.display="flex";
+    if (modal.style.display === "flex") {
+      btnCloseModal.addEventListener("click", () => {
+        setTimeout(() => {
+          location.href = "`main`";
+        }, 500);
+      });
+    }
+  });
+</script>
+</body>
+</html>
