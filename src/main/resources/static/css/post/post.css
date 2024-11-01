@@ -300,8 +300,234 @@ main input{
     left: 930px;
     border: none;
     color: #fff;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
 }
 
+
+main label img{
+    position: absolute;
+    width: 66px;
+    height: 66px;
+    left: 1620px;
+    top: 178px;
+}
+
+
+main .sell span:nth-of-type(1){
+    position: absolute;
+    width: 50px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 260px;
+}
+
+
+main .sell span:nth-of-type(2){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 360px;
+}
+
+
+main .sell span:nth-of-type(3){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 500px;
+}
+
+
+main .sell span:nth-of-type(4){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 950px;
+}
+
+
+main .sell span:nth-of-type(5){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1150px;
+}
+
+
+main .sell span:nth-of-type(6){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1350px;
+}
+
+
+main .sell span:nth-of-type(7){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1550px;
+}
+
+
+main .post{
+    position: relative;
+    gap: 60px;
+}
+
+
+main .post span:nth-of-type(1){
+    position: absolute;
+    top: 380px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 270px;
+    text-align: center;
+}
+
+
+main .post span:nth-of-type(3){
+    position: absolute;
+    left: 500px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+
+main .post span img{
+    position: absolute;
+    width: 56px;
+    left: 376px;
+    top: 365px;
+}
+
+
+main .post div{
+    box-sizing: border-box;
+    position: absolute;
+    width: 160px;
+    height: 45px;
+    left: 925px;
+    top: 365px;
+    background: #0E2913;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+}
+
+
+main .post div span:nth-of-type(1){
+    position: absolute;
+    width: 120px;
+    height: 30px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 19px;
+    top: 10px;
+}
+
+
+main .post span:nth-of-type(4){
+    position: absolute;
+    left: 1125px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+
+main .post span:nth-of-type(5){
+    position: absolute;
+    left: 1365px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+
+main .post span:nth-of-type(6){
+    position: absolute;
+    left: 1545px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+
+main .pageNum img:nth-of-type(1){
+    position: absolute;
+    left: 880px;
+    top: 940px;
+}
+
+
+main .pageNum p{
+    position: absolute;
+    top: 935px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+
+main .pageNum p:nth-of-type(1){
+    left: 920px;
+}
+
+
+main .pageNum p:nth-of-type(2){
+    left: 960px;
+    color: #BEBEBE;
+}
+
+
+main .pageNum img:nth-of-type(2){
+    position: absolute;
+    left: 1000px;
+    top: 940px;
+}
 
 
 
