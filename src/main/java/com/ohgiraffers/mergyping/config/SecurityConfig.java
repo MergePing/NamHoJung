@@ -1,6 +1,9 @@
-//package com.ohgiraffers.mergyping.config;
+package com.ohgiraffers.mergyping.config;
 
-//@Configuration
-//@EnableWebSecurity
-//public class SecurityConfig {
-//}
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+}
