@@ -1,0 +1,410 @@
+body{
+    width:1920px;
+    height:1080px;
+
+}
+header{
+    /*position: absolute;*/
+    width: 1920px;
+    height: 79px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+}
+
+.infobackground{
+    position: relative;
+}
+
+.infopopup{
+    width: 669px;
+    height: 818px;
+    background: #3B572D;
+    border-radius: 10px;
+
+    position: absolute;
+    top: 250px;
+    left: 600px;
+
+}
+.userfont{
+    position: absolute;
+    width: 106px;
+    height: 31px;
+    left: 60px;
+    top: 40px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+.profile-photo{
+    position: absolute;
+    width: 164px;
+    height: 164px;
+    left: 250px;
+    top: 40px;
+
+
+    border-radius: 100px;
+}
+
+.btn-upload{
+
+    position: absolute;
+    width: 117px;
+    height: 42px;
+    background: #9CC787;
+    border-radius: 10px;
+    left: 275px;
+    top: 220px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+.mpname{
+    position: absolute;
+    width: 100px;
+    height: 26px;
+    left: 65px;
+    top: 300px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
+}
+
+#nickname{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 336px;
+    height: 49px;
+    left: 170px;
+    top: 290px;
+
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height */
+    padding-left: 20px;
+
+
+    color: #000000;
+}
+
+.btn-check{
+    position: absolute;
+    width: 117px;
+    height: 42px;
+    left: 530px;
+    top: 293px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+
+#password{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 336px;
+    height: 49px;
+    left: 170px;
+    top: 400px;
+
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height */
+    padding-left: 20px;
+
+
+    color: #000000;
+}
+.mppw{
+    position: absolute;
+    width: 100px;
+    height: 26px;
+    left: 60px;
+    top: 410px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+.mpchange{
+    position: absolute;
+    width: 117px;
+    height: 42px;
+    left: 530px;
+    top: 405px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+
+.mpemail{
+    position: absolute;
+    width: 100px;
+    height: 26px;
+    left: 65px;
+    top: 520px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+#email{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 336px;
+    height: 49px;
+    left: 170px;
+    top: 510px;
+
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height */
+    padding-left: 20px;
+
+
+    color: #000000;
+}
+
+.btn-confirm{
+    position: absolute;
+    width: 117px;
+    height: 42px;
+    left: 530px;
+    top: 513px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+
+.btn-cancel{
+    position: absolute;
+    width: 158px;
+    height: 57px;
+    left: 170px;
+    top: 700px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+.btn-submit{
+    position: absolute;
+    width: 158px;
+    height: 57px;
+    left: 340px;
+    top: 700px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+.toggle-password{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 470px;
+    top: 420px;
+}
+
+.btn-delete{
+    position: absolute;
+    width: 117px;
+    height: 42px;
+    left: 530px;
+    top: 40px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+
+.confirmno{
+    position: absolute;
+    width: 100px;
+    height: 26px;
+    left: 60px;
+    top: 590px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+#confirm-no{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 336px;
+    height: 49px;
+    left: 170px;
+    top: 580px;
+
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    border-radius: 10px;
+
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 26px;
+    /* identical to box height */
+    padding-left: 20px;
+
+
+    color: #000000;
+}
+.btn-confirm1{
+    position: absolute;
+    width: 117px;
+    height: 42px;
+    left: 530px;
+    top: 583px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+#confirmpopup{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
