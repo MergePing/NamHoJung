@@ -39,39 +39,62 @@
         </div>
 
         <!-- 회원 리스트 -->
-        <div class="member-list">
-            <!-- 타임리프로 조회 -->
-            <div th:each="user : ${userList}" class="member-item">
-                <span th:text="${user.userNo}"></span>
-                <span th:text="${user.userId}"></span>
-                <span th:text="${user.level}"></span>
-                <span th:text="${user.userName}"></span>
-                <span th:text="${user.reportCount}"></span>
-                <span th:text="${user.isDeleted ? '탈퇴' : '활성'}"></span>
-            </div>
+        <div th:each="user : ${userList}"
+             class="member-item"
+             th:attr="data-user-id=${user.userNo}"
+             onclick="openModal(this)">
+            <span th:text="${user.userNo}"></span>
+            <span th:text="${user.userId}"></span>
+            <span th:text="${user.level}"></span>
+            <span th:text="${user.userName}"></span>
+            <span th:text="${user.reportCount}"></span>
+            <span th:text="${user.isDeleted ? '탈퇴' : '활성'}"></span>
         </div>
         <!-- 페이지네이션 -->
         <div class="pagination">
-            <!-- 페이지 번호 링크 -->
             <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
-        <a th:href="@{/admin/users(page=${i})}"
-           th:text="${i}"
-           th:classappend="${i == currentPage} ? 'active' : ''"></a>
-    </span>
+                <a th:href="@{/admin/users(page=${i})}"
+                   th:text="${i}"
+                   th:classappend="${i == currentPage} ? 'active' : ''"></a>
+            </span>
         </div>
     </main>
 
-<!--&lt;!&ndash; 모달 창 &ndash;&gt;
-<div id="userModal" class="modal">
-    <div class="modal-content">
-       <h2>회원 정보</h2>
-        <img class="profile-photo" th:src="${/images/admin/defaultprofile.png}" alt="기본 프로필">
-        <button class="deactivate-btn">영구탈퇴</button>
-
-        <div class="user-info">
-            <p>닉네임 : <span id="nickname" th:text="${user.userId}"></span></p>
+    <!-- 모달 창 -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <h2>회원 상세 정보</h2>
+            <img class="profile-photo" th:src="@{/images/admin/defaultprofile.png}" alt="프로필사진">
+            <button type="button" class="secession-btn" onclick="">영구 탈퇴</button>
+            <div class="user-info">
+                <p>닉네임: <span id="modalNickname"></span></p>
+                <p>신고횟수: <span id="modalReportCount"></span></p>
+            </div>
+            <button type="button" class="close-btn" onclick="closeModal()">닫기</button>
+            <button type="button" class="edit-btn" onclick=""()>수정하기</button>
         </div>
-    </div>-->
+    </div>
+
+
+    <script>
+        function openModal(element) {
+            // 선택한 요소의 data-user-id 속성 값을 가져옴
+            const userId = element.getAttribute("data-user-id");
+
+            // 데이터 가져오기
+            fetch(`/admin/user/${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("modalNickname").textContent = data.userId;
+                    document.getElementById("modalReportCount").textContent = data.reportCount;
+                    document.getElementById("userModal").style.display = 'block';
+                })
+                .catch(error => console.error('Error fetching user details:', error));
+        }
+        function closeModal() {
+            document.getElementById("userModal").style.display = 'none';
+        }
+    </script>
 </div>
 </body>
 </html>

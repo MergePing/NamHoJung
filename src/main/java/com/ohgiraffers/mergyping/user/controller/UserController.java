@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -19,24 +21,20 @@ public class UserController {
         this.userService = userService;
     }
 
+    // 유저 리스트를 조회하여 페이지네이션과 함께 출력
     @GetMapping("/admin/users")
     public String showUserList(
-            @RequestParam(defaultValue = "1") int page, // 요청 페이지 번호 (기본값 1)
-            @RequestParam(defaultValue = "8") int pageSize, // 페이지당 유저 수 (기본값 8)
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "8") int pageSize,
             Model model) {
 
-        // 요청한 페이지에 해당하는 유저 목록 가져오기
         List<UserDTO> users = userService.getUsersByPage(page, pageSize);
-
-        // 전체 유저 수로 페이지 수 계산
-        int totalUsers = userService.countUsers(); // 유저 총 수를 가져오는 서비스 메서드 필요
+        int totalUsers = userService.countUsers();
         int totalPages = (int) Math.ceil((double) totalUsers / pageSize);
 
-        // 페이지네이션 범위 설정
         int startPage = Math.max(1, page - 2);
         int endPage = Math.min(totalPages, page + 2);
 
-        // 모델에 페이지네이션 정보 추가
         model.addAttribute("userList", users);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
@@ -44,5 +42,12 @@ public class UserController {
         model.addAttribute("endPage", endPage);
 
         return "user/admin/adminmanagement";
+    }
+
+    // 선택한 회원의 상세 정보를 JSON 형식으로 반환
+    @GetMapping("/admin/user/{userId}")
+    @ResponseBody
+    public UserDTO getUserDetails(@PathVariable("userId") int userId) {
+        return userService.getUserById(userId);
     }
 }

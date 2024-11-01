@@ -23,4 +23,22 @@
     <select id="countAllUsers" resultType="int">
         SELECT COUNT(*) FROM TBL_USER
     </select>
+
+    <select id="selectUserById" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.UserDTO">
+        SELECT
+        u.USER_NO AS userNo,
+        u.USER_ID AS userId,
+        u.LEVEL_NO AS level,
+        u.USER_DELETE AS isDeleted,
+        u.USER_NAME AS userName,
+        COALESCE(SUM(p.POST_REPORT), 0) AS reportCount
+        FROM
+        TBL_USER u
+        LEFT JOIN
+        TBL_POST p ON u.USER_NO = p.POST_WRITER
+        WHERE
+        u.USER_NO = #{userId}
+        GROUP BY
+        u.USER_NO
+    </select>
 </mapper>
