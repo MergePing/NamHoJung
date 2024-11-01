@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보 입력</title>
+    <link rel="stylesheet" th:href="@{/css/signup/signupMain.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+</head>
+<body>
+<div class="resolution">
+    <img class="background01" th:src="@{/images/login/background01.png}" alt="배경">
+    <img class="background02" th:src="@{/images/login/background02.png}" alt="배경">
+    <nav>
+        <!--네비바-->
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <span onclick="window.location.href='/intro/intro.html'">소개</span>
+        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
+        <span>게시판</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+    <div class="uiBackSign"></div>
+    <p class="signupInfoText">회원가입</p>
+    <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
+    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="id" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7">
+    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="password" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12">
+    <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14">
+    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="nickname" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7">
+
+    <label for="email" class="emailLabel">이메일 : </label><input type="email" id="email" class="emailInput" name="email">
+    <p class="emailMain">@</p>
+    <input class="box" id="domain-txt" type="text"/>
+    <select class="box" id="domain-list">
+        <option class="sopText" value="type">직접 입력</option>
+        <option class="sop" value="naver.com">naver.com</option>
+        <option class="sop" value="google.com">google.com</option>
+        <option class="sop" value="daum.net">hanmail.net</option>
+        <option class="sop" value="nate.com">nate.com</option>
+        <option class="sop" value="kakao.com">kakao.com</option>
+        </select>
+    <button class="authEmail">인증</button>
+
+    <!-- 인증 모달 -->
+    <div class="modalBlur">
+        <div class="modalGuide">
+            <h1 style="color:white;">이메일 인증</h1>
+            <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6">
+        </div>
+    </div>
+
+    <p class="birthday">생년월일 : </p>
+    <div class="info" id="info__birth">
+        <select class="box1" id="birth-year">
+            <option disabled selected>출생 연도</option>
+        </select>
+        <select class="box1" id="birth-month">
+            <option disabled selected>월</option>
+        </select>
+        <select class="box1" id="birth-day">
+            <option disabled selected>일</option>
+        </select>
+        <div id="print-date"></div>
+    </div>
+    <button id="resetBirth">초기화</button>
+
+    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="gender">
+    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="gender">
+    <label for="none" class="none">비밀</label><input type="radio" id="none" name="gender">
+
+    <button type="submit" class="next">다음</button>
+</div>
+<script>
+    // 이메일
+    const domainListEl = document.querySelector('#domain-list')
+    const domainInputEl = document.querySelector('#domain-txt')
+    domainListEl.addEventListener('change', (event) => {
+        if(event.target.value !== "type") {
+            domainInputEl.value = event.target.value
+            domainInputEl.disabled = true
+        } else {
+            domainInputEl.value = ""
+            domainInputEl.disabled = false
+        }
+    })
+
+    // 생년
+    const birthYearEl = document.querySelector('#birth-year')
+    isYearOptionExisted = false;
+    birthYearEl.addEventListener('focus', function () {
+        if(!isYearOptionExisted) {
+            isYearOptionExisted = true
+            for(var i = 1940; i <= 2024; i++) {
+                const YearOption = document.createElement('option')
+                YearOption.setAttribute('value', i)
+                YearOption.innerText = i
+                this.appendChild(YearOption);
+            }
+        }
+    });
+
+    // 월
+    const birthMonthEl = document.querySelector('#birth-month')
+    isMonthOptionExisted = false;
+    birthMonthEl.addEventListener('focus', function () {
+        if(!isMonthOptionExisted) {
+            isMonthOptionExisted = true
+            for(var i = 0; i <= 12; i++) {
+                const MonthOption = document.createElement('option')
+                MonthOption.setAttribute('value', i)
+                MonthOption.innerText = i
+                this.appendChild(MonthOption);
+            }
+        }
+    });
+
+    // 일
+    const birthDayEl = document.querySelector('#birth-day')
+    isDayOptionExisted = false;
+    birthDayEl.addEventListener('focus', function () {
+        if(!isDayOptionExisted) {
+            isDayOptionExisted = true
+            for(var i = 0; i <= 31; i++) {
+                const DayOption = document.createElement('option')
+                DayOption.setAttribute('value', i)
+                DayOption.innerText = i
+                this.appendChild(DayOption);
+            }
+        }
+    });
+
+    // 리셋버튼
+    const resetAllButton = document.querySelector('#resetBirth');
+    resetAllButton.addEventListener('click', function () {
+        isYearOptionExisted = false;
+        isMonthOptionExisted = false;
+        isDayOptionExisted = false;
+
+        birthYearEl.innerHTML = '<option value="year">출생 연도</option>';
+        birthMonthEl.innerHTML = '<option value="month">월</option>';
+        birthDayEl.innerHTML = '<option value="day">일</option>';
+    });
+
+    // 모달
+    const modal = document.querySelector('.modalBlur');
+    const btnOpenModal=document.querySelector('.authEmail');
+    const btnCloseModal=document.querySelector('.modalBlur');
+
+    btnOpenModal.addEventListener("click", ()=>{
+        newButton.style.display = "block";
+    })
+
+    btnOpenModal.addEventListener("click", ()=>{
+        modal.style.display="flex";
+        if (modal.style.display === "flex") {
+            // 인증번호 맞으면 되는거로 바꿀것 // else는 값이 틀렸다고 알려주고 x로 나갈 수 있게함
+            btnCloseModal.addEventListener("click", () => {
+                modal.style.display = "none";
+            });
+        }
+    });
+</script>
+</body>
+</html>
