@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$Title$</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/mypageinfo.css}">
+    <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-darkmode.css}">
+</head>
+<body>
+<header>
+
+    <nav>
+        <!--네비바-->
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <span onclick="window.location.href='/intro/intro.html'">소개</span>
+        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
+        <span>게시판</span>
+        <span>MBTI 검사</span>
+        <span id="mypageBtn">마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+
+</header>
+    <div>
+        <img class="infobackground" th:src="@{/images/mypageimages/background.png}" alt="다크모드 메인페이지 배경화면">
+        <div class="infopopup">
+            <p class="userfont">개인 정보</p>
+            <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+            <button class="btn-upload">사진수정</button>
+
+<!--            <div class="input-group">-->
+<!--                <label for="nickname">닉네임</label>-->
+<!--                <input type="text" id="nickname" placeholder="뽀로로">-->
+<!--                <button class="btn-check">중복확인</button>-->
+<!--            </div>-->
+
+<!--            <div class="input-group">-->
+<!--                <label for="password">비밀번호</label>-->
+<!--                <input type="password" id="password" placeholder="••••••••">-->
+<!--                <button class="btn-show">보기</button>-->
+<!--            </div>-->
+
+<!--            <div class="input-group">-->
+<!--                <label for="phone">전화번호</label>-->
+<!--                <input type="text" id="phone" placeholder="01034562789">-->
+<!--                <button class="btn-confirm">인증</button>-->
+<!--            </div>-->
+
+<!--            <div class="input-group">-->
+<!--                <label for="email">이메일</label>-->
+<!--                <input type="email" id="email" placeholder="honggildong@gmail.com">-->
+<!--                <button class="btn-confirm">인증</button>-->
+<!--            </div>-->
+
+<!--            <button class="btn-cancel">취소</button>-->
+<!--            <button class="btn-submit">수정</button>-->
+
+
+
+        </div>
+    </div>
+
+
+</body>
+</html>

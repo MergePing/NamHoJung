@@ -1,0 +1,77 @@
+body{
+    width:1920px;
+    height:1080px;
+
+}
+header{
+    /*position: absolute;*/
+    width: 1920px;
+    height: 79px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+}
+
+.infobackground{
+    position: relative;
+}
+
+.infopopup{
+    width: 669px;
+    height: 818px;
+    background: #3B572D;
+    border-radius: 10px;
+
+    position: absolute;
+    top: 250px;
+    left: 600px;
+
+}
+.userfont{
+    position: absolute;
+    width: 106px;
+    height: 31px;
+    left: 60px;
+    top: 40px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+.profile-photo{
+    position: absolute;
+    width: 164px;
+    height: 164px;
+    left: 250px;
+    top: 40px;
+
+
+    border-radius: 100px;
+}
+
+.btn-upload{
+
+    position: absolute;
+    width: 117px;
+    height: 42px;
+    /*left: 917px;*/
+    /*top: 386px;*/
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+
+
+
+

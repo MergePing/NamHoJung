@@ -1,30 +1,41 @@
 /* Rectangle 183 */
 
-body{
-    width:1920px;
-    height:1080px;
-    /*pointer-events: none; !* 기본적으로 클릭, 호버 불가 *!*/
-}
+/*body{*/
+/*    width:1920px;*/
+/*    height:1080px;*/
+/*    !*pointer-events: none; !* 기본적으로 클릭, 호버 불가 *!*!*/
+/*}*/
+
 /*body * {*/
 /*    pointer-events: auto; !* 예외적으로 요소들은 호버, 클릭 가능 *!*/
 /*}*/
 aside{
     width:492px;
     height:1001px;
-    float:right;
+
     display: none;
     /*margin-left:1428px;*/
     /*margin-top:79px;*/
     background-color: #0E2913;
     box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+
     /* 초기 위치와 애니메이션 */
+    position: fixed;
+    left :1427px;
+    margin-top: 70px;
+    z-index: 99;
+
+
+
     transform: translateX(100%); /* 처음엔 오른쪽 밖에 위치 */
     transition: transform 0.4s ease; /* 스르륵 애니메이션 */
+
 }
 
 /* aside가 보일 때 */
 aside.show {
-    display: block; /* aside 표시 */
+    /*display: block; !* aside 표시 *!*/
+
     transform: translateX(0); /* 화면에 표시 */
 }
 
@@ -42,17 +53,8 @@ aside.show {
 
 }
 
-header{
-    /*position: absolute;*/
-    width: 1920px;
-    height: 79px;
-    background: #0E2913;
-    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
-}
-.mypagebtn1{
-    margin-left: 1400px;
-    cursor:pointer;
-}
+
+
 
 .profile-photo {
     width: 164px;
@@ -143,9 +145,12 @@ header{
     background-color: #3B572D;
     border-radius: 20px;
     display:none;
-    float:right;
-    margin-top:350px;
+
+    margin-top:400px;
     margin-right:20px;
+    position: fixed;
+    left:950px;
+    z-index: 99;
 
 
 }
@@ -193,12 +198,15 @@ header{
 .pwdpopup{
     width:767px;
     height:351px;
-    float:right;
+
     margin-top:400px;
     margin-right:20px;
     background-color: #1C6C2B;
     border-radius: 10px;
     display: none;
+    position: fixed;
+    left: 600px;
+    z-index: 101;
     /*z-index: 1000; !* 오버레이보다 위에 표시 *!*/
     /*pointer-events: auto; !* 모달 클릭 가능 *!*/
 
@@ -276,6 +284,20 @@ header{
     margin-left: 150px;
 
     color: #000000;
+}
+
+.modal-background{
+    position:fixed;
+    display:none;
+
+    justify-content: center;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:2000;
 }
 /*.pwd-container input[type="password"]{*/
 /*    width: 100%;*/
