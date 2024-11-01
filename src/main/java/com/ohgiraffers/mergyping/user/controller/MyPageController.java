@@ -25,10 +25,11 @@ public class MyPageController {
         return "user/mypage/user";
     }
 
-    @GetMapping
-    public String userInfoPage(){
-
-        return "user/mypage/userinfo";
+    @GetMapping("/userinfo")
+    public String showUserInfo(Model model) {
+        // 사용자 정보를 모델에 추가하는 로직
+        // model.addAttribute("userInfo", userInfo);
+        return "user/mypage/userinfo"; // userinfo.html로 이동
     }
 
 
