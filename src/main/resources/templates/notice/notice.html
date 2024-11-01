@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>공지사항</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/notice.css}">
+    <link rel="stylesheet" th:href="@{/css/notice/notice.css}">
     <style>
         /*손전등*/
         :root {
@@ -42,8 +42,8 @@
     <nav>
         <!--네비바-->
         <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
-        <span onclick="window.location.href='/intro/intro.html'">소개</span>
-        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/notice'">공지사항</span>
         <span>게시판</span>
         <span>MBTI 검사</span>
         <span>마이페이지</span>
@@ -75,37 +75,48 @@
     </div>
 
     <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요"> <label><img th:src="@{/images/notice/Search-btn.png}"></label>
-
+    <div class="back1 dn"></div>
+    <div class="box box1">
     <div id="notice1" class="notice allContent">
         <span>01</span>
         <div><span>공지</span></div>
         <span>[공지] 2024년 11월 서비스 오픈 안내</span>
         <span>2024.10.24</span>
-        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+        <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
+    </div>
     </div>
 
+    <div class="back2 dn"></div>
+    <div class="box box2">
     <div id="notice2" class="notice allContent">
         <span>02</span>
         <div><span>공지</span></div>
         <span>[알림] 다크모드, 라이트 모드 변경 설정 방법</span>
         <span>2024.10.23</span>
-        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+        <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
+    </div>
     </div>
 
+    <div class="back3 dn"></div>
+    <div class="box box3">
     <div id="notice3" class="notice alertContent allContent">
         <span>03</span>
         <div><span>알림</span></div>
         <span>[공지] 2024년 11월 서비스 오픈 안내</span>
         <span>2024.10.23</span>
-        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+        <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
+    </div>
     </div>
 
+    <div class="back4 dn"></div>
+    <div class="box box4">
     <div id="notice4" class="notice allContent">
         <span>04</span>
         <div><span>공지</span></div>
         <span>[공지] 2024년 11월 서비스 오픈 안내</span>
         <span>2024.10.22</span>
-        <img th:src="@{/images/notice/arrow-btn-dark.png}">
+        <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
+    </div>
     </div>
 
     <div class="pageNum">
@@ -121,7 +132,50 @@
 </footer>
 
 </body>
+
 <script>
+    const back1 = document.querySelectorAll(".back1");
+    const back2 = document.querySelectorAll(".back2");
+    const back3 = document.querySelectorAll(".back3");
+    const back4 = document.querySelectorAll(".back4");
+    const notice1 = document.getElementById("notice1");
+    const notice2 = document.getElementById("notice2");
+    const notice3 = document.getElementById("notice3");
+    const notice4 = document.getElementById("notice4");
+
+    notice1.addEventListener('mouseover', () => {
+        back1.forEach(back => back.classList.remove("dn"));
+    });
+    notice1.addEventListener('mouseout', () => {
+        back1.forEach(back => back.classList.add("dn"));
+    });
+
+    notice2.addEventListener('mouseover', () => {
+        back2.forEach(back => back.classList.remove("dn"));
+    });
+    notice2.addEventListener('mouseout', () => {
+        back2.forEach(back => back.classList.add("dn"));
+    });
+
+    notice3.addEventListener('mouseover', () => {
+        back3.forEach(back => back.classList.remove("dn"));
+    });
+    notice3.addEventListener('mouseout', () => {
+        back3.forEach(back => back.classList.add("dn"));
+    });
+
+    notice4.addEventListener('mouseover', () => {
+        back4.forEach(back => back.classList.remove("dn"));
+    });
+    notice4.addEventListener('mouseout', () => {
+        back4.forEach(back => back.classList.add("dn"));
+    });
+
+
+</script>
+<script>
+
+
     const all = document.getElementById("all");
     const alert = document.getElementById("alert");
     const allContent = document.querySelectorAll('.allContent');

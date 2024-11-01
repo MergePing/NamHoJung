@@ -490,6 +490,7 @@ main .main3 #calendarbg{
  #calendar .day-cell {
     padding: 20px;
     text-align: center;
+     position: relative;
 }
 #calendar .day-header{
     padding-top: 20px;
@@ -502,7 +503,6 @@ main .main3 #calendarbg{
     font-size: 35px;
     color: #FFFFFF;
 }
-
 
 
 .day-header {
@@ -569,9 +569,11 @@ main .main3 #monthTitle{
 
 .checked img {
     position: absolute;
-    z-index: 555;
-    top: 416px;
-    left: 450px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 55;
+    width: 50px;
 }
 
 /*---------------footer------------------*/

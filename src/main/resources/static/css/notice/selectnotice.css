@@ -1,0 +1,383 @@
+@charset "UTF-8";
+body{
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+.dn{
+    display: none;
+}
+
+.tr{
+    transition: all 0.7s;
+}
+
+/*---------------nav------------------*/
+nav{
+    position: fixed;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+nav img{
+    /* 남호정 */
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+}
+
+nav span:nth-child(2) {
+    /* 소개 */
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #A3DA87;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
+}
+
+
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}
+
+
+
+/*---------------main------------------*/
+
+
+main{
+    transition: all 1s;
+}
+
+
+main #box{
+    position: absolute;
+    width: 1707px;
+    top: 200px;
+    z-index: -1;
+}
+
+
+main #bg{
+    position: absolute;
+    width: 1920px;
+    top: 39px;
+    z-index: -5;
+}
+
+
+
+main .qickBtn img{
+    position: absolute;
+    width: 109px;
+    height: 109px;
+    left: 1759px;
+    top: 780px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+
+
+main .qickBtn img:first-child{
+    z-index: 55;
+    top: 780px;
+}
+
+
+main .qickBtn .clikbtn img:first-child{
+    /* Upward Arrow */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 664px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(2){
+    /* Sun */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 560px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(3){
+    /* Test Results */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 456px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn{
+    position: sticky;
+    top: -50px;
+    z-index: 9999;
+}
+
+
+
+main span:nth-of-type(1){
+    position: absolute;
+    top: 240px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 257px;
+}
+
+
+main div:nth-of-type(2){
+    position: absolute;
+    width: 80px;
+    height: 39px;
+    left: 338px;
+    top: 230px;
+    background: #0E2913;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+}
+
+
+main div span:first-child{
+    position: absolute;
+    width: 50px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    top:6px;
+    color: #FFFFFF;
+    left: 17px;
+}
+
+
+main span:nth-of-type(2){
+    position: absolute;
+    left: 689px;
+    top: 242px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 500;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    width: 550px;
+}
+
+
+main span:nth-of-type(3){
+    position: absolute;
+    top: 242px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 500;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 1410px;
+}
+
+main .text span:nth-of-type(1){
+    position: absolute;
+    width: 720px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    z-index: 2;
+    left: 380px;
+}
+
+main .text span:nth-of-type(2){
+    position: absolute;
+    width: 80px;
+    top: 390px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 1150px;
+}
+
+
+main .text span:nth-of-type(3){
+    left: 1350px;
+    top: 390px;
+}
+
+
+main .text p{
+    position: absolute;
+    width: 1150px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    line-height: 210%;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    top: 470px;
+    left: 380px;
+}
+
+
+/*---------------footer------------------*/
+footer .footer{
+    position: absolute;
+    width: 1920px;
+    height: 69px;
+    top: 1080px;
+    background: #0E2913;
+    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
+    z-index: 55;
+}
+
+footer .footer p{
+    position: absolute;
+    height: 31px;
+    font-family: 'SUIT';
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: 0.05em;
+    color: #D5D5D5;
+    left: 750px;
+    top: 20px;
+}

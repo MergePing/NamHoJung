@@ -300,6 +300,7 @@ main .notice.active{
     display: block;
 }
 
+
 main .tab p:nth-of-type(2){
     position: absolute;
     width: 49px;
@@ -400,6 +401,89 @@ main #notice4{
 }
 
 
+main .box{
+    transition: all 1s;
+}
+
+main .box:hover{
+    position: absolute;
+    left: 20px;
+}
+
+
+main .back1{
+    position: absolute;
+    width: 1470px;
+    height: 75px;
+    left: 214px;
+    top: 309px;
+    background-color: #0E2913 ;
+    box-shadow: 0px 4px 11.1px rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+
+
+main .back2{
+    position: absolute;
+    width: 1470px;
+    height: 75px;
+    left: 214px;
+    top: 389px;
+    background-color: #0E2913 ;
+    box-shadow: 0px 4px 11.1px rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+
+
+main .back3{
+    position: absolute;
+    width: 1470px;
+    height: 75px;
+    left: 214px;
+    top: 469px;
+    background-color: #0E2913 ;
+    box-shadow: 0px 4px 11.1px rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+
+
+main .back4{
+    position: absolute;
+    width: 1470px;
+    height: 75px;
+    left: 214px;
+    top: 549px;
+    background-color: #0E2913 ;
+    box-shadow: 0px 4px 11.1px rgba(0, 0, 0, 0.25);
+    z-index: -1;
+}
+
+
+
+
+
+main .pageNum img:nth-of-type(1){
+    position: absolute;
+    left: 926px;
+    top: 913px;
+}
+
+
+main .pageNum p{
+    position: absolute;
+    left: 960px;
+    top: 910px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+main .pageNum img:nth-of-type(2){
+    position: absolute;
+    left: 995px;
+    top: 913px;
+}
 
 /*---------------footer------------------*/
 footer .footer{

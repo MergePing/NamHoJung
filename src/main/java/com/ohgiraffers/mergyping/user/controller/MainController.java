@@ -14,12 +14,4 @@ public class MainController {
 
     @GetMapping("/intro")
     public String intro(){return "/main/intro/intro";}
-
-    @GetMapping("/notice")
-    public String notice(){return "/notice/notice";}
-
-    @GetMapping("/login")
-    public String login(){
-        return "/auth/resign/resign";
-    }
 }
