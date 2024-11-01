@@ -17,20 +17,9 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
-    @GetMapping("/mypage")
-    public String findNickName(Model model) {
-        MyPageDTO myPageDTO = myPageService.findNickName();
-        model.addAttribute("myPageDTO", myPageDTO);
 
-        return "user/mypage/user";
-    }
 
-    @GetMapping("/userinfo")
-    public String showUserInfo(Model model) {
-        // 사용자 정보를 모델에 추가하는 로직
-        // model.addAttribute("userInfo", userInfo);
-        return "user/mypage/userinfo"; // userinfo.html로 이동
-    }
+
 
 
 }

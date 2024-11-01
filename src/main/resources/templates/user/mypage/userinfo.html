@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>$Title$</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/mypageinfo.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage/mypageinfo.css}">
     <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-darkmode.css}">
 </head>
 <body>
@@ -13,9 +13,9 @@
     <nav>
         <!--네비바-->
         <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
-        <span onclick="window.location.href='/intro/intro.html'">소개</span>
-        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
-        <span>게시판</span>
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/notice'">공지사항</span>
+        <span onclick="location.href='/post'">게시판</span>
         <span>MBTI 검사</span>
         <span id="mypageBtn">마이페이지</span>
         <span>로그인</span>
@@ -29,38 +29,78 @@
             <p class="userfont">개인 정보</p>
             <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
             <button class="btn-upload">사진수정</button>
+            <button class="btn-delete">탈퇴</button>
 
-<!--            <div class="input-group">-->
-<!--                <label for="nickname">닉네임</label>-->
-<!--                <input type="text" id="nickname" placeholder="뽀로로">-->
-<!--                <button class="btn-check">중복확인</button>-->
-<!--            </div>-->
+            <div class="input-group">
+                <label class="mpname">닉네임</label>
+                <input type="text" id="nickname" placeholder="뽀로로">
+                <button class="btn-check">중복확인</button>
+            </div>
 
-<!--            <div class="input-group">-->
-<!--                <label for="password">비밀번호</label>-->
-<!--                <input type="password" id="password" placeholder="••••••••">-->
-<!--                <button class="btn-show">보기</button>-->
-<!--            </div>-->
+            <div class="input-group">
+                <label class="mppw">비밀번호</label>
+                <input type="password" id="password" placeholder="비밀번호">
+                <span class="toggle-password" id="togglePassword">&#128065;</span>
+                <button class="mpchange">변경</button>
+            </div>
 
-<!--            <div class="input-group">-->
-<!--                <label for="phone">전화번호</label>-->
-<!--                <input type="text" id="phone" placeholder="01034562789">-->
-<!--                <button class="btn-confirm">인증</button>-->
-<!--            </div>-->
+            <div id="confirmpopup">
+                <label class="confirmno">인증번호</label>
+                <input type="text" id="confirm-no">
+                <button class="btn-confirm1">인증</button>
+            </div>
 
-<!--            <div class="input-group">-->
-<!--                <label for="email">이메일</label>-->
-<!--                <input type="email" id="email" placeholder="honggildong@gmail.com">-->
-<!--                <button class="btn-confirm">인증</button>-->
-<!--            </div>-->
+            <div class="input-group">
+                <label class="mpemail">이메일</label>
+                <input type="email" id="email" placeholder="honggildong@gmail.com">
+                <button class="btn-confirm" id="confirmcheck">인증</button>
+            </div>
 
-<!--            <button class="btn-cancel">취소</button>-->
-<!--            <button class="btn-submit">수정</button>-->
-
+            <button class="btn-cancel" id="btn-cancel">취소</button>
+            <button class="btn-submit">수정</button>
 
 
         </div>
+<!--        <div class="modal-background" id="modal-background">-->
+<!--            <div class="pwdpopup" id="pwd-popup">-->
+<!--                <p class="pwdfont">수정 완료되었습니다!</p>-->
+
+<!--                <div class="popup-buttons">-->
+<!--                    <button id="closePopupBtn" class="cancle-btn">취소</button>-->
+<!--                    <button id="submitPasswordBtn" class="confirm-btn">확인</button>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
     </div>
+    <script>
+
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        // 비밀번호 보기/숨기기 토글
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
+        });
+
+        const confirmCheck = document.getElementById('confirmcheck');
+        const confirmNo= document.getElementById('confirmpopup');
+
+        confirmCheck.addEventListener('click', () => {
+            confirmNo.style.display = 'block'; // 팝업 표시
+        });
+
+        const btnCancle =document.getElementById('btn-cancel');
+
+        btnCancle.addEventListener('click', () => {
+            // URL을 원하는 주소로 변경하세요
+            location.href = '/main';
+        });
+
+
+    </script>
+
 
 
 </body>
