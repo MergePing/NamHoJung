@@ -197,7 +197,7 @@ main {
     color: #C9E6CA; /* 글자 색상 */
     padding: 10px 0; /* 상하 여백 */
     font-size: 30px;
-    font-family: "BM JUA_OTF";
+    font-family: "BMJUA";
 }
 
 /* 회원 목록 스타일 */
@@ -216,7 +216,7 @@ main {
     width: 90%;
     padding: 10px 0;
     font-size: 20px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     color: #C9E6CA;
 }
 
@@ -224,7 +224,7 @@ main {
     display: flex;
     justify-content: center;
     margin-top: 200px;
-    font-family: "BM JUA_OTF";
+    font-family: "BMJUA";
     font-size: 30px;
 }
 

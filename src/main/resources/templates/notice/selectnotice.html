@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>소개</title>
+    <title>공지사항 상세조회</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/mainpage/intro/intro.css}">
+    <link rel="stylesheet" th:href="@{/css/notice/selectnotice.css}">
     <style>
+        /*손전등*/
         :root {
             --cursorX: 70vw;
             --cursorY: 70vh;
@@ -37,9 +38,10 @@
 <body>
 
 <header>
+
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/intro/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span>게시판</span>
@@ -54,33 +56,39 @@
 <main>
     <div class="qickBtn">
         <!--플로팅 버튼-->
-        <img th:src="@{/images/intro/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/intro/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
         <div class="clikbtn tr">
-            <img th:src="@{/images/intro/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-            <img th:src="@{/images/intro/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-            <img th:src="@{/images/intro/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
+            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
         </div>
     </div>
-    
-<img th:src="@{/images/intro/intro-dark-bg.png}" id="bg">
-<img th:src="@{/images/intro/intro-logo-dark.png}" id="mainlogo">
 
-    <p id="introduce">[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내</p>
+    <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
+    <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
-    <p id="introduce2">[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
+    <span>01</span>
+    <div><span>공지</span></div>
+    <span>[공지] 2024년 11월 서비스 오픈 안내</span>
+    <span>2024.10.24</span>
+
+
+<div class="text">
+    <span>[공지] 2024년 11월 서비스 오픈 안내</span>
+    <span>관리자</span>
+    <span>2024.10.21</span>
+    <p>[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
+        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
         [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월</p>
-
-    <div id="btn" onclick="window.location.href='/'"><p>확인</p></div>
+</div>
 </main>
-
 <footer>
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>
-
 </body>
 
 <script>
