@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>회원조회</title>
-    <link rel="stylesheet" th:href="@{/css/adminmanagement.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminmanagement.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -39,37 +40,92 @@
         </div>
 
         <!-- 회원 리스트 -->
-        <div th:each="user : ${userList}"
-             class="member-item"
-             th:attr="data-user-id=${user.userNo}"
-             onclick="openModal(this)">
-            <span th:text="${user.userNo}"></span>
-            <span th:text="${user.userId}"></span>
-            <span th:text="${user.level}"></span>
-            <span th:text="${user.userName}"></span>
-            <span th:text="${user.reportCount}"></span>
-            <span th:text="${user.isDeleted ? '탈퇴' : '활성'}"></span>
-        </div>
+        <div class="member-list" id="userList"></div>
+
         <!-- 페이지네이션 -->
-        <div class="pagination">
-            <span th:each="i : ${#numbers.sequence(startPage, endPage)}">
-                <a th:href="@{/admin/users(page=${i})}"
-                   th:text="${i}"
-                   th:classappend="${i == currentPage} ? 'active' : ''"></a>
-            </span>
-        </div>
+        <div class="pagination" id="pagination-links"></div>
     </main>
+
+    <!-- 상세조회 모달 창 -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <h2>회원 상세 정보</h2>
+            <img class="profile-photo" th:src="@{/images/admin/defaultprofile.png}" alt="프로필사진">
+            <button type="button" class="deleteUser-btn" onclick="openDeleteConfirmModal()">영구 탈퇴</button>
+            <div class="user-info">
+                <p>닉네임: <span id="modalNickname"></span></p>
+                <p>신고횟수: <span id="modalReportCount"></span></p>
+            </div>
+            <button type="button" class="close-btn" onclick="closeModal()">닫기</button>
+            <button type="button" class="edit-btn">수정하기</button>
         </div>
     </div>
 
+    <!-- 영구 탈퇴 확인 모달 -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <h2>영구 탈퇴 확인</h2>
+            <p>정말 이 회원을 영구적으로 탈퇴시키겠습니까?</p>
+            <button type="button" onclick="confirmDeleteUser()">확인</button>
+            <button type="button" onclick="closeDeleteConfirmModal()">취소</button>
+        </div>
+    </div>
 
     <script>
-        function openModal(element) {
-            // 선택한 요소의 data-user-id 속성 값을 가져옴
-            const userId = element.getAttribute("data-user-id");
+        let currentUserNo; // 현재 조회 중인 userNo를 저장할 전역 변수
 
-            // 데이터 가져오기
-            fetch(`/admin/user/${userId}`)
+        // 특정 페이지의 사용자 데이터를 가져오는 함수
+        function fetchUserPage(page = 1) {
+            $.ajax({
+                url: `/admin/users/data?page=${page}`, // 데이터 JSON 반환 URL
+                method: "GET",
+                success: function(data) {
+                    renderUserList(data.userList);
+                    renderPagination(data.currentPage, data.totalPages, data.startPage, data.endPage);
+                },
+                error: function(error) {
+                    console.error('Error fetching user page:', error);
+                }
+            });
+        }
+
+        // 사용자 리스트 렌더링 함수
+        function renderUserList(users) {
+            let userListHtml = '';
+            users.forEach(user => {
+                userListHtml += `
+                <div class="member-item" data-user-no="${user.userNo}" onclick="openModal(this)">
+                    <span>${user.userNo}</span>
+                    <span>${user.userId}</span>
+                    <span>${user.level}</span>
+                    <span>${user.userName}</span>
+                    <span>${user.reportCount}</span>
+                    <span>${user.isDeleted ? '탈퇴' : '활성'}</span>
+                </div>
+            `;
+            });
+            $('#userList').html(userListHtml);
+        }
+
+        // 페이지네이션 렌더링 함수
+        function renderPagination(currentPage, totalPages, startPage, endPage) {
+            let paginationHtml = '';
+            for (let i = startPage; i <= endPage; i++) {
+                paginationHtml += `<a href="javascript:void(0);" onclick="fetchUserPage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</a> `;
+            }
+            $('#pagination-links').html(paginationHtml);
+        }
+
+        // 초기 페이지 로드
+        $(document).ready(function() {
+            fetchUserPage(1); // 첫 페이지 데이터를 로드합니다
+        });
+
+        // 모달 열기 함수
+        function openModal(element) {
+            currentUserNo = element.getAttribute("data-user-no"); // 현재 userNo를 전역 변수에 저장
+
+            fetch(`/admin/user/${currentUserNo}`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("modalNickname").textContent = data.userId;
@@ -78,8 +134,38 @@
                 })
                 .catch(error => console.error('Error fetching user details:', error));
         }
+
+        // 모달 닫기 함수
         function closeModal() {
             document.getElementById("userModal").style.display = 'none';
+        }
+
+        // 영구 탈퇴 확인 모달 열기
+        function openDeleteConfirmModal() {
+            document.getElementById("deleteConfirmModal").style.display = 'block';
+        }
+
+        // 영구 탈퇴 확인 모달 닫기
+        function closeDeleteConfirmModal() {
+            document.getElementById("deleteConfirmModal").style.display = 'none';
+        }
+
+        // 영구 탈퇴 확인 후 삭제 요청 함수
+        function confirmDeleteUser() {
+            fetch(`/admin/user/delete/${currentUserNo}`, { // 전역 변수로 저장된 currentUserNo 사용
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        closeDeleteConfirmModal();
+                        closeModal();
+                        alert("회원이 영구 탈퇴되었습니다.");
+                        fetchUserPage(1); // 첫 페이지로 리로드
+                    } else {
+                        alert("탈퇴에 실패했습니다. 다시 시도해 주세요.");
+                    }
+                })
+                .catch(error => console.error('Error deleting user:', error));
         }
     </script>
 </div>
