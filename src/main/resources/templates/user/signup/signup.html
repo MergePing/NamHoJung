@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>휴대폰 인증 시작</title>
-    <link rel="stylesheet" href="/static/css/signup.css">
-    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" th:href="@{/css/signup/signup.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
     <div class="resolution">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="uiBack"></div>
-        <img onclick="window.location.href=`signup2.html`" class="phone" src="/static/images/signup/phone.png">
+        <img onclick="location.href=`signup2`" class="phone" src="/static/images/signup/phone.png">
         <p class="signupText">회원 가입 인증</p>
         <p class="signupGuide">휴대폰 본인인증을 완료해주세요.</p>
     </div>

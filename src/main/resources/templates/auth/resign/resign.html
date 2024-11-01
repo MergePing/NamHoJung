@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>로그인 실패 화면(상자 열림 상태 5)</title>
+    <title>로그인 화면</title>
     <link rel="stylesheet" th:href="@{/css/login.css}" />
     <link rel="stylesheet" th:href="@{/css/reset.css}" />
 </head>
@@ -27,7 +27,7 @@
     <div class="loginDiv"></div>
     <p class="loginText">로그인</p>
     <p class="loginGuide">회원가입 시 입력한 아이디와 비밀번호를 입력해주세요.</p>
-    <button type="submit">
+    <button class="loginButton" type="submit">
         <img class="loginBox" th:src="@{/images/login/loginbox.png}" alt="로그인박스">
     </button>
     <p class="search">ID / 비밀번호 찾기</p>
@@ -37,10 +37,45 @@
         <input id="saveId" class="saveId" type="checkbox" name="id" value="id">
         <label for="saveId" class="saveIdLabel">아이디 저장</label>
     </form>
-    <p class="warning">아이디와 비밀번호가 올바르지 않습니다.</p>
+    <div class="modalBlur">
+        <div class="modalGuide">
+            탈퇴신청한 계정입니다. 철회하시겠습니까?
+        </div>
+        <button type="submit" class="yes">예</button>
+        <button type="submit" class="no">아니오</button>
+        <div class="modalGuide2">
+            탈퇴신청이 철회되었습니다.
+        </div>
+        <div class="modalGuide3">
+            탈퇴신청 철회가 취소되었습니다.<br>
+            탈퇴까지 "@{}"일 남았습니다.
+        </div>
+            </div>
 </div>
 <script>
+    // 모달창 (기본)
+    const modal = document.querySelector('.modalBlur');
+    const modal2 = document.querySelector('.modalGuide2')
+    const modal3 = document.querySelector('.modalGuide3')
+    const btnOpenModal=document.querySelector('.loginButton');
+    const btnCloseYesModal=document.querySelector('.yes');
+    const btnCloseNoModal=document.querySelector('.no')
 
+    btnOpenModal.addEventListener("click", ()=>{
+        modal.style.display="flex";
+    });
+    btnCloseYesModal.addEventListener("click", ()=>{
+        modal2.style.display="block";
+        setTimeout(() => {
+            window.location.href = `login`;
+        }, 1500);
+    });
+    btnCloseNoModal.addEventListener("click", ()=>{
+        modal3.style.display="block";
+        setTimeout(() => {
+            window.location.href = `main`;
+        }, 1500);
+    });
 </script>
 </body>
 </html>
