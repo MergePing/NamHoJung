@@ -10,10 +10,10 @@
     <div class="resolution">
         <img class="background" th:src="@{/images/signup/background.png}" alt="배경">
         <img class="character" th:src="@{/images/signup/character.png}" alt="캐릭터">
-        <img class="tree" src="/static/images/signup/tree.png"/>
+        <img class="tree" th:src="@{/images/signup/tree.png}"/>
         <div class="nav">
             <div class="nav2">
-                <img class="logo" src="/static/images/login/logo.png">
+                <img class="logo" th:src="@{/images/login/logo.png}">
                 <p class="notice">공지사항</p>
                 <p class="info">소개</p>
                 <p class="mbti">mbti검사</p>
@@ -24,8 +24,8 @@
             </div>
         </div>
         <div class="uiBack"></div>
-        <input class="phoneNumber" type="text" name="phone" id="phone" placeholder="휴대폰 번호를 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="13">
-        <input class="authNumber" type="text" name="authNumber" id="authNumber" placeholder="인증번호를 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="6">
+        <input class="phoneNumber" type="text" name="phone" id="phone" placeholder="휴대폰 번호를 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="13" minlength="13">
+        <input class="authNumber" type="text" name="authNumber" id="authNumber" placeholder="인증번호를 입력해주세요." oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="6" minlength="6">
         <p class="signupText">회원 가입 인증</p>
         <p class="signupGuide">휴대폰 본인 확인을 완료해주세요.</p>
         <button onclick="" class="authButton" type="submit">인증하기</button>
