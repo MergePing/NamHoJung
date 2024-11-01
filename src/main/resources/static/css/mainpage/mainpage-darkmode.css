@@ -1,0 +1,600 @@
+@charset "UTF-8";
+body{
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+.dn{
+    display: none;
+}
+
+.tr{
+    transition: all 0.7s;
+}
+
+.animate-show {
+    animation: show 0.5s forwards;
+}
+
+.animate-hide {
+    animation: hide 0.5s forwards;
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes hide {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+        /*---------------nav------------------*/
+nav{
+    position: fixed;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+nav img{
+    /* 남호정 */
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+}
+
+nav span:nth-child(2) {
+    /* 소개 */
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
+}
+
+
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}
+
+/*---------------main1------------------*/
+.bg{
+    position: relative;
+    top: -55px;
+    z-index: -22;
+    overflow-x: hidden;
+}
+
+
+.main1 .logo{
+    z-index: 22;
+}
+
+
+.main1 .subtitle{
+    /* : 남이 이야기 해주는 호러 정원 */
+    position: absolute;
+    width: 501px;
+    height: 50px;
+    left: 164px;
+    top: 517px;
+}
+
+
+.main1 .qickBtn img{
+    position: absolute;
+    width: 109px;
+    height: 109px;
+    left: 1759px;
+    top: 780px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+
+
+.main1 .qickBtn img:first-child{
+    z-index: 55;
+    top: 780px;
+}
+
+
+.main1 .qickBtn .clikbtn img:first-child{
+    /* Upward Arrow */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 664px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+.main1 .qickBtn .clikbtn img:nth-child(2){
+    /* Sun */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 560px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+.main1 .qickBtn .clikbtn img:nth-child(3){
+    /* Test Results */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 456px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+.main1 .mainbox{
+    position: absolute;
+    width: 520px;
+    height: 88px;
+    left: 134px;
+    top: 650px;
+    background: #0E2913;
+    border-radius: 850px;
+}
+
+
+.main1 div p{
+    /* 나의 공포 MBTI는? */
+    position: absolute;
+    width: 317px;
+    height: 50px;
+    left: 100px;
+    top: 20px;
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 50px;
+    color: #FFFFFF;
+}
+
+
+main .main1 .qickBtn{
+    position: sticky;
+    top: -50px;
+    z-index: 9999;
+}
+
+
+/*---------------main2------------------*/
+
+main .main2 h2{
+    /* 베스트 정원 */
+    position: absolute;
+    width: 257px;
+    height: 62px;
+    left: 800px;
+    top: 1520px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 62px;
+    color: #FFFFFF;
+    z-index: 88;
+}
+
+
+main #gost{
+    z-index: 22;
+    position: absolute;
+    width: 838px;
+    height: 383px;
+    left: 170px;
+    top: 1660px;
+}
+
+main .main2 img{
+   position: absolute;
+    top: 1400px;
+    z-index: 77;
+}
+
+
+main .main2 .fristbest p{
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 40px;
+    color: #FFFFFF;
+    z-index: 22;
+}
+
+
+main .main2 .fristbest span{
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 35px;
+    color: #FFFFFF;
+}
+
+
+main .main2 .fristbest img:nth-of-type(1){
+    position: absolute;
+    width: 250px;
+    left: 200px;
+    top: 1712px;
+    z-index: 0;
+}
+
+
+main .main2 .fristbest p:nth-of-type(1){
+    /* 싸이코패스 테스트 */
+    position: absolute;
+    width: 289px;
+    height: 50px;
+    left: 480px;
+    top: 1730px;
+}
+
+
+main .main2 .fristbest span:nth-of-type(1){
+    position: absolute;
+    width: 450px;
+    height: 140px;
+    left: 480px;
+    top: 1820px;
+}
+
+
+main .main2 .fristbest img:nth-of-type(2){
+    position: absolute;
+    width: 250px;
+    height: 248px;
+    left: 960px;
+    top: 1712px;
+    z-index: 0;
+}
+
+
+main .main2 .fristbest p:nth-of-type(2){
+    /* 싸이코패스 테스트 */
+    position: absolute;
+    width: 289px;
+    height: 50px;
+    left: 1260px;
+    top: 1730px;
+}
+
+main .main2 .fristbest span:nth-of-type(2){
+    position: absolute;
+    width: 446px;
+    height: 140px;
+    left: 1260px;
+    top: 1820px;
+}
+
+
+main .main2 .fristbest img:nth-of-type(3){
+    position: absolute;
+    width: 250px;
+    left: 200px;
+    top: 2020px;
+    z-index: 0;
+}
+
+
+main .main2 .fristbest p:nth-of-type(3){
+    /* 싸이코패스 테스트 */
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    left: 480px;
+    top: 2040px;
+}
+
+
+main .main2 .fristbest span:nth-of-type(3){
+    position: absolute;
+    width: 470px;
+    height: 140px;
+    left: 480px;
+    top: 2120px;
+}
+
+
+main .main2 .fristbest img:nth-of-type(4){
+    position: absolute;
+    width: 250px;
+    left: 960px;
+    top: 2020px;
+    z-index: 0;
+}
+
+
+main .main2 .fristbest p:nth-of-type(4){
+    /* 싸이코패스 테스트 */
+    position: absolute;
+    width: 289px;
+    height: 50px;
+    left: 1260px;
+    top: 2040px;
+}
+
+
+main .main2 .fristbest span:nth-of-type(4){
+    position: absolute;
+    width: 455px;
+    height: 140px;
+    left: 1260px;
+    top: 2120px;
+}
+
+
+/*---------------main3------------------*/
+
+main .main3 #calendarbg{
+    position: absolute;
+    top: 2365px;
+    z-index: -5;
+}
+
+
+#calendar {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(7, 100px);
+    gap: 10px;
+    top: 2975px;
+    left: 185px;
+}
+
+ #calendar .day-cell {
+    padding: 20px;
+    text-align: center;
+     position: relative;
+}
+#calendar .day-header{
+    padding-top: 20px;
+}
+#calendar div {
+    text-align: center;
+    font-family: 'Calistoga';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 35px;
+    color: #FFFFFF;
+}
+
+
+.day-header {
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    color: #C8D2C2;
+}
+
+
+main .main3 #checkAttendanceBtn{
+    position: absolute;
+    width: 299px;
+    height: 64px;
+    left: 659px;
+    top: 2860px;
+    background: #C8D2C2;
+    border-radius: 50px;
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 50px;
+    color: #0E2913;
+}
+
+
+main .main3 #hand{
+    position: absolute;
+    left: 176px;
+    top: 3029px;
+    z-index: -1;
+}
+
+
+main .main3 .gosthand{
+    position: absolute;
+    width: 922px;
+    left: 102px;
+    top: 2920px;
+}
+
+main .main3 #monthTitle{
+    /* 10 */
+    position: absolute;
+    top: 2850px;
+    left: 180px;
+    font-family: 'Calistoga';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 100px;
+    color: #ECFEE2;
+}
+
+
+#calendar .day-header{
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    color: #C8D2C2;
+}
+
+
+.checked img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 55;
+    width: 50px;
+}
+
+/*---------------footer------------------*/
+footer .footer{
+    position: absolute;
+    width: 1920px;
+    height: 69px;
+    top: 3720px;
+    background: #0E2913;
+    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
+}
+
+footer .footer p{
+    position: absolute;
+    height: 31px;
+    font-family: 'SUIT';
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: 0.05em;
+    color: #D5D5D5;
+    left: 750px;
+    top: 20px;
+}
