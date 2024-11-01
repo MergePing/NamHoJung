@@ -15,4 +15,6 @@ public interface UserMapper {
 
     // 전체 유저 수 조회
     int countAllUsers();
+
+    UserDTO selectUserById(int userId);
 }

@@ -29,4 +29,8 @@ public class UserService {
     public int countUsers() {
         return userMapper.countAllUsers();
     }
- }
+
+    public UserDTO getUserById(int userId) {
+        return userMapper.selectUserById(userId);
+    }
+}
