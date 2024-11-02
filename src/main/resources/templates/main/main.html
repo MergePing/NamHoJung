@@ -151,6 +151,20 @@
     </div>
 </main>
 
+<div sec:authorize="hasAnyAuthority('ADMIN')">
+    <h2>관리자 전용 콘텐츠</h2>
+    <p>여기에 관리자만 볼 수 있는 내용을 넣으세요.</p>
+</div>
+
+<div sec:authorize="hasAnyAuthority('USER')">
+    <h2>사용자 전용 콘텐츠</h2>
+    <p>여기에 일반 사용자만 볼 수 있는 내용을 넣으세요.</p>
+</div>
+
+<form th:action="@{/auth/logout}" method="post">
+    <button type="submit">로그아웃</button>
+</form>
+
 <footer>
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>

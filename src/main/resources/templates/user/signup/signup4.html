@@ -13,8 +13,8 @@
     <nav>
         <!--네비바-->
         <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
-        <span onclick="window.location.href='/intro/intro.html'">소개</span>
-        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
+        <span onclick="location.href='/intro/intro'">소개</span>
+        <span onclick="location.href='/notice/notice'">공지사항</span>
         <span>게시판</span>
         <span>MBTI 검사</span>
         <span>마이페이지</span>
@@ -24,12 +24,13 @@
     <div class="uiBackSign"></div>
     <p class="signupInfoText">회원가입</p>
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
-    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="id" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="1">
-    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="password" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8">
+    <form th:action="@{/auth/signup}" method="post">
+    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="1">
+    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8">
     <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1">
-    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="nickname" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1">
+    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1">
 
-    <label for="email" class="emailLabel">이메일 : </label><input type="email" id="email" class="emailInput" name="email" minlength="1">
+    <label for="email" class="emailLabel">이메일 : </label><input type="email" id="email" class="emailInput" name="userEmail" minlength="1">
     <p class="emailMain">@</p>
     <input class="box" id="domain-txt" type="text"/>
     <select class="box" id="domain-list">
@@ -65,13 +66,20 @@
     </div>
     <button id="resetBirth">초기화</button>
 
-    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="gender">
-    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="gender">
-    <label for="none" class="none">비밀</label><input type="radio" id="none" name="gender">
+    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="gender" value="MALE">
+    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="gender" value="FEMALE">
+    <label for="none" class="none">비밀</label><input type="radio" id="none" name="gender" value="OTHER" checked>
 
     <button type="submit" class="next">다음</button>
+    </form>
 </div>
 <script>
+    // 회원가입 메시지 => 나중에 모달로 변경하면 좋을듯?
+        const message = `[[${ message }]]`
+        if(message) {
+        alert(message);
+    }
+
     // 이메일
     const domainListEl = document.querySelector('#domain-list')
     const domainInputEl = document.querySelector('#domain-txt')

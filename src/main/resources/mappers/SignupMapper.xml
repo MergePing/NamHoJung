@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ohgiraffers.mergyping.user.model.dao.SignupMapper">
+    <resultMap id="login" type="com.ohgiraffers.mergyping.user.model.dto.LoginUserDTO">
+        <result property="userId" column="USER_ID"/>
+        <result property="userPass" column="USER_PWD"/>
+        <result property="userRole" column="USER_TYPE"/>
+    </resultMap>
+
+    <insert id="regist" parameterType="com.ohgiraffers.mergyping.user.model.dto.SignupDTO">
+        INSERT INTO TBL_USER
+        (
+        USER_ID
+        , USER_PWD
+        , USER_NAME
+        , EMAIL
+        , USER_SIGN_DATE
+        )
+        VALUES
+        (
+        #{ userId },
+        #{ userPass },
+        #{ userName },
+        #{ userEmail },
+        #{ signupDate }
+        )
+    </insert>
+
+    <select id="findByUsername" resultMap="login">
+        SELECT
+          USER_ID
+        , USER_PWD
+        , USER_TYPE
+        FROM TBL_USER
+        WHERE USER_ID = #{ userId }
+    </select>
+
+</mapper>
