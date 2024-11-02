@@ -34,7 +34,7 @@ public class SignupService {
     public LoginUserDTO findByUsername(String userId) {
         LoginUserDTO login = signupMapper.findByUsername(userId);
 
-        if(Objects.isNull(login)) {
+        if(!Objects.isNull(login)) {
             return login;
         } else {
             return null;
