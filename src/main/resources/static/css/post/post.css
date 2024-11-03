@@ -424,7 +424,13 @@ main .post span:nth-of-type(3){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    width: 400px;
+    width: 410px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    height:auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 

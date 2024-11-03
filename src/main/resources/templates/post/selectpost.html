@@ -5,6 +5,34 @@
     <title>Title</title>
 </head>
 <body>
+<header>
+
+    <nav>
+        <!--네비바-->
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/notice'">공지사항</span>
+        <span onclick="location.href='/post'">게시판</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+
+</header>
+
+<main>
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
+            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+        </div>
+    </div>
+</main>
 
 </body>
 </html>

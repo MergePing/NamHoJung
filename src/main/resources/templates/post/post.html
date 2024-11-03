@@ -34,9 +34,6 @@
         /*    font-kerning: auto;*/
         /*}*/
 
-        .ellipsis {
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
     </style>
 </head>
 <body>
@@ -104,7 +101,7 @@
                  th:attr="data-postNo=${postList[12].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[12].postTitle}" class="ellipsis"></span>
+        <span th:text="${postList[12].postTitle}"></span>
         <div><span th:text="${postList[12].postCategory}"></span></div>
         <span th:text="${postList[12].formattedDate}"></span>
         <span th:text="${postList[12].scaryNumber}"></span>
@@ -122,7 +119,7 @@
                  th:attr="data-postNo=${postList[11].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[11].postTitle}" class="ellipsis"></span>
+        <span th:text="${postList[11].postTitle}"></span>
         <div><span th:text="${postList[11].postCategory}"></span></div>
         <span th:text="${postList[11].formattedDate}"></span>
         <span th:text="${postList[11].scaryNumber}"></span>
@@ -140,7 +137,7 @@
                  th:attr="data-postNo=${postList[10].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[10].postTitle}" class="ellipsis"></span>
+        <span th:text="${postList[10].postTitle}"></span>
         <div><span th:text="${postList[10].postCategory}"></span></div>
         <span th:text="${postList[10].formattedDate}"></span>
         <span th:text="${postList[10].scaryNumber}"></span>
@@ -158,7 +155,7 @@
                  th:attr="data-postNo=${postList[9].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[9].postTitle}" class="ellipsis"></span>
+        <span th:text="${postList[9].postTitle}"></span>
         <div><span th:text="${postList[9].postCategory}"></span></div>
         <span th:text="${postList[9].formattedDate}"></span>
         <span th:text="${postList[9].scaryNumber}"></span>
@@ -176,7 +173,7 @@
                  th:attr="data-postNo=${postList[8].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[8].postTitle}" class="ellipsis"></span>
+        <span th:text="${postList[8].postTitle}"></span>
         <div><span th:text="${postList[8].postCategory}"></span></div>
         <span th:text="${postList[8].formattedDate}"></span>
         <span th:text="${postList[8].scaryNumber}"></span>
@@ -194,7 +191,7 @@
                  th:attr="data-postNo=${postList[7].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[7].postTitle}" class="ellipsis"></span>
+        <span th:text="${postList[7].postTitle}"></span>
         <div><span th:text="${postList[7].postCategory}"></span></div>
         <span th:text="${postList[7].formattedDate}"></span>
         <span th:text="${postList[7].scaryNumber}"></span>
@@ -212,7 +209,7 @@
                  th:attr="data-postNo=${postList[6].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[6].postTitle}" class="ellipsis"></span>
+        <span th:text="${postList[6].postTitle}"></span>
         <div><span th:text="${postList[6].postCategory}"></span></div>
         <span th:text="${postList[6].formattedDate}"></span>
         <span th:text="${postList[6].scaryNumber}"></span>
@@ -232,7 +229,7 @@
                  th:attr="data-postNo=${postList[5].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <span th:text="${postList[5].postTitle}" class="ellipsis"></span>
+            <span th:text="${postList[5].postTitle}"></span>
             <div><span th:text="${postList[5].postCategory}"></span></div>
             <span th:text="${postList[5].formattedDate}"></span>
             <span th:text="${postList[5].scaryNumber}"></span>
@@ -250,7 +247,7 @@
                  th:attr="data-postNo=${postList[4].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <span th:text="${postList[4].postTitle}" class="ellipsis"></span>
+            <span th:text="${postList[4].postTitle}"></span>
             <div><span th:text="${postList[4].postCategory}"></span></div>
             <span th:text="${postList[4].formattedDate}"></span>
             <span th:text="${postList[4].scaryNumber}"></span>
@@ -268,7 +265,7 @@
                  th:attr="data-postNo=${postList[3].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <span th:text="${postList[3].postTitle}" class="ellipsis"></span>
+            <span th:text="${postList[3].postTitle}"></span>
             <div><span th:text="${postList[3].postCategory}"></span></div>
             <span th:text="${postList[3].formattedDate}"></span>
             <span th:text="${postList[3].scaryNumber}"></span>
@@ -286,7 +283,7 @@
                  th:attr="data-postNo=${postList[2].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <span th:text="${postList[2].postTitle}" class="ellipsis"></span>
+            <span th:text="${postList[2].postTitle}"></span>
             <div><span th:text="${postList[2].postCategory}"></span></div>
             <span th:text="${postList[2].formattedDate}"></span>
             <span th:text="${postList[2].scaryNumber}"></span>
@@ -304,7 +301,7 @@
                  th:attr="data-postNo=${postList[1].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <span th:text="${postList[1].postTitle}" class="ellipsis"></span>
+            <span th:text="${postList[1].postTitle}"></span>
             <div><span th:text="${postList[1].postCategory}"></span></div>
             <span th:text="${postList[1].formattedDate}"></span>
             <span th:text="${postList[1].scaryNumber}"></span>
@@ -322,7 +319,7 @@
                  th:attr="data-postNo=${postList[0].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <span th:text="${postList[0].postTitle}" class="ellipsis"></span>
+            <span th:text="${postList[0].postTitle}"></span>
             <div><span th:text="${postList[0].postCategory}"></span></div>
             <span th:text="${postList[0].formattedDate}"></span>
             <span th:text="${postList[0].scaryNumber}"></span>
