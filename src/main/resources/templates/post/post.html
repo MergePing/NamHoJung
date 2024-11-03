@@ -33,6 +33,10 @@
         /*    -moz-osx-font-smoothing: grayscale;*/
         /*    font-kerning: auto;*/
         /*}*/
+
+        .ellipsis {
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
     </style>
 </head>
 <body>
@@ -90,145 +94,239 @@
     </div>
 <div class="post1">
     <div class="post">
-        <span>14</span>
-        <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-        <span>동굴속의 아이들</span>
-        <div><span>실화</span></div>
-        <span>2024.10.24</span>
-        <span>323</span>
-        <span>102</span>
+        <span th:text="${postList[12].postNo}"></span>
+        <span> <img th:src="@{/images/post/best-dark.png}"
+                    th:if="${postList[12].postFavorite}"
+                    th:attr="data-postNo=${postList[12].postNo}"
+                    class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[12].postFavorite}"
+                 th:attr="data-postNo=${postList[12].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <span th:text="${postList[12].postTitle}" class="ellipsis"></span>
+        <div><span th:text="${postList[12].postCategory}"></span></div>
+        <span th:text="${postList[12].formattedDate}"></span>
+        <span th:text="${postList[12].scaryNumber}"></span>
+        <span th:text="${postList[12].commentNumber}"></span>
     </div>
 
     <div class="post" style="top: 80px;">
-        <span>13</span>
-        <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-        <span>2024년 11월 서비스 오픈 안내</span>
-        <div><span>미스테리</span></div>
-        <span>2024.10.24</span>
-        <span>1,211</span>
-        <span>255</span>
+        <span th:text="${postList[11].postNo}"></span>
+        <span><img th:src="@{/images/post/best-dark.png}"
+                   th:if="${postList[11].postFavorite}"
+                   th:attr="data-postNo=${postList[11].postNo}"
+                   class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[11].postFavorite}"
+                 th:attr="data-postNo=${postList[11].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <span th:text="${postList[11].postTitle}" class="ellipsis"></span>
+        <div><span th:text="${postList[11].postCategory}"></span></div>
+        <span th:text="${postList[11].formattedDate}"></span>
+        <span th:text="${postList[11].scaryNumber}"></span>
+        <span th:text="${postList[11].commentNumber}"></span>
     </div>
 
     <div class="post" style="top: 160px;">
-        <span>12</span>
-        <span><img th:src="@{/images/post/best-dark.png}"></span>
-        <span>2024년 11월 서비스 오픈 안내</span>
-        <div><span>SF</span></div>
-        <span>2024.10.24</span>
-        <span>616</span>
-        <span>134</span>
+        <span th:text="${postList[10].postNo}"></span>
+        <span><img th:src="@{/images/post/best-dark.png}"
+                   th:if="${postList[10].postFavorite}"
+                   th:attr="data-postNo=${postList[10].postNo}"
+                   class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[10].postFavorite}"
+                 th:attr="data-postNo=${postList[10].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <span th:text="${postList[10].postTitle}" class="ellipsis"></span>
+        <div><span th:text="${postList[10].postCategory}"></span></div>
+        <span th:text="${postList[10].formattedDate}"></span>
+        <span th:text="${postList[10].scaryNumber}"></span>
+        <span th:text="${postList[10].commentNumber}"></span>
     </div>
 
     <div class="post" style="top: 240px;">
-        <span>11</span>
-        <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-        <span>2024년 11월 서비스 오픈 안내</span>
-        <div><span>스릴러</span></div>
-        <span>2024.10.24</span>
-        <span>906</span>
-        <span>69</span>
+        <span th:text="${postList[9].postNo}"></span>
+        <span><img th:src="@{/images/post/best-dark.png}"
+                   th:if="${postList[9].postFavorite}"
+                   th:attr="data-postNo=${postList[9].postNo}"
+                   class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[9].postFavorite}"
+                 th:attr="data-postNo=${postList[9].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <span th:text="${postList[9].postTitle}" class="ellipsis"></span>
+        <div><span th:text="${postList[9].postCategory}"></span></div>
+        <span th:text="${postList[9].formattedDate}"></span>
+        <span th:text="${postList[9].scaryNumber}"></span>
+        <span th:text="${postList[9].commentNumber}"></span>
     </div>
 
     <div class="post" style="top: 320px;">
-        <span>10</span>
-        <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-        <span>2024년 11월 서비스 오픈 안내</span>
-        <div><span>괴담</span></div>
-        <span>2024.10.24</span>
-        <span>1,108</span>
-        <span>87</span>
+        <span th:text="${postList[8].postNo}"></span>
+        <span><img th:src="@{/images/post/best-dark.png}"
+                   th:if="${postList[8].postFavorite}"
+                   th:attr="data-postNo=${postList[8].postNo}"
+                   class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[8].postFavorite}"
+                 th:attr="data-postNo=${postList[8].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <span th:text="${postList[8].postTitle}" class="ellipsis"></span>
+        <div><span th:text="${postList[8].postCategory}"></span></div>
+        <span th:text="${postList[8].formattedDate}"></span>
+        <span th:text="${postList[8].scaryNumber}"></span>
+        <span th:text="${postList[8].commentNumber}"></span>
     </div>
 
     <div class="post" style="top: 400px;">
-        <span>09</span>
-        <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-        <span>2024년 11월 서비스 오픈 안내</span>
-        <div><span>괴담</span></div>
-        <span>2024.10.23</span>
-        <span>1,031</span>
-        <span>31</span>
+        <span th:text="${postList[7].postNo}"></span>
+        <span><img th:src="@{/images/post/best-dark.png}"
+                   th:if="${postList[7].postFavorite}"
+                   th:attr="data-postNo=${postList[7].postNo}"
+                   class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[7].postFavorite}"
+                 th:attr="data-postNo=${postList[7].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <span th:text="${postList[7].postTitle}" class="ellipsis"></span>
+        <div><span th:text="${postList[7].postCategory}"></span></div>
+        <span th:text="${postList[7].formattedDate}"></span>
+        <span th:text="${postList[7].scaryNumber}"></span>
+        <span th:text="${postList[7].commentNumber}"></span>
     </div>
 
     <div class="post" style="top: 480px;">
-        <span>08</span>
-        <span><img th:src="@{/images/post/best-dark.png}"></span>
-        <span>2024년 11월 서비스 오픈 안내</span>
-        <div><span>실화</span></div>
-        <span>2024.10.23</span>
-        <span>225</span>
-        <span>42</span>
+        <span th:text="${postList[6].postNo}"></span>
+        <span><img th:src="@{/images/post/best-dark.png}"
+                   th:if="${postList[6].postFavorite}"
+                   th:attr="data-postNo=${postList[6].postNo}"
+                   class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[6].postFavorite}"
+                 th:attr="data-postNo=${postList[6].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <span th:text="${postList[6].postTitle}" class="ellipsis"></span>
+        <div><span th:text="${postList[6].postCategory}"></span></div>
+        <span th:text="${postList[6].formattedDate}"></span>
+        <span th:text="${postList[6].scaryNumber}"></span>
+        <span th:text="${postList[6].commentNumber}"></span>
     </div>
 </div>
 
     <div class="post2 dn">
         <div class="post">
-            <span>07</span>
-            <span><img th:src="@{/images/post/best-dark.png}"></span>
-            <span>2024년 11월 서비스 오픈 안내</span>
-            <div><span>SF</span></div>
-            <span>2024.10.23</span>
-            <span>616</span>
-            <span>134</span>
+            <span th:text="${postList[5].postNo}"></span>
+            <span><img th:src="@{/images/post/best-dark.png}"
+                       th:if="${postList[5].postFavorite}"
+                       th:attr="data-postNo=${postList[5].postNo}"
+                       class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[5].postFavorite}"
+                 th:attr="data-postNo=${postList[5].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${postList[5].postTitle}" class="ellipsis"></span>
+            <div><span th:text="${postList[5].postCategory}"></span></div>
+            <span th:text="${postList[5].formattedDate}"></span>
+            <span th:text="${postList[5].scaryNumber}"></span>
+            <span th:text="${postList[5].commentNumber}"></span>
         </div>
 
         <div class="post" style="top: 80px;">
-            <span>06</span>
-            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-            <span>2024년 11월 서비스 오픈 안내</span>
-            <div><span>미스테리</span></div>
-            <span>2024.10.23</span>
-            <span>1,211</span>
-            <span>255</span>
+            <span th:text="${postList[4].postNo}"></span>
+            <span><img th:src="@{/images/post/best-dark.png}"
+                       th:if="${postList[4].postFavorite}"
+                       th:attr="data-postNo=${postList[4].postNo}"
+                       class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[4].postFavorite}"
+                 th:attr="data-postNo=${postList[4].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${postList[4].postTitle}" class="ellipsis"></span>
+            <div><span th:text="${postList[4].postCategory}"></span></div>
+            <span th:text="${postList[4].formattedDate}"></span>
+            <span th:text="${postList[4].scaryNumber}"></span>
+            <span th:text="${postList[4].commentNumber}"></span>
         </div>
 
         <div class="post" style="top: 160px;">
-            <span>05</span>
-            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-            <span>2024년 11월 서비스 오픈 안내</span>
-            <div><span>실화</span></div>
-            <span>2024.10.22</span>
-            <span>616</span>
-            <span>134</span>
+            <span th:text="${postList[3].postNo}"></span>
+            <span><img th:src="@{/images/post/best-dark.png}"
+                       th:if="${postList[3].postFavorite}"
+                       th:attr="data-postNo=${postList[3].postNo}"
+                       class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[3].postFavorite}"
+                 th:attr="data-postNo=${postList[3].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${postList[3].postTitle}" class="ellipsis"></span>
+            <div><span th:text="${postList[3].postCategory}"></span></div>
+            <span th:text="${postList[3].formattedDate}"></span>
+            <span th:text="${postList[3].scaryNumber}"></span>
+            <span th:text="${postList[3].commentNumber}"></span>
         </div>
 
         <div class="post" style="top: 240px;">
-            <span>04</span>
-            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-            <span>2024년 11월 서비스 오픈 안내</span>
-            <div><span>스릴러</span></div>
-            <span>2024.10.22</span>
-            <span>906</span>
-            <span>69</span>
+            <span th:text="${postList[2].postNo}"></span>
+            <span><img th:src="@{/images/post/best-dark.png}"
+                       th:if="${postList[2].postFavorite}"
+                       th:attr="data-postNo=${postList[2].postNo}"
+                       class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[2].postFavorite}"
+                 th:attr="data-postNo=${postList[2].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${postList[2].postTitle}" class="ellipsis"></span>
+            <div><span th:text="${postList[2].postCategory}"></span></div>
+            <span th:text="${postList[2].formattedDate}"></span>
+            <span th:text="${postList[2].scaryNumber}"></span>
+            <span th:text="${postList[2].commentNumber}"></span>
         </div>
 
         <div class="post" style="top: 320px;">
-            <span>03</span>
-            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-            <span>2024년 11월 서비스 오픈 안내</span>
-            <div><span>괴담</span></div>
-            <span>2024.10.22</span>
-            <span>1,108</span>
-            <span>87</span>
+            <span th:text="${postList[1].postNo}"></span>
+            <span><img th:src="@{/images/post/best-dark.png}"
+                       th:if="${postList[1].postFavorite}"
+                       th:attr="data-postNo=${postList[1].postNo}"
+                       class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[1].postFavorite}"
+                 th:attr="data-postNo=${postList[1].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${postList[1].postTitle}" class="ellipsis"></span>
+            <div><span th:text="${postList[1].postCategory}"></span></div>
+            <span th:text="${postList[1].formattedDate}"></span>
+            <span th:text="${postList[1].scaryNumber}"></span>
+            <span th:text="${postList[1].commentNumber}"></span>
         </div>
 
         <div class="post" style="top: 400px;">
-            <span>02</span>
-            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-            <span>2024년 11월 서비스 오픈 안내</span>
-            <div><span>괴담</span></div>
-            <span>2024.10.22</span>
-            <span>1,031</span>
-            <span>31</span>
-        </div>
-
-        <div class="post" style="top: 480px;">
-            <span>01</span>
-            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-            <span>2024년 11월 서비스 오픈 안내</span>
-            <div><span>실화</span></div>
-            <span>2024.10.22</span>
-            <span>225</span>
-            <span>42</span>
+            <span th:text="${postList[0].postNo}"></span>
+            <span><img th:src="@{/images/post/best-dark.png}"
+                       th:if="${postList[0].postFavorite}"
+                       th:attr="data-postNo=${postList[0].postNo}"
+                       class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}"
+                 th:unless="${postList[0].postFavorite}"
+                 th:attr="data-postNo=${postList[0].postNo}"
+                 class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${postList[0].postTitle}" class="ellipsis"></span>
+            <div><span th:text="${postList[0].postCategory}"></span></div>
+            <span th:text="${postList[0].formattedDate}"></span>
+            <span th:text="${postList[0].scaryNumber}"></span>
+            <span th:text="${postList[0].commentNumber}"></span>
         </div>
     </div>
 
@@ -248,7 +346,17 @@
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>
 </body>
-
+<script> function toggleFavorite(element) {
+    const postNo = element.getAttribute('data-postNo');
+    const isFavorite = element.getAttribute('src').includes('best-dark.png');
+    fetch(`/toggleFavorite`, {
+        method: 'POST', headers: {
+            'Content-Type': 'application/json'
+        }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
+        .then(response => response.json()) .then(data => { if (data.success) {
+            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
+        } }) .catch(error => console.error('Error:', error)); }
+</script>
 <script>
     const tab1 = document.getElementById("tab1");
     const tab2 = document.getElementById("tab2");

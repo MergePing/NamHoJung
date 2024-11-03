@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.mergyping.post.model.dao.PostMapper">
+    <resultMap id="postList" type="com.ohgiraffers.mergyping.post.model.dto.PostDTO">
+        <id property="postNo" column="POST_NO"/>
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postCategory" column="POST_CATEGORY"/>
+        <result property="postDate" column="POST_DATE"/>
+        <result property="scaryNumber" column="SCARY_NUMBER"/>
+        <result property="commentNumber" column="COMMENTS_NUMBER"/>
+        <result property="postFavorite" column="POST_FAVORITE"/>
+    </resultMap>
+
+    <select id="postList" resultMap="postList">
+        SELECT
+            POST_NO,
+            POST_TITLE,
+            POST_CATEGORY,
+            POST_DATE,
+            SCARY_NUMBER,
+            COMMENTS_NUMBER,
+            POST_FAVORITE
+        FROM TBL_POST
+        ORDER BY POST_DATE;
+    </select>
+
+        <!-- 기존 매핑들 -->
+        <update id="updateFavoriteStatus">
+            UPDATE TBL_POST
+            SET POST_FAVORITE = #{isFavorite}
+            WHERE POST_NO = #{postNo}
+        </update>
+
+</mapper>
