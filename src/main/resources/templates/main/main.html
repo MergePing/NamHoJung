@@ -7,35 +7,47 @@
     <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-darkmode.css}">
     <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
     <!--    <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-lightmode.css}">-->
-<!--    <style>-->
-<!--        /* 손전등 */-->
-<!--        :root {-->
-<!--            &#45;&#45;cursorX: 70vw;-->
-<!--            &#45;&#45;cursorY: 70vh;-->
-<!--        }-->
-<!--        :root:before {-->
-<!--            content: '';-->
-<!--            display: block;-->
-<!--            width: 100%;-->
-<!--            height: 100%;-->
-<!--            position: fixed;-->
-<!--            pointer-events: none;-->
-<!--            z-index: 999999;-->
-<!--            background: radial-gradient(-->
-<!--                    circle 15vmax at var(&#45;&#45;cursorX) var(&#45;&#45;cursorY),-->
-<!--                    rgba(0,0,0,0) 0%,-->
-<!--                    rgba(0,0,0,.5) 80%,-->
-<!--                    rgba(0,0,0,.95) 100%)-->
-<!--        }-->
+    <style>
+        /* 손전등 */
+        /*:root {*/
+        /*    --cursorX: 70vw;*/
+        /*    --cursorY: 70vh;*/
+        /*}*/
+        /*:root:before {*/
+        /*    content: '';*/
+        /*    display: block;*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*    position: fixed;*/
+        /*    pointer-events: none;*/
+        /*    z-index: 999999;*/
+        /*    background: radial-gradient(*/
+        /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
+        /*            rgba(0,0,0,0) 0%,*/
+        /*            rgba(0,0,0,.5) 80%,*/
+        /*            rgba(0,0,0,.95) 100%)*/
+        /*}*/
 
-<!--        * {-->
-<!--            box-sizing: border-box;-->
-<!--            text-rendering: optimizeLegibility;-->
-<!--            -webkit-font-smoothing: antialiased;-->
-<!--            -moz-osx-font-smoothing: grayscale;-->
-<!--            font-kerning: auto;-->
-<!--        }-->
-<!--    </style>-->
+        /** {*/
+        /*    box-sizing: border-box;*/
+        /*    text-rendering: optimizeLegibility;*/
+        /*    -webkit-font-smoothing: antialiased;*/
+        /*    -moz-osx-font-smoothing: grayscale;*/
+        /*    font-kerning: auto;*/
+        /*}*/
+
+        .multiline-ellipsis {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4; /* 원하는 줄 수 */
+            overflow: hidden;
+        }
+
+        .ellipsis {
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -56,37 +68,37 @@
 </header>
 
 
-<aside id="myPageAside">
-    <p class="mypagefont">마이페이지</p>
-    <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
-    <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
-    <p id="rank" class="rankfont">등급: 어쩌구</p>
-    <p class="infofont" id="info">개인 정보</p>
-    <p class="activefont" id="active">활동 기록</p>
-    <p class="MBTIfont">MBTI</p>
-    <p class="logoutfont">로그아웃</p>
-</aside>
-<div class="rankpopup" id="rank-popup">
-    <p class="scorefont">활동 점수 : </p>
-    <p class="nextfont">다음 등급 : </p>
-    <p class="needfont">필요 점수 : </p>
-</div>
+<!--<aside id="myPageAside">-->
+<!--    <p class="mypagefont">마이페이지</p>-->
+<!--    <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">-->
+<!--    <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>-->
+<!--    <p id="rank" class="rankfont">등급: 어쩌구</p>-->
+<!--    <p class="infofont" id="info">개인 정보</p>-->
+<!--    <p class="activefont" id="active">활동 기록</p>-->
+<!--    <p class="MBTIfont">MBTI</p>-->
+<!--    <p class="logoutfont">로그아웃</p>-->
+<!--</aside>-->
+<!--<div class="rankpopup" id="rank-popup">-->
+<!--    <p class="scorefont">활동 점수 : </p>-->
+<!--    <p class="nextfont">다음 등급 : </p>-->
+<!--    <p class="needfont">필요 점수 : </p>-->
+<!--</div>-->
 
-<div class="modal-background" id="modal-background">
-    <div class="pwdpopup" id="pwd-popup">
-        <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
-        <div class="pwd-container">
-            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="비밀번호">
-            <span class="toggle-password" id="togglePassword">&#128065;</span>
-        </div>
+<!--<div class="modal-background" id="modal-background">-->
+<!--    <div class="pwdpopup" id="pwd-popup">-->
+<!--        <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>-->
+<!--        <div class="pwd-container">-->
+<!--            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="비밀번호">-->
+<!--            <span class="toggle-password" id="togglePassword">&#128065;</span>-->
+<!--        </div>-->
 
-        <div class="popup-buttons">
-            <button id="closePopupBtn" class="cancle-btn">취소</button>
-            <button id="submitPasswordBtn" class="confirm-btn">확인</button>
-        </div>
+<!--        <div class="popup-buttons">-->
+<!--            <button id="closePopupBtn" class="cancle-btn">취소</button>-->
+<!--            <button id="submitPasswordBtn" class="confirm-btn">확인</button>-->
+<!--        </div>-->
 
-    </div>
-</div>
+<!--    </div>-->
+<!--</div>-->
 <main>
     <!--메인 1페이지-->
     <div class="main1">
@@ -112,31 +124,18 @@
         <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지">
         <div class="fristbest">
             <img th:src="@{/images/main/main2-img1.png}" alt="베스트 게시물 이미지1">
-            <p>싸이코패스 테스트</p>
-            <span>유명한 싸이코패스 테스트인데 한번씩 해보세요.<br>
-                <br>
-                아파트에 사는 어떤 사람이 살인사건을 목격했는데 칼을 든 살인마가 그 사람을 발견하고 칼을 쳐 들며 ... </span>
+            <p th:text="${bestPosts[0].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis" th:text="${bestPosts[0].postContent}"> </span>
             <img th:src="@{/images/main/main2-img2.png}" alt="베스트 게시물 이미지2">
-            <p>동굴속의 아이들</p>
-            <span> 어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이<br>
-                    있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는<br>
-                    산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나<br>
-                    있었다고 합니다. 충격적이게 그 동굴 안에는 이상...</span>
+            <p th:text="${bestPosts[1].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis" th:text="${bestPosts[1].postContent}"> </span>
             <img th:src="@{/images/main/main2-img3.png}" alt="베스트 게시물 이미지3">
-            <p>암흑이 두려운 사람</p>
-            <span>
-                혹시 이럴 때 안무서우신가요?<br>
-                머리감을 때 눈을 감을 수밖에 없는데 귀신이 앞에 있<br>
-                는다는 상상을 하거나, 무언가 나를 지켜보고 있다거나<br>
-                하는 상상이요. 한번 상상하고 나서는 자꾸 두려워지...
+            <p th:text="${bestPosts[2].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis"  th:text="${bestPosts[2].postContent}">
             </span>
             <img th:src="@{/images/main/main2-img4.png}" alt="베스트 게시물 이미지4">
-            <p>어릴 때 경험담</p>
-            <span>
-                서울 오기 전에 시골에 살았었는데, 시골학교에서 <br>
-                옆 마을 폐가로 담력테스트를 한다고 하루를 전교생이<br>
-                소풍가듯이 간 적이 있었는데 거기서 화장실을 갔거든<br>
-                그런데 화장실만 가면 이상한 말이 들리는거야?  원...
+            <p th:text="${bestPosts[3].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis"   th:text="${bestPosts[3].postContent}">
             </span>
         </div>
     </div>
