@@ -25,12 +25,12 @@
     <p class="signupInfoText">회원가입</p>
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
     <form th:action="@{/auth/signup}" method="post">
-    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="1">
-    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8">
-    <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1">
-    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1">
+    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="1" oninput="toggleFields()" required>
+    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" oninput="togglePasswordConfirmField()" required>
+    <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required>
+    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required>
 
-    <label for="email" class="emailLabel">이메일 : </label><input type="email" id="email" class="emailInput" name="userEmail" minlength="1">
+    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" required>
     <p class="emailMain">@</p>
     <input class="box" id="domain-txt" type="text"/>
     <select class="box" id="domain-list">
@@ -52,7 +52,7 @@
     </div>
 
     <p class="birthday">생년월일 : </p>
-    <div class="info" id="info__birth">
+    <div class="info" id="info_birth">
         <select class="box1" id="birth-year">
             <option disabled selected>출생 연도</option>
         </select>
@@ -62,8 +62,9 @@
         <select class="box1" id="birth-day">
             <option disabled selected>일</option>
         </select>
-        <div id="print-date"></div>
     </div>
+        <!--   이거 없으면 안담김 ㅠㅠ 개고생 input태그가 아니므로    -->
+        <input type="hidden" name="birthDate" id="birthDate">
     <button id="resetBirth">초기화</button>
 
     <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="gender" value="MALE">
@@ -74,6 +75,43 @@
     </form>
 </div>
 <script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        const emailInput = document.querySelector('#email');
+        const domainInput = document.querySelector('#domain-txt');
+        const domainSelect = document.querySelector('#domain-list');
+
+        const emailBeforeAt = emailInput.value.split('@')[0];
+
+        if (domainSelect.value !== "type") {
+            emailInput.value += "@" + domainSelect.value;
+        } else {
+            emailInput.value += "@" + domainInput.value;
+        }
+    });
+
+    form.addEventListener('submit', function(event) {
+        // event.preventDefault(); 검사용 => 담김
+        const year = document.querySelector('#birth-year').value;
+        const month = document.querySelector('#birth-month').value;
+        const day = document.querySelector('#birth-day').value;
+
+        if (year && month && day) {
+            // DATE 객체에서 month는 1로 선택해도 0으로 인식되어 -1이 들어가야함
+            const birthDate = new Date(year, month - 1, day);
+            const formattedDate = birthDate.toISOString().split('T')[0]; // 자료형이 DATE라서 STRING으로 변경해서 저장 -> 저장이 안됨
+            // console.log(formattedDate); 검사용 => 담김
+            // form.submit(); 검사용 => 확인시 - 인증이랑 같이 쓰면 될듯
+            document.querySelector('#birthDate').value = formattedDate;
+        }
+    });
+
+    form.addEventListener('submit', function(event) {
+        const genderInput = document.querySelector('input[name="gender"]:checked');
+        const formattedGender = genderInput ? genderInput.value : null;
+    });
+
+
     // 회원가입 메시지 => 나중에 모달로 변경하면 좋을듯?
         const message = `[[${ message }]]`
         if(message) {
@@ -93,7 +131,7 @@
         }
     })
 
-    // 생년
+    // 연
     const birthYearEl = document.querySelector('#birth-year')
     isYearOptionExisted = false;
     birthYearEl.addEventListener('focus', function () {
@@ -114,7 +152,7 @@
     birthMonthEl.addEventListener('focus', function () {
         if(!isMonthOptionExisted) {
             isMonthOptionExisted = true
-            for(var i = 0; i <= 12; i++) {
+            for(var i = 1; i <= 12; i++) {
                 const MonthOption = document.createElement('option')
                 MonthOption.setAttribute('value', i)
                 MonthOption.innerText = i
@@ -168,6 +206,72 @@
             });
         }
     });
+
+    // 입력한다음 넘어가기
+    const userIdInput = document.getElementById('id');
+    const passwordInput = document.getElementById('password');
+    const passwordConfirmInput = document.getElementById('passwordConfirm');
+    const nicknameInput = document.getElementById('nickname');
+    const emailInput = document.getElementById('email');
+
+    // id는 처음에 활성화 돼 있어야 하므로 없어야 함
+    passwordInput.disabled = true;
+    passwordConfirmInput.disabled = true;
+    nicknameInput.disabled = true;
+    emailInput.disabled = true;
+
+    function toggleFields() {
+        if (userIdInput.value) {
+            passwordInput.disabled = false;
+        } else {
+            resetFields();
+        }
+        togglePasswordConfirmField();
+    }
+
+    function togglePasswordConfirmField() {
+        if (passwordInput.value) {
+            passwordConfirmInput.disabled = false;
+        } else {
+            passwordConfirmInput.disabled = true;
+            emailInput.disabled = true;
+        }
+        toggleNicknameField();
+    }
+
+    function toggleNicknameField() {
+        if (passwordConfirmInput.value) {
+            nicknameInput.disabled = false;
+        } else {
+            nicknameInput.disabled = true;
+            emailInput.disabled = true;
+        }
+        toggleEmailField();
+    }
+
+    function toggleEmailField() {
+        // 닉네임이 입력되면 이메일 필드 활성화
+        if (nicknameInput.value) {
+            emailInput.disabled = false;
+        } else {
+            emailInput.disabled = true;
+        }
+    }
+
+    function resetFields() {
+        passwordInput.disabled = true;
+        passwordConfirmInput.disabled = true;
+        nicknameInput.disabled = true;
+        emailInput.disabled = true;
+        passwordInput.value = "";
+        passwordConfirmInput.value = "";
+    }
+
+    // 이거 사용하지 않고 body쪽에서 oninput 사용
+    // userIdInput.addEventListener('input', toggleFields);
+    // passwordInput.addEventListener('input', togglePasswordConfirmField);
+    // passwordConfirmInput.addEventListener('input', toggleNicknameField);
+    // nicknameInput.addEventListener('input', toggleEmailField);
 </script>
 </body>
 </html>

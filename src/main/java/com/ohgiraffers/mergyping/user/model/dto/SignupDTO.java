@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.user.model.dto;
 
+import com.ohgiraffers.mergyping.common.Gender;
 import com.ohgiraffers.mergyping.common.UserRole;
 
 import java.sql.Date;
@@ -9,17 +10,19 @@ public class SignupDTO {
     private String userPass;
     private String userName;
     private String userEmail;
-    private Date signupDate;
+    private Date userBirth;
+    private Gender userGender;
     private UserRole userRole;
 
     public SignupDTO() {}
 
-    public SignupDTO(String userId, String userPass, String userName, String userEmail, Date signupDate, UserRole userRole) {
+    public SignupDTO(String userId, String userPass, String userName, String userEmail, Date userBirth, Gender userGender, UserRole userRole) {
         this.userId = userId;
         this.userPass = userPass;
         this.userName = userName;
         this.userEmail = userEmail;
-        this.signupDate = signupDate;
+        this.userBirth = userBirth;
+        this.userGender = userGender;
         this.userRole = userRole;
     }
 
@@ -55,12 +58,20 @@ public class SignupDTO {
         this.userEmail = userEmail;
     }
 
-    public Date getSignupDate() {
-        return signupDate;
+    public Date getUserBirth() {
+        return userBirth;
     }
 
-    public void setSignupDate(Date signupDate) {
-        this.signupDate = signupDate;
+    public void setUserBirth(Date userBirth) {
+        this.userBirth = userBirth;
+    }
+
+    public Gender getUserGender() {
+        return userGender;
+    }
+
+    public void setUserGender(Gender userGender) {
+        this.userGender = userGender;
     }
 
     public UserRole getUserRole() {
@@ -78,7 +89,8 @@ public class SignupDTO {
                 ", userPass='" + userPass + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
-                ", signupDate=" + signupDate +
+                ", userBirth=" + userBirth +
+                ", userGender=" + userGender +
                 ", userRole=" + userRole +
                 '}';
     }

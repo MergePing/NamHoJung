@@ -1,14 +1,14 @@
 -- 계정 권한 부여 및 스키마 생성
 
-CREATE USER 'ohgiraffers'@'%' IDENTIFIED BY  'ohgiraffers';
+-- CREATE USER 'ohgiraffers'@'%' IDENTIFIED BY  'ohgiraffers';
 
-SELECT * FROM user;
+-- SELECT * FROM user;
 
-CREATE DATABASE horrordb;
+-- CREATE DATABASE horrordb;
 
-GRANT ALL PRIVILEGES ON horrordb.* TO 'ohgiraffers'@'%';
+-- GRANT ALL PRIVILEGES ON horrordb.* TO 'ohgiraffers'@'%';
 
-USE horrordb;
+-- USE horrordb;
 
 DROP TABLE IF EXISTS `TBL_USER`;
 CREATE TABLE IF NOT EXISTS `TBL_USER`

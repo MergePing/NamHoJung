@@ -17,7 +17,8 @@
         , USER_PWD
         , USER_NAME
         , EMAIL
-        , USER_SIGN_DATE
+        , BIRTHDAY
+        , USER_GENDER
         )
         VALUES
         (
@@ -25,7 +26,8 @@
         #{ userPass },
         #{ userName },
         #{ userEmail },
-        #{ signupDate }
+        #{ userBirth },
+        #{ userGender }
         )
     </insert>
 
