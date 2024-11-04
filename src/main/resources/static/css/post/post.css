@@ -278,6 +278,10 @@ main .select{
     left: 730px;
 }
 
+main .select:active{
+    border: 3px solid #FFFFFF;
+
+}
 
 main .select p{
     position: absolute;
@@ -424,6 +428,13 @@ main .post span:nth-of-type(3){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
+    width: 410px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    height:auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 
@@ -470,12 +481,13 @@ main .post span:nth-of-type(4){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
+
 }
 
 
 main .post span:nth-of-type(5){
     position: absolute;
-    left: 1365px;
+    left: 1380px;
     top: 380px;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
@@ -486,7 +498,7 @@ main .post span:nth-of-type(5){
 
 main .post span:nth-of-type(6){
     position: absolute;
-    left: 1545px;
+    left: 1560px;
     top: 380px;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
