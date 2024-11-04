@@ -21,4 +21,9 @@ public class MyPageService {
     public MyPageDTO findEmail() {
         return myPageMapper.findEmail();
     }
+
+
+    public boolean isNicknameDuplicate(String nickname) {
+        return myPageMapper.existsByNickname(nickname);
+    }
 }

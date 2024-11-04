@@ -34,7 +34,8 @@
             <div class="input-group">
                 <label class="mpname">닉네임</label>
                 <input type="text" id="nickname" th:placeholder="${myPageDTO.userName}">
-                <button class="btn-check">중복확인</button>
+                <button class="btn-check" onclick="checkDuplicate()">중복확인</button>
+                <div id="duplicateMessage" class="duplicatemsg" style="color: red; display: none;"></div>
             </div>
 
             <div class="input-group">
@@ -52,7 +53,7 @@
 
             <div class="input-group">
                 <label class="mpemail">이메일</label>
-                <input type="email" id="email" th:placeholder="${myPageDTO.email}">
+                <input type="email" id="email" th:placeholder="${myPageDTO2.email}">
                 <button class="btn-confirm" id="confirmcheck">인증</button>
             </div>
 
@@ -199,6 +200,25 @@
             // URL을 원하는 주소로 변경하세요
             location.href = '/main';
         });
+
+        function checkDuplicate() {
+            const nickname = document.getElementById("nickname").value;
+            const duplicateMessage = document.getElementById("duplicateMessage");
+
+            fetch(`/checkNickname?nickname=${nickname}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isDuplicate) {
+                        duplicateMessage.textContent = "중복된 닉네임 입니다.";
+                        duplicateMessage.style.color = "red";
+                    } else {
+                        duplicateMessage.textContent = "올바른 닉네임 입니다.";
+                        duplicateMessage.style.color = "black";
+                    }
+                    duplicateMessage.style.display = "block";
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
 
     </script>
