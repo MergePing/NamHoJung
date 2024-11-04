@@ -60,10 +60,16 @@
     <p class="mypagefont">마이페이지</p>
     <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
-    <p id="rank" class="rankfont">등급: 어쩌구</p>
+    <p id="rank" class="rankfont">등급: <img th:src="@{/images/mypageimages/rank-1.png}" alt="랭크" class="rank-photo" id="rankPhoto"></p>
     <p class="infofont" id="info">개인 정보</p>
     <p class="activefont" id="active">활동 기록</p>
-    <p class="MBTIfont">MBTI</p>
+    <p class="MBTIfont" id="mbtiButton">MBTI</p>
+    <div id="mbtiContent" style="display: none;">
+        <div id="myMBTI" class="mbti-item">
+            -- 나의 MBTI
+        </div>
+        <div class="mbti-item2">-- MBTI 검사</div>
+    </div>
     <p class="logoutfont">로그아웃</p>
 </aside>
 <div class="rankpopup" id="rank-popup">
@@ -85,6 +91,15 @@
             <button id="submitPasswordBtn" class="confirm-btn">확인</button>
         </div>
 
+    </div>
+</div>
+<div class="mbtipopup" id="mbtiPopup">
+    <p class="horrormbti">나의 공포 MBTI</p>
+    <p class="mbticategory">CGET</p>
+    <div class="mbtiexp">
+        <p class="mtbtiexp2">당신은 위험한 순간에 신중하지만
+            사람보다 귀신을 무서워하면서도
+            공포의 스릴을 즈기는 특이한 사람입니다.</p>
     </div>
 </div>
 <main>
@@ -201,8 +216,8 @@
         document.body.style.overflow = "hidden"; // 스크롤 비활성화
     });
 
-    personalInfoBtn.addEventListener("click", ()=>{
-        modal.style.display="flex";
+    personalInfoBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
         if (modal.style.display === "flex") {
             closePopupBtn.addEventListener("click", () => {
                 modal.style.display = "none";
@@ -210,7 +225,6 @@
             });
         }
     });
-
 
 
     // 비밀번호 보기/숨기기 토글
@@ -231,18 +245,40 @@
         location.href = '/useractive';
     });
 
+    const mbtiButton = document.getElementById("mbtiButton");
+    const mbtiContent = document.getElementById("mbtiContent");
+    const myMBTI = document.getElementById("myMBTI");
+    const mbtiPopup = document.getElementById("mbtiPopup");
+
+    // MBTI 버튼 클릭 시 MBTI 콘텐츠 표시
+    mbtiButton.addEventListener("click", () => {
+        // 콘텐츠 표시 상태를 토글
+        mbtiContent.style.display = mbtiContent.style.display === "none" ? "block" : "none";
+    });
+
+    // 나의 MBTI 요소에 마우스 올렸을 때 팝업 표시
+    myMBTI.addEventListener("mouseenter", () => {
+        mbtiPopup.style.display = "block";
+    });
+
+    // 나의 MBTI 요소에서 마우스 나갔을 때 팝업 숨기기
+    myMBTI.addEventListener("mouseleave", () => {
+        mbtiPopup.style.display = "none";
+    });
+
+
 
 </script>
 
 <script>
     const floatBtn1 = document.getElementById("light");
     const floatBtn2 = document.getElementById("dark");
-    const qickMenu1 =document.getElementById("top");
-    const qickMenu2 =document.getElementById("mode");
-    const qickMenu3 =document.getElementById("test");
+    const qickMenu1 = document.getElementById("top");
+    const qickMenu2 = document.getElementById("mode");
+    const qickMenu3 = document.getElementById("test");
 
     <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
-    floatBtn1.addEventListener('click',function (){
+    floatBtn1.addEventListener('click', function () {
         floatBtn1.classList.toggle('dn');
         floatBtn2.classList.toggle('dn');
         qickMenu1.classList.toggle('dn');

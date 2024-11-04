@@ -7,10 +7,17 @@
 
     <resultMap id="mypageResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
         <result property="userName" column="USER_NAME"/>
+        <result property="email"  column="EMAIL"/>
     </resultMap>
 
     <select id="findNickName"   resultMap="mypageResultMap" >
         SELECT USER_NAME
+        FROM TBL_USER
+        WHERE USER_NO = '2'
+    </select>
+
+    <select id="findEmail" resultMap="mypageResultMap">
+        SELECT EMAIL
         FROM TBL_USER
         WHERE USER_NO = '2'
     </select>

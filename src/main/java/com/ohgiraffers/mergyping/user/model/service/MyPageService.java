@@ -17,4 +17,8 @@ public class MyPageService {
     public MyPageDTO findNickName() {
         return myPageMapper.findNickName();
     }
+
+    public MyPageDTO findEmail() {
+        return myPageMapper.findEmail();
+    }
 }

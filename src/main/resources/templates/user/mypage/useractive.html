@@ -2,9 +2,610 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시판</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/post/post.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage/mypageactive.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
+    <style>
+        /*손전등*/
+        /*:root {*/
+        /*    --cursorX: 70vw;*/
+        /*    --cursorY: 70vh;*/
+        /*}*/
+        /*:root:before {*/
+        /*    content: '';*/
+        /*    display: block;*/
+        /*    width: 100%;*/
+        /*    height: 100%;*/
+        /*    position: fixed;*/
+        /*    pointer-events: none;*/
+        /*    z-index: 999999;*/
+        /*    background: radial-gradient(*/
+        /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
+        /*            rgba(0,0,0,0) 0%,*/
+        /*            rgba(0,0,0,.5) 80%,*/
+        /*            rgba(0,0,0,.95) 100%)*/
+        /*}*/
+
+        /** {*/
+        /*    box-sizing: border-box;*/
+        /*    text-rendering: optimizeLegibility;*/
+        /*    -webkit-font-smoothing: antialiased;*/
+        /*    -moz-osx-font-smoothing: grayscale;*/
+        /*    font-kerning: auto;*/
+        /*}*/
+    </style>
 </head>
 <body>
 
+<header>
+
+    <nav>
+        <!--네비바-->
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/notice'">공지사항</span>
+        <span onclick="location.href='/post'">게시판</span>
+        <span>MBTI 검사</span>
+        <span id="mypageBtn">마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+
+</header>
+
+<aside id="myPageAside">
+    <p class="mypagefont">마이페이지</p>
+    <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+    <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
+    <p id="rank" class="rankfont">등급: 어쩌구</p>
+    <p class="infofont" id="info">개인 정보</p>
+    <p class="activefont" id="active">활동 기록</p>
+    <p class="MBTIfont" id="mbtiButton">MBTI</p>
+    <div id="mbtiContent" style="display: none;">
+        <div id="myMBTI" class="mbti-item">
+            -- 나의 MBTI
+        </div>
+        <div class="mbti-item2">-- MBTI 검사</div>
+    </div>
+    <p class="logoutfont">로그아웃</p>
+</aside>
+<div class="rankpopup" id="rank-popup">
+    <p class="scorefont">활동 점수 : </p>
+    <p class="nextfont">다음 등급 : </p>
+    <p class="needfont">필요 점수 : </p>
+</div>
+
+<div class="modal-background" id="modal-background">
+    <div class="pwdpopup" id="pwd-popup">
+        <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
+        <div class="pwd-container">
+            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="비밀번호">
+            <span class="toggle-password" id="togglePassword">&#128065;</span>
+        </div>
+
+        <div class="popup-buttons">
+            <button id="closePopupBtn" class="cancle-btn">취소</button>
+            <button id="submitPasswordBtn" class="confirm-btn">확인</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="mbtipopup" id="mbtiPopup">
+    <p class="horrormbti">나의 공포 MBTI</p>
+    <p class="mbticategory">CGET</p>
+    <div class="mbtiexp">
+        <p class="mtbtiexp2">당신은 위험한 순간에 신중하지만
+            사람보다 귀신을 무서워하면서도
+            공포의 스릴을 즈기는 특이한 사람입니다.</p>
+    </div>
+</div>
+
+<main>
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
+            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+        </div>
+    </div>
+
+    <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
+
+    <div class="write1 active" id="write1">
+        <p>작성한 게시글</p>
+    </div>
+
+    <div class="write2" id="write2">
+        <p>작성한 댓글</p>
+    </div>
+
+    <div class="write3" id="write3">
+        <p>즐겨찾기</p>
+    </div>
+
+    <input type="search" value="&nbsp; &nbsp; &nbsp;검색어를 입력하세요">
+    <label><img th:src="@{/images/post/Search-dark.png}"></label>
+
+
+    <div class="sell" id="sellPostsContent">
+        <span>번호</span>
+        <span>즐겨찾기</span>
+        <span>게시물 제목</span>
+        <span>카테고리</span>
+        <span>등록날짜</span>
+        <span>무서워요</span>
+        <span>댓글</span>
+    </div>
+
+    <div class="sell2" id="sellCommentsContent" style="display: none;">
+        <span>번호</span>
+        <span>댓글 내용</span>
+        <span>등록날짜</span>
+        <span>좋아요</span>
+    </div>
+
+    <div class="sell" id="sellFavoriteContent" style="display: none;">
+        <span>번호</span>
+        <span>즐겨찾기</span>
+        <span>게시글 제목</span>
+        <span>카테고리</span>
+        <span>등록날짜</span>
+        <span>무서워요</span>
+        <span>댓글</span>
+    </div>
+
+
+    <div class="post1">
+        <div class="post" id="postsContent">
+            <span>1</span>
+            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
+            <span>동굴속의 아이들</span>
+            <div><span>실화</span></div>
+            <span>2024.10.24</span>
+            <span>323</span>
+            <span>102</span>
+        </div>
+
+    </div>
+
+    <div class="post2 dn">
+        <div class="post" >
+            <span>07</span>
+            <span><img th:src="@{/images/post/best-dark.png}"></span>
+            <span>2024년 11월 서비스 오픈 안내</span>
+            <div><span>SF</span></div>
+            <span>2024.10.23</span>
+            <span>616</span>
+            <span>134</span>
+        </div>
+
+    </div>
+
+    <div id="commentsContent" class="comment" style="display: none;">
+        <span>1</span>
+        <span>노는 게 제일 좋아 친구들 모여라 언제나 즐거워 개구쟁이 뽀로로 눈 덮인 숲 속 마을 </span>
+        <span>2024.10.24</span>
+        <span>323</span>
+
+    </div>
+    <div id="commentsContent2" class="comment" style="display: none;">
+        <span>10</span>
+        <span>어렵다 개어렵다 하기싫어 개하기싫어 짜증나 개짜증나 </span>
+        <span>2024.10.24</span>
+        <span>323</span>
+
+    </div>
+    <div id="favoritesContent" class="post" style="display: none;">
+        <span>1</span>
+        <span><img th:src="@{/images/post/best-dark.png}"></span>
+        <span>동굴속의 어른들</span>
+        <div><span>실화</span></div>
+        <span>2024.10.25</span>
+        <span>322</span>
+        <span>100</span>
+    </div>
+    <div id="favoritesContent2" class="post" style="display: none;">
+        <span>14</span>
+        <span><img th:src="@{/images/post/best-dark.png}"></span>
+        <span>뷁뷁뷁뷁뷁부렉</span>
+        <div><span>실화</span></div>
+        <span>2024.10.25</span>
+        <span>322</span>
+        <span>100</span>
+    </div>
+
+
+    <div class="pageNum" id="postsPagination">
+        <img th:src="@{/images/notice/pre-btn.png}" id="img1">
+        <div class="tab">
+            <p id="tab1">1</p>
+            <p id="tab2">2</p>
+        </div>
+        <img th:src="@{/images/notice/next-btn.png}" id="img2">
+    </div>
+
+    <div class="pageNum" id="commentsPagination" style="display: none">
+        <img th:src="@{/images/notice/pre-btn.png}" id="commentimg">
+        <div class="tab">
+            <p id="commenttab1">1</p>
+            <p id="commenttab2">2</p>
+        </div>
+        <img th:src="@{/images/notice/next-btn.png}" id="commentimg2">
+    </div>
+
+    <div class="pageNum" id="favoritesPagination" style="display: none">
+        <img th:src="@{/images/notice/pre-btn.png}" id="favoriteimg">
+        <div class="tab">
+            <p id="favoritetab1">1</p>
+            <p id="favoritetab2">2</p>
+        </div>
+        <img th:src="@{/images/notice/next-btn.png}" id="favoriteimg2">
+    </div>
+
+
+</main>
+
+<footer>
+    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
+</footer>
 </body>
+
+<script>
+    const write1 = document.getElementById('write1');
+    const write2 = document.getElementById('write2');
+    const write3 = document.getElementById('write3');
+    const sellPostsContent = document.getElementById('sellPostsContent');
+    const sellCommentsContent = document.getElementById('sellCommentsContent');
+    const sellFavoriteContent = document.getElementById('sellFavoriteContent');
+    const postsContent = document.getElementById('postsContent');
+    const commentsContent = document.getElementById('commentsContent');
+    const favoritesContent = document.getElementById('favoritesContent');
+    const postsPagination = document.getElementById('postsPagination');
+    const commentsPagination = document.getElementById('commentsPagination');
+    const favoritesPagination = document.getElementById('favoritesPagination');
+    // 탭 요소 가져오기
+    const tab1 = document.getElementById("tab1");
+    const tab2 = document.getElementById("tab2");
+    const post1 = document.querySelectorAll(".post1");
+    const post2 = document.querySelectorAll(".post2");
+
+    const commentTab1 = document.getElementById("commenttab1");
+    const commentTab2 = document.getElementById("commenttab2");
+
+    const favoriteTab1 = document.getElementById("favoritetab1");
+    const favoriteTab2 = document.getElementById("favoritetab2");
+
+    function resetButtonStyles() {
+        write1.classList.remove('active');
+        write2.classList.remove('active');
+        write3.classList.remove('active');
+    }
+    function resetPagination() {
+        postsPagination.style.display = 'none';
+        commentsPagination.style.display = 'none';
+        favoritesPagination.style.display = 'none';
+    }
+    // 탭 상태 초기화
+    function resetTabStyles() {
+        // 게시글 첫 페이지로 초기화
+        post1.forEach(click => click.classList.remove("dn"));
+        post2.forEach(click => click.classList.add("dn"));
+        tab1.style.color = "#fff";
+        tab2.style.color = "#BEBEBE";
+
+        // 댓글 첫 페이지로 초기화
+        document.getElementById('commentsContent').style.display = 'block';
+        document.getElementById('commentsContent2').style.display = 'none';
+        commentTab1.style.color = "#fff";
+        commentTab2.style.color = "#BEBEBE";
+
+        // 즐겨찾기 첫 페이지로 초기화
+        document.getElementById('favoritesContent').style.display = 'block';
+        document.getElementById('favoritesContent2').style.display = 'none';
+        favoriteTab1.style.color = "#fff";
+        favoriteTab2.style.color = "#BEBEBE";
+    }
+
+
+    write1.addEventListener('click', function() {
+        resetButtonStyles();
+        resetPagination();
+        resetTabStyles();
+        write1.classList.add('active');
+
+        // 작성한 게시글 설정
+        sellPostsContent.style.display = 'block';
+        sellCommentsContent.style.display = 'none';
+        sellFavoriteContent.style.display = 'none';
+
+        postsContent.style.display = 'block';
+        commentsContent.style.display = 'none';
+        favoritesContent.style.display = 'none';
+
+        // 작성한 게시글의 페이지 넘버 표시
+        postsPagination.style.display = 'flex';
+
+    });
+
+    write2.addEventListener('click', function() {
+        resetButtonStyles();
+        resetPagination();
+        resetTabStyles();
+        write2.classList.add('active');
+
+        // 작성한 댓글 설정
+        sellPostsContent.style.display = 'none';
+        sellCommentsContent.style.display = 'block';
+        sellFavoriteContent.style.display = 'none';
+
+        postsContent.style.display = 'none';
+        commentsContent.style.display = 'block';
+        favoritesContent.style.display = 'none';
+
+        // 작성한 댓글의 페이지 넘버 표시
+        commentsPagination.style.display = 'flex';
+    });
+
+
+    write3.addEventListener('click', function() {
+        resetButtonStyles();
+        resetPagination();
+        resetTabStyles();
+        write3.classList.add('active');
+
+        // 즐겨찾기 설정
+        sellPostsContent.style.display = 'none';
+        sellCommentsContent.style.display = 'none';
+        sellFavoriteContent.style.display = 'block';
+
+        postsContent.style.display = 'none';
+        commentsContent.style.display = 'none';
+        favoritesContent.style.display = 'block';
+
+        // 즐겨찾기의 페이지 넘버 표시
+        favoritesPagination.style.display = 'flex';
+    });
+    // 작성한 게시글 페이지 전환
+
+    tab1.addEventListener('click', () => {
+        post1.forEach(click => click.classList.remove("dn"));
+        post2.forEach(click => click.classList.add("dn"));
+        tab1.style.color = "#fff";
+        tab2.style.color = "#BEBEBE";
+    });
+
+    tab2.addEventListener('click', () => {
+        post2.forEach(click => click.classList.remove("dn"));
+        post1.forEach(click => click.classList.add("dn"));
+        tab2.style.color = "#fff";
+        tab1.style.color = "#BEBEBE";
+    });
+
+    // 작성한 댓글 페이지 전환
+
+    commentTab1.addEventListener('click', () => {
+        document.getElementById('commentsContent').style.display = 'block';
+        document.getElementById('commentsContent2').style.display = 'none';
+        commentTab1.style.color = "#fff";
+        commentTab2.style.color = "#BEBEBE";
+    });
+
+    commentTab2.addEventListener('click', () => {
+        document.getElementById('commentsContent').style.display = 'none';
+        document.getElementById('commentsContent2').style.display = 'block';
+        commentTab2.style.color = "#fff";
+        commentTab1.style.color = "#BEBEBE";
+    });
+
+    // 즐겨찾기 페이지 전환
+    favoriteTab1.addEventListener('click', () => {
+        document.getElementById('favoritesContent').style.display = 'block';
+        document.getElementById('favoritesContent2').style.display = 'none';
+        favoriteTab1.style.color = "#fff";
+        favoriteTab2.style.color = "#BEBEBE";
+    });
+
+    favoriteTab2.addEventListener('click', () => {
+        document.getElementById('favoritesContent').style.display = 'none';
+        document.getElementById('favoritesContent2').style.display = 'block';
+        favoriteTab2.style.color = "#fff";
+        favoriteTab1.style.color = "#BEBEBE";
+    });
+
+    const mbtiButton = document.getElementById("mbtiButton");
+    const mbtiContent = document.getElementById("mbtiContent");
+    const myMBTI = document.getElementById("myMBTI");
+    const mbtiPopup = document.getElementById("mbtiPopup");
+
+    // MBTI 버튼 클릭 시 MBTI 콘텐츠 표시
+    mbtiButton.addEventListener("click", () => {
+        // 콘텐츠 표시 상태를 토글
+        mbtiContent.style.display = mbtiContent.style.display === "none" ? "block" : "none";
+    });
+
+    // 나의 MBTI 요소에 마우스 올렸을 때 팝업 표시
+    myMBTI.addEventListener("mouseenter", () => {
+        mbtiPopup.style.display = "block";
+    });
+
+    // 나의 MBTI 요소에서 마우스 나갔을 때 팝업 숨기기
+    myMBTI.addEventListener("mouseleave", () => {
+        mbtiPopup.style.display = "none";
+    });
+</script>
+
+<!--<script>-->
+<!--    const tab1 = document.getElementById("tab1");-->
+<!--    const tab2 = document.getElementById("tab2");-->
+<!--    const post1 = document.querySelectorAll(".post1");-->
+<!--    const post2 = document.querySelectorAll(".post2");-->
+<!--    const img1 = document.getElementById("img1");-->
+<!--    const img2 = document.getElementById("img2");-->
+
+<!--    tab1.addEventListener('click',()=>{-->
+<!--        post1.forEach(click => click.classList.remove("dn"));-->
+<!--        post2.forEach(click => click.classList.add("dn"));-->
+<!--        tab1.style.color="#fff";-->
+<!--        tab2.style.color="#BEBEBE";-->
+<!--    });-->
+
+<!--    img1.addEventListener('click',()=>{-->
+<!--        post1.forEach(click => click.classList.remove("dn"));-->
+<!--        post2.forEach(click => click.classList.add("dn"));-->
+<!--        tab1.style.color="#fff";-->
+<!--        tab2.style.color="#BEBEBE";-->
+<!--    });-->
+
+<!--    tab2.addEventListener('click',()=>{-->
+<!--        post2.forEach(click => click.classList.remove("dn"));-->
+<!--        post1.forEach(click => click.classList.add("dn"));-->
+<!--        tab2.style.color="#fff";-->
+<!--        tab1.style.color="#BEBEBE";-->
+<!--    });-->
+
+<!--    img2.addEventListener('click',()=>{-->
+<!--        post2.forEach(click => click.classList.remove("dn"));-->
+<!--        post1.forEach(click => click.classList.add("dn"));-->
+<!--        tab2.style.color="#fff";-->
+<!--        tab1.style.color="#BEBEBE";-->
+<!--    });-->
+
+<!--</script>-->
+
+<script>
+    const floatBtn1 = document.getElementById("light");
+    const floatBtn2 = document.getElementById("dark");
+    const qickMenu1 =document.getElementById("top");
+    const qickMenu2 =document.getElementById("mode");
+    const qickMenu3 =document.getElementById("test");
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
+    floatBtn1.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+    });
+
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
+    floatBtn2.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+
+    });
+
+    <!--top 버튼 클릭시 화면 상단이동-->
+    setTimeout(function() {
+        qickMenu1.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }, 3000);
+
+</script>
+<script>
+    function update(e){
+        var x = e.clientX || e.touches[0].clientX
+        var y = e.clientY || e.touches[0].clientY
+
+        document.documentElement.style.setProperty('--cursorX', x + 'px')
+        document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+    document.addEventListener('mousemove',update)
+    document.addEventListener('touchmove',update)
+</script>
+
+
+<script>
+    // JavaScript로 토글 기능 추가
+    const mypageBtn = document.getElementById("mypageBtn");
+    const myPageAside = document.getElementById("myPageAside");
+
+    // 버튼 클릭 시 aside 창 표시/숨김 전환
+    mypageBtn.addEventListener("click", () => {
+        if (myPageAside.classList.contains("show")) {
+            // 보이는 상태라면 숨기기
+            myPageAside.classList.remove("show");
+            setTimeout(() => {
+                myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로
+            }, 400); // transition과 동일한 시간 설정
+        } else {
+            // 숨겨진 상태라면 보이게 하기
+            myPageAside.style.display = "block"; // 먼저 display를 block으로 설정
+            setTimeout(() => {
+                myPageAside.classList.add("show");
+            }, 10); // 약간의 지연 시간 후에 show 클래스 추가
+        }
+    });
+
+    const gradeElement = document.getElementById('rank');
+    const popup = document.getElementById('rank-popup');
+
+    gradeElement.addEventListener('mouseenter', () => {
+        popup.style.display = 'block'; // 팝업 표시
+    });
+
+    gradeElement.addEventListener('mouseleave', () => {
+        popup.style.display = 'none'; // 팝업 숨기기
+    });
+
+    const personalInfoBtn = document.getElementById('info');
+    const passwordPopup = document.getElementById('pwd-popup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('pwdInput');
+    const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+    const modal = document.querySelector('.modal-background');
+
+    //모달
+    personalInfoBtn.addEventListener('click', () => {
+        passwordPopup.style.display = 'block';// 비밀번호 팝업 표시
+        document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    });
+
+    personalInfoBtn.addEventListener("click", ()=>{
+        modal.style.display="flex";
+        if (modal.style.display === "flex") {
+            closePopupBtn.addEventListener("click", () => {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+            });
+        }
+    });
+
+
+
+    // 비밀번호 보기/숨기기 토글
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
+    });
+    // 확인 버튼 클릭 시 다른 URL로 이동
+    submitPasswordBtn.addEventListener('click', () => {
+        // URL을 원하는 주소로 변경하세요
+        location.href = '/userinfo';
+    });
+
+    const activebtn = document.getElementById('active');
+    activebtn.addEventListener('click', () => {
+        // URL을 원하는 주소로 변경하세요
+        location.href = '/useractive';
+    });
+
+
+</script>
 </html>

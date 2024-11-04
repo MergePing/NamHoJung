@@ -269,7 +269,7 @@ header{
     left: 170px;
     top: 700px;
 
-    background: #9CC787;
+    background: #3F781A;
     border-radius: 10px;
 
     font-family: 'BMJUA';
@@ -394,6 +394,216 @@ header{
 #confirmpopup{
     display: none;
 }
+
+.modal-background{
+    position:fixed;
+    display:none;
+
+    justify-content: center;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:2000;
+}
+
+.modifypopup {
+    display: none;
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 767px;
+    height: 351px;
+    left: 550px;
+    top: 400px;
+
+    background: #1C6C2B;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
+.modifyfont{
+    position: absolute;
+    width: 275px;
+    height: 39px;
+    left: 250px;
+    top: 100px;
+
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
+
+}
+
+.submitBtn{
+    position: absolute;
+    width: 117px;
+    height: 58px;
+    left: 320px;
+    top: 220px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+.deletepopup{
+    display: none;
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 767px;
+    height: 351px;
+    left: 550px;
+    top: 400px;
+
+    background: #1C6C2B;
+    border: 1px solid #000000;
+    border-radius: 10px;
+}
+
+.deleteuser{
+    position: absolute;
+    width: 349px;
+    height: 39px;
+    left: 220px;
+    top: 80px;
+
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
+
+}
+.dangerous{
+    position: absolute;
+    width: 359px;
+    height: 52px;
+    left: 220px;
+    top: 130px;
+
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 26px;
+
+    color: #FF0000;
+
+
+}
+.cancleBtn{
+    position: absolute;
+    width: 117px;
+    height: 58px;
+    left: 220px;
+    top: 220px;
+
+    background: #3F781A;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    /* identical to box height */
+
+    color: #000000;
+}
+.submitBtn2{
+    position: absolute;
+    width: 117px;
+    height: 58px;
+    left: 440px;
+    top: 220px;
+
+    background: #9CC787;
+    border-radius: 10px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+}
+.modal-background2{
+    position:fixed;
+    display:none;
+
+    justify-content: center;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:2001;
+}
+.modal-background3{
+    position:fixed;
+    display:none;
+
+    justify-content: center;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:2001;
+}
+
+.deletefont{
+    /* 회원 탈퇴가 완료되었습니다! */
+
+    position: absolute;
+    width: 369px;
+    height: 39px;
+    left: 200px;
+    top: 100px;
+
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
+
+
+}
+
+
+
 
 
 

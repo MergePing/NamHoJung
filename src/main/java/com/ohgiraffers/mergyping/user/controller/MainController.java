@@ -29,17 +29,4 @@ public class MainController {
     @GetMapping("/intro")
     public String intro(){return "/main/intro/intro";}
 
-    @GetMapping("/userinfo")
-    public String showUserInfo(Model model) {
-        // 사용자 정보를 모델에 추가하는 로직
-        // model.addAttribute("userInfo", userInfo);
-        return "user/mypage/userinfo"; // userinfo.html로 이동
-    }
-
-    @GetMapping("/useractive")
-    public String showUseractive(Model model) {
-        // 사용자 정보를 모델에 추가하는 로직
-        // model.addAttribute("userInfo", userInfo);
-        return "user/mypage/useractive"; // userinfo.html로 이동
-    }
 }
