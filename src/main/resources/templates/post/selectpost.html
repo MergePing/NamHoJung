@@ -33,6 +33,9 @@
     /*    font-kerning: auto;*/
     /*}*/
 
+    .ellipsis {
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
 </style>
 </head>
 <body>
@@ -134,7 +137,7 @@
             <span>좋아요</span>
             <img th:src="@{/images/post/selectpost/reportbtn.png}">
             <span>신고</span>
-            <span>근데 이제 제가 경험을 해보니까...결국 이 세트는 철거가 되기 때문에, 다 떠날 거예요.이 세트는 다 허구다. NPC가 되진 말자.</span>
+            <span class="ellipsis">근데 이제 제가 경험을 해보니까...결국 이 세트는 철거가 되기 때문에, 다 떠날 거예요.이 세트는 다 허구다. NPC가 되진 말자.</span>
         </div>
 
         <div id="recomment">
@@ -146,7 +149,8 @@
             </span>
             <span>좋아요</span>
             <img th:src="@{/images/post/selectpost/reportbtn.png}">
-            <span>그때 9점이라고 했죠? 제가 봤을때는 오늘 이 음식이 최강록 씨 요리의 10점 만점에 10점 같습니다. 수고하셨습니다</span>
+            <span>신고</span>
+            <span class=".ellipsis">그때 9점이라고 했죠? 제가 봤을때는 오늘 이 음식이 최강록 씨 요리의 10점 만점에 10점 같습니다. 수고하셨습니다</span>
         </div>
 
         <div class="hidden">

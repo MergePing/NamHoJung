@@ -89,7 +89,7 @@
         <span>무서워요</span>
         <span>댓글</span>
     </div>
-<div class="post1">
+<div class="post1" id="postContainer">
     <div class="post">
         <span th:text="${postList[12].postNo}"></span>
         <span> <img th:src="@{/images/post/best-dark.png}"
@@ -389,6 +389,61 @@
         tab2.style.color="#fff";
         tab1.style.color="#BEBEBE";
     });
+
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tab1 = document.getElementById("tab1");
+        const tab2 = document.getElementById("tab2");
+        const img1 = document.getElementById("img1");
+        const img2 = document.getElementById("img2");
+
+        tab1.addEventListener('click', () => loadPosts(1));
+        tab2.addEventListener('click', () => loadPosts(2));
+        img1.addEventListener('click', () => loadPosts(1));
+        img2.addEventListener('click', () => loadPosts(2));
+
+        function loadPosts(page) {
+            fetch(`/posts?page=${page}&pageSize=7`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(posts => {
+                    console.log(posts); // 받은 데이터 콘솔 로그
+                    const postContainer = document.getElementById('postContainer');
+                    postContainer.innerHTML = '';  // 기존 게시글 제거
+                    posts.forEach(post => addNewPost(post));
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function addNewPost(post) {
+            const postContainer = document.getElementById('postContainer');
+            const newPost = document.createElement('div');
+            newPost.classList.add('post');
+            newPost.innerHTML = `
+            <span>${post.postNo}</span>
+            <span>
+                <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
+                    data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span onclick="location.href='/selectpost'">${post.postTitle}</span>
+            <div><span>${post.postCategory}</span></div>
+            <span>${post.formattedDate}</span>
+            <span>${post.scaryNumber}</span>
+            <span>${post.commentNumber}</span>
+        `;
+            postContainer.appendChild(newPost);
+        }
+
+        // 첫 페이지 로드
+        loadPosts(1);
+    });
+
 
 </script>
 

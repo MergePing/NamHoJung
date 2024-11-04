@@ -248,7 +248,7 @@ main .bg{
     width: 1920px;
     height: 2317px;
     background: #3B572D;
-    top: 0px;
+    top: 50px;
     z-index: -555;
 }
 
@@ -606,7 +606,7 @@ main .bg{
 
 #comment span:nth-of-type(5){
     position: absolute;
-    width: 1700px;
+    width: 1563px;
     font-family: 'SUIT';
     font-weight: 700;
     font-size: 30px;
@@ -640,16 +640,77 @@ main .bg{
 }
 
 #recomment span:nth-of-type(1){
-
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 40px;
+    color: #FFFFFF;
+    top: 20px;
+    left: 160px;
 }
 
+#recomment span img:nth-of-type(1){
+    position: absolute;
+    width: 47px;
+    height: 47px;
+    left: 1360px;
+    top: -10px;
+}
 
+#recomment span:nth-of-type(3){
+    position: absolute;
+    left: 1360px;
+    top: 50px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
 
+#recomment>img:nth-of-type(3){
+    position: absolute;
+    width: 55px;
+    left: 1460px;
+    top: -10px;
+}
 
+#recomment span:nth-of-type(4){
+    position: absolute;
+    left: 1472px;
+    top: 50px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
 
+#recomment span:nth-of-type(5){
+    position: absolute;
+    width: 1436px;
+    left: 80px;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    top: 100px;
+}
 
-
-
+main .hidden{
+    position: absolute;
+    width: 134px;
+    height: 30px;
+    top: 2260px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 900px;
+    border-bottom: #fff solid 3px;
+}
 
 
 
@@ -661,7 +722,7 @@ footer .footer{
     position: absolute;
     width: 1920px;
     height: 69px;
-    top: 2317px;
+    top: 2350px;
     background: #0E2913;
     box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
     z-index: 55;

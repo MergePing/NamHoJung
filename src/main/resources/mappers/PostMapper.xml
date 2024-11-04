@@ -28,10 +28,25 @@
     </select>
 
         <!-- 기존 매핑들 -->
-        <update id="updateFavoriteStatus">
+    <update id="updateFavoriteStatus">
             UPDATE TBL_POST
             SET POST_FAVORITE = #{isFavorite}
             WHERE POST_NO = #{postNo}
-        </update>
+    </update>
+
+    <select id="getPostsByPage" resultType="com.ohgiraffers.mergyping.post.model.dto.PostDTO">
+            SELECT
+                    POST_NO,
+                    POST_TITLE,
+                    POST_CATEGORY,
+                    POST_DATE,
+                    SCARY_NUMBER,
+                    COMMENTS_NUMBER,
+                    POST_FAVORITE
+            FROM TBL_POST
+            ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize}
+    </select>
+
+
 
 </mapper>

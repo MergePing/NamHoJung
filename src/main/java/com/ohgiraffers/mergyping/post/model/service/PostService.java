@@ -33,4 +33,15 @@ public class PostService {
         postMapper.updateFavoriteStatus(postNo, isFavorite);
     }
 
+
+    public List<PostDTO> getPostsByPage(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        List<PostDTO> posts = postMapper.getPostsByPage(offset, pageSize);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        for (PostDTO post : posts) {
+            post.setFormattedDate(formatter.format(post.getPostDate()));
+        }
+        return posts;
+    }
+
 }
