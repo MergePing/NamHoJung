@@ -41,13 +41,13 @@
         <option class="sop" value="nate.com">nate.com</option>
         <option class="sop" value="kakao.com">kakao.com</option>
         </select>
-    <button class="authEmail">인증</button>
+    <button type="button" id="authEmail" class="authEmail" oninput="toggleNextField()">인증</button>
 
     <!-- 인증 모달 -->
     <div class="modalBlur">
         <div class="modalGuide">
             <h1 style="color:white;">이메일 인증</h1>
-            <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6">
+            <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6"><p id="emailCheckMessage"></p>
         </div>
     </div>
 
@@ -78,7 +78,6 @@
 <script>
     // 아이디 체크
     document.getElementById('id').addEventListener('input', function() {
-        const nextButton = document.getElementById('next')
         const userIdInput = this;
         const userId = this.value;
         const messageElement = document.getElementById('idCheckMessage');
@@ -87,21 +86,17 @@
             userIdInput.value = userId.replace(/[^a-zA-Z0-9-_]/g, '');
             messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
             messageElement.style.color = "#FD3C3C";
-            nextButton.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
         }
 
         if (userId.length < 3 && userId.length > 0) {
             messageElement.textContent = "아이디는 최소 4자리 이상이어야 합니다.";
             messageElement.style.color = "#FD3C3C";
-            nextButton.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
         }
 
         if (userId.length > 3) {
@@ -111,11 +106,9 @@
                     if (isAvailable) {
                         messageElement.textContent = "사용 가능한 아이디입니다.";
                         messageElement.style.color = "#6EBA4A";
-                        nextButton.disabled = false;
                     } else {
                         messageElement.textContent = "이미 사용 중인 아이디입니다.";
                         messageElement.style.color = "#FD3C3C";
-                        nextButton.disabled = true;
                     }
                 })
                 .catch(error => {
@@ -125,13 +118,11 @@
                 });
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
         }
     });
 
     // 비밀번호 체크
     document.getElementById('password').addEventListener('input', function() {
-        const nextButton = document.getElementById('next')
         const userPwd = this.value;
         const messageElement = document.getElementById('pwdCheckMessage');
         const passwordConfirmInput = document.getElementById('passwordConfirm');
@@ -141,7 +132,6 @@
         if (rule || kor) {
             messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
             messageElement.style.color = "#FD3C3C";
-            nextButton.disabled = true;
             passwordConfirmInput.disabled = true;
             return;
         } else {
@@ -151,12 +141,10 @@
         if (userPwd.length < 8 && userPwd.length > 0) {
             messageElement.textContent = "비밀번호는 최소 8자리 이상이어야 합니다.";
             messageElement.style.color = "#FD3C3C";
-            nextButton.disabled = true;
             passwordConfirmInput.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
         }
 
         if (userPwd.length > 7) {
@@ -166,12 +154,10 @@
                     if (isAvailable) {
                         messageElement.textContent = "사용 가능한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
-                        nextButton.disabled = false;
                         passwordConfirmInput.disabled = false;
                     } else {
                         messageElement.textContent = "사용 불가한 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
-                        nextButton.disabled = true;
                         passwordConfirmInput.disabled = true;
                     }
                 })
@@ -179,18 +165,15 @@
                     console.error('Error:', error);
                     messageElement.textContent = "사용 불가한 비밀번호입니다.";
                     messageElement.style.color = "#FD3C3C";
-                    nextButton.disabled = true;
                     passwordConfirmInput.disabled = true;
                 });
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
         }
     });
 
     // 비밀번호 확인 체크
     document.getElementById('passwordConfirm').addEventListener('input', function() {
-        const nextButton = document.getElementById('next');
         const userConfirmPwd = this.value;
         const userPwd = document.getElementById('password').value;
         const passwordInput = document.getElementById('password');
@@ -199,7 +182,6 @@
         if (userPwd.length === 0) {
             messageElement.textContent = "비밀번호를 먼저 입력하세요.";
             messageElement.style.color = "#FD3C3C";
-            nextButton.disabled = true;
             passwordInput.disabled = false;
             return;
         }
@@ -212,12 +194,10 @@
                     if (isAvailable) {
                         messageElement.textContent = "동일한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
-                        nextButton.disabled = false;
                         passwordInput.disabled = true;
                     } else {
                         messageElement.textContent = "동일하지 않은 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
-                        nextButton.disabled = true;
                         passwordInput.disabled = false;
                     }
                 })
@@ -225,19 +205,16 @@
                     console.error('Error:', error);
                     messageElement.textContent = "동일하지 않은 비밀번호입니다.";
                     messageElement.style.color = "#FD3C3C";
-                    nextButton.disabled = true;
                     passwordInput.disabled = false;
                 });
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
             passwordInput.disabled = false;
         }
     });
 
     // 닉네임 중복 테스트
     document.getElementById('nickname').addEventListener('input', function() {
-        const nextButton = document.getElementById('next')
         const userNickInput = this;
         const userNick = this.value;
         const messageElement = document.getElementById('nicknameCheckMessage');
@@ -246,11 +223,9 @@
             userNickInput.value = userNick.replace(/[^가-힣ㄱ-ㅎa-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/g, '');
             messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
             messageElement.style.color = "#FD3C3C";
-            nextButton.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
         }
 
         if (userNick.length > 0) {
@@ -260,11 +235,9 @@
                     if (isAvailable) {
                         messageElement.textContent = "사용 가능한 닉네임입니다.";
                         messageElement.style.color = "#6EBA4A";
-                        nextButton.disabled = false;
                     } else {
                         messageElement.textContent = "이미 사용 중인 닉네임입니다.";
                         messageElement.style.color = "#FD3C3C";
-                        nextButton.disabled = true;
                     }
                 })
                 .catch(error => {
@@ -274,7 +247,6 @@
                 });
         } else {
             messageElement.textContent = "";
-            nextButton.disabled = true;
         }
     });
 
@@ -282,9 +254,11 @@
     // 이메일 부분 로직
     const form = document.querySelector('form');
     form.addEventListener('submit', function(event) {
+        const nextButton = document.getElementById('next');
         const emailInput = document.querySelector('#email');
         const domainInput = document.querySelector('#domain-txt');
         const domainSelect = document.querySelector('#domain-list');
+        const emailAuth = document.getElementById('authEmail');
 
         const frontEmail = emailInput.value.split('@')[0];
         emailInput.value = frontEmail;
@@ -294,6 +268,10 @@
         } else {
             emailInput.value += "@" + domainInput.value;
         }
+
+        emailAuth.addEventListener('click', () => {
+            nextButton.disabled = false; // 인증 버튼 클릭 후 다음 버튼 활성화
+        });
     });
 
     form.addEventListener('submit', function(event) {
@@ -397,18 +375,15 @@
     const btnCloseModal=document.querySelector('.modalBlur');
 
     btnOpenModal.addEventListener("click", ()=>{
-        newButton.style.display = "block";
+        modal.style.display = "flex";
     })
 
-    btnOpenModal.addEventListener("click", ()=>{
-        modal.style.display="flex";
-        if (modal.style.display === "flex") {
-            // 인증번호 맞으면 되는거로 바꿀것 // else는 값이 틀렸다고 알려주고 x로 나갈 수 있게함
-            btnCloseModal.addEventListener("click", () => {
-                modal.style.display = "none";
-            });
-        }
-    });
+    if (modal.style.display === "flex") {
+        // 인증번호 맞으면 되는거로 바꿀것 // else는 값이 틀렸다고 알려주고 x로 나갈 수 있게함
+        btnCloseModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    }
 
     // 입력한다음 넘어가기
     const userIdInput = document.getElementById('id');
@@ -424,8 +399,11 @@
     const man = document.getElementById('man');
     const woman = document.getElementById('woman');
     const other = document.getElementById('none');
+    const emailAuth = document.getElementById('authEmail');
+    const nextButton = document.getElementById('next')
 
     // id는 처음에 활성화 돼 있어야 하므로 없어야 함
+    nextButton.disabled = true;
     passwordInput.disabled = true;
     passwordConfirmInput.disabled = true;
     nicknameInput.disabled = true;
@@ -438,6 +416,7 @@
     man.disabled = true;
     woman.disabled = true;
     other.disabled = true;
+    emailAuth.disabled = true;
 
     function toggleFields() {
         if (userIdInput.value) {
@@ -462,12 +441,21 @@
             emailInput.disabled = false;
             emailDomainInput.disabled = false;
             emailSelectInput.disabled = false;
+
         } else {
             emailInput.disabled = true;
             emailDomainInput.disabled = true;
             emailSelectInput.disabled = true;
         }
     }
+
+    // 임시로 next버튼 활성화까지 생성
+    emailAuth.addEventListener('click', () => {
+        toggleNextField();
+    });
+    function toggleNextField() {
+        nextButton.disabled = false;
+    } // 까지
 
     function toggleBirthField() {
         if (emailInput.value) {
@@ -477,6 +465,7 @@
             man.disabled = false;
             woman.disabled = false;
             other.disabled = false;
+            emailAuth.disabled = false; // 나중에 이메일 인증과 함께 변경해야함 // 임시로 여기 둠 - 버튼 활성화
         } else {
             birthYear.disabled = true;
             birthMonth.disabled = true;
@@ -484,6 +473,7 @@
             man.disabled = true;
             woman.disabled = true;
             other.disabled = true;
+            emailAuth.disabled = true; // 나중에 이메일 인증과 함께 변경해야함 // 임시로 여기 둠 - 버튼 활성화
         }
     }
 

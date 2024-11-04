@@ -986,3 +986,20 @@ nav span:hover{
 
     color: #6EBA4A;
 }
+
+#emailCheckMessage{
+    position: absolute;
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 110px;
+    top:500px;
+}
+
+button:disabled {
+    background-color: #D3D3D3;
+    color: #A9A9A9;
+    border: 1px solid #A9A9A9;
+    cursor: not-allowed;
+}
