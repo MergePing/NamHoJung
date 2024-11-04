@@ -40,9 +40,8 @@
 </head>
 <body>
 <header>
-
     <nav>
-        <!--네비바-->
+        <!-- 네비바 -->
         <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
@@ -52,111 +51,76 @@
         <span>로그인</span>
         <span>회원가입</span>
     </nav>
-
 </header>
-
 <main>
-    <div class="qickBtn">
-        <!--플로팅 버튼-->
-        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
-        <div class="clikbtn tr">
-            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
-        </div>
-    </div>
     <div class="post">
-       <div id="header">
-        <span>
-            <img th:src="@{/images/post/best-none-dark.png}">
-        </span>
-        <span>01.</span>
-        <span>동굴속의 아이들</span>
-        <span>작성날짜 : </span>
-        <span></span>
-        <span>
-            <img th:src="@{/images/post/selectpost/reportbtn.png}">
-        </span>
-
-       </div>
-
-        <div class="line"></div>
-
-        <div id="content">
-        <span>
-            어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나 있었다고 합니다. 충격적이게 그 동굴 안에는 이상... 어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나 있었다고 합니다. 충격적이게 그 동굴 안에는 이상...<br><br>어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나 있었다고 합니다. 충격적이게 그 동굴 안에는 이상...어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나 있었다고 합니다. 충격적이게 그 동굴 안에는 이상...<br><br>어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나 있었다고 합니다.충격적이게 그 동굴 안에는 이상...<br><br>어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나 있었다고 합니다. 충격적이게 그 동굴 안에는 이상...어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고 그 안에는 이상한 동굴이 하나 있었다고 합니다. 충격적이게 그 동굴 안에는 이상...어떤 시골 마을에서 아이들이 자꾸 실종되는 사건이 있어서 경찰이 조사한 결과, 아이들이 그 마을에 있는 산에 갔다가 실종됐고...
-        </span>
-        <img th:src="@{/images/post/selectpost/img1.png}">
-        <img th:src="@{/images/post/selectpost/img2.png}">
+        <div id="header">
+            <span>
+                <img th:src="@{/images/post/best-dark.png}"
+                     th:if="${post.postFavorite}"
+                     th:attr="data-postNo=${post.postNo}"
+                     class="favorite-icon" onclick="toggleFavorite(this)">
+                <img th:src="@{/images/post/best-none-dark.png}"
+                     th:unless="${post.postFavorite}"
+                     th:attr="data-postNo=${post.postNo}"
+                     class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${post.postNo}"></span>
+            <span th:text="${post.postTitle}"></span>
+            <span>작성날짜: </span>
+            <span th:text="${post.formattedDate}"></span>
+            <span>
+                <img th:src="@{/images/post/selectpost/reportbtn.png}">
+            </span>
         </div>
-
+        <div class="line"></div>
+        <div id="content">
+            <span th:text="${post.content}"></span>
+            <img th:src="@{/images/post/selectpost/img1.png}">
+            <img th:src="@{/images/post/selectpost/img2.png}">
+        </div>
         <div id="writer">
             <img th:src="@{/images/post/selectpost/profile-img.png}">
-            <span>최고의 정원사</span>
-            <span>세종대왕실룩샐룩</span>
+            <span th:text="${post.writerName}"></span>
+            <span th:text="${post.writerTitle}"></span>
             <span>
                 <img th:src="@{/images/post/selectpost/badge.png}">
             </span>
             <div>
-                <span>실화</span>
+                <span th:text="${post.category}"></span>
             </div>
         </div>
-
-         <div id="scary">
-             <img th:src="@{/images/post/selectpost/scary-btn-before.png}">
-             <div>
-                 <span>
-                     무서워요
-                 </span>
-             </div>
-             <span>323</span>
-         </div>
-
+        <div id="scary">
+            <img th:src="@{/images/post/selectpost/scary-btn-before.png}">
+            <div>
+                <span>무서워요</span>
+            </div>
+            <span th:text="${post.scaryNumber}"></span>
+        </div>
         <div id="notscary">
             <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}">
             <div>
-                 <span>
-                     안무서워요
-                 </span>
+                <span>안무서워요</span>
             </div>
-            <span>124</span>
+            <span th:text="${post.notScaryNumber}"></span>
         </div>
-
         <div class="line"></div>
-
         <input type="text" value="&nbsp; &nbsp; &nbsp; 댓글을 작성해주세요">
-        <button type="submit" >댓글 작성</button>
-        
+        <button type="submit">댓글 작성</button>
         <div id="comment">
             <img th:src="@{/images/post/selectpost/profile-img.png}">
-            <span>나야, 들기름</span>
+            <span th:text="${post.commentWriter}"></span>
             <span>
                 <img th:src="@{/images/post/selectpost/like-btn-before.png}">
             </span>
             <span>좋아요</span>
             <img th:src="@{/images/post/selectpost/reportbtn.png}">
             <span>신고</span>
-            <span class="ellipsis">근데 이제 제가 경험을 해보니까...결국 이 세트는 철거가 되기 때문에, 다 떠날 거예요.이 세트는 다 허구다. NPC가 되진 말자.</span>
+            <span class="ellipsis" th:text="${post.comment}"></span>
         </div>
-
-        <div id="recomment">
-            <img  th:src="@{/images/post/selectpost/arrow.png}">
-            <img th:src="@{/images/post/selectpost/profile-img.png}">
-            <span>강레오</span>
-            <span>
-                <img th:src="@{/images/post/selectpost/like-btn-before.png}">
-            </span>
-            <span>좋아요</span>
-            <img th:src="@{/images/post/selectpost/reportbtn.png}">
-            <span>신고</span>
-            <span class=".ellipsis">그때 9점이라고 했죠? 제가 봤을때는 오늘 이 음식이 최강록 씨 요리의 10점 만점에 10점 같습니다. 수고하셨습니다</span>
-        </div>
-
         <div class="hidden">
             <span>댓글 더보기</span>
         </div>
-        
     </div>
     <div class="bg"></div>
 </main>

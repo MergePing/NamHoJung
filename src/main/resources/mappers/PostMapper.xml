@@ -27,26 +27,45 @@
         ORDER BY POST_DATE;
     </select>
 
-        <!-- 기존 매핑들 -->
+
+
+<!--    <select id="getPostsByPage" resultType="com.ohgiraffers.mergyping.post.model.dto.PostDTO">-->
+<!--            SELECT-->
+<!--                    POST_NO,-->
+<!--                    POST_TITLE,-->
+<!--                    POST_CATEGORY,-->
+<!--                    POST_DATE,-->
+<!--                    SCARY_NUMBER,-->
+<!--                    COMMENTS_NUMBER,-->
+<!--                    POST_FAVORITE-->
+<!--            FROM TBL_POST-->
+<!--            ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize}-->
+<!--    </select>-->
+
+
+<!--    <select id="getPostsByPageSelect" resultType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">-->
+<!--        SELECT-->
+<!--        POST_NO,-->
+<!--        POST_TITLE,-->
+<!--        POST_CATEGORY,-->
+<!--        POST_DATE,-->
+<!--        SCARY_NUMBER,-->
+<!--        COMMENTS_NUMBER,-->
+<!--        POST_FAVORITE-->
+<!--        FROM TBL_POST-->
+<!--        ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize}-->
+<!--    </select>-->
+
+<!--        <select id="selectById" resultType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">-->
+<!--            SELECT * FROM TBL_POST-->
+<!--            WHERE POST_NO = #{postNo}-->
+<!--        </select>-->
+
+
     <update id="updateFavoriteStatus">
-            UPDATE TBL_POST
-            SET POST_FAVORITE = #{isFavorite}
-            WHERE POST_NO = #{postNo}
+        UPDATE TBL_POST
+        SET POST_FAVORITE = #{isFavorite}
+        WHERE POST_NO = #{postNo}
     </update>
-
-    <select id="getPostsByPage" resultType="com.ohgiraffers.mergyping.post.model.dto.PostDTO">
-            SELECT
-                    POST_NO,
-                    POST_TITLE,
-                    POST_CATEGORY,
-                    POST_DATE,
-                    SCARY_NUMBER,
-                    COMMENTS_NUMBER,
-                    POST_FAVORITE
-            FROM TBL_POST
-            ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize}
-    </select>
-
-
 
 </mapper>
