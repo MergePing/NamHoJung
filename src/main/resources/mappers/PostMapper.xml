@@ -13,6 +13,7 @@
         <result property="postFavorite" column="POST_FAVORITE"/>
     </resultMap>
 
+    
     <select id="postList" resultMap="postList">
         SELECT
             POST_NO,

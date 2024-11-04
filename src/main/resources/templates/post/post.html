@@ -101,7 +101,7 @@
                  th:attr="data-postNo=${postList[12].postNo}"
                  class="favorite-icon" onclick="toggleFavorite(this)">
         </span>
-        <span th:text="${postList[12].postTitle}"></span>
+        <span th:text="${postList[12].postTitle}" onclick="location.href='/selectpost'"></span>
         <div><span th:text="${postList[12].postCategory}"></span></div>
         <span th:text="${postList[12].formattedDate}"></span>
         <span th:text="${postList[12].scaryNumber}"></span>

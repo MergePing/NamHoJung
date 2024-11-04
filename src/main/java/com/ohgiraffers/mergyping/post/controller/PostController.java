@@ -32,6 +32,11 @@ public class PostController {
         return "/post/post";
     }
 
+    @GetMapping("/selectpost")
+    public String selectPost(){
+        return "/post/selectpost";
+    }
+
     @PostMapping("/toggleFavorite")
     @ResponseBody
     public Map<String, Object> toggleFavorite(@RequestBody Map<String, Object> payload) {
