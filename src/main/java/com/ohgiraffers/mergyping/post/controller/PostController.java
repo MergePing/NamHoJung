@@ -47,21 +47,21 @@ public class PostController {
         return response;
     }
 
-//    @GetMapping("/posts")
-//    @ResponseBody
-//    public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
-//        return postService.getPostsByPage(page, pageSize);
-//    }
+    @GetMapping("/posts")
+    @ResponseBody
+    public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+        return postService.getPostsByPage(page, pageSize);
+    }
 
-//    @GetMapping("/selectpost/{postNo}")
-//    public String selectPost(@PathVariable("postNo") int postNo, Model model) {
-//        SelectPostDTO selected = postService.selectById(postNo);
-//        if (selected == null) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
-//        }
-//        model.addAttribute("selected", selected);
-//        return "post/selectpost";
-//    }
+    @GetMapping("/selectpost/{postNo}")
+    public String selectPost(@PathVariable("postNo") int postNo, Model model) {
+        SelectPostDTO selected = postService.selectById(postNo);
+        if (selected == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
+        model.addAttribute("selected", selected);
+        return "post/selectpost";
+    }
 
 
 

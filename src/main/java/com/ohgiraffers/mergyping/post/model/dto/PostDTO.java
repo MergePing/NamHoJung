@@ -11,7 +11,6 @@ public class PostDTO {
     private int scaryNumber;
     private int commentNumber;
     private boolean postFavorite;
-
     private String formattedDate;
     public void setFormattedDate(String formattedDate) {
         this.formattedDate = formattedDate;
