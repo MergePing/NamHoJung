@@ -66,14 +66,46 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
-    @DeleteMapping("/admin/user/delete/{userNo}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("userNo") int userNo) {
-        boolean isDeleted = userService.deleteUserByNo(userNo);
+    @PutMapping("/admin/user/update/{userNo}")
+    public ResponseEntity<?> updateNickname(@PathVariable String userNo, @RequestBody Map<String, String> requestBody) {
+        String newNickname = requestBody.get("nickname");
 
-        if (isDeleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        try {
+            boolean isUpdated = userService.updateUserNickname(userNo, newNickname);
+            if (isUpdated) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("닉네임 수정 실패");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("닉네임 수정 중 오류 발생");
         }
+    }
+
+    @PutMapping("/admin/user/delete/{userNo}")
+    public ResponseEntity<?> deleteUser(@PathVariable String userNo, @RequestBody Map<String, Object> payload) {
+        try {
+            boolean isDeleted = (int) payload.get("isDeleted") == 1;
+            String deleteDate = (String) payload.get("deleteDate");
+
+            userService.deleteUserByNo(userNo, isDeleted, deleteDate);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("탈퇴 처리 실패");
+        }
+    }
+
+    // 닉네임으로 사용자 검색 (AJAX 요청)
+    @GetMapping("/admin/users/search")
+    @ResponseBody
+    public Map<String, Object> searchUsersByNickname(@RequestParam("nickname") String nickname) {
+        List<UserDTO> users = userService.searchUsersByNickname(nickname);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("userList", users);
+        response.put("currentPage", 1); // 검색은 전체 결과를 표시하므로 페이지를 1로 설정
+        response.put("totalPages", 1);  // 검색 결과는 페이징 없음
+
+        return response;
     }
 }

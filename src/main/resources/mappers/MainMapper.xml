@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ohgiraffers.mergyping.user.model.dao.MainMapper">
+    <resultMap id="bestPost" type="com.ohgiraffers.mergyping.user.model.dto.MainDTO">
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postContent" column="POST_CONTENTS"/>
+    </resultMap>
+
+    <select id="bestPost" resultMap="bestPost">
+        SELECT
+            POST_TITLE,
+            POST_CONTENTS
+        FROM TBL_POST
+        ORDER BY SCARY_NUMBER
+        LIMIT 4;
+    </select>
+
+
+</mapper>

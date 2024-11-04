@@ -167,16 +167,38 @@ main {
 
 }
 
-#search1 {
-    /* Rectangle 86 */
+.search-container {
     position: absolute;
-    width: 668px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 668px; /* 크기를 조정 */
     height: 53px;
-    left: calc(50% - 668px/2 + 314px);
-    top: calc(50% - 53px/2 - 369.5px);
-
+    margin: 20px auto; /* 중앙에 위치시키기 위한 자동 마진 */
     background: #0E2913;
     border-radius: 40px;
+    padding: 10px;
+    left: calc(50% - 668px/2 + 314px);
+    top: calc(50% - 53px/2 - 369.5px);
+    margin-bottom: 100px;
+}
+
+.search-box {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-button {
+    padding: 10px 20px;
+    background-color: #1A4314;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .top-nav {
@@ -254,6 +276,7 @@ main {
 }
 
 .modal-content {
+    position: relative;
     width: 35%;
     height: 65%;
     background-color: #3B572D;
@@ -265,7 +288,162 @@ main {
 }
 
 
+.user-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.profile-photo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.profile-photo {
+    width: 168px;
+    height: 168px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.deleteUser-btn {
+    box-sizing: border-box;
+    position: absolute;
+    width: 114px;
+    height: 51px;
+    top: 38px;
+    right: 39px;
+    background: rgba(200, 0, 0, 0.9);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.deleteUser-btn:hover {
+    background: rgba(200, 0, 0, 0.9);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* 버튼 간의 간격 */
+    position: absolute;
+    bottom: 20px; /* 모달 하단에서 떨어진 거리 */
+    left: 0;
+    width: 100%;
+}
+
+/* 수정하기 버튼 스타일 */
+.edit-btn, .close-btn {
+    width: 100px;
+    height: 40px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 취소 버튼 스타일 */
+.close-btn {
+    background-color: #f44336;
+}
+
+/* 버튼 hover 효과 */
+.edit-btn:hover {
+    background-color: #45a049;
+}
+.close-btn:hover {
+    background-color: #d32f2f;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.user-info label {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#nicknameInput, #modalReportCount {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+#deleteConfirmModal .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#deleteConfirmModal h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+#deleteConfirmModal p {
+    font-size: 25px;
+    margin-bottom: 20px;
+    font-family: "Cafe24 Ssurround air";
+}
+
+#deleteConfirmModal button {
+    width: 100px;
+    margin: 5px;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    align-content: center;
+}
 
 
+.confirm-btn {
+    width: 100px;
+    height: 40px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
 
+.cancel-btn {
+    width: 100px;
+    height: 40px;
+    background-color: #f44336;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
