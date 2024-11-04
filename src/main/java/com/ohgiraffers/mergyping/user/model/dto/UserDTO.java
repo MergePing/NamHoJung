@@ -8,17 +8,17 @@ public class UserDTO {
     private String level;
     private String userName;
     private int reportCount;
-    private boolean isDeleted;
+    private boolean deleted;
 
     public UserDTO() {}
 
-    public UserDTO(String userNo, String userId, String level, String userName, int reportCount, boolean isDeleted) {
+    public UserDTO(String userNo, String userId, String level, String userName, int reportCount, boolean deleted) {
         this.userNo = userNo;
         this.userId = userId;
         this.level = level;
         this.userName = userName;
         this.reportCount = reportCount;
-        this.isDeleted = isDeleted;
+        this.deleted = deleted;
     }
 
     public String getUserNo() {
@@ -62,10 +62,10 @@ public class UserDTO {
     }
 
     public boolean isDeleted() {
-        return isDeleted;
+        return deleted;
     }
 
     public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+        this.deleted = deleted;
     }
 }
