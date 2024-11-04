@@ -1,6 +1,7 @@
 package com.ohgiraffers.mergyping.user.controller;
 
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
+import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
 import com.ohgiraffers.mergyping.user.model.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -39,6 +41,10 @@ public class MyPageController {
         MyPageDTO myPageDTO = myPageService.findNickName();
         model.addAttribute("myPageDTO", myPageDTO);
 
+        List<MyPagePostDTO> writtenPostList = myPageService.findWrittenPost();
+        model.addAttribute("writtenPostList", writtenPostList);
+
+
         return "user/mypage/useractive";
     }
 
@@ -58,5 +64,7 @@ public class MyPageController {
 
         return "redirect:/userinfo";
     }
+
+
 
 }

@@ -10,6 +10,29 @@
         <result property="email"  column="EMAIL"/>
     </resultMap>
 
+    <resultMap id="mypagePostResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO">
+        <result property="postNo" column="POST_NO"/>
+        <result property="postFavorite" column="POST_FAVORITE"/>
+        <result property="postTitle" column="POST_TITLE"/>
+        <result property="postCategory" column="POST_CATEGORY"/>
+        <result property="postDate" column="POST_DATE"/>
+        <result property="scaryNumber" column="SCARY_NUMBER"/>
+        <result property="commentsNumber" column="COMMENTS_NUMBER"/>
+    </resultMap>
+
+    <select id="findWrittenPost" resultMap="mypagePostResultMap">
+        SELECT
+                POST_NO,
+                POST_FAVORITE,
+                POST_TITLE,
+                POST_CATEGORY,
+                POST_DATE,
+                SCARY_NUMBER,
+                COMMENTS_NUMBER
+            FROM TBL_POST
+            WHERE POST_WRITER ='2'
+    </select>
+
     <select id="findNickName"   resultMap="mypageResultMap" >
         SELECT USER_NAME
         FROM TBL_USER
