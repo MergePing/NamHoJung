@@ -45,7 +45,21 @@ public class SignupController {
     }
 
     @GetMapping("/checkId")
+    @ResponseBody
     public boolean checkId(@RequestParam String userId) {
         return signupService.checkId(userId);
+    }
+
+    @GetMapping("/checkPassword")
+    @ResponseBody
+    public boolean checkPassword(@RequestParam String userPwd) {
+        boolean isValid = userPwd.length() > 7
+                && userPwd.matches(".*[a-zA-Z].*")
+                && userPwd.matches(".*[0-9].*")
+                && userPwd.matches(".*[-_!@#$%^&*()+|{};':.,/?<>].*")
+                || userPwd.matches(".*[가-힣].*")
+                || userPwd.matches(".*[ㄱ-ㅎ].*");
+
+        return isValid;
     }
 }
