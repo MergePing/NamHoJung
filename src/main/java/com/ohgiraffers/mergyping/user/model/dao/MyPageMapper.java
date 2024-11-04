@@ -8,4 +8,6 @@ public interface MyPageMapper {
     MyPageDTO findNickName();
 
     MyPageDTO findEmail();
+
+    boolean existsByNickname(String nickname);
 }

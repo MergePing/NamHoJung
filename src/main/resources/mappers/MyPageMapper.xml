@@ -21,6 +21,19 @@
         FROM TBL_USER
         WHERE USER_NO = '2'
     </select>
+
+    <select id="existsByNickname" parameterType="String" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM TBL_USER
+        WHERE USER_NAME = #{nickname}
+    </select>
+
+
+<!--    <update id="modifyUserName" parameterType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">-->
+<!--        UPDATE TBL_USER-->
+<!--        SET USER_NAME = #{userName}-->
+<!--        WHERE USER_NO = '2'-->
+<!--    </update>-->
 </mapper>
 
 <!--<result property="userType" column="USER_TYPE"/>-->

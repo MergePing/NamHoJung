@@ -591,17 +591,28 @@ header{
 
     font-family: 'Cafe24Ssurroundair';
     font-style: normal;
-    font-weight: 300;
+    font-weight: bold;
     font-size: 30px;
     line-height: 39px;
     /* identical to box height */
 
     color: #FFFFFF;
 
-
-
 }
 
+.duplicatemsg{
+     position: absolute;
+     width: 236px;
+     height: 33px;
+     left: 170px;
+     top: 350px;
+
+     font-family: 'Cafe24Ssurroundair';
+     font-style: normal;
+     font-weight: 1500;
+     font-size: 25px;
+     line-height: 32px;
+ }
 
 
 
