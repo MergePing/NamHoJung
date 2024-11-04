@@ -4,13 +4,11 @@ import com.ohgiraffers.mergyping.user.model.dao.UserMapper;
 import com.ohgiraffers.mergyping.user.model.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class UserService {
-
     private final UserMapper userMapper;
 
     @Autowired
@@ -18,11 +16,6 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public List<UserDTO> getAllUsers() {
-        return userMapper.selectAllUsers();
-    }
-
-    // UserService.java
     public List<UserDTO> getUsersByPage(int page, int pageSize) {
         int offset = (page - 1) * pageSize;
         return userMapper.selectUsersByPage(offset, pageSize);
@@ -36,22 +29,16 @@ public class UserService {
         return userMapper.selectUserById(userId);
     }
 
-
-    @Transactional
-    public boolean deleteUserByNo(int userNo) {
-        // 액션 삭제
-        userMapper.deleteActionsByUserNo(userNo);
-
-        // 댓글 삭제
-        userMapper.deleteCommentsByUserNo(userNo);
-
-        // 게시물 삭제
-        userMapper.deletePostsByUserNo(userNo);
-
-        // 유저 삭제
-        int result = userMapper.deleteUser(userNo);
-
-        return result > 0;
+    public boolean updateUserNickname(String userNo, String nickname) {
+        return userMapper.updateNickname(userNo, nickname) > 0;
     }
 
+    public void deleteUserByNo(String userNo, boolean isDeleted, String deleteDate) {
+        userMapper.updateUserDeleteStatus(userNo, isDeleted, deleteDate);
+    }
+
+    // 닉네임으로 사용자 검색
+    public List<UserDTO> searchUsersByNickname(String nickname) {
+        return userMapper.searchUsersByNickname(nickname);
+    }
 }

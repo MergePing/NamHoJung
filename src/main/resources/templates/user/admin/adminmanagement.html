@@ -25,8 +25,11 @@
         </nav>
     </header>
 
-    <!-- 검색창 -->
-    <input type="text" placeholder="검색어를 입력하세요" id="search1" class="search-box">
+    <!--검색 창-->
+    <div class="search-container">
+        <input type="text" placeholder="닉네임을 입력해주세요" id="searchInput" class="search-box">
+        <button onclick="searchUsers()" class="search-button">검색</button>
+    </div>
 
     <!-- 분류 창 -->
     <main class="main">
@@ -50,34 +53,39 @@
     <div id="userModal" class="modal">
         <div class="modal-content">
             <h2>회원 상세 정보</h2>
-            <img class="profile-photo" th:src="@{/images/admin/defaultprofile.png}" alt="프로필사진">
-            <button type="button" class="deleteUser-btn" onclick="openDeleteConfirmModal()">영구 탈퇴</button>
+            <div class="profile-photo-container">
+                <img class="profile-photo" th:src="@{/images/admin/defaultprofile.png}" alt="프로필사진">
+            <button type="button" class="deleteUser-btn" onclick="openDeleteConfirmModal()">탈퇴 처리</button>
             <div class="user-info">
-                <p>닉네임: <span id="modalNickname"></span></p>
+                <label for="nicknameInput">닉네임:</label>
+                <input type="text" id="nicknameInput">
                 <p>신고횟수: <span id="modalReportCount"></span></p>
             </div>
-            <button type="button" class="close-btn" onclick="closeModal()">닫기</button>
-            <button type="button" class="edit-btn">수정하기</button>
+            <div class="modal-footer">
+                <button type="button" class="close-btn" onclick="closeModal()">취소</button>
+                <button type="button" class="edit-btn" onclick="updateNickname()">수정하기</button>
+            </div>
         </div>
     </div>
 
-    <!-- 영구 탈퇴 확인 모달 -->
+    <!-- 탈퇴 확인 모달 -->
     <div id="deleteConfirmModal" class="modal">
         <div class="modal-content">
-            <h2>영구 탈퇴 확인</h2>
-            <p>정말 이 회원을 영구적으로 탈퇴시키겠습니까?</p>
-            <button type="button" onclick="confirmDeleteUser()">확인</button>
-            <button type="button" onclick="closeDeleteConfirmModal()">취소</button>
+            <h2>회원 탈퇴 확인</h2>
+            <p>정말 이 회원을 탈퇴 처리하시겠습니까?</p>
+            <div class="modal-footer">
+                <button type="button" class="cancel-btn" onclick="closeDeleteConfirmModal()">취소</button>
+                <button type="button" class="confirm-btn" onclick="confirmDeleteUser()">확인</button>
+            </div>
         </div>
     </div>
 
     <script>
-        let currentUserNo; // 현재 조회 중인 userNo를 저장할 전역 변수
+        let currentUserNo;
 
-        // 특정 페이지의 사용자 데이터를 가져오는 함수
         function fetchUserPage(page = 1) {
             $.ajax({
-                url: `/admin/users/data?page=${page}`, // 데이터 JSON 반환 URL
+                url: `/admin/users/data?page=${page}`,
                 method: "GET",
                 success: function(data) {
                     renderUserList(data.userList);
@@ -89,25 +97,23 @@
             });
         }
 
-        // 사용자 리스트 렌더링 함수
         function renderUserList(users) {
             let userListHtml = '';
             users.forEach(user => {
                 userListHtml += `
-                <div class="member-item" data-user-no="${user.userNo}" onclick="openModal(this)">
-                    <span>${user.userNo}</span>
-                    <span>${user.userId}</span>
-                    <span>${user.level}</span>
-                    <span>${user.userName}</span>
-                    <span>${user.reportCount}</span>
-                    <span>${user.isDeleted ? '탈퇴' : '활성'}</span>
-                </div>
-            `;
+            <div class="member-item" data-user-no="${user.userNo}" onclick="openModal(this)">
+                <span>${user.userNo}</span>
+                <span>${user.userId}</span>
+                <span>${user.level}</span>
+                <span>${user.userName}</span>
+                <span>${user.reportCount}</span>
+                <span>${user.deleted ? '탈퇴됨' : '활성'}</span>
+            </div>
+        `;
             });
             $('#userList').html(userListHtml);
         }
 
-        // 페이지네이션 렌더링 함수
         function renderPagination(currentPage, totalPages, startPage, endPage) {
             let paginationHtml = '';
             for (let i = startPage; i <= endPage; i++) {
@@ -116,56 +122,105 @@
             $('#pagination-links').html(paginationHtml);
         }
 
-        // 초기 페이지 로드
         $(document).ready(function() {
-            fetchUserPage(1); // 첫 페이지 데이터를 로드합니다
+            fetchUserPage(1);
         });
 
-        // 모달 열기 함수
         function openModal(element) {
-            currentUserNo = element.getAttribute("data-user-no"); // 현재 userNo를 전역 변수에 저장
+            currentUserNo = element.getAttribute("data-user-no");
 
             fetch(`/admin/user/${currentUserNo}`)
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById("modalNickname").textContent = data.userId;
+                    document.getElementById("nicknameInput").value = data.userId;
                     document.getElementById("modalReportCount").textContent = data.reportCount;
                     document.getElementById("userModal").style.display = 'block';
                 })
                 .catch(error => console.error('Error fetching user details:', error));
         }
+        function searchUsers() {
+            const nickname = document.getElementById("searchInput").value.trim();
 
-        // 모달 닫기 함수
+            if (nickname === '') {
+                alert("닉네임을 입력해주세요.");
+                return;
+            }
+
+            fetch(`/admin/users/search?nickname=${nickname}`, {
+                method: "GET"
+            })
+                .then(response => response.json())
+                .then(data => {
+                    renderUserList(data.userList);
+                    renderPagination(data.currentPage, data.totalPages, data.startPage, data.endPage);
+                })
+                .catch(error => console.error('Error searching users:', error));
+        }
+
+
         function closeModal() {
             document.getElementById("userModal").style.display = 'none';
         }
 
-        // 영구 탈퇴 확인 모달 열기
         function openDeleteConfirmModal() {
             document.getElementById("deleteConfirmModal").style.display = 'block';
         }
 
-        // 영구 탈퇴 확인 모달 닫기
         function closeDeleteConfirmModal() {
             document.getElementById("deleteConfirmModal").style.display = 'none';
         }
 
-        // 영구 탈퇴 확인 후 삭제 요청 함수
         function confirmDeleteUser() {
-            fetch(`/admin/user/delete/${currentUserNo}`, { // 전역 변수로 저장된 currentUserNo 사용
-                method: 'DELETE'
+            const currentDate = new Date().toISOString().slice(0, 10);
+
+            fetch(`/admin/user/delete/${currentUserNo}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ isDeleted: 1, deleteDate: currentDate })
             })
                 .then(response => {
                     if (response.ok) {
+                        alert("회원이 탈퇴 처리되었습니다.");
                         closeDeleteConfirmModal();
                         closeModal();
-                        alert("회원이 영구 탈퇴되었습니다.");
-                        fetchUserPage(1); // 첫 페이지로 리로드
+
+                        // 바로 탈퇴 상태로 표시 업데이트
+                        document.querySelector(`.member-item[data-user-no="${currentUserNo}"] span:nth-child(6)`).textContent = '탈퇴됨';
+
+                        // 리스트를 새로 고침하여 변경된 상태 표시
+                        fetchUserPage(1);
                     } else {
-                        alert("탈퇴에 실패했습니다. 다시 시도해 주세요.");
+                        alert("탈퇴 처리에 실패했습니다.");
                     }
                 })
-                .catch(error => console.error('Error deleting user:', error));
+                .catch(error => console.error('Error processing user deletion:', error));
+        }
+        function updateNickname() {
+            const newNickname = document.getElementById("nicknameInput").value;
+            if (!newNickname) {
+                alert("닉네임을 입력해주세요.");
+                return;
+            }
+
+            fetch(`/admin/user/update/${currentUserNo}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nickname: newNickname })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert("닉네임이 성공적으로 수정되었습니다.");
+                        closeModal();
+                        fetchUserPage(1);
+                    } else {
+                        alert("닉네임 수정에 실패했습니다.");
+                    }
+                })
+                .catch(error => console.error('Error updating nickname:', error));
         }
     </script>
 </div>
