@@ -10,4 +10,6 @@ public interface MyPageMapper {
     MyPageDTO findEmail();
 
     boolean existsByNickname(String nickname);
+
+    void modifyUserName(MyPageDTO myPageDTO);
 }
