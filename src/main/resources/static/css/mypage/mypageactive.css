@@ -1,0 +1,152 @@
+main .write1, main .write2, main .write3 {
+    box-sizing: border-box;
+    position: absolute;
+    width: 254px;
+    height: 53px;
+    background: #0E2913;
+    border: 2px solid #FFFFFF;
+    border-radius: 20px;
+    top: 180px;
+}
+
+main .write1 { left: 210px; }
+main .write2 { left: 500px; }
+main .write3 { left: 790px; }
+
+main .write1 p, main .write2 p, main .write3 p {
+    position: absolute;
+    width: 160px;
+    top: 10px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+main .write1 p { left: 45px; }
+main .write2 p { left: 55px; }
+main .write3 p { left: 75px; }
+
+main .active {
+    background-color: #90c990; /* 활성화된 버튼 배경색 */
+    color: white;
+}
+
+main input{
+    position: absolute;
+    width: 549px;
+    height: 53px;
+    background: #0E2913;
+    border-radius: 40px;
+    top: 180px;
+    left: 1060px;
+    border: none;
+    color: #fff;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+}
+main .sell2 span:nth-of-type(1){
+    position: absolute;
+    width: 50px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 260px;
+}
+main .sell2 span:nth-of-type(2){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 400px;
+}
+main .sell2 span:nth-of-type(3){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1320px;
+}
+main .sell2 span:nth-of-type(4){
+    position: absolute;
+    width: 200px;
+    height: 31px;
+    top: 280px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1550px;
+}
+
+main .comment{
+    position: relative;
+    gap: 60px;
+}
+
+main .comment span:nth-of-type(1){
+    position: absolute;
+    top: 380px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 270px;
+    text-align: center;
+}
+main .comment span:nth-of-type(2){
+    position: absolute;
+    left: 400px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    width: 800px; /* 원하는 너비로 설정 */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+main .comment span:nth-of-type(3){
+    position: absolute;
+    left: 1300px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+main .comment span:nth-of-type(4){
+    position: absolute;
+    left: 1560px;
+    top: 380px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+}
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    transition: all 1s;
+}
+

@@ -2,25 +2,39 @@ package com.ohgiraffers.mergyping.user.model.dto;
 
 public class MyPageDTO {
     private String userName;
+    private String email;
 
     public MyPageDTO(){}
 
-    public MyPageDTO(String userName) {
+    public MyPageDTO(String userName, String email) {
+
         this.userName = userName;
+        this.email = email;
     }
 
     public String getUserName() {
+
         return userName;
     }
 
     public void setUserName(String userName) {
+
         this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
     public String toString() {
         return "MyPageDTO{" +
                 "userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

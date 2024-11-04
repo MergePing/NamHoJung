@@ -54,7 +54,17 @@ aside.show {
 }
 
 
+.rank-photo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #3B572D; /* 사진이 없을 때의 배경색 */
+    position: absolute;
+    left:150px;
+    top:450px;
 
+
+}
 
 .profile-photo {
     width: 164px;
@@ -113,6 +123,7 @@ aside.show {
     font-size: 32px;
     line-height: 33px;
     color:#C9E5CA;
+    cursor: pointer;
 }
 .MBTIfont{
     width:180px;
@@ -125,6 +136,7 @@ aside.show {
     font-size: 32px;
     line-height: 33px;
     color:#C9E5CA;
+    cursor: pointer;
 }
 .logoutfont{
     width:180px;
@@ -137,7 +149,10 @@ aside.show {
     font-size: 32px;
     line-height: 33px;
     color:#C9E5CA;
+    cursor: pointer;
 }
+
+
 
 .rankpopup{
     width:450px;
@@ -145,6 +160,7 @@ aside.show {
     background-color: #3B572D;
     border-radius: 20px;
     display:none;
+    border: 2px solid #FFFFFF;
 
     margin-top:400px;
     margin-right:20px;
@@ -155,6 +171,21 @@ aside.show {
 
 }
 .rankfont:hover{
+    color:#A3DA87;
+}
+.infofont:hover{
+    color:#A3DA87;
+}
+.activefont:hover{
+    color:#A3DA87;
+}
+.MBTIfont:hover{
+    color:#A3DA87;
+}
+.logoutfont:hover{
+    color:#A3DA87;
+}
+.mbti-item:hover{
     color:#A3DA87;
 }
 
@@ -299,6 +330,123 @@ aside.show {
     background-color: rgba(0,0,0,0.4);
     z-index:2000;
 }
+
+.mbtipopup{
+    position: fixed;
+    width: 504px;
+    height: 292px;
+    left: 900px;
+    top: 700px;
+
+    background: #3B572D;
+    border-radius: 20px;
+    display: none;
+    z-index: 99;
+    border: 2px solid #FFFFFF;
+}
+.mbti-item{
+    position: absolute;
+    width: 131px;
+    height: 26px;
+    left: 60px;
+    top: 800px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.mbti-item2{
+    position: absolute;
+    width: 131px;
+    height: 26px;
+    left: 60px;
+    top: 850px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+.horrormbti{
+    position: absolute;
+    width: 177px;
+    height: 31px;
+    left: 160px;
+    top: 30px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+.mbticategory{
+    position: absolute;
+    width: 177px;
+    height: 31px;
+    left: 210px;
+    top: 80px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+.mbtiexp{
+    position: absolute;
+    width: 459px;
+    height: 143px;
+    left: 20px;
+    top: 130px;
+
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+.mtbtiexp2{
+    position: absolute;
+    width: 441px;
+    height: 160px;
+    left: 10px;
+    top: 10px;
+
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 40px;
+    /* or 160% */
+
+    color: #000000;
+}
+/* 당신은 위험한 순간에 신중하지만 사람보다 귀신을 무서워하면서도 공포의 스릴을 즐기는 특이한 사람입니다. */
+
+
+
+
+/* Rectangle 268 */
+
+
+
+
 /*.pwd-container input[type="password"]{*/
 /*    width: 100%;*/
 

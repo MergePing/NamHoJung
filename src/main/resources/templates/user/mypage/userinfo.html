@@ -29,11 +29,11 @@
             <p class="userfont">개인 정보</p>
             <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
             <button class="btn-upload">사진수정</button>
-            <button class="btn-delete">탈퇴</button>
+            <button class="btn-delete" id="btndelete">탈퇴</button>
 
             <div class="input-group">
                 <label class="mpname">닉네임</label>
-                <input type="text" id="nickname" placeholder="뽀로로">
+                <input type="text" id="nickname" th:placeholder="${myPageDTO.userName}">
                 <button class="btn-check">중복확인</button>
             </div>
 
@@ -52,26 +52,51 @@
 
             <div class="input-group">
                 <label class="mpemail">이메일</label>
-                <input type="email" id="email" placeholder="honggildong@gmail.com">
+                <input type="email" id="email" th:placeholder="${myPageDTO.email}">
                 <button class="btn-confirm" id="confirmcheck">인증</button>
             </div>
 
             <button class="btn-cancel" id="btn-cancel">취소</button>
-            <button class="btn-submit">수정</button>
+            <button class="btn-submit" id="btn-submit">수정</button>
 
 
         </div>
-<!--        <div class="modal-background" id="modal-background">-->
-<!--            <div class="pwdpopup" id="pwd-popup">-->
-<!--                <p class="pwdfont">수정 완료되었습니다!</p>-->
+        <div class="modal-background" id="modal-background">
+            <div class="modifypopup" id="modify-popup">
+                <p class="modifyfont">수정 완료되었습니다!</p>
 
-<!--                <div class="popup-buttons">-->
-<!--                    <button id="closePopupBtn" class="cancle-btn">취소</button>-->
-<!--                    <button id="submitPasswordBtn" class="confirm-btn">확인</button>-->
-<!--                </div>-->
+                <div class="popup-buttons">
+                    <button id="submitdBtn" class="submitBtn">확인</button>
+                </div>
 
-<!--            </div>-->
-<!--        </div>-->
+            </div>
+        </div>
+
+
+        <div class="modal-background2" id="modal-background2">
+            <div class="deletepopup" id="deletepopup">
+                <p class="deleteuser">회원 탈퇴를 하시겠습니까?</p>
+                <p class="dangerous">회원 탈퇴 시 일주일간의 유예기간이 있으며 3일 지나면 영구 삭제 됩니다.</p>
+                <div>
+                    <button id="cancledBtn" class="cancleBtn">취소</button>
+                </div>
+                <div>
+                    <button id="submitdBtn2" class="submitBtn2">확인</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-background3" id="modal-background3">
+            <div class="modifypopup" id="modify-popup2">
+                <p class="deletefont">회원 탈퇴가 완료되었습니다!</p>
+
+                <div class="popup-buttons">
+                    <button id="submitdBtn3" class="submitBtn">확인</button>
+                </div>
+
+            </div>
+        </div>
     </div>
     <script>
 
@@ -94,6 +119,83 @@
         const btnCancle =document.getElementById('btn-cancel');
 
         btnCancle.addEventListener('click', () => {
+            // URL을 원하는 주소로 변경하세요
+            location.href = '/main';
+        });
+
+        const btnsubmit = document.getElementById('btn-submit');
+        const modifypopup = document.getElementById('modify-popup');
+        const modal = document.querySelector('.modal-background');
+        const submitBtn= document.getElementById('submitdBtn');
+        //모달
+        btnsubmit.addEventListener('click', () => {
+            modifypopup.style.display = 'block';// 비밀번호 팝업 표시
+            document.body.style.overflow = "hidden"; // 스크롤 비활성화
+        });
+
+        btnsubmit.addEventListener("click", ()=>{
+            modal.style.display="flex";
+            if (modal.style.display === "flex") {
+                submitBtn.addEventListener("click", () => {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+                });
+            }
+        });
+        submitBtn.addEventListener('click', () => {
+            // URL을 원하는 주소로 변경하세요
+            location.href = '/main';
+        });
+
+
+        const btndelete = document.getElementById('btndelete');
+        const deletepopup = document.getElementById('deletepopup');
+        const modal2 = document.querySelector('.modal-background2');
+        const submitBtn2= document.getElementById('submitdBtn2');
+        const cancledBtn= document.getElementById('cancledBtn')
+
+        //모달
+        btndelete.addEventListener('click', () => {
+            deletepopup.style.display = 'block';// 회원탈퇴 팝업 표시
+            document.body.style.overflow = "hidden"; // 스크롤 비활성화
+        });
+
+        btndelete.addEventListener("click", ()=>{
+            modal2.style.display="flex";
+            if (modal2.style.display === "flex") {
+                cancledBtn.addEventListener("click", () => {
+                    modal2.style.display = "none";
+                    document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+                });
+            }
+        });
+
+        // submitBtn2.addEventListener('click', () => {
+        //     // URL을 원하는 주소로 변경하세요
+        //     location.href = '/main';
+        // });
+
+        const modifypopup2 = document.getElementById('modify-popup2');
+        const modal3 = document.querySelector('.modal-background3');
+        const submitdBtn3= document.getElementById('submitdBtn3');
+        //모달
+        submitBtn2.addEventListener('click', () => {
+            deletepopup.style.display = 'none';
+            modifypopup2.style.display = 'block';// 탈퇴 완료 팝업 표시
+            document.body.style.overflow = "hidden"; // 스크롤 비활성화
+        });
+
+        submitBtn2.addEventListener("click", ()=>{
+            modal2.style.display = "none";
+            modal3.style.display="flex";
+            if (modal3.style.display === "flex") {
+                submitdBtn3.addEventListener("click", () => {
+                    modal3.style.display = "none";
+                    document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+                });
+            }
+        });
+        submitdBtn3.addEventListener('click', () => {
             // URL을 원하는 주소로 변경하세요
             location.href = '/main';
         });

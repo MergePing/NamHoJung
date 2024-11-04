@@ -17,9 +17,22 @@ public class MyPageController {
         this.myPageService = myPageService;
     }
 
+    @GetMapping("/userinfo")
+    public String showUserInfo(Model model) {
+        MyPageDTO myPageDTO = myPageService.findNickName();
+        model.addAttribute("myPageDTO", myPageDTO);
 
+//        MyPageDTO myPageDTO2 = myPageService.findEmail();
+//        model.addAttribute("myPageDTO2", myPageDTO2);
+        return "user/mypage/userinfo"; // userinfo.html로 이동
+    }
 
+    @GetMapping("/useractive")
+    public String findNickName(Model model) {
+        MyPageDTO myPageDTO = myPageService.findNickName();
+        model.addAttribute("myPageDTO", myPageDTO);
 
-
+        return "user/mypage/useractive";
+    }
 
 }
