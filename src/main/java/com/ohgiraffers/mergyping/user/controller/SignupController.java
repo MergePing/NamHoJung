@@ -62,4 +62,12 @@ public class SignupController {
 
         return isValid;
     }
+
+//    @GetMapping("/passwordConfirm")
+//    @ResponseBody
+//    public boolean passwordConfirm(@RequestParam String userPwd, @RequestParam String confirmPwd) {
+//        boolean isValid = userPwd.equals(confirmPwd);
+//
+//        return isValid;
+//    }
 }

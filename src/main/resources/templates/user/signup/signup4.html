@@ -26,11 +26,11 @@
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
     <form th:action="@{/auth/signup}" method="post" id="confirm">
     <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
-    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" oninput="togglePasswordConfirmField()" required><p id="pwdCheckMessage"></p>
-    <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required>
+    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" required><p id="pwdCheckMessage"></p>
+    <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required><p id="pwdConfirmMessage"></p>
     <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required>
 
-    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" required>
+    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" oninput="toggleBirthField()" required>
     <p class="emailMain">@</p>
     <input class="box" id="domain-txt" type="text"/>
     <select class="box" id="domain-list">
@@ -66,11 +66,11 @@
         <div class="error-msg"></div>
         <!--   select쪽이 input이 아니라 안담기는 것 같아서 생성    -->
         <input type="hidden" name="userBirth" id="birthDate">
-    <button id="resetBirth">초기화</button>
+    <button type="button" id="resetBirth">초기화</button>
 
-    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="userGender" value="MALE">
-    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="userGender" value="FEMALE">
-    <label for="none" class="none">비밀</label><input type="radio" id="none" name="userGender" value="OTHER" checked>
+    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="userGender" value="MALE" oninput="toggleBirthField()">
+    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="userGender" value="FEMALE" oninput="toggleBirthField()">
+    <label for="none" class="none">비밀</label><input type="radio" id="none" name="userGender" value="OTHER" oninput="toggleBirthField()" checked>
 
     <button id="next" type="submit" class="next">다음</button>
     </form>
@@ -126,11 +126,12 @@
         }
     });
 
-    // 비밀번호 사용 가능성 체크
+    // 비밀번호 체크
     document.getElementById('password').addEventListener('input', function() {
         const nextButton = document.getElementById('next')
         const userPwd = this.value;
         const messageElement = document.getElementById('pwdCheckMessage');
+        const passwordConfirmInput = document.getElementById('passwordConfirm');
         const rule = /[^a-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/.test(userPwd);
         const kor = /[ㄱ-ㅎ가-힣]/.test(userPwd)
 
@@ -138,6 +139,7 @@
             messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
             messageElement.style.color = "#FD3C3C";
             nextButton.disabled = true;
+            passwordConfirmInput.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
@@ -147,6 +149,7 @@
             messageElement.textContent = "비밀번호는 최소 8자리 이상이어야 합니다.";
             messageElement.style.color = "#FD3C3C";
             nextButton.disabled = true;
+            passwordConfirmInput.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
@@ -160,10 +163,12 @@
                         messageElement.textContent = "사용 가능한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
                         nextButton.disabled = false;
+                        passwordConfirmInput.disabled = false;
                     } else {
                         messageElement.textContent = "사용 불가한 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
                         nextButton.disabled = true;
+                        passwordConfirmInput.disabled = true;
                     }
                 })
                 .catch(error => {
@@ -171,14 +176,46 @@
                     messageElement.textContent = "사용 불가한 비밀번호입니다.";
                     messageElement.style.color = "#FD3C3C";
                     nextButton.disabled = true;
+                    passwordConfirmInput.disabled = true;
                 });
         } else {
             messageElement.textContent = "";
         }
     });
 
-    // 비밀번호 확인 로직
-
+    // 비밀번호 확인 체크
+    // document.getElementById('passwordConfirm').addEventListener('input', function() {
+    //     const nextButton = document.getElementById('next')
+    //     const userConfirmPwd = document.getElementById('passwordConfirm').value;
+    //     const userPwd = document.getElementById('password').value;
+    //     const messageElement = document.getElementById('pwdConfirmMessage');
+    //
+    //     if (userPwd.length > 7) {
+    //         // 위에서 value 안썼으면 안에서 써야함 -> value가 없어도 되기는 하는데 넣는게 좋다.
+    //         fetch(`/auth/passwordConfirm?userPwd=${ encodeURIComponent(userPwd.value) }
+    //                                                 &confirmPwd=${ encodeURIComponent(userConfirmPwd.value) }`)
+    //             .then(response => response.json())
+    //             .then(isAvailable => {
+    //                 if (isAvailable) {
+    //                     messageElement.textContent = "동일한 비밀번호입니다.";
+    //                     messageElement.style.color = "#6EBA4A";
+    //                     nextButton.disabled = false;
+    //                 } else {
+    //                     messageElement.textContent = "동일하지 않은 비밀번호입니다.";
+    //                     messageElement.style.color = "#FD3C3C";
+    //                     nextButton.disabled = true;
+    //                 }
+    //             })
+    //             .catch(error => {
+    //                 console.error('Error:', error);
+    //                 messageElement.textContent = "동일하지 않은 비밀번호입니다.";
+    //                 messageElement.style.color = "#FD3C3C";
+    //                 nextButton.disabled = true;
+    //             });
+    //     } else {
+    //         messageElement.textContent = "";
+    //     }
+    });
 
     // 이메일 부분 로직
     const form = document.querySelector('form');
@@ -319,8 +356,12 @@
     const emailInput = document.getElementById('email');
     const emailDomainInput = document.getElementById('domain-txt');
     const emailSelectInput = document.getElementById('domain-list');
-    const birth = document.getElementById('');
-    const gender = document.getElementById('');
+    const birthYear = document.getElementById('birth-year');
+    const birthMonth = document.getElementById('birth-month');
+    const birthDay = document.getElementById('birth-day');
+    const man = document.getElementById('man');
+    const woman = document.getElementById('woman');
+    const other = document.getElementById('none');
 
     // id는 처음에 활성화 돼 있어야 하므로 없어야 함
     passwordInput.disabled = true;
@@ -329,6 +370,12 @@
     emailInput.disabled = true;
     emailDomainInput.disabled = true;
     emailSelectInput.disabled = true;
+    birthYear.disabled = true;
+    birthMonth.disabled = true;
+    birthDay.disabled = true;
+    man.disabled = true;
+    woman.disabled = true;
+    other.disabled = true;
 
     function toggleFields() {
         if (userIdInput.value) {
@@ -336,17 +383,6 @@
         } else {
             resetFields();
         }
-        togglePasswordConfirmField();
-    }
-
-    function togglePasswordConfirmField() {
-        if (passwordInput.value) {
-            passwordConfirmInput.disabled = false;
-        } else {
-            passwordConfirmInput.disabled = true;
-            emailInput.disabled = true;
-        }
-        toggleNicknameField();
     }
 
     function toggleNicknameField() {
@@ -371,6 +407,24 @@
         }
     }
 
+    function toggleBirthField() {
+        if (emailInput.value) {
+            birthYear.disabled = false;
+            birthMonth.disabled = false;
+            birthDay.disabled = false;
+            man.disabled = false;
+            woman.disabled = false;
+            other.disabled = false;
+        } else {
+            birthYear.disabled = true;
+            birthMonth.disabled = true;
+            birthDay.disabled = true;
+            man.disabled = true;
+            woman.disabled = true;
+            other.disabled = true;
+        }
+    }
+
     function resetFields() {
         passwordInput.disabled = true;
         passwordConfirmInput.disabled = true;
@@ -378,6 +432,12 @@
         emailInput.disabled = true;
         emailDomainInput.disabled = true;
         emailSelectInput.disabled = true;
+        birthYear.disabled = true;
+        birthMonth.disabled = true;
+        birthDay.disabled = true;
+        man.disabled = true;
+        woman.disabled = true;
+        other.disabled = true;
         passwordInput.value = "";
         passwordConfirmInput.value = "";
     }
