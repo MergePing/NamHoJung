@@ -162,14 +162,17 @@
 
 
     <div class="post1">
-        <div class="post" id="postsContent">
-            <span>1</span>
-            <span><img th:src="@{/images/post/best-none-dark.png}"></span>
-            <span>동굴속의 아이들</span>
-            <div><span>실화</span></div>
-            <span>2024.10.24</span>
-            <span>323</span>
-            <span>102</span>
+        <div class="post" id="postsContent" th:each="post : ${writtenPostList}">
+            <span th:text="${post.postNo}">1</span>
+            <span>
+                <img th:if="${post.postFavorite == 1}" th:src="@{/images/post/best-dark.png}" alt="즐겨찾기 이미지">
+                <img th:unless="${post.postFavorite == 1}" th:src="@{/images/post/best-none-dark.png}" alt="즐겨찾기 없음 이미지">
+            </span>
+            <span th:text="${post.postTitle}"></span>
+            <div><span th:text="${post.postCategory}"></span></div>
+            <span th:text="${post.postDate}"></span>
+            <span th:text="${post.scaryNumber}"></span>
+            <span th:text="${post.commentsNumber}"></span>
         </div>
 
     </div>
@@ -257,6 +260,7 @@
 </body>
 
 <script>
+
     const write1 = document.getElementById('write1');
     const write2 = document.getElementById('write2');
     const write3 = document.getElementById('write3');
