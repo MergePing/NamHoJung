@@ -922,3 +922,54 @@ nav span:hover{
     left: 169px;
     top: 231px;
 }
+
+#idCheckMessage{
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 1186px;
+    top: 352px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+    text-align: center;
+
+    color: #6EBA4A;
+}
+
+#pwdCheckMessage{
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 1186px;
+    top: 436px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+    text-align: center;
+
+    color: #6EBA4A;
+}
+
+#pwdConfirmMessage{
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 1186px;
+    top: 522px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+    text-align: center;
+
+    color: #6EBA4A;
+}
