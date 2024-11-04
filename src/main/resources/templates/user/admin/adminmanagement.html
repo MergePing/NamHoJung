@@ -53,14 +53,17 @@
     <div id="userModal" class="modal">
         <div class="modal-content">
             <h2>회원 상세 정보</h2>
-            <div class="profile-photo-container">
-                <img class="profile-photo" th:src="@{/images/admin/defaultprofile.png}" alt="프로필사진">
-            <button type="button" class="deleteUser-btn" onclick="openDeleteConfirmModal()">탈퇴 처리</button>
-            <div class="user-info">
-                <label for="nicknameInput">닉네임:</label>
-                <input type="text" id="nicknameInput">
-                <p>신고횟수: <span id="modalReportCount"></span></p>
+            <div class="user-details-container">
+                <div class="profile-photo-container">
+                    <img class="profile-photo" th:src="@{/images/admin/defaultprofile.png}" alt="프로필사진">
+                </div>
+                <div class="user-info">
+                    <label for="nicknameInput">닉네임:</label>
+                    <input type="text" id="nicknameInput">
+                    <p>신고횟수: <span id="modalReportCount"></span></p>
+                </div>
             </div>
+            <button type="button" class="deleteUser-btn" onclick="openDeleteConfirmModal()">탈퇴 처리</button>
             <div class="modal-footer">
                 <button type="button" class="close-btn" onclick="closeModal()">취소</button>
                 <button type="button" class="edit-btn" onclick="updateNickname()">수정하기</button>
