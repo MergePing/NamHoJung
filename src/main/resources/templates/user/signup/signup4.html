@@ -184,37 +184,37 @@
     });
 
     // 비밀번호 확인 체크
-    // document.getElementById('passwordConfirm').addEventListener('input', function() {
-    //     const nextButton = document.getElementById('next')
-    //     const userConfirmPwd = document.getElementById('passwordConfirm').value;
-    //     const userPwd = document.getElementById('password').value;
-    //     const messageElement = document.getElementById('pwdConfirmMessage');
-    //
-    //     if (userPwd.length > 7) {
-    //         // 위에서 value 안썼으면 안에서 써야함 -> value가 없어도 되기는 하는데 넣는게 좋다.
-    //         fetch(`/auth/passwordConfirm?userPwd=${ encodeURIComponent(userPwd.value) }
-    //                                                 &confirmPwd=${ encodeURIComponent(userConfirmPwd.value) }`)
-    //             .then(response => response.json())
-    //             .then(isAvailable => {
-    //                 if (isAvailable) {
-    //                     messageElement.textContent = "동일한 비밀번호입니다.";
-    //                     messageElement.style.color = "#6EBA4A";
-    //                     nextButton.disabled = false;
-    //                 } else {
-    //                     messageElement.textContent = "동일하지 않은 비밀번호입니다.";
-    //                     messageElement.style.color = "#FD3C3C";
-    //                     nextButton.disabled = true;
-    //                 }
-    //             })
-    //             .catch(error => {
-    //                 console.error('Error:', error);
-    //                 messageElement.textContent = "동일하지 않은 비밀번호입니다.";
-    //                 messageElement.style.color = "#FD3C3C";
-    //                 nextButton.disabled = true;
-    //             });
-    //     } else {
-    //         messageElement.textContent = "";
-    //     }
+    document.getElementById('passwordConfirm').addEventListener('input', function() {
+        const nextButton = document.getElementById('next')
+        const userConfirmPwd = document.getElementById('passwordConfirm').value;
+        const userPwd = document.getElementById('password').value;
+        const messageElement = document.getElementById('pwdConfirmMessage');
+
+        if (userPwd.length > 7) {
+            // 위에서 value 안썼으면 안에서 써야함 -> value가 없어도 되기는 하는데 넣는게 좋다.
+            fetch(`/auth/passwordConfirm?userPwd=${ encodeURIComponent(userPwd.value) }
+                                                    &confirmPwd=${ encodeURIComponent(userConfirmPwd.value) }`)
+                .then(response => response.json())
+                .then(isAvailable => {
+                    if (isAvailable) {
+                        messageElement.textContent = "동일한 비밀번호입니다.";
+                        messageElement.style.color = "#6EBA4A";
+                        nextButton.disabled = false;
+                    } else {
+                        messageElement.textContent = "동일하지 않은 비밀번호입니다.";
+                        messageElement.style.color = "#FD3C3C";
+                        nextButton.disabled = true;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageElement.textContent = "동일하지 않은 비밀번호입니다.";
+                    messageElement.style.color = "#FD3C3C";
+                    nextButton.disabled = true;
+                });
+        } else {
+            messageElement.textContent = "";
+        }
     });
 
     // 이메일 부분 로직
