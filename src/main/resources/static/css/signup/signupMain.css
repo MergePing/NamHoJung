@@ -925,7 +925,7 @@ nav span:hover{
 
 #idCheckMessage{
     position: absolute;
-    width: 450px;
+    width: 550px;
     height: 35px;
     left: 1186px;
     top: 352px;
@@ -942,7 +942,7 @@ nav span:hover{
 
 #pwdCheckMessage{
     position: absolute;
-    width: 450px;
+    width: 550px;
     height: 35px;
     left: 1186px;
     top: 436px;

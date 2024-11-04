@@ -53,12 +53,12 @@ public class SignupController {
     @GetMapping("/checkPassword")
     @ResponseBody
     public boolean checkPassword(@RequestParam String userPwd) {
-        boolean isValid = userPwd.length() > 7
+        boolean isValid = userPwd.length() >= 8
                 && userPwd.matches(".*[a-zA-Z].*")
                 && userPwd.matches(".*[0-9].*")
                 && userPwd.matches(".*[-_!@#$%^&*()+|{};':.,/?<>].*")
-                || userPwd.matches(".*[가-힣].*")
-                || userPwd.matches(".*[ㄱ-ㅎ].*");
+                && !userPwd.matches(".*[가-힣].*")
+                && !userPwd.matches(".*[ㄱ-ㅎ].*");
 
         return isValid;
     }

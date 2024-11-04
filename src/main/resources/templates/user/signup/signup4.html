@@ -24,7 +24,7 @@
     <div class="uiBackSign"></div>
     <p class="signupInfoText">회원가입</p>
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
-    <form th:action="@{/auth/signup}" method="post">
+    <form th:action="@{/auth/signup}" method="post" id="confirm">
     <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
     <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" oninput="togglePasswordConfirmField()" required><p id="pwdCheckMessage"></p>
     <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required>
@@ -72,12 +72,13 @@
     <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="userGender" value="FEMALE">
     <label for="none" class="none">비밀</label><input type="radio" id="none" name="userGender" value="OTHER" checked>
 
-    <button type="submit" class="next">다음</button>
+    <button id="next" type="submit" class="next">다음</button>
     </form>
 </div>
 <script>
     // 아이디 체크
     document.getElementById('id').addEventListener('input', function() {
+        const nextButton = document.getElementById('next')
         const userIdInput = this;
         const userId = this.value;
         const messageElement = document.getElementById('idCheckMessage');
@@ -86,6 +87,16 @@
             userIdInput.value = userId.replace(/[^a-zA-Z0-9-_]/g, '');
             messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
             messageElement.style.color = "#FD3C3C";
+            nextButton.disabled = true;
+            return;
+        } else {
+            messageElement.textContent = "";
+        }
+
+        if (userId.length < 3 && userId.length > 0) {
+            messageElement.textContent = "아이디는 최소 4자리 이상이어야 합니다.";
+            messageElement.style.color = "#FD3C3C";
+            nextButton.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
@@ -98,15 +109,17 @@
                     if (isAvailable) {
                         messageElement.textContent = "사용 가능한 아이디입니다.";
                         messageElement.style.color = "#6EBA4A";
+                        nextButton.disabled = false;
                     } else {
                         messageElement.textContent = "이미 사용 중인 아이디입니다.";
                         messageElement.style.color = "#FD3C3C";
+                        nextButton.disabled = true;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    messageElement.textContent = "중복 확인 중 오류가 발생했습니다.";
-                    messageElement.style.color = "orange";
+                    messageElement.textContent = "사용 불가한 아이디입니다.";
+                    messageElement.style.color = "#FD3C3C";
                 });
         } else {
             messageElement.textContent = "";
@@ -115,39 +128,57 @@
 
     // 비밀번호 사용 가능성 체크
     document.getElementById('password').addEventListener('input', function() {
-        const userPwdInput = this;
+        const nextButton = document.getElementById('next')
         const userPwd = this.value;
         const messageElement = document.getElementById('pwdCheckMessage');
-        const rule = /[^가-힣a-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/.test(userPwd);
-        if (rule) {
+        const rule = /[^a-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/.test(userPwd);
+        const kor = /[ㄱ-ㅎ가-힣]/.test(userPwd)
+
+        if (rule || kor) {
             messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
             messageElement.style.color = "#FD3C3C";
+            nextButton.disabled = true;
+            return;
+        } else {
+            messageElement.textContent = "";
+        }
+
+        if (userPwd.length < 8 && userPwd.length > 0) {
+            messageElement.textContent = "비밀번호는 최소 8자리 이상이어야 합니다.";
+            messageElement.style.color = "#FD3C3C";
+            nextButton.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
         }
 
         if (userPwd.length > 7) {
-            fetch(`/auth/checkPassword?userPwd=${ encodeURIComponent(password) }`)
+            fetch(`/auth/checkPassword?userPwd=${ encodeURIComponent(userPwd) }`) // 오른쪽이 GetMapping에서 RequestParam으로 불러올 공간
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
                         messageElement.textContent = "사용 가능한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
+                        nextButton.disabled = false;
                     } else {
                         messageElement.textContent = "사용 불가한 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
+                        nextButton.disabled = true;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    messageElement.textContent = "오류가 발생했습니다.";
-                    messageElement.style.color = "orange";
+                    messageElement.textContent = "사용 불가한 비밀번호입니다.";
+                    messageElement.style.color = "#FD3C3C";
+                    nextButton.disabled = true;
                 });
         } else {
             messageElement.textContent = "";
         }
     });
+
+    // 비밀번호 확인 로직
+
 
     // 이메일 부분 로직
     const form = document.querySelector('form');
@@ -286,12 +317,18 @@
     const passwordConfirmInput = document.getElementById('passwordConfirm');
     const nicknameInput = document.getElementById('nickname');
     const emailInput = document.getElementById('email');
+    const emailDomainInput = document.getElementById('domain-txt');
+    const emailSelectInput = document.getElementById('domain-list');
+    const birth = document.getElementById('');
+    const gender = document.getElementById('');
 
     // id는 처음에 활성화 돼 있어야 하므로 없어야 함
     passwordInput.disabled = true;
     passwordConfirmInput.disabled = true;
     nicknameInput.disabled = true;
     emailInput.disabled = true;
+    emailDomainInput.disabled = true;
+    emailSelectInput.disabled = true;
 
     function toggleFields() {
         if (userIdInput.value) {
@@ -325,8 +362,12 @@
     function toggleEmailField() {
         if (nicknameInput.value) {
             emailInput.disabled = false;
+            emailDomainInput.disabled = false;
+            emailSelectInput.disabled = false;
         } else {
             emailInput.disabled = true;
+            emailDomainInput.disabled = true;
+            emailSelectInput.disabled = true;
         }
     }
 
@@ -335,6 +376,8 @@
         passwordConfirmInput.disabled = true;
         nicknameInput.disabled = true;
         emailInput.disabled = true;
+        emailDomainInput.disabled = true;
+        emailSelectInput.disabled = true;
         passwordInput.value = "";
         passwordConfirmInput.value = "";
     }
