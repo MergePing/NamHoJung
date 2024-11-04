@@ -40,4 +40,8 @@ public class SignupService {
             return null;
         }
     }
+
+    public boolean checkId(String userId) {
+        return signupMapper.checkId(userId) == 0;
+    }
 }

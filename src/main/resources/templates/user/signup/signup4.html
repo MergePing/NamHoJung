@@ -12,7 +12,7 @@
     <img class="background02" th:src="@{/images/login/background02.png}" alt="배경">
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
         <span onclick="location.href='/intro/intro'">소개</span>
         <span onclick="location.href='/notice/notice'">공지사항</span>
         <span>게시판</span>
@@ -25,7 +25,7 @@
     <p class="signupInfoText">회원가입</p>
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
     <form th:action="@{/auth/signup}" method="post">
-    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="1" oninput="toggleFields()" required>
+    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="1" oninput="toggleFields()" required><p id="idCheckMessage"></p>
     <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" oninput="togglePasswordConfirmField()" required>
     <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required>
     <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required>
@@ -63,18 +63,21 @@
             <option disabled selected>일</option>
         </select>
     </div>
-        <!--   이거 없으면 안담김 ㅠㅠ 개고생 input태그가 아니므로    -->
-        <input type="hidden" name="birthDate" id="birthDate">
+        <div class="error-msg"></div>
+        <!--   select쪽이 input이 아니라 안담기는 것 같아서 생성    -->
+        <input type="hidden" name="userBirth" id="birthDate">
     <button id="resetBirth">초기화</button>
 
-    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="gender" value="MALE">
-    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="gender" value="FEMALE">
-    <label for="none" class="none">비밀</label><input type="radio" id="none" name="gender" value="OTHER" checked>
+    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="userGender" value="MALE">
+    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="userGender" value="FEMALE">
+    <label for="none" class="none">비밀</label><input type="radio" id="none" name="userGender" value="OTHER" checked>
 
     <button type="submit" class="next">다음</button>
     </form>
 </div>
 <script>
+
+    // 이메일 부분 로직
     const form = document.querySelector('form');
     form.addEventListener('submit', function(event) {
         const emailInput = document.querySelector('#email');
@@ -82,6 +85,7 @@
         const domainSelect = document.querySelector('#domain-list');
 
         const emailBeforeAt = emailInput.value.split('@')[0];
+        emailInput.value = emailBeforeAt;
 
         if (domainSelect.value !== "type") {
             emailInput.value += "@" + domainSelect.value;
@@ -91,17 +95,14 @@
     });
 
     form.addEventListener('submit', function(event) {
-        // event.preventDefault(); 검사용 => 담김
         const year = document.querySelector('#birth-year').value;
         const month = document.querySelector('#birth-month').value;
         const day = document.querySelector('#birth-day').value;
 
         if (year && month && day) {
-            // DATE 객체에서 month는 1로 선택해도 0으로 인식되어 -1이 들어가야함
-            const birthDate = new Date(year, month - 1, day);
-            const formattedDate = birthDate.toISOString().split('T')[0]; // 자료형이 DATE라서 STRING으로 변경해서 저장 -> 저장이 안됨
-            // console.log(formattedDate); 검사용 => 담김
-            // form.submit(); 검사용 => 확인시 - 인증이랑 같이 쓰면 될듯
+            // DATE 객체에서 month는 1로 선택해도 0으로 인식되어 -1이 들어가야함 // 일에서도 문제가 생기는데 일 부분에서 수정해서 정상적으로 됨 // 이상하게 다른것도 다같이 해결됐다. 일석이조
+            const birthDate = new Date(year, month -1, day);
+            const formattedDate = birthDate.toISOString().split('T')[0]; // 자료형이 DATE라서 STRING으로 변경 split T를 통해 24-11-04 이런식으로 저장
             document.querySelector('#birthDate').value = formattedDate;
         }
     });
@@ -169,7 +170,7 @@
             isDayOptionExisted = true
             for(var i = 0; i <= 31; i++) {
                 const DayOption = document.createElement('option')
-                DayOption.setAttribute('value', i)
+                DayOption.setAttribute('value', i + 1)
                 DayOption.innerText = i
                 this.appendChild(DayOption);
             }
@@ -250,7 +251,6 @@
     }
 
     function toggleEmailField() {
-        // 닉네임이 입력되면 이메일 필드 활성화
         if (nicknameInput.value) {
             emailInput.disabled = false;
         } else {

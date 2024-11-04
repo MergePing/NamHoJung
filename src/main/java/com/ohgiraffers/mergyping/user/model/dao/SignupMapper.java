@@ -9,4 +9,6 @@ public interface SignupMapper {
     int regist(SignupDTO signupDTO);
 
     LoginUserDTO findByUsername(String userId);
+
+    int checkId(String userId);
 }

@@ -3,20 +3,20 @@ package com.ohgiraffers.mergyping.user.model.dto;
 import com.ohgiraffers.mergyping.common.Gender;
 import com.ohgiraffers.mergyping.common.UserRole;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class SignupDTO {
     private String userId;
     private String userPass;
     private String userName;
     private String userEmail;
-    private Date userBirth;
+    private LocalDate userBirth;
     private Gender userGender;
     private UserRole userRole;
 
     public SignupDTO() {}
 
-    public SignupDTO(String userId, String userPass, String userName, String userEmail, Date userBirth, Gender userGender, UserRole userRole) {
+    public SignupDTO(String userId, String userPass, String userName, String userEmail, LocalDate userBirth, Gender userGender, UserRole userRole) {
         this.userId = userId;
         this.userPass = userPass;
         this.userName = userName;
@@ -58,11 +58,11 @@ public class SignupDTO {
         this.userEmail = userEmail;
     }
 
-    public Date getUserBirth() {
+    public LocalDate getUserBirth() {
         return userBirth;
     }
 
-    public void setUserBirth(Date userBirth) {
+    public void setUserBirth(LocalDate userBirth) {
         this.userBirth = userBirth;
     }
 
@@ -95,5 +95,4 @@ public class SignupDTO {
                 '}';
     }
 }
-
 
