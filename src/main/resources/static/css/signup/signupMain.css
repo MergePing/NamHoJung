@@ -935,7 +935,6 @@ nav span:hover{
     font-weight: 900;
     font-size: 30px;
     line-height: 39px;
-    text-align: center;
 
     color: #6EBA4A;
 }
@@ -952,7 +951,6 @@ nav span:hover{
     font-weight: 900;
     font-size: 30px;
     line-height: 39px;
-    text-align: center;
 
     color: #6EBA4A;
 }
@@ -969,7 +967,22 @@ nav span:hover{
     font-weight: 900;
     font-size: 30px;
     line-height: 39px;
-    text-align: center;
+
+    color: #6EBA4A;
+}
+
+#nicknameCheckMessage{
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 1186px;
+    top: 609px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
 
     color: #6EBA4A;
 }

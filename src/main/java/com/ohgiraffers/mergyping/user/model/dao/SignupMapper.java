@@ -11,4 +11,6 @@ public interface SignupMapper {
     LoginUserDTO findByUsername(String userId);
 
     int checkId(String userId);
+
+    int checkNick(String userNick);
 }

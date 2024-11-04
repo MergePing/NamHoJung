@@ -25,10 +25,10 @@
     <p class="signupInfoText">회원가입</p>
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
     <form th:action="@{/auth/signup}" method="post" id="confirm">
-    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문자, 숫자 조합으로 최대 7글자 입력해주세요." maxlength="7" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
+    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문, 숫자, 특수문자로 자유롭게 최대 7글자 입력해주세요." maxlength="7" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
     <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" required><p id="pwdCheckMessage"></p>
     <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required><p id="pwdConfirmMessage"></p>
-    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required>
+    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required><p id="nicknameCheckMessage"></p>
 
     <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" oninput="toggleBirthField()" required>
     <p class="emailMain">@</p>
@@ -91,6 +91,7 @@
             return;
         } else {
             messageElement.textContent = "";
+            nextButton.disabled = true;
         }
 
         if (userId.length < 3 && userId.length > 0) {
@@ -100,6 +101,7 @@
             return;
         } else {
             messageElement.textContent = "";
+            nextButton.disabled = true;
         }
 
         if (userId.length > 3) {
@@ -123,6 +125,7 @@
                 });
         } else {
             messageElement.textContent = "";
+            nextButton.disabled = true;
         }
     });
 
@@ -153,6 +156,7 @@
             return;
         } else {
             messageElement.textContent = "";
+            nextButton.disabled = true;
         }
 
         if (userPwd.length > 7) {
@@ -180,30 +184,41 @@
                 });
         } else {
             messageElement.textContent = "";
+            nextButton.disabled = true;
         }
     });
 
     // 비밀번호 확인 체크
     document.getElementById('passwordConfirm').addEventListener('input', function() {
-        const nextButton = document.getElementById('next')
-        const userConfirmPwd = document.getElementById('passwordConfirm').value;
+        const nextButton = document.getElementById('next');
+        const userConfirmPwd = this.value;
         const userPwd = document.getElementById('password').value;
+        const passwordInput = document.getElementById('password');
         const messageElement = document.getElementById('pwdConfirmMessage');
+
+        if (userPwd.length === 0) {
+            messageElement.textContent = "비밀번호를 먼저 입력하세요.";
+            messageElement.style.color = "#FD3C3C";
+            nextButton.disabled = true;
+            passwordInput.disabled = false;
+            return;
+        }
 
         if (userPwd.length > 7) {
             // 위에서 value 안썼으면 안에서 써야함 -> value가 없어도 되기는 하는데 넣는게 좋다.
-            fetch(`/auth/passwordConfirm?userPwd=${ encodeURIComponent(userPwd.value) }
-                                                    &confirmPwd=${ encodeURIComponent(userConfirmPwd.value) }`)
+            fetch(`/auth/passwordConfirm?userPwd=${encodeURIComponent(userPwd)}&confirmPwd=${encodeURIComponent(userConfirmPwd)}`)
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
                         messageElement.textContent = "동일한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
                         nextButton.disabled = false;
+                        passwordInput.disabled = true;
                     } else {
                         messageElement.textContent = "동일하지 않은 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
                         nextButton.disabled = true;
+                        passwordInput.disabled = false;
                     }
                 })
                 .catch(error => {
@@ -211,11 +226,58 @@
                     messageElement.textContent = "동일하지 않은 비밀번호입니다.";
                     messageElement.style.color = "#FD3C3C";
                     nextButton.disabled = true;
+                    passwordInput.disabled = false;
                 });
         } else {
             messageElement.textContent = "";
+            nextButton.disabled = true;
+            passwordInput.disabled = false;
         }
     });
+
+    // 닉네임 중복 테스트
+    document.getElementById('nickname').addEventListener('input', function() {
+        const nextButton = document.getElementById('next')
+        const userNickInput = this;
+        const userNick = this.value;
+        const messageElement = document.getElementById('nicknameCheckMessage');
+        const rules = /[^가-힣ㄱ-ㅎa-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/.test(userNick);
+        if (rules) {
+            userNickInput.value = userNick.replace(/[^가-힣ㄱ-ㅎa-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/g, '');
+            messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
+            messageElement.style.color = "#FD3C3C";
+            nextButton.disabled = true;
+            return;
+        } else {
+            messageElement.textContent = "";
+            nextButton.disabled = true;
+        }
+
+        if (userNick.length > 0) {
+            fetch(`/auth/checkNick?userNick=${ userNick }`)
+                .then(response => response.json())
+                .then(isAvailable => {
+                    if (isAvailable) {
+                        messageElement.textContent = "사용 가능한 닉네임입니다.";
+                        messageElement.style.color = "#6EBA4A";
+                        nextButton.disabled = false;
+                    } else {
+                        messageElement.textContent = "이미 사용 중인 닉네임입니다.";
+                        messageElement.style.color = "#FD3C3C";
+                        nextButton.disabled = true;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageElement.textContent = "사용 불가한 닉네임입니다.";
+                    messageElement.style.color = "#FD3C3C";
+                });
+        } else {
+            messageElement.textContent = "";
+            nextButton.disabled = true;
+        }
+    });
+
 
     // 이메일 부분 로직
     const form = document.querySelector('form');
@@ -224,8 +286,8 @@
         const domainInput = document.querySelector('#domain-txt');
         const domainSelect = document.querySelector('#domain-list');
 
-        const emailBeforeAt = emailInput.value.split('@')[0];
-        emailInput.value = emailBeforeAt;
+        const frontEmail = emailInput.value.split('@')[0];
+        emailInput.value = frontEmail;
 
         if (domainSelect.value !== "type") {
             emailInput.value += "@" + domainSelect.value;
