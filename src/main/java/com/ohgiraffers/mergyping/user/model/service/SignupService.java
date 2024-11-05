@@ -44,4 +44,8 @@ public class SignupService {
     public boolean checkId(String userId) {
         return signupMapper.checkId(userId) == 0;
     }
+
+    public boolean checkNick(String userNick) {
+        return signupMapper.checkNick(userNick) == 0;
+    }
 }
