@@ -16,8 +16,10 @@ public class SelectPostDTO {
     private byte postImage;
     private boolean postFavorite;
     private int notScaryNumber;
+    private boolean scary;
+    private boolean notscary;
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int commentNumber, int postReport, byte postImage, boolean postFavorite, int notScaryNumber) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int commentNumber, int postReport, byte postImage, boolean postFavorite, int notScaryNumber, boolean scary, boolean notscary) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -30,6 +32,24 @@ public class SelectPostDTO {
         this.postImage = postImage;
         this.postFavorite = postFavorite;
         this.notScaryNumber = notScaryNumber;
+        this.scary = scary;
+        this.notscary = notscary;
+    }
+
+    public boolean isScary() {
+        return scary;
+    }
+
+    public void setScary(boolean scary) {
+        this.scary = scary;
+    }
+
+    public boolean isNotscary() {
+        return notscary;
+    }
+
+    public void setNotscary(boolean notscary) {
+        this.notscary = notscary;
     }
 
     public SelectPostDTO() {}

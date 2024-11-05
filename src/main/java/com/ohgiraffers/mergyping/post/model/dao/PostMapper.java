@@ -14,6 +14,10 @@ public interface PostMapper {
     void updateFavoriteStatus(@RequestParam("postNo") int postNo, @RequestParam("isFavorite") boolean isFavorite);
     List<PostDTO> getPostsByPage(@RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize);
     SelectPostDTO selectById(@RequestParam("postNo") int postNo);
+//    void incrementScaryCount(@RequestParam("postNo") int postNo);
+//    void decrementScaryCount(@RequestParam("postNo") int postNo);
+//    void incrementNotScaryCount(@RequestParam("postNo") int postNo);
+//    void decrementNotScaryCount(@RequestParam("postNo") int postNo);
 }
 
 

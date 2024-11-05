@@ -66,8 +66,32 @@
                 <img th:src="@{/images/post/best-none-dark.png}" th:unless="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
                      class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <span th:text="${post.postNo}"></span>
-            <span th:text="${post.postTitle}"></span>
+            <span th:text="${post.postNo}" id="no"></span>
+            <span th:text="${post.postTitle}" id="title"></span>
+            <script>
+                window.addEventListener('load', () => {
+                    const title = document.getElementById("title");
+                    const no = document.getElementById("no");
+
+                    const checkTitleWidth = () => {
+                        const titleWidth = title.offsetWidth;
+                        if (titleWidth > 1000) {
+                            title.style.fontSize = '35px';
+                            title.style.marginTop='15px';
+                            no.style.marginTop='15px';
+                            title.style.marginLeft='130px';
+                            no.style.fontSize = '35px';
+                        } else {
+                            title.style.fontSize = ''; // 기본 폰트 크기로 되돌림
+                        }
+                    };
+
+                    // 페이지 로드 시 및 윈도우 리사이즈 시 폰트 크기 체크
+                    checkTitleWidth();
+                    window.addEventListener('resize', checkTitleWidth);
+                });
+
+            </script>
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
             <span> <img th:src="@{/images/post/selectpost/reportbtn.png}"> </span>
@@ -103,18 +127,35 @@
         </div>
         </div>
         <div id="scary">
-            <img th:src="@{/images/post/selectpost/scary-btn-before.png}"> <div>
-            <span>무서워요</span>
-        </div>
+            <img th:src="@{/images/post/selectpost/scary-btn-before.png}">
+<!--            <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"-->
+<!--                 th:attr="data-postNo=${post.postNo}"-->
+<!--                 class="scary-icon" onclick="toggleScary(this)">-->
+<!--            <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"-->
+<!--                 th:attr="data-postNo=${post.postNo}"-->
+<!--                 class="scary-icon" onclick="toggleScary(this)">-->
+            <div>
+                <span>무서워요</span>
+            </div>
             <span th:text="${post.scaryNumber}"></span>
         </div>
+
         <div id="notscary">
-            <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}"> <div>
-            <span>안무서워요</span>
+            <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}">
+<!--            <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}" th:if="${!post.notScary}"-->
+<!--                 th:attr="data-postNo=${post.postNo}"-->
+<!--                 class="notscary-icon" onclick="toggleNotScary(this)">-->
+<!--            <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}" th:if="${post.notScary}"-->
+<!--                 th:attr="data-postNo=${post.postNo}"-->
+<!--                 class="notscary-icon" onclick="toggleNotScary(this)">-->
+            <div>
+                <span>안무서워요</span>
+            </div>
+            <span th:text="${post.notScaryNumber}"></span>
         </div>
-            <span th:text="${post.scaryNumber}"></span>
-        </div>
-        <div class="line"></div>
+
+
+        <div class="line2"></div>
         <input type="text" value="&nbsp; &nbsp; &nbsp; 댓글을 작성해주세요">
         <button type="submit">댓글 작성</button>
         <div id="comment">
@@ -126,7 +167,19 @@
             <span>좋아요</span>
             <img th:src="@{/images/post/selectpost/reportbtn.png}">
             <span>신고</span>
-            <span class="ellipsis" th:text="${post.postWriter}"></span>
+            <span class="ellipsis" th:text="${post.postTitle}"></span>
+        </div>
+        <div id="recomment">
+            <img  th:src="@{/images/post/selectpost/arrow.png}">
+            <img th:src="@{/images/post/selectpost/profile-img.png}">
+            <span th:text="${post.postWriter}"></span>
+            <span>
+                <img th:src="@{/images/post/selectpost/like-btn-before.png}">
+            </span>
+            <span>좋아요</span>
+            <img th:src="@{/images/post/selectpost/reportbtn.png}">
+            <span>신고</span>
+            <span class=".ellipsis" th:text="${post.postTitle}"></span>
         </div>
         <div class="hidden">
             <span>댓글 더보기</span>
@@ -140,6 +193,87 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
+<script>
+    function toggleFavorite(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isFavorite = element.getAttribute('src').includes('best-dark.png');
+        fetch(`/toggleFavorite`, {
+            method: 'POST', headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
+            .then(response => response.json()) .then(data => { if (data.success) {
+            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
+        } }) .catch(error => console.error('Error:', error)); }
+</script>
 
+<script>
+    window.addEventListener('load', () => {
+        const box = document.getElementById('box');
+        const footer = document.querySelector('footer .footer');
+
+        const boxHeight = box.offsetHeight;
+        const boxTop = box.offsetTop;
+        const footerTop = boxTop + boxHeight + 50; // 박스와의 간격을 50px로 설정
+
+        const img = document.getElementById('img2');
+        const imgBottom = img.getBoundingClientRect().bottom;
+        const contentBottom = content.getBoundingClientRect().bottom;
+        const minTop = imgBottom + 10;
+        const defaultTop1 = 250;
+        const defaultTop2 = 150;
+            box.style.top = `${Math.min(minTop, defaultTop1)}px`;
+
+            if (contentBottom>1480){
+                box.style.top = `${Math.min(minTop, defaultTop2)}px`;
+            }
+
+         setTimeout(() => {
+            const boxTop = box.getBoundingClientRect().top + window.scrollY;
+            const footerTop = boxTop + box.scrollHeight + 10;
+            footer.style.position = 'absolute';
+            footer.style.top = `${footerTop}px`;
+            }, 100);
+    });
+
+
+
+</script>
+
+<!--<script>-->
+<!--    function toggleScary(element) {-->
+<!--        const postNo = element.getAttribute('data-postNo');-->
+<!--        const isScary = element.getAttribute('src').includes('scary-btn-after.png');-->
+
+<!--        fetch(`/toggleScary`, {-->
+<!--            method: 'POST',-->
+<!--            headers: { 'Content-Type': 'application/json' },-->
+<!--            body: JSON.stringify({ postNo: postNo, isScary: !isScary })-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                if (data.success) {-->
+<!--                    element.src = isScary ? '/images/post/scary-btn-before.png' : '/images/post/scary-btn-after.png';-->
+<!--                }-->
+<!--            })-->
+<!--    }-->
+
+<!--    function toggleNotScary(element) {-->
+<!--        const postNo = element.getAttribute('data-postNo');-->
+<!--        const isNotScary = element.getAttribute('src').includes('notscary-btn-after.png');-->
+
+<!--        fetch(`/toggleNotScary`, {-->
+<!--            method: 'POST',-->
+<!--            headers: { 'Content-Type': 'application/json' },-->
+<!--            body: JSON.stringify({ postNo: postNo, isNotScary: !isNotScary })-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                if (data.success) {-->
+<!--                    element.src = isNotScary ? '/images/post/notscary-btn-before.png' : '/images/post/notscary-btn-after.png';-->
+<!--                }-->
+<!--            })-->
+<!--    }-->
+
+<!--</script>-->
 </body>
 </html>
