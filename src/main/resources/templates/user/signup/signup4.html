@@ -41,13 +41,13 @@
         <option class="sop" value="nate.com">nate.com</option>
         <option class="sop" value="kakao.com">kakao.com</option>
         </select>
-    <button type="button" id="authEmail" class="authEmail" oninput="toggleNextField()">인증</button>
+    <button type="button" id="authEmail" class="authEmail" onclick="sendAuthCode()" oninput="toggleNextField()">인증</button>
 
     <!-- 인증 모달 -->
     <div class="modalBlur">
         <div class="modalGuide">
             <h1 style="color:white;">이메일 인증</h1>
-            <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6"><p id="emailCheckMessage"></p>
+            <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6" ><p id="emailCheckMessage"></p>
         </div>
     </div>
 
@@ -76,6 +76,99 @@
     </form>
 </div>
 <script>
+    // 이메일 인증
+    function sendAuthCode() {
+        const emailPrefix = document.getElementById('email').value;
+        const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
+
+        if (!emailPrefix || !emailDomain) {
+            alert("이메일을 정확하게 입력해주세요.");
+            return;
+        }
+
+        const userEmail = emailPrefix + '@' + emailDomain;
+
+        fetch('/auth/sendauthCode', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({email: userEmail}),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    openAuthModal(); // 인증 모달창 열기
+                } else {
+                    alert("인증 번호 전송에 실패했습니다.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("서버와의 통신에 실패했습니다.");
+            });
+    }
+
+    function checkAuthCode() {
+        const authCodeInput = document.getElementById('authNumber').value;
+
+        const emailPrefix = document.getElementById('email').value;
+        const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
+        const userEmail = emailPrefix + '@' + emailDomain;
+
+        if (authCodeInput.length === 6) {
+            fetch('/auth/verifyauthCode', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: userEmail,       // 이메일 주소와 함께 인증 코드 전송
+                    authCode: authCodeInput // 인증 코드
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        closeAuthModal();  // 인증 성공 시 모달 닫기
+                        enableNextButton();  // "다음" 버튼 활성화
+                    } else {
+                        document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("서버와의 통신에 실패했습니다.");
+                });
+        }
+
+        console.log(authCodeInput);
+    }
+
+    function openAuthModal() {
+        const modal = document.querySelector('.modalBlur');
+        modal.style.display = 'flex';  // 모달 창 열기
+
+        const nextButton = document.getElementById('next');
+        nextButton.disabled = true;  // 인증 번호가 맞을 때까지 "다음" 버튼 비활성화
+    }
+
+    function closeAuthModal() {
+        const modal = document.querySelector('.modalBlur');
+        modal.style.display = 'none';  // 모달 창 닫기
+    }
+
+    function enableNextButton() {
+        const nextButton = document.getElementById('next');
+        nextButton.disabled = false;  // "다음" 버튼 활성화
+        document.getElementById('email').disabled = true;  // 이메일 입력 필드 비활성화
+        document.getElementById('domain-txt').disabled = true;  // 도메인 입력 필드 비활성화
+        document.getElementById('domain-list').disabled = true;  // 도메인 선택 필드 비활성화
+    }
+
+    document.getElementById('authNumber').addEventListener('input', checkAuthCode);
+
+
     // 비밀번호 눈모양
     function togglePasswordVisibility(id) {
         const passwordField = document.getElementById(id);
@@ -90,17 +183,17 @@
         }
     }
 
-    document.getElementById('togglePassword').addEventListener('click', function() {
+    document.getElementById('togglePassword').addEventListener('click', function () {
         togglePasswordVisibility('password');
     });
 
-    document.getElementById('togglePasswordConfirm').addEventListener('click', function() {
+    document.getElementById('togglePasswordConfirm').addEventListener('click', function () {
         togglePasswordVisibility('passwordConfirm');
     });
 
 
     // 아이디 체크
-    document.getElementById('id').addEventListener('input', function() {
+    document.getElementById('id').addEventListener('input', function () {
         const passwordField = document.getElementById('password');
         const userIdInput = this;
         const userId = this.value;
@@ -126,7 +219,7 @@
         }
 
         if (userId.length > 3) {
-            fetch(`/auth/checkId?userId=${ userId }`)
+            fetch(`/auth/checkId?userId=${userId}`)
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
@@ -152,7 +245,7 @@
     });
 
     // 비밀번호 체크
-    document.getElementById('password').addEventListener('input', function() {
+    document.getElementById('password').addEventListener('input', function () {
         const userPwd = this.value;
         const messageElement = document.getElementById('pwdCheckMessage');
         const passwordConfirmInput = document.getElementById('passwordConfirm');
@@ -178,7 +271,7 @@
         }
 
         if (userPwd.length > 7) {
-            fetch(`/auth/checkPassword?userPwd=${ encodeURIComponent(userPwd) }`) // 오른쪽이 GetMapping에서 RequestParam으로 불러올 공간
+            fetch(`/auth/checkPassword?userPwd=${encodeURIComponent(userPwd)}`) // 오른쪽이 GetMapping에서 RequestParam으로 불러올 공간
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
@@ -203,7 +296,7 @@
     });
 
     // 비밀번호 확인 체크
-    document.getElementById('passwordConfirm').addEventListener('input', function() {
+    document.getElementById('passwordConfirm').addEventListener('input', function () {
         const userConfirmPwd = this.value;
         const userPwd = document.getElementById('password').value;
         const passwordInput = document.getElementById('password');
@@ -244,7 +337,7 @@
     });
 
     // 닉네임 중복 테스트
-    document.getElementById('nickname').addEventListener('input', function() {
+    document.getElementById('nickname').addEventListener('input', function () {
         const userNickInput = this;
         const userNick = this.value;
         const messageElement = document.getElementById('nicknameCheckMessage');
@@ -259,7 +352,7 @@
         }
 
         if (userNick.length > 0) {
-            fetch(`/auth/checkNick?userNick=${ userNick }`)
+            fetch(`/auth/checkNick?userNick=${userNick}`)
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
@@ -283,12 +376,13 @@
 
     // 이메일 부분 로직
     const form = document.querySelector('form');
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         const nextButton = document.getElementById('next');
         const emailInput = document.querySelector('#email');
         const domainInput = document.querySelector('#domain-txt');
         const domainSelect = document.querySelector('#domain-list');
         const emailAuth = document.getElementById('authEmail');
+        let authNumber = '';  // 이메일 인증번호 저장 변수
 
         const frontEmail = emailInput.value.split('@')[0];
         emailInput.value = frontEmail;
@@ -304,28 +398,28 @@
         });
     });
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         const year = document.querySelector('#birth-year').value;
         const month = document.querySelector('#birth-month').value;
         const day = document.querySelector('#birth-day').value;
 
         if (year && month && day) {
             // DATE 객체에서 month는 1로 선택해도 0으로 인식되어 -1이 들어가야함 // 일에서도 문제가 생기는데 일 부분에서 수정해서 정상적으로 됨 // 이상하게 다른것도 다같이 해결됐다. 일석이조
-            const birthDate = new Date(year, month -1, day);
+            const birthDate = new Date(year, month - 1, day);
             const formattedDate = birthDate.toISOString().split('T')[0]; // 자료형이 DATE라서 STRING으로 변경 split T를 통해 24-11-04 이런식으로 저장
             document.querySelector('#birthDate').value = formattedDate;
         }
     });
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         const genderInput = document.querySelector('input[name="gender"]:checked');
         const formattedGender = genderInput ? genderInput.value : null;
     });
 
 
     // 회원가입 메시지 => 나중에 모달로 변경하면 좋을듯?
-        const message = `[[${ message }]]`
-        if(message) {
+    const message = `[[${message}]]`
+    if (message) {
         alert(message);
     }
 
@@ -333,7 +427,7 @@
     const domainListEl = document.querySelector('#domain-list')
     const domainInputEl = document.querySelector('#domain-txt')
     domainListEl.addEventListener('change', (event) => {
-        if(event.target.value !== "type") {
+        if (event.target.value !== "type") {
             domainInputEl.value = event.target.value
             domainInputEl.disabled = true
         } else {
@@ -346,9 +440,9 @@
     const birthYearEl = document.querySelector('#birth-year')
     isYearOptionExisted = false;
     birthYearEl.addEventListener('focus', function () {
-        if(!isYearOptionExisted) {
+        if (!isYearOptionExisted) {
             isYearOptionExisted = true
-            for(var i = 1940; i <= 2024; i++) {
+            for (var i = 1940; i <= 2024; i++) {
                 const YearOption = document.createElement('option')
                 YearOption.setAttribute('value', i)
                 YearOption.innerText = i
@@ -361,9 +455,9 @@
     const birthMonthEl = document.querySelector('#birth-month')
     isMonthOptionExisted = false;
     birthMonthEl.addEventListener('focus', function () {
-        if(!isMonthOptionExisted) {
+        if (!isMonthOptionExisted) {
             isMonthOptionExisted = true
-            for(var i = 1; i <= 12; i++) {
+            for (var i = 1; i <= 12; i++) {
                 const MonthOption = document.createElement('option')
                 MonthOption.setAttribute('value', i)
                 MonthOption.innerText = i
@@ -376,9 +470,9 @@
     const birthDayEl = document.querySelector('#birth-day')
     isDayOptionExisted = false;
     birthDayEl.addEventListener('focus', function () {
-        if(!isDayOptionExisted) {
+        if (!isDayOptionExisted) {
             isDayOptionExisted = true
-            for(var i = 0; i <= 31; i++) {
+            for (var i = 0; i <= 31; i++) {
                 const DayOption = document.createElement('option')
                 DayOption.setAttribute('value', i + 1)
                 DayOption.innerText = i
@@ -401,10 +495,10 @@
 
     // 모달
     const modal = document.querySelector('.modalBlur');
-    const btnOpenModal=document.querySelector('.authEmail');
-    const btnCloseModal=document.querySelector('.modalBlur');
+    const btnOpenModal = document.querySelector('.authEmail');
+    const btnCloseModal = document.querySelector('.modalBlur');
 
-    btnOpenModal.addEventListener("click", ()=>{
+    btnOpenModal.addEventListener("click", () => {
         modal.style.display = "flex";
     })
 
@@ -483,6 +577,7 @@
     emailAuth.addEventListener('click', () => {
         toggleNextField();
     });
+
     function toggleNextField() {
         nextButton.disabled = false;
     } // 까지
@@ -523,12 +618,6 @@
         passwordInput.value = "";
         passwordConfirmInput.value = "";
     }
-
-    // 이거 사용하지 않고 body쪽에서 oninput 사용
-    // userIdInput.addEventListener('input', toggleFields);
-    // passwordInput.addEventListener('input', togglePasswordConfirmField);
-    // passwordConfirmInput.addEventListener('input', toggleNicknameField);
-    // nicknameInput.addEventListener('input', toggleEmailField);
 </script>
 </body>
 </html>

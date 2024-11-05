@@ -992,9 +992,8 @@ nav span:hover{
     font-family: 'SUIT';
     font-style: normal;
     font-weight: 700;
-    font-size: 40px;
-    line-height: 110px;
-    top:500px;
+    font-size: 50px;
+    z-index: 999;
 }
 
 button:disabled {
