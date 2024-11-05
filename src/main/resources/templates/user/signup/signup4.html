@@ -158,6 +158,19 @@
         modal.style.display = 'none';  // 모달 창 닫기
     }
 
+    function toggleAllFields(enable) {
+        // enable 값에 따라 true (활성화), false (비활성화) 설정
+        const fields = [
+            passwordInput, passwordConfirmInput, nicknameInput, emailInput, emailDomainInput,
+            emailSelectInput, birthYear, birthMonth, birthDay, man, woman, other, emailAuth
+        ];
+
+        fields.forEach(field => {
+            field.disabled = !enable; // enable이 true면 disabled=false, false면 disabled=true
+        });
+    }
+
+
     function enableNextButton() {
         const nextButton = document.getElementById('next');
         nextButton.disabled = false;  // "다음" 버튼 활성화
@@ -278,6 +291,7 @@
                         messageElement.textContent = "사용 가능한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
                         passwordConfirmInput.disabled = false;
+                        passwordInput.disabled = false;
                     } else {
                         messageElement.textContent = "사용 불가한 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
