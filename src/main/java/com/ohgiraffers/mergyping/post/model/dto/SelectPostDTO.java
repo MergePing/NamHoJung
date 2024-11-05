@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.post.model.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class SelectPostDTO {
@@ -7,36 +8,38 @@ public class SelectPostDTO {
     private String postTitle;
     private String postCategory;
     private String postWriter;
-    private Date postDate;
+    private String postContent;
+    private LocalDate postDate;
     private int scaryNumber;
     private int commentNumber;
     private int postReport;
     private byte postImage;
     private boolean postFavorite;
-    private String formattedDate;
+    private int notScaryNumber;
 
-
-    public void setFormattedDate(String formattedDate) {
-        this.formattedDate = formattedDate;
-    }
-    public String getFormattedDate() {
-        return formattedDate;
-    }
-
-    public SelectPostDTO() {}
-
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, Date postDate, int scaryNumber, int commentNumber, int postReport, byte postImage, boolean postFavorite, String formattedDate) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int commentNumber, int postReport, byte postImage, boolean postFavorite, int notScaryNumber) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
         this.postWriter = postWriter;
+        this.postContent = postContent;
         this.postDate = postDate;
         this.scaryNumber = scaryNumber;
         this.commentNumber = commentNumber;
         this.postReport = postReport;
         this.postImage = postImage;
         this.postFavorite = postFavorite;
-        this.formattedDate = formattedDate;
+        this.notScaryNumber = notScaryNumber;
+    }
+
+    public SelectPostDTO() {}
+
+    public int getNotScaryNumber() {
+        return notScaryNumber;
+    }
+
+    public void setNotScaryNumber(int notScaryNumber) {
+        this.notScaryNumber = notScaryNumber;
     }
 
     public int getPostNo() {
@@ -71,11 +74,19 @@ public class SelectPostDTO {
         this.postWriter = postWriter;
     }
 
-    public Date getPostDate() {
+    public String getPostContent() {
+        return postContent;
+    }
+
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
+    }
+
+    public LocalDate getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(LocalDate postDate) {
         this.postDate = postDate;
     }
 
@@ -126,13 +137,13 @@ public class SelectPostDTO {
                 ", postTitle='" + postTitle + '\'' +
                 ", postCategory='" + postCategory + '\'' +
                 ", postWriter='" + postWriter + '\'' +
+                ", postContent='" + postContent + '\'' +
                 ", postDate=" + postDate +
                 ", scaryNumber=" + scaryNumber +
                 ", commentNumber=" + commentNumber +
                 ", postReport=" + postReport +
                 ", postImage=" + postImage +
                 ", postFavorite=" + postFavorite +
-                ", formattedDate='" + formattedDate + '\'' +
                 '}';
     }
 }

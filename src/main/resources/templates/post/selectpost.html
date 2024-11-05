@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<HTML LANG="EN">
 <head>
+    <meta charset="UTF-8">
 <title>게시판</title>
 <link rel="stylesheet" th:href="@{/css/reset.css}">
 <link rel="stylesheet" th:href="@{/css/post/selectpost.css}">
@@ -56,67 +57,56 @@
     <div class="post">
         <div id="header">
             <span>
-                <img th:src="@{/images/post/best-dark.png}"
-                     th:if="${post.postFavorite}"
-                     th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/best-dark.png}" th:if="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
                      class="favorite-icon" onclick="toggleFavorite(this)">
-                <img th:src="@{/images/post/best-none-dark.png}"
-                     th:unless="${post.postFavorite}"
-                     th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/best-none-dark.png}" th:unless="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
                      class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
             <span th:text="${post.postNo}"></span>
             <span th:text="${post.postTitle}"></span>
             <span>작성날짜: </span>
-            <span th:text="${post.formattedDate}"></span>
-            <span>
-                <img th:src="@{/images/post/selectpost/reportbtn.png}">
-            </span>
+            <span th:text="${post.postDate}"></span>
+            <span> <img th:src="@{/images/post/selectpost/reportbtn.png}"> </span>
         </div>
         <div class="line"></div>
         <div id="content">
-            <span th:text="${post.content}"></span>
+            <span th:text="${post.postContent}"></span>
             <img th:src="@{/images/post/selectpost/img1.png}">
             <img th:src="@{/images/post/selectpost/img2.png}">
         </div>
         <div id="writer">
             <img th:src="@{/images/post/selectpost/profile-img.png}">
-            <span th:text="${post.writerName}"></span>
-            <span th:text="${post.writerTitle}"></span>
-            <span>
-                <img th:src="@{/images/post/selectpost/badge.png}">
-            </span>
-            <div>
-                <span th:text="${post.category}"></span>
-            </div>
+            <span th:text="${post.postWriter}"></span>
+            <span th:text="${post.postWriter}"></span>
+            <span> <img th:src="@{/images/post/selectpost/badge.png}">
+            </span> <div> <span th:text="${post.postCategory}"></span>
+        </div>
         </div>
         <div id="scary">
-            <img th:src="@{/images/post/selectpost/scary-btn-before.png}">
-            <div>
-                <span>무서워요</span>
-            </div>
+            <img th:src="@{/images/post/selectpost/scary-btn-before.png}"> <div>
+            <span>무서워요</span>
+        </div>
             <span th:text="${post.scaryNumber}"></span>
         </div>
         <div id="notscary">
-            <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}">
-            <div>
-                <span>안무서워요</span>
-            </div>
-            <span th:text="${post.notScaryNumber}"></span>
+            <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}"> <div>
+            <span>안무서워요</span>
+        </div>
+            <span th:text="${post.scaryNumber}"></span>
         </div>
         <div class="line"></div>
         <input type="text" value="&nbsp; &nbsp; &nbsp; 댓글을 작성해주세요">
         <button type="submit">댓글 작성</button>
         <div id="comment">
             <img th:src="@{/images/post/selectpost/profile-img.png}">
-            <span th:text="${post.commentWriter}"></span>
+            <span th:text="${post.postWriter}"></span>
             <span>
                 <img th:src="@{/images/post/selectpost/like-btn-before.png}">
             </span>
             <span>좋아요</span>
             <img th:src="@{/images/post/selectpost/reportbtn.png}">
             <span>신고</span>
-            <span class="ellipsis" th:text="${post.comment}"></span>
+            <span class="ellipsis" th:text="${post.postWriter}"></span>
         </div>
         <div class="hidden">
             <span>댓글 더보기</span>
@@ -125,7 +115,9 @@
     <div class="bg"></div>
 </main>
 <footer>
-    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
+    <div class="footer">
+        <p>ⓒ 2024 MergePing. All right reserved. </p>
+    </div>
 </footer>
 </body>
 </html>
