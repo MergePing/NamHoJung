@@ -24,7 +24,7 @@
             COMMENTS_NUMBER,
             POST_FAVORITE
         FROM TBL_POST
-        ORDER BY POST_DATE;
+        ORDER BY POST_NO DESC;
     </select>
 
 

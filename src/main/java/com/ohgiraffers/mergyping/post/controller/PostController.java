@@ -32,6 +32,14 @@ public class PostController {
         return "/post/post";
     }
 
+    @GetMapping("/post/page")
+    @ResponseBody
+    public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+        List<PostDTO> postList = postService.getPostList();
+        int fromIndex = (page - 1) * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, postList.size());
+        return postList.subList(fromIndex, toIndex);
+    }
 
 
     @PostMapping("/toggleFavorite")
@@ -47,11 +55,6 @@ public class PostController {
         return response;
     }
 
-    @GetMapping("/posts")
-    @ResponseBody
-    public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
-        return postService.getPostsByPage(page, pageSize);
-    }
 
     @GetMapping("/selectpost/{postNo}")
     public String selectPost(@PathVariable("postNo") int postNo, Model model) {
