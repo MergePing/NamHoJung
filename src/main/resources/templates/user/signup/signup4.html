@@ -331,7 +331,8 @@
                     if (isAvailable) {
                         messageElement.textContent = "동일한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
-                        passwordInput.disabled = true;
+                        passwordInput.disabled = false;
+                        // div 추가로 위를 덮는게 좋을 듯?
                     } else {
                         messageElement.textContent = "동일하지 않은 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
