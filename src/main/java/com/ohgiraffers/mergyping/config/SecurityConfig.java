@@ -16,7 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig  {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -39,7 +39,7 @@ public class SecurityConfig {
             auth.requestMatchers("/signupTerms", "/auth/login", "/auth/**","/signup" ,
                     "/auth/fail", "/", "/main", "/css/**", "/img/**",
                     "/userinfo", "/useractive", "/post", "/intro", "/notice", "/selectnotice", "/selectpost",
-                    "/admin/**" , "/checknickname/**").permitAll();
+                    , "/checknickname/**", "/admin/**", "/toggleFavorite", "/post/**","selectpost/**").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();

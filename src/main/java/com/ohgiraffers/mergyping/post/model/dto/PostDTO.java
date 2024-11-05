@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.post.model.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -7,24 +8,15 @@ public class PostDTO {
     private int postNo;
     private String postTitle;
     private String postCategory;
-    private Date postDate;
+    private LocalDate postDate;
     private int scaryNumber;
     private int commentNumber;
     private boolean postFavorite;
-
     private String formattedDate;
-    public void setFormattedDate(String formattedDate) {
-        this.formattedDate = formattedDate;
-    }
-
-    public String getFormattedDate() {
-        return formattedDate;
-    }
-
 
     public PostDTO() {}
 
-    public PostDTO(int postNo, String postTitle, String postCategory, Date postDate, int scaryNumber, int commentNumber, boolean postFavorite) {
+    public PostDTO(int postNo, String postTitle, String postCategory, LocalDate postDate, int scaryNumber, int commentNumber, boolean postFavorite, String formattedDate) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -32,6 +24,7 @@ public class PostDTO {
         this.scaryNumber = scaryNumber;
         this.commentNumber = commentNumber;
         this.postFavorite = postFavorite;
+        this.formattedDate = formattedDate;
     }
 
     public int getPostNo() {
@@ -58,11 +51,11 @@ public class PostDTO {
         this.postCategory = postCategory;
     }
 
-    public Date getPostDate() {
+    public LocalDate getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(LocalDate postDate) {
         this.postDate = postDate;
     }
 
@@ -82,12 +75,20 @@ public class PostDTO {
         this.commentNumber = commentNumber;
     }
 
-    public boolean getPostFavorite() {
+    public boolean isPostFavorite() {
         return postFavorite;
     }
 
     public void setPostFavorite(boolean postFavorite) {
         this.postFavorite = postFavorite;
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
 
     @Override
@@ -100,9 +101,7 @@ public class PostDTO {
                 ", scaryNumber=" + scaryNumber +
                 ", commentNumber=" + commentNumber +
                 ", postFavorite=" + postFavorite +
+                ", formattedDate='" + formattedDate + '\'' +
                 '}';
     }
-
-
-
 }
