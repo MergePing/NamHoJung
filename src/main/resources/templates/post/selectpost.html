@@ -37,6 +37,10 @@
     .ellipsis {
         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
+
+    .blur{
+        filter: blur(7.5px);
+    }
 </style>
 </head>
 <body>
@@ -64,16 +68,18 @@
             </span>
             <span th:text="${post.postNo}"></span>
             <span th:text="${post.postTitle}"></span>
-            <span>작성날짜: </span>
+            <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
             <span> <img th:src="@{/images/post/selectpost/reportbtn.png}"> </span>
+            <span>신고</span>
         </div>
         <div class="line"></div>
         <div id="content">
             <span th:text="${post.postContent}"></span>
-            <img th:src="@{/images/post/selectpost/img1.png}">
-            <img th:src="@{/images/post/selectpost/img2.png}">
+            <img th:src="@{/images/post/selectpost/img1.png}" class="blur img1">
+            <img th:src="@{/images/post/selectpost/img2.png}" class="blur img2">
         </div>
+        <div id="box">
         <div id="writer">
             <img th:src="@{/images/post/selectpost/profile-img.png}">
             <span th:text="${post.postWriter}"></span>
@@ -112,6 +118,7 @@
             <span>댓글 더보기</span>
         </div>
     </div>
+    </div>
     <div class="bg"></div>
 </main>
 <footer>
@@ -119,5 +126,15 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
+<script>
+    const imgBlur1 = document.querySelector(".img1");
+    const imgBlur2 = document.querySelector(".img2");
+    imgBlur1.addEventListener('click',()=>{
+        imgBlur1.classList.remove(".blur")
+    });
+    imgBlur2.addEventListener('click',()=>{
+        imgBlur2.classList.remove(".blur")
+    })
+</script>
 </body>
 </html>

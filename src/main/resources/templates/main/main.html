@@ -197,113 +197,113 @@
     </div>
 </main>
 
-<form th:action="@{/auth/logout}" method="post">
-    <button type="submit">로그아웃</button>
-</form>
+<!--<form th:action="@{/auth/logout}" method="post">-->
+<!--    <button type="submit">로그아웃</button>-->
+<!--</form>-->
 
-<footer>
-    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
-</footer>
-<script>
-    // JavaScript로 토글 기능 추가
-    const mypageBtn = document.getElementById("mypageBtn");
-    const myPageAside = document.getElementById("myPageAside");
+<!--<footer>-->
+<!--    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>-->
+<!--</footer>-->
+<!--<script>-->
+<!--    // JavaScript로 토글 기능 추가-->
+<!--    const mypageBtn = document.getElementById("mypageBtn");-->
+<!--    const myPageAside = document.getElementById("myPageAside");-->
 
-    // 버튼 클릭 시 aside 창 표시/숨김 전환
-    mypageBtn.addEventListener("click", () => {
-        if (myPageAside.classList.contains("show")) {
-            // 보이는 상태라면 숨기기
-            myPageAside.classList.remove("show");
-            setTimeout(() => {
-                myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로
-            }, 400); // transition과 동일한 시간 설정
-        } else {
-            // 숨겨진 상태라면 보이게 하기
-            myPageAside.style.display = "block"; // 먼저 display를 block으로 설정
-            setTimeout(() => {
-                myPageAside.classList.add("show");
-            }, 10); // 약간의 지연 시간 후에 show 클래스 추가
-        }
-    });
+<!--    // 버튼 클릭 시 aside 창 표시/숨김 전환-->
+<!--    mypageBtn.addEventListener("click", () => {-->
+<!--        if (myPageAside.classList.contains("show")) {-->
+<!--            // 보이는 상태라면 숨기기-->
+<!--            myPageAside.classList.remove("show");-->
+<!--            setTimeout(() => {-->
+<!--                myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로-->
+<!--            }, 400); // transition과 동일한 시간 설정-->
+<!--        } else {-->
+<!--            // 숨겨진 상태라면 보이게 하기-->
+<!--            myPageAside.style.display = "block"; // 먼저 display를 block으로 설정-->
+<!--            setTimeout(() => {-->
+<!--                myPageAside.classList.add("show");-->
+<!--            }, 10); // 약간의 지연 시간 후에 show 클래스 추가-->
+<!--        }-->
+<!--    });-->
 
-    const gradeElement = document.getElementById('rank');
-    const popup = document.getElementById('rank-popup');
+<!--    const gradeElement = document.getElementById('rank');-->
+<!--    const popup = document.getElementById('rank-popup');-->
 
-    gradeElement.addEventListener('mouseenter', () => {
-        popup.style.display = 'block'; // 팝업 표시
-    });
+<!--    gradeElement.addEventListener('mouseenter', () => {-->
+<!--        popup.style.display = 'block'; // 팝업 표시-->
+<!--    });-->
 
-    gradeElement.addEventListener('mouseleave', () => {
-        popup.style.display = 'none'; // 팝업 숨기기
-    });
+<!--    gradeElement.addEventListener('mouseleave', () => {-->
+<!--        popup.style.display = 'none'; // 팝업 숨기기-->
+<!--    });-->
 
-    const personalInfoBtn = document.getElementById('info');
-    const passwordPopup = document.getElementById('pwd-popup');
-    const closePopupBtn = document.getElementById('closePopupBtn');
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordInput = document.getElementById('pwdInput');
-    const submitPasswordBtn = document.getElementById('submitPasswordBtn');
-    const modal = document.querySelector('.modal-background');
+<!--    const personalInfoBtn = document.getElementById('info');-->
+<!--    const passwordPopup = document.getElementById('pwd-popup');-->
+<!--    const closePopupBtn = document.getElementById('closePopupBtn');-->
+<!--    const togglePassword = document.getElementById('togglePassword');-->
+<!--    const passwordInput = document.getElementById('pwdInput');-->
+<!--    const submitPasswordBtn = document.getElementById('submitPasswordBtn');-->
+<!--    const modal = document.querySelector('.modal-background');-->
 
-    //모달
-    personalInfoBtn.addEventListener('click', () => {
-        passwordPopup.style.display = 'block';// 비밀번호 팝업 표시
-        document.body.style.overflow = "hidden"; // 스크롤 비활성화
-    });
+<!--    //모달-->
+<!--    personalInfoBtn.addEventListener('click', () => {-->
+<!--        passwordPopup.style.display = 'block';// 비밀번호 팝업 표시-->
+<!--        document.body.style.overflow = "hidden"; // 스크롤 비활성화-->
+<!--    });-->
 
-    personalInfoBtn.addEventListener("click", () => {
-        modal.style.display = "flex";
-        if (modal.style.display === "flex") {
-            closePopupBtn.addEventListener("click", () => {
-                modal.style.display = "none";
-                document.body.style.overflow = "auto"; // 스크롤 다시 활성화
-            });
-        }
-    });
-
-
-    // 비밀번호 보기/숨기기 토글
-    togglePassword.addEventListener('click', () => {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
-    });
-    // 확인 버튼 클릭 시 다른 URL로 이동
-    submitPasswordBtn.addEventListener('click', () => {
-        // URL을 원하는 주소로 변경하세요
-        location.href = '/userinfo';
-    });
-
-    const activebtn = document.getElementById('active');
-    activebtn.addEventListener('click', () => {
-        // URL을 원하는 주소로 변경하세요
-        location.href = '/useractive';
-    });
-
-    const mbtiButton = document.getElementById("mbtiButton");
-    const mbtiContent = document.getElementById("mbtiContent");
-    const myMBTI = document.getElementById("myMBTI");
-    const mbtiPopup = document.getElementById("mbtiPopup");
-
-    // MBTI 버튼 클릭 시 MBTI 콘텐츠 표시
-    mbtiButton.addEventListener("click", () => {
-        // 콘텐츠 표시 상태를 토글
-        mbtiContent.style.display = mbtiContent.style.display === "none" ? "block" : "none";
-    });
-
-    // 나의 MBTI 요소에 마우스 올렸을 때 팝업 표시
-    myMBTI.addEventListener("mouseenter", () => {
-        mbtiPopup.style.display = "block";
-    });
-
-    // 나의 MBTI 요소에서 마우스 나갔을 때 팝업 숨기기
-    myMBTI.addEventListener("mouseleave", () => {
-        mbtiPopup.style.display = "none";
-    });
+<!--    personalInfoBtn.addEventListener("click", () => {-->
+<!--        modal.style.display = "flex";-->
+<!--        if (modal.style.display === "flex") {-->
+<!--            closePopupBtn.addEventListener("click", () => {-->
+<!--                modal.style.display = "none";-->
+<!--                document.body.style.overflow = "auto"; // 스크롤 다시 활성화-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
 
 
+<!--    // 비밀번호 보기/숨기기 토글-->
+<!--    togglePassword.addEventListener('click', () => {-->
+<!--        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';-->
+<!--        passwordInput.setAttribute('type', type);-->
+<!--        togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경-->
+<!--    });-->
+<!--    // 확인 버튼 클릭 시 다른 URL로 이동-->
+<!--    submitPasswordBtn.addEventListener('click', () => {-->
+<!--        // URL을 원하는 주소로 변경하세요-->
+<!--        location.href = '/userinfo';-->
+<!--    });-->
 
-</script>
+<!--    const activebtn = document.getElementById('active');-->
+<!--    activebtn.addEventListener('click', () => {-->
+<!--        // URL을 원하는 주소로 변경하세요-->
+<!--        location.href = '/useractive';-->
+<!--    });-->
+
+<!--    const mbtiButton = document.getElementById("mbtiButton");-->
+<!--    const mbtiContent = document.getElementById("mbtiContent");-->
+<!--    const myMBTI = document.getElementById("myMBTI");-->
+<!--    const mbtiPopup = document.getElementById("mbtiPopup");-->
+
+<!--    // MBTI 버튼 클릭 시 MBTI 콘텐츠 표시-->
+<!--    mbtiButton.addEventListener("click", () => {-->
+<!--        // 콘텐츠 표시 상태를 토글-->
+<!--        mbtiContent.style.display = mbtiContent.style.display === "none" ? "block" : "none";-->
+<!--    });-->
+
+<!--    // 나의 MBTI 요소에 마우스 올렸을 때 팝업 표시-->
+<!--    myMBTI.addEventListener("mouseenter", () => {-->
+<!--        mbtiPopup.style.display = "block";-->
+<!--    });-->
+
+<!--    // 나의 MBTI 요소에서 마우스 나갔을 때 팝업 숨기기-->
+<!--    myMBTI.addEventListener("mouseleave", () => {-->
+<!--        mbtiPopup.style.display = "none";-->
+<!--    });-->
+
+
+
+<!--</script>-->
 
 <script>
     const floatBtn1 = document.getElementById("light");
