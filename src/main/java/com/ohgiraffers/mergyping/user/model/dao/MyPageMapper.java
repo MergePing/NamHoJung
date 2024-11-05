@@ -8,13 +8,13 @@ import java.util.List;
 
 @Mapper
 public interface MyPageMapper {
-    MyPageDTO findNickName();
+    MyPageDTO findNickName(int userNo);
 
-    MyPageDTO findEmail();
+    MyPageDTO findEmail(int userNo);
 
     boolean existsByNickname(String nickname);
 
     void modifyUserName(MyPageDTO myPageDTO);
 
-    List<MyPagePostDTO> findWrittenPost();
+    List<MyPagePostDTO> findWrittenPost(int userNo);
 }

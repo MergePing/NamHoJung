@@ -26,7 +26,9 @@ public class AuthService implements UserDetailsService {
         if(Objects.isNull(login)) {
             throw new UsernameNotFoundException("해당하는 회원 정보가 존재하지 않습니다.");
         }
+        System.out.println(login);
         return new AuthDetails(login);
     }
+
 
 }

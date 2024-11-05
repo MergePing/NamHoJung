@@ -10,6 +10,7 @@ public class MyPagePostDTO {
 //        <result property="postDate" column="POST_DATE"/>
 //        <result property="scaryNumber" column="SCARY_NUMBER"/>
 //        <result property="commentsNumber" column="COMMENTS_NUMBER"/>
+    private int postWriter;
     private int postNo;
     private boolean postFavorite;
     private String postTitle;
@@ -20,7 +21,8 @@ public class MyPagePostDTO {
 
     public MyPagePostDTO() {}
 
-    public MyPagePostDTO(int postNo, boolean postFavorite, String postTitle, String postCategory, String postDate, int scaryNumber, int commentsNumber) {
+    public MyPagePostDTO(int postWriter, int postNo, boolean postFavorite, String postTitle, String postCategory, String postDate, int scaryNumber, int commentsNumber) {
+        this.postWriter = postWriter;
         this.postNo = postNo;
         this.postFavorite = postFavorite;
         this.postTitle = postTitle;
@@ -28,6 +30,14 @@ public class MyPagePostDTO {
         this.postDate = postDate;
         this.scaryNumber = scaryNumber;
         this.commentsNumber = commentsNumber;
+    }
+
+    public int getPostWriter() {
+        return postWriter;
+    }
+
+    public void setPostWriter(int postWriter) {
+        this.postWriter = postWriter;
     }
 
     public int getPostNo() {
@@ -89,11 +99,12 @@ public class MyPagePostDTO {
     @Override
     public String toString() {
         return "MyPagePostDTO{" +
-                "postNo=" + postNo +
+                "postWriter=" + postWriter +
+                ", postNo=" + postNo +
                 ", postFavorite=" + postFavorite +
                 ", postTitle='" + postTitle + '\'' +
                 ", postCategory='" + postCategory + '\'' +
-                ", postDate=" + postDate +
+                ", postDate='" + postDate + '\'' +
                 ", scaryNumber=" + scaryNumber +
                 ", commentsNumber=" + commentsNumber +
                 '}';
