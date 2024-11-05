@@ -76,9 +76,23 @@
         <div class="line"></div>
         <div id="content">
             <span th:text="${post.postContent}"></span>
-            <img th:src="@{/images/post/selectpost/img1.png}" class="blur img1">
-            <img th:src="@{/images/post/selectpost/img2.png}" class="blur img2">
+            <img th:src="@{/images/post/selectpost/img1.png}" class="blur" id="img1">
+            <img th:src="@{/images/post/selectpost/img2.png}" class="blur" id="img2">
         </div>
+        <script>
+            const img1 = document.getElementById("img1")
+            const img2 = document.getElementById("img2");
+
+            img1.addEventListener('click',()=>{
+                img1.classList.toggle("blur");
+            })
+
+            img2.addEventListener('click',()=>{
+                img2.classList.toggle("blur");
+            })
+
+
+        </script>
         <div id="box">
         <div id="writer">
             <img th:src="@{/images/post/selectpost/profile-img.png}">
@@ -126,15 +140,6 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
-<script>
-    const imgBlur1 = document.querySelector(".img1");
-    const imgBlur2 = document.querySelector(".img2");
-    imgBlur1.addEventListener('click',()=>{
-        imgBlur1.classList.remove(".blur")
-    });
-    imgBlur2.addEventListener('click',()=>{
-        imgBlur2.classList.remove(".blur")
-    })
-</script>
+
 </body>
 </html>
