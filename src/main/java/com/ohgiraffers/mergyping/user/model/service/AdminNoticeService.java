@@ -1,8 +1,9 @@
 package com.ohgiraffers.mergyping.user.model.service;
 
-import com.ohgiraffers.mergyping.notice.model.dao.NoticeMapper;
 import com.ohgiraffers.mergyping.user.model.dao.AdminNoticeMapper;
+import com.ohgiraffers.mergyping.user.model.dao.AdminNoticeDetailMapper;
 import com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO;
+import com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,12 @@ import java.util.List;
 public class AdminNoticeService {
 
     private final AdminNoticeMapper adminNoticeMapper;
+    private final AdminNoticeDetailMapper adminNoticeDetailMapper;
 
     @Autowired
-    public AdminNoticeService(AdminNoticeMapper adminNoticeMapper) {
+    public AdminNoticeService(AdminNoticeMapper adminNoticeMapper, AdminNoticeDetailMapper adminNoticeDetailMapper) {
         this.adminNoticeMapper = adminNoticeMapper;
+        this.adminNoticeDetailMapper = adminNoticeDetailMapper;
     }
 
     public List<AdminNoticeDTO> getNoticesByPage(int page, int pageSize) {
@@ -27,9 +30,8 @@ public class AdminNoticeService {
         return adminNoticeMapper.countNotices();
     }
 
-
-
-
+    // 공지사항 상세 조회 기능
+    public AdminNoticeDetailDTO getNoticeDetail(String noticeNo) {
+        return adminNoticeDetailMapper.selectNoticeDetailByNo(noticeNo);
+    }
 }
-
-

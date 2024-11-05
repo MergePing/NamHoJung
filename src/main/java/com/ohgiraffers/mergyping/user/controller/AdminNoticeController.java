@@ -1,11 +1,13 @@
 package com.ohgiraffers.mergyping.user.controller;
 
 import com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO;
+import com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO;
 import com.ohgiraffers.mergyping.user.model.service.AdminNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -59,5 +61,15 @@ public class AdminNoticeController {
         response.put("endPage", Math.min(totalPages, page + 2));
 
         return response; // 페이지네이션 데이터 JSON 반환
+    }
+
+    @GetMapping("/admin/notice/detail/{noticeNo}")
+    public String getNoticeDetail(@PathVariable("noticeNo") String noticeNo, Model model) {
+
+        AdminNoticeDetailDTO noticeDetail = adminNoticeService.getNoticeDetail(noticeNo);
+        model.addAttribute("noticeDetail", noticeDetail);
+
+
+        return "user/admin/adminnoticedetail";
     }
 }

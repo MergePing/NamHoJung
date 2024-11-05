@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 상세보기</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminnoticedetail.css}">
+</head>
+<body>
+
+<header>
+    <nav>
+        <!--네비바-->
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/admin/notice'">공지사항</span>
+        <span onclick="location.href='/post'">게시판</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+</header>
+
+<main>
+    <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
+    <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
+
+    <section class="notice-detail">
+        <h1 class="title"th:text="${noticeDetail.title}"></h1>
+        <p class="date" th:text="${noticeDetail.date}"></p>
+        <p class="category" th:text="'(' + ${noticeDetail.category} + ')'"></p>
+        <div class="content" th:utext="${noticeDetail.content}">
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

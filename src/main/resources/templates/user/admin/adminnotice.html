@@ -15,7 +15,7 @@
     <!--네비바-->
     <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
-    <span onclick="location.href='/notice'">공지사항</span>
+    <span onclick="location.reload()">공지사항</span>
     <span onclick="location.href='/post'">게시판</span>
     <span>MBTI 검사</span>
     <span>마이페이지</span>
@@ -41,7 +41,8 @@
         <div><span th:text="${notice.category}"></span></div>
         <span th:text="${notice.title}"></span>
 
-        <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice/' + ${notice.noticeNo}">
+        <img th:src="@{/images/notice/arrow-btn-dark.png}"
+             th:onclick="|location.href='/admin/notice/detail/' + ${notice.noticeNo}|">
       </div>
     </div>
   </div>
