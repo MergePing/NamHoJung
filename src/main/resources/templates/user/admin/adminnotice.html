@@ -1,35 +1,65 @@
-<!DOCTYPE html>
+<!DOCTYPE html>ㅌ
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>관리자 공지사항 조회</title>
-  <link rel="stylesheet" href="../../../static/css/adminnotice.css">
+  <title>공지사항</title>
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/adminnotice.css}">
 </head>
 <body>
-<div class="container">
-  <img class = "img" src="/images/admin/serene-garden-scene-rainy-night-illuminated-by-lamp-post-generative-ai%201.png">
-  <header>
-    <nav class="nav">
-      <ul>
-        <li id="intro"><a href="#">소개</a></li>
-        <li id="notice"><a href="#">공지사항</a></li>
-        <li id="post"><a href="#">게시판</a></li>
-        <li id="mbti"><a href="#">mbti 검사</a></li>
-        <li id="mypage"><a href="#">마이페이지</a></li>
-        <li id="logout"><a href="#">로그아웃</a></li>
-        <li id="signup"><a href="#">회원가입</a></li>
-      </ul>
-    </nav>
-  </header>
 
 
-  <main>
-    <div class="search">
+
+<header>
+  <nav>
+    <!--네비바-->
+    <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+    <span onclick="location.href='/intro'">소개</span>
+    <span onclick="location.href='/notice'">공지사항</span>
+    <span onclick="location.href='/post'">게시판</span>
+    <span>MBTI 검사</span>
+    <span>마이페이지</span>
+    <span>로그인</span>
+    <span>회원가입</span>
+  </nav>
+
+</header>
+
+<main>
+  <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
+  <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
+
+  <div class="tab">
+    <p id="all">전체</p>
+    <p id="alert">알림</p>
+  </div>
+  <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요"> <label><img th:src="@{/images/notice/Search-btn.png}"></label>
+  <div class="notices">
+    <div th:each="notice : ${noticeList}" class="box">
+      <div class="notice" th:classappend="${notice.category == '알림'} ? 'alertContent allContent' : 'allContent'">
+        <span th:text="${notice.noticeNo}"></span>
+        <div><span th:text="${notice.category}"></span></div>
+        <span th:text="${notice.title}"></span>
+
+        <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice/' + ${notice.noticeNo}">
       </div>
-      <button class="input">등록</button>
-    <div class="notice-list">
     </div>
-  </main>
-</div>
+  </div>
+
+  <div class="pageNum">
+    <a th:href="@{'/admin/notice?page=' + (${currentPage} - 1)}" th:if="${currentPage > 1}">
+      <img th:src="@{/images/notice/pre-btn.png}">
+    </a>
+    <p th:text="${currentPage}">1</p>
+    <a th:href="@{'/admin/notice?page=' + (${currentPage} + 1)}" th:if="${currentPage < totalPages}">
+      <img th:src="@{/images/notice/next-btn.png}">
+    </a>
+  </div>
+</main>
+
+
 </body>
+
+
+
 </html>
