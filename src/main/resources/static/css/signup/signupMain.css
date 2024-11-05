@@ -1003,3 +1003,18 @@ button:disabled {
     border: 1px solid #A9A9A9;
     cursor: not-allowed;
 }
+
+.toggle-eye {
+    position: absolute;
+    scale:-10%;
+    rotate: 180deg;
+    left: 875px;
+}
+
+#togglePassword {
+    top: 203px;
+}
+
+#togglePasswordConfirm {
+    top: 287px
+}

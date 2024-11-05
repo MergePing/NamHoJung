@@ -26,8 +26,8 @@
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
     <form th:action="@{/auth/signup}" method="post" id="confirm">
     <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문, 숫자, 특수문자로 자유롭게 최대 7글자 입력해주세요." maxlength="7" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
-    <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" required><p id="pwdCheckMessage"></p>
-    <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required><p id="pwdConfirmMessage"></p>
+        <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" required><p id="pwdCheckMessage" ></p><span id="togglePassword" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 보기" id="togglePasswordIcon"></span>
+        <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
     <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required><p id="nicknameCheckMessage"></p>
 
     <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" oninput="toggleBirthField()" required>
@@ -76,8 +76,32 @@
     </form>
 </div>
 <script>
+    // 비밀번호 눈모양
+    function togglePasswordVisibility(id) {
+        const passwordField = document.getElementById(id);
+        const icon = document.getElementById('toggle' + id.charAt(0).toUpperCase() + id.slice(1) + 'Icon');
+
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.src = '/images/icon/openEye.png';
+        } else {
+            passwordField.type = 'password';
+            icon.src = '/images/icon/closeEye.png';
+        }
+    }
+
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        togglePasswordVisibility('password');
+    });
+
+    document.getElementById('togglePasswordConfirm').addEventListener('click', function() {
+        togglePasswordVisibility('passwordConfirm');
+    });
+
+
     // 아이디 체크
     document.getElementById('id').addEventListener('input', function() {
+        const passwordField = document.getElementById('password');
         const userIdInput = this;
         const userId = this.value;
         const messageElement = document.getElementById('idCheckMessage');
@@ -86,6 +110,7 @@
             userIdInput.value = userId.replace(/[^a-zA-Z0-9-_]/g, '');
             messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
             messageElement.style.color = "#FD3C3C";
+            passwordField.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
@@ -94,6 +119,7 @@
         if (userId.length < 3 && userId.length > 0) {
             messageElement.textContent = "아이디는 최소 4자리 이상이어야 합니다.";
             messageElement.style.color = "#FD3C3C";
+            passwordField.disabled = true;
             return;
         } else {
             messageElement.textContent = "";
@@ -106,18 +132,22 @@
                     if (isAvailable) {
                         messageElement.textContent = "사용 가능한 아이디입니다.";
                         messageElement.style.color = "#6EBA4A";
+                        passwordField.disabled = false;
                     } else {
                         messageElement.textContent = "이미 사용 중인 아이디입니다.";
                         messageElement.style.color = "#FD3C3C";
+                        passwordField.disabled = true;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     messageElement.textContent = "사용 불가한 아이디입니다.";
                     messageElement.style.color = "#FD3C3C";
+                    passwordField.disabled = true;
                 });
         } else {
             messageElement.textContent = "";
+            passwordField.disabled = true;
         }
     });
 

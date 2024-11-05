@@ -634,3 +634,11 @@ color: #C9E6CA;
     margin-left: 1px;
     margin-top: 1px;
 }
+
+.toggle-eye {
+    position: absolute;
+    scale:-10%;
+    rotate: 180deg;
+    left: 850px;
+    top: 440px;
+}
