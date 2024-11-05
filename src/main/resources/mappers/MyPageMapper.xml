@@ -8,6 +8,7 @@
     <resultMap id="mypageResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
         <result property="userName" column="USER_NAME"/>
         <result property="email"  column="EMAIL"/>
+        <result property="userId" column="USER_ID"/>
     </resultMap>
 
     <resultMap id="mypagePostResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO">
@@ -30,19 +31,19 @@
                 SCARY_NUMBER,
                 COMMENTS_NUMBER
             FROM TBL_POST
-            WHERE POST_WRITER ='2'
+            WHERE POST_WRITER = #{userNo}
     </select>
 
     <select id="findNickName"   resultMap="mypageResultMap" >
         SELECT USER_NAME
         FROM TBL_USER
-        WHERE USER_NO = '2'
+        WHERE USER_NO= #{userNo}
     </select>
 
     <select id="findEmail" resultMap="mypageResultMap">
         SELECT EMAIL
         FROM TBL_USER
-        WHERE USER_NO = '2'
+        WHERE USER_NO = #{userNo}
     </select>
 
     <select id="existsByNickname" parameterType="String" resultType="boolean">
@@ -55,7 +56,7 @@
     <update id="modifyUserName" parameterType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
         UPDATE TBL_USER
         SET USER_NAME = #{userName}
-        WHERE USER_NO = '2'
+        WHERE USER_NO = #{userNo}
     </update>
 </mapper>
 

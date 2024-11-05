@@ -7,21 +7,35 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LoginUserDTO {
+    private int userNo;
     private String userId;
     private String userPass;
     private UserRole userRole;
+    private String userName;
 
-    public LoginUserDTO(String userId, String userPass, UserRole userRole) {
-        this.userId = userId;
-        this.userPass = userPass;
-        this.userRole = userRole;
-    }
 
     public List<String> getRole() {
         if(this.userRole.getRole().length() > 0) {
             return Arrays.asList(this.userRole.getRole().split(","));
         }
         return new ArrayList<>();
+    }
+    public LoginUserDTO() {}
+
+    public LoginUserDTO(int userNo, String userId, String userPass, UserRole userRole, String userName) {
+        this.userNo = userNo;
+        this.userId = userId;
+        this.userPass = userPass;
+        this.userRole = userRole;
+        this.userName = userName;
+    }
+
+    public int getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
     public String getUserId() {
@@ -48,12 +62,22 @@ public class LoginUserDTO {
         this.userRole = userRole;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public String toString() {
         return "LoginUserDTO{" +
-                "userId='" + userId + '\'' +
+                "userNo=" + userNo +
+                ", userId='" + userId + '\'' +
                 ", userPass='" + userPass + '\'' +
                 ", userRole=" + userRole +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }

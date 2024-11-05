@@ -18,12 +18,12 @@ public class MyPageService {
         this.myPageMapper = myPageMapper;
     }
 
-    public MyPageDTO findNickName() {
-        return myPageMapper.findNickName();
+    public MyPageDTO findNickName(int userNo) {
+        return myPageMapper.findNickName(userNo);
     }
 
-    public MyPageDTO findEmail() {
-        return myPageMapper.findEmail();
+    public MyPageDTO findEmail(int userNo) {
+        return myPageMapper.findEmail(userNo);
     }
 
 
@@ -36,8 +36,8 @@ public class MyPageService {
         myPageMapper.modifyUserName(myPageDTO);
     }
 
-    public List<MyPagePostDTO> findWrittenPost() {
+    public List<MyPagePostDTO> findWrittenPost(int userNo) {
 
-        return myPageMapper.findWrittenPost();
+        return myPageMapper.findWrittenPost(userNo);
     }
 }

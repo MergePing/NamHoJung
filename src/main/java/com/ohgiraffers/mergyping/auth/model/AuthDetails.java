@@ -36,6 +36,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getPassword() {
+
         return loginUserDTO.getUserPass();
     }
 
@@ -43,6 +44,12 @@ public class AuthDetails implements UserDetails {
     public String getUsername() {
         return loginUserDTO.getUserId();
     }
+
+
+    public int getUserNo(){
+        return loginUserDTO.getUserNo();
+    }
+
 
     @Override
     public boolean isAccountNonExpired() {

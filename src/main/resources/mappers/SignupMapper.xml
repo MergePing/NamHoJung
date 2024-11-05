@@ -5,9 +5,11 @@
 
 <mapper namespace="com.ohgiraffers.mergyping.user.model.dao.SignupMapper">
     <resultMap id="login" type="com.ohgiraffers.mergyping.user.model.dto.LoginUserDTO">
+        <result property="userNo" column="USER_NO"/>
         <result property="userId" column="USER_ID"/>
         <result property="userPass" column="USER_PWD"/>
         <result property="userRole" column="USER_TYPE"/>
+        <result property="userName" column="USER_NAME"/>
     </resultMap>
 
     <insert id="regist" parameterType="com.ohgiraffers.mergyping.user.model.dto.SignupDTO">
@@ -33,9 +35,11 @@
 
     <select id="findByUsername" resultMap="login">
         SELECT
-          USER_ID
+            USER_NO
+        ,  USER_ID
         , USER_PWD
         , USER_TYPE
+        , USER_NAME
         FROM TBL_USER
         WHERE USER_ID = #{ userId }
     </select>
