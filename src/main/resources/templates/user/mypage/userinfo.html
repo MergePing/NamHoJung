@@ -188,10 +188,10 @@
             }
         });
 
-        // submitBtn2.addEventListener('click', () => {
-        //     // URL을 원하는 주소로 변경하세요
-        //     location.href = '/main';
-        // });
+        submitBtn2.addEventListener('click', () => {
+            // URL을 원하는 주소로 변경하세요
+            location.href = '/main';
+        });
 
         const modifypopup2 = document.getElementById('modify-popup2');
         const modal3 = document.querySelector('.modal-background3');
@@ -219,8 +219,8 @@
         });
 
         function checkDuplicate() {
-            const nickname = document.getElementById("nickname").value;
-            const duplicateMessage = document.getElementById("duplicateMessage");
+            const nickname = document.getElementById('nickname').value;
+            const duplicateMessage = document.getElementById('duplicateMessage');
 
             fetch(`/checknickname?nickname=${nickname}`)
                 .then(response => response.json())
