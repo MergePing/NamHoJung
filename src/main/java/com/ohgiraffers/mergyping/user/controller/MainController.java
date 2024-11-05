@@ -28,16 +28,16 @@ public class MainController {
         List<MainDTO> bestPostList = mainService.bestPost();
         model.addAttribute("bestPosts", bestPostList);
 
-        return  "main/main";
-    }
-
-    @GetMapping("/nickname")
-    public String findNickName(Model model) {
         MyPageDTO myPageDTO = myPageService.findNickName();
         model.addAttribute("myPageDTO", myPageDTO);
 
-        return "main/main";
+        MyPageDTO myPageDTO2 = myPageService.findEmail();
+        model.addAttribute("myPageDTO2", myPageDTO2);
+
+        return  "main/main";
     }
+
+
 
     @GetMapping("/intro")
     public String intro(){return "/main/intro/intro";}
