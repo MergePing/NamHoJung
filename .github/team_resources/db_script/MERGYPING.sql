@@ -73,10 +73,13 @@ CREATE TABLE IF NOT EXISTS TBL_POST
     `POST_WRITER`    INT NOT NULL COMMENT '게시물 작성자',
     `POST_DATE`    DATE NOT NULL COMMENT '게시물 작성날짜',
     `COMMENTS_NUMBER`    INT COMMENT '게시물 댓글수',
-    `SCARY_NUMBER`    INT COMMENT '게시물 무서워요 수',
+    `SCARY_NUMBER`    INT NOT NULL DEFAULT 0 COMMENT '게시물 무서워요 수',
+    `NOT_SCARY_NUMBER` INT NOT NULL DEFAULT 0 COMMENT '게시물 안무서워요 수',
     `POST_REPORT`    INT COMMENT '게시물 신고수',
     `POST_IMAGE`    VARCHAR(5000) COMMENT '게시물 이미지',
     `POST_FAVORITE`    BOOLEAN NOT NULL DEFAULT FALSE COMMENT '게시물 즐겨찾기',
+    `SCARY` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '무서워요',
+    `NOT_SCARY` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '안무서워요',
     PRIMARY KEY ( `POST_NO` ),
     FOREIGN KEY(POST_WRITER)
     REFERENCES TBL_USER(USER_NO)
@@ -875,12 +878,12 @@ INSERT INTO TBL_MBTI_TEST VALUES (
 
 INSERT INTO `TBL_NOTICE` (`NOTICE_NO`, `NOTICE_TITLE`, `NOTICE_CONTENT`, `USER_TYPE`, `NOTICE_DATE`, `NOTICE_CATEGORY`)
 VALUES
-    (1, '공지사항1', '첫 번째 공지사항입니다.', '관리자', '2024-10-28', '일반 공지'),
-    (2, '공지사항2', '두 번째 공지사항입니다.', '관리자', '2024-10-28', '알림 공지'),
-    (3, '공지사항3', '세 번째 공지사항입니다.', '관리자', '2024-10-28', '일반 공지'),
-    (4, '공지사항4', '네 번째 공지사항입니다.', '관리자', '2024-10-28', '알림 공지'),
-    (5, '공지사항5', '다섯 번째 공지사항입니다.', '관리자', '2024-10-28', '일반 공지'),
-    (6, '공지사항6', '여섯 번째 공지사항입니다.', '관리자', '2024-10-28', '알림 공지');
+    (1, '공지사항1', '첫 번째 공지사항입니다.', '관리자', '2024-10-28', '공지'),
+    (2, '공지사항2', '두 번째 공지사항입니다.', '관리자', '2024-10-28', '알림'),
+    (3, '공지사항3', '세 번째 공지사항입니다.', '관리자', '2024-10-28', '공지'),
+    (4, '공지사항4', '네 번째 공지사항입니다.', '관리자', '2024-10-28', '알림'),
+    (5, '공지사항5', '다섯 번째 공지사항입니다.', '관리자', '2024-10-28', '공지'),
+    (6, '공지사항6', '여섯 번째 공지사항입니다.', '관리자', '2024-10-28', '알림');
 
 -- INSERT INTO TBL_REPORT_TYPE (`THIS_NO`, `THIS_NAME`, `POST_NO`, `COMMENT_NO`) VALUES
 -- (1,'게시물',1,1),
