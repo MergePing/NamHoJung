@@ -25,10 +25,10 @@
     <p class="signupInfoText">회원가입</p>
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
     <form th:action="@{/auth/signup}" method="post" id="confirm">
-    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문, 숫자, 특수문자로 자유롭게 최대 7글자 입력해주세요." maxlength="7" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
-        <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" required><p id="pwdCheckMessage" ></p><span id="togglePassword" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 보기" id="togglePasswordIcon"></span>
-        <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
-    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required><p id="nicknameCheckMessage"></p>
+    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문, 숫자, 특수문자로 자유롭게 최대 12글자 입력해주세요." maxlength="12" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
+        <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 15자로 입력해주세요." maxlength="15" minlength="8" required><p id="pwdCheckMessage" ></p><span id="togglePassword" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 보기" id="togglePasswordIcon"></span>
+        <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="15" minlength="1" oninput="toggleNicknameField()" required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
+    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 14글자로 입력해주세요." maxlength="14" minlength="1" oninput="toggleEmailField()" required><p id="nicknameCheckMessage"></p>
 
     <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" oninput="toggleBirthField()" required>
     <p class="emailMain">@</p>
@@ -76,6 +76,39 @@
     </form>
 </div>
 <script>
+    const userIdInput = document.getElementById('id');
+    const passwordInput = document.getElementById('password');
+    const passwordConfirmInput = document.getElementById('passwordConfirm');
+    const nicknameInput = document.getElementById('nickname');
+    const emailInput = document.getElementById('email');
+    const emailDomainInput = document.getElementById('domain-txt');
+    const emailSelectInput = document.getElementById('domain-list');
+    const birthYear = document.getElementById('birth-year');
+    const birthMonth = document.getElementById('birth-month');
+    const birthDay = document.getElementById('birth-day');
+    const man = document.getElementById('man');
+    const woman = document.getElementById('woman');
+    const other = document.getElementById('none');
+    const emailAuth = document.getElementById('authEmail');
+    const nextButton = document.getElementById('next');
+    const modal = document.querySelector('.modalBlur');
+    const btnOpenModal = document.querySelector('.authEmail');
+    const btnCloseModal = document.querySelector('.modalBlur');
+
+    // 모달 속도때문에 넣어둬야 함
+
+    btnOpenModal.addEventListener("click", () => {
+        modal.style.display = "flex";
+    })
+
+    // 모달 끄는 버튼 생성해야 해서 넣어둬야 함 -> X버튼 생성하고 사용할것임
+    if (modal.style.display === "flex") {
+        btnCloseModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    }
+
+
     // 이메일 인증
     function sendAuthCode() {
         const emailPrefix = document.getElementById('email').value;
@@ -98,7 +131,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    openAuthModal(); // 인증 모달창 열기
+                    openAuthModal();
                 } else {
                     alert("인증 번호 전송에 실패했습니다.");
                 }
@@ -123,15 +156,15 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: userEmail,       // 이메일 주소와 함께 인증 코드 전송
-                    authCode: authCodeInput // 인증 코드
+                    email: userEmail,
+                    authCode: authCodeInput
                 }),
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        closeAuthModal();  // 인증 성공 시 모달 닫기
-                        enableNextButton();  // "다음" 버튼 활성화
+                        closeAuthModal();
+                        enableNextButton();
                     } else {
                         document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
                     }
@@ -147,15 +180,15 @@
 
     function openAuthModal() {
         const modal = document.querySelector('.modalBlur');
-        modal.style.display = 'flex';  // 모달 창 열기
+        modal.style.display = 'flex';
 
         const nextButton = document.getElementById('next');
-        nextButton.disabled = true;  // 인증 번호가 맞을 때까지 "다음" 버튼 비활성화
+        nextButton.disabled = true;
     }
 
     function closeAuthModal() {
         const modal = document.querySelector('.modalBlur');
-        modal.style.display = 'none';  // 모달 창 닫기
+        modal.style.display = 'none';
     }
 
     function toggleAllFields(enable) {
@@ -173,10 +206,10 @@
 
     function enableNextButton() {
         const nextButton = document.getElementById('next');
-        nextButton.disabled = false;  // "다음" 버튼 활성화
-        // document.getElementById('email').disabled = true;  // 이메일 입력 필드 비활성화
-        document.getElementById('domain-txt').disabled = true;  // 도메인 입력 필드 비활성화
-        document.getElementById('domain-list').disabled = true;  // 도메인 선택 필드 비활성화
+        nextButton.disabled = false;
+        document.getElementById('email').readOnly = true;
+        document.getElementById('domain-txt').readOnly = true;
+        document.getElementById('domain-list').readOnly = true;
     }
 
     document.getElementById('authNumber').addEventListener('input', checkAuthCode);
@@ -507,39 +540,6 @@
         birthMonthEl.innerHTML = '<option value="month">월</option>';
         birthDayEl.innerHTML = '<option value="day">일</option>';
     });
-
-    // 모달
-    const modal = document.querySelector('.modalBlur');
-    const btnOpenModal = document.querySelector('.authEmail');
-    const btnCloseModal = document.querySelector('.modalBlur');
-
-    btnOpenModal.addEventListener("click", () => {
-        modal.style.display = "flex";
-    })
-
-    if (modal.style.display === "flex") {
-        // 인증번호 맞으면 되는거로 바꿀것 // else는 값이 틀렸다고 알려주고 x로 나갈 수 있게함
-        btnCloseModal.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-    }
-
-    // 입력한다음 넘어가기
-    const userIdInput = document.getElementById('id');
-    const passwordInput = document.getElementById('password');
-    const passwordConfirmInput = document.getElementById('passwordConfirm');
-    const nicknameInput = document.getElementById('nickname');
-    const emailInput = document.getElementById('email');
-    const emailDomainInput = document.getElementById('domain-txt');
-    const emailSelectInput = document.getElementById('domain-list');
-    const birthYear = document.getElementById('birth-year');
-    const birthMonth = document.getElementById('birth-month');
-    const birthDay = document.getElementById('birth-day');
-    const man = document.getElementById('man');
-    const woman = document.getElementById('woman');
-    const other = document.getElementById('none');
-    const emailAuth = document.getElementById('authEmail');
-    const nextButton = document.getElementById('next')
 
     // id는 처음에 활성화 돼 있어야 하므로 없어야 함
     nextButton.disabled = true;
