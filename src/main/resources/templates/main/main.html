@@ -68,10 +68,9 @@
 </header>
 
 <aside id="myPageAside">
-    <p class="mypagefont">마이페이지</p>
     <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
-    <p id="rank" class="rankfont">등급: <img th:src="@{/images/mypageimages/rank-1.png}" alt="랭크" class="rank-photo" id="rankPhoto"></p>
+    <p id="rank" class="rankfont">등급: 나는 최강</p>
     <p class="infofont" id="info">개인 정보</p>
     <p class="activefont" id="active">활동 기록</p>
     <p class="MBTIfont" id="mbtiButton">MBTI</p>
@@ -93,8 +92,8 @@
     <div class="pwdpopup" id="pwd-popup">
         <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
         <div class="pwd-container">
-            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="비밀번호">
-            <span class="toggle-password" id="togglePassword">&#128065;</span>
+            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="영문,숫자,특수문자 8~12자리">
+            <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
         </div>
 
         <div class="popup-buttons">
@@ -212,6 +211,7 @@
     const passwordInput = document.getElementById('pwdInput');
     const submitPasswordBtn = document.getElementById('submitPasswordBtn');
     const modal = document.querySelector('.modal-background');
+    const passwordIcon = document.getElementById('passwordIcon');
 
     //모달
     personalInfoBtn.addEventListener('click', () => {
@@ -234,7 +234,7 @@
     togglePassword.addEventListener('click', () => {
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
-        togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
+        passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
     });
 
 

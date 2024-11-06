@@ -4,18 +4,24 @@ import com.ohgiraffers.mergyping.user.model.dao.MyPageMapper;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MyPageService {
 
-    private  final MyPageMapper myPageMapper;
+    private final MyPageMapper myPageMapper;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public MyPageService(MyPageMapper myPageMapper) {
+    public MyPageService(MyPageMapper myPageMapper, PasswordEncoder passwordEncoder) {
         this.myPageMapper = myPageMapper;
+        this.passwordEncoder = passwordEncoder;
+
     }
 
     public MyPageDTO findNickName(int userNo) {
@@ -41,8 +47,12 @@ public class MyPageService {
         return myPageMapper.findWrittenPost(userNo);
     }
 
+    @Transactional
+    public void updatePassword(Map<String,Object> params) {
+        myPageMapper.updatePassword(params);
+    }
 
-    public void updatePassword(int userNo, String encodedPassword) {
-        myPageMapper.updatePassword(userNo, encodedPassword);
+    public MyPageDTO findId(int userNo) {
+        return myPageMapper.findId(userNo);
     }
 }

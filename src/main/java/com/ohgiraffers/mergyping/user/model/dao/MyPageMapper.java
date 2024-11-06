@@ -3,8 +3,10 @@ package com.ohgiraffers.mergyping.user.model.dao;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MyPageMapper {
@@ -18,6 +20,8 @@ public interface MyPageMapper {
 
     List<MyPagePostDTO> findWrittenPost(int userNo);
 
+    void updatePassword(Map<String,Object> params);
 
-    void updatePassword(int userNo, String encodedPassword);
+
+    MyPageDTO findId(int userNo);
 }

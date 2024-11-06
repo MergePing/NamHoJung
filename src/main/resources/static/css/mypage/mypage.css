@@ -11,7 +11,7 @@
 /*}*/
 aside{
     width:492px;
-    height:1001px;
+    height:100%;
 
     display: none;
     /*margin-left:1428px;*/
@@ -257,6 +257,9 @@ aside.show {
 
 }
 .pwdfont2{
+    position: absolute;
+    left:120px;
+    top:150px;
     width: 81px;
     height: 26px;
     font-family: 'BMJUA';
@@ -264,13 +267,14 @@ aside.show {
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    margin-left: 150px;
     color: #FFFFFF;
 }
 
 #pwdInput{
-    margin-left: 15px;
-    width: 336px;
+    position: absolute;
+    left:230px;
+    top:140px;
+    width: 400px;
     height: 49px;
     border-radius: 10px;
     font-family: 'Cafe24SsurroundAir';
@@ -278,6 +282,7 @@ aside.show {
     font-weight: 300;
     font-size: 25px;
     line-height: 32px;
+    padding-left: 20px;
 }
 
 .popup-buttons{
@@ -286,6 +291,9 @@ aside.show {
 }
 
 .cancle-btn{
+    position: absolute;
+    left:200px;
+    top:240px;
     width: 117px;
     height: 58px;
     background: #3F781A;
@@ -302,6 +310,9 @@ aside.show {
 }
 
 .confirm-btn{
+    position: absolute;
+    left:460px;
+    top:240px;
     width: 117px;
     height: 58px;
     background: #9CC787;
@@ -312,7 +323,7 @@ aside.show {
     font-size: 25px;
     line-height: 26px;
     border: 1px solid #FFFFFF;
-    margin-left: 150px;
+
 
     color: #000000;
 }
@@ -349,7 +360,7 @@ aside.show {
     width: 131px;
     height: 26px;
     left: 60px;
-    top: 800px;
+    top: 710px;
 
     font-family: 'BMJUA';
     font-style: normal;
@@ -366,7 +377,7 @@ aside.show {
     width: 131px;
     height: 26px;
     left: 60px;
-    top: 850px;
+    top: 760px;
 
     font-family: 'BMJUA';
     font-style: normal;
@@ -437,6 +448,16 @@ aside.show {
 
     color: #000000;
 }
+
+#passwordIcon{
+    position: absolute;
+    left:600px;
+    top:145px;
+    width:50px;
+    height:50px;
+}
+
+
 /* 당신은 위험한 순간에 신중하지만 사람보다 귀신을 무서워하면서도 공포의 스릴을 즐기는 특이한 사람입니다. */
 
 
