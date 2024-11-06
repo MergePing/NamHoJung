@@ -113,13 +113,15 @@
         2. 특정인에 대한 괴롭힘을 조장하는 내용, 욕설이나 악의적인 내용, 상업적인 홍보 등은 사이트 운영규칙 위반에 해당되어 관리자가 삭제할 수 있습니다.
         3. 다른 사람의 창작물이나 저작권이 있는 자료를 허가 없이 사용하거나 게시하지 마세요. 이는 저작권법을 위반하는 행위로, 법적 문제를 일으킬 수 있습니다.
       </pre>
-      <textarea  name="contents" id="contents">
-        이곳에 게시글을 작성 해주세요
+      <textarea  name="contents" id="contents" rows="1">
+   이곳에 게시글을 작성 해주세요
       </textarea>
       <script>
-        const textarea = document.getElementById("contents");
-        textarea.style.height = 'auto';
-        textarea.style.height = `${textarea.scrollHeight}px`;
+        const textarea = useRef();
+
+        const handleResizeHeight = () => {
+          textarea.current.style.height = 'auto'; //height 초기화
+          textarea.current.style.height = textarea.current.scrollHeight + 'px';};
       </script>
       <!--      <img th:src="@{/images/post/newpost/img-insert.png}" id="img1">-->
       <img src="../../static/images/post/newpost/img-insert.png" id="img1">
