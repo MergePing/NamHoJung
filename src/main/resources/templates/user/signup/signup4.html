@@ -13,8 +13,8 @@
     <nav>
         <!--네비바-->
         <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
-        <span onclick="location.href='/intro/intro'">소개</span>
-        <span onclick="location.href='/notice/notice'">공지사항</span>
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/notice'">공지사항</span>
         <span>게시판</span>
         <span>MBTI 검사</span>
         <span>마이페이지</span>
@@ -25,23 +25,24 @@
     <p class="signupInfoText">회원가입</p>
     <p class="signupGuideText">* 은 필수 입력 사항입니다.</p>
     <form th:action="@{/auth/signup}" method="post" id="confirm">
-    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문, 숫자, 특수문자로 자유롭게 최대 7글자 입력해주세요." maxlength="7" minlength="4" oninput="toggleFields()" required><p id="idCheckMessage"></p>
-        <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 12자로 입력해주세요." maxlength="12" minlength="8" required><p id="pwdCheckMessage" ></p><span id="togglePassword" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 보기" id="togglePasswordIcon"></span>
-        <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1" oninput="toggleNicknameField()" required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
-    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 7글자로 입력해주세요." maxlength="7" minlength="1" oninput="toggleEmailField()" required><p id="nicknameCheckMessage"></p>
+    <label for="id" class="idLabel">* 아이디 : </label><input type="text" id="id" class="idInput" name="userId" placeholder="영문, 숫자, 특수문자로 자유롭게 최대 12글자 입력해주세요." maxlength="12" minlength="4" required><p id="idCheckMessage"></p>
+        <label for="password" class="pwdLabel">* 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 15자로 입력해주세요." maxlength="15" minlength="8" required><p id="pwdCheckMessage" ></p><span id="togglePassword" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 보기" id="togglePasswordIcon"></span>
+        <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1"  required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
+    <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 15글자로 입력해주세요." maxlength="15" minlength="1" required><p id="nicknameCheckMessage"></p>
 
-    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" oninput="toggleBirthField()" required>
-    <p class="emailMain">@</p>
+    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" required>
+    <p class="emailMain">@</p><p id="emailDupilcateCheck"></p>
     <input class="box" id="domain-txt" type="text"/>
     <select class="box" id="domain-list">
         <option class="sopText" value="type">직접 입력</option>
         <option class="sop" value="naver.com">naver.com</option>
-        <option class="sop" value="google.com">google.com</option>
+        <option class="sop" value="gmail.com">gmail.com</option>
         <option class="sop" value="daum.net">hanmail.net</option>
         <option class="sop" value="nate.com">nate.com</option>
         <option class="sop" value="kakao.com">kakao.com</option>
         </select>
     <button type="button" id="authEmail" class="authEmail" onclick="sendAuthCode()" oninput="toggleNextField()">인증</button>
+        <button id="authConfirm" class="authConfirm">완료</button>
 
     <!-- 인증 모달 -->
     <div class="modalBlur">
@@ -68,9 +69,9 @@
         <input type="hidden" name="userBirth" id="birthDate">
     <button type="button" id="resetBirth">초기화</button>
 
-    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="userGender" value="MALE" oninput="toggleBirthField()">
-    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="userGender" value="FEMALE" oninput="toggleBirthField()">
-    <label for="none" class="none">비밀</label><input type="radio" id="none" name="userGender" value="OTHER" oninput="toggleBirthField()" checked>
+    <label class="gender">성별 : </label><label for="man" class="man">남 </label><input type="radio" id="man" name="userGender" value="MALE">
+    <label for="woman" class="woman">여 </label><input type="radio" id="woman" name="userGender" value="FEMALE">
+    <label for="none" class="none">비밀</label><input type="radio" id="none" name="userGender" value="OTHER" checked>
 
     <button id="next" type="submit" class="next">다음</button>
     </form>
@@ -88,6 +89,66 @@
 
         const userEmail = emailPrefix + '@' + emailDomain;
 
+        // 이메일 중복확인 메소드
+        userEmail.addEventListener('input', function () {
+            const userEmailInput = this;
+            const userEmail = this.value;
+            const emailInput = document.getElementById('email');
+            const emailDomainInput = document.getElementById('domain-txt');
+            const emailSelectInput = document.getElementById('domain-list')
+            const messageElement = document.getElementById('emailDupilcateCheck');
+            const rule = /[@]/.test(userEmail);
+            if (rule) {
+                userEmailInput.value = userEmail.replace(/[@]/g, '');
+                messageElement.textContent = "@ 사용은 금지되어 있습니다.";
+                messageElement.style.color = "#FD3C3C";
+                emailInput.style.outline = "10px solid red";
+                emailDomainInput.style.outline = "10px solid red";
+                emailSelectInput.style.outline = "10px solid red";
+                return;
+            } else {
+                messageElement.textContent = "";
+            }
+
+            if (emailInput.length > 0 && emailDomainInput > 0) {
+                fetch(`/auth/checkemail?userEmail=${ userEmail }`)
+                    .then(response => response.json())
+                    .then(isAvailable => {
+                        if (isAvailable) {
+                            messageElement.textContent = "인증 가능한 이메일입니다.";
+                            messageElement.style.color = "#6EBA4A";
+                            emailInput.style.outline = "10px solid green";
+                            emailDomainInput.style.outline = "10px solid green";
+                            emailSelectInput.style.outline = "10px solid green";
+                            emailAuth.disabled = false;
+                        } else {
+                            messageElement.textContent = "이미 사용 중인 이메일입니다.";
+                            messageElement.style.color = "#FD3C3C";
+                            emailInput.style.outline = "10px solid red";
+                            emailDomainInput.style.outline = "10px solid red";
+                            emailSelectInput.style.outline = "10px solid red";
+                            emailAuth.disabled = true;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        messageElement.textContent = "사용 불가한 이메일입니다.";
+                        messageElement.style.color = "#FD3C3C";
+                        emailInput.style.outline = "10px solid red";
+                        emailDomainInput.style.outline = "10px solid red";
+                        emailSelectInput.style.outline = "10px solid red";
+                        emailAuth.disabled = true;
+                    });
+            } else {
+                messageElement.textContent = "";
+                emailInput.style.outline = "10px solid red";
+                emailDomainInput.style.outline = "10px solid red";
+                emailSelectInput.style.outline = "10px solid red";
+                emailAuth.disabled = true;
+            }
+        });
+
+        // 이메일 인증 메소드
         fetch('/auth/sendauthCode', {
             method: 'POST',
             headers: {
@@ -98,7 +159,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    openAuthModal(); // 인증 모달창 열기
+                    openAuthModal();
                 } else {
                     alert("인증 번호 전송에 실패했습니다.");
                 }
@@ -123,22 +184,26 @@
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    email: userEmail,       // 이메일 주소와 함께 인증 코드 전송
-                    authCode: authCodeInput // 인증 코드
+                    email: userEmail,
+                    authCode: authCodeInput
                 }),
             })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        closeAuthModal();  // 인증 성공 시 모달 닫기
-                        enableNextButton();  // "다음" 버튼 활성화
+                        document.getElementById('authConfirm').style.display="block";
+                        closeAuthModal();
+                        enableNextButton();
+                        subOn();
                     } else {
                         document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
+                        subOff();
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     alert("서버와의 통신에 실패했습니다.");
+                    subOff();
                 });
         }
 
@@ -147,39 +212,27 @@
 
     function openAuthModal() {
         const modal = document.querySelector('.modalBlur');
-        modal.style.display = 'flex';  // 모달 창 열기
+        modal.style.display = 'flex';
 
         const nextButton = document.getElementById('next');
-        nextButton.disabled = true;  // 인증 번호가 맞을 때까지 "다음" 버튼 비활성화
+        nextButton.disabled = true;
     }
 
     function closeAuthModal() {
         const modal = document.querySelector('.modalBlur');
-        modal.style.display = 'none';  // 모달 창 닫기
+        modal.style.display = 'none';
     }
-
-    function toggleAllFields(enable) {
-        // enable 값에 따라 true (활성화), false (비활성화) 설정
-        const fields = [
-            passwordInput, passwordConfirmInput, nicknameInput, emailInput, emailDomainInput,
-            emailSelectInput, birthYear, birthMonth, birthDay, man, woman, other, emailAuth
-        ];
-
-        fields.forEach(field => {
-            field.disabled = !enable; // enable이 true면 disabled=false, false면 disabled=true
-        });
-    }
-
 
     function enableNextButton() {
         const nextButton = document.getElementById('next');
-        nextButton.disabled = false;  // "다음" 버튼 활성화
-        document.getElementById('email').disabled = true;  // 이메일 입력 필드 비활성화
-        document.getElementById('domain-txt').disabled = true;  // 도메인 입력 필드 비활성화
-        document.getElementById('domain-list').disabled = true;  // 도메인 선택 필드 비활성화
+        nextButton.disabled = false;
+        document.getElementById('email').readOnly = true;
+        document.getElementById('domain-txt').disabled = true;
+        document.getElementById('domain-list').disabled = true;
     }
 
     document.getElementById('authNumber').addEventListener('input', checkAuthCode);
+    // 이메일 끝
 
 
     // 비밀번호 눈모양
@@ -204,6 +257,36 @@
         togglePasswordVisibility('passwordConfirm');
     });
 
+    // 필드 비활성화 (순서대로 갈 수 있게)
+    const passwordInput = document.getElementById('password');
+    const passwordConfirmInput = document.getElementById('passwordConfirm');
+    const nicknameInput = document.getElementById('nickname');
+    const emailInput = document.getElementById('email');
+    const emailDomainInput = document.getElementById('domain-txt');
+    const emailSelectInput = document.getElementById('domain-list');
+    const birthYear = document.getElementById('birth-year');
+    const birthMonth = document.getElementById('birth-month');
+    const birthDay = document.getElementById('birth-day');
+    const man = document.getElementById('man');
+    const woman = document.getElementById('woman');
+    const other = document.getElementById('none');
+    const emailAuth = document.getElementById('authEmail');
+    const nextButton = document.getElementById('next')
+
+    nextButton.disabled = true;
+    passwordInput.disabled = true;
+    passwordConfirmInput.disabled = true;
+    nicknameInput.disabled = true;
+    emailInput.disabled = true;
+    emailDomainInput.disabled = true;
+    emailSelectInput.disabled = true;
+    birthYear.disabled = true;
+    birthMonth.disabled = true;
+    birthDay.disabled = true;
+    man.disabled = true;
+    woman.disabled = true;
+    other.disabled = true;
+    emailAuth.disabled = true;
 
     // 아이디 체크
     document.getElementById('id').addEventListener('input', function () {
@@ -222,7 +305,7 @@
             messageElement.textContent = "";
         }
 
-        if (userId.length < 3 && userId.length > 0) {
+        if (userId.length <= 3 && userId.length > 0) {
             messageElement.textContent = "아이디는 최소 4자리 이상이어야 합니다.";
             messageElement.style.color = "#FD3C3C";
             passwordField.disabled = true;
@@ -319,7 +402,7 @@
         if (userPwd.length === 0) {
             messageElement.textContent = "비밀번호를 먼저 입력하세요.";
             messageElement.style.color = "#FD3C3C";
-            passwordInput.disabled = false;
+            passwordInput.readOnly = true;
             return;
         }
 
@@ -331,23 +414,24 @@
                     if (isAvailable) {
                         messageElement.textContent = "동일한 비밀번호입니다.";
                         messageElement.style.color = "#6EBA4A";
-                        passwordInput.disabled = false;
-                        // div 추가로 위를 덮는게 좋을 듯?
+                        passwordInput.readOnly = false;
+                        nicknameInput.disabled = false;
                     } else {
                         messageElement.textContent = "동일하지 않은 비밀번호입니다.";
                         messageElement.style.color = "#FD3C3C";
-                        passwordInput.disabled = false;
+                        passwordInput.readOnly = true;
+                        passwordInput.readOnly = false;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     messageElement.textContent = "동일하지 않은 비밀번호입니다.";
                     messageElement.style.color = "#FD3C3C";
-                    passwordInput.disabled = false;
+                    passwordInput.readOnly = true;
                 });
         } else {
             messageElement.textContent = "";
-            passwordInput.disabled = false;
+            passwordInput.readOnly = true;
         }
     });
 
@@ -356,6 +440,7 @@
         const userNickInput = this;
         const userNick = this.value;
         const messageElement = document.getElementById('nicknameCheckMessage');
+        const email = document.getElementById('email');
         const rules = /[^가-힣ㄱ-ㅎa-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/.test(userNick);
         if (rules) {
             userNickInput.value = userNick.replace(/[^가-힣ㄱ-ㅎa-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/g, '');
@@ -373,47 +458,56 @@
                     if (isAvailable) {
                         messageElement.textContent = "사용 가능한 닉네임입니다.";
                         messageElement.style.color = "#6EBA4A";
+                        emailInput.disabled = false;
+                        emailDomainInput.disabled = false;
+                        emailSelectInput.disabled = false;
                     } else {
                         messageElement.textContent = "이미 사용 중인 닉네임입니다.";
                         messageElement.style.color = "#FD3C3C";
+                        emailInput.disabled = true;
+                        emailDomainInput.disabled = true;
+                        emailSelectInput.disabled = true;
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     messageElement.textContent = "사용 불가한 닉네임입니다.";
                     messageElement.style.color = "#FD3C3C";
+                    emailInput.disabled = true;
+                    emailDomainInput.disabled = true;
+                    emailSelectInput.disabled = true;
                 });
         } else {
             messageElement.textContent = "";
+            emailInput.disabled = true;
+            emailDomainInput.disabled = true;
+            emailSelectInput.disabled = true;
         }
     });
 
+    function subOn() {
+        birthYear.disabled = false;
+        birthMonth.disabled = false;
+        birthDay.disabled = false;
+        man.disabled = false;
+        woman.disabled = false;
+    }
 
-    // 이메일 부분 로직
+    function subOff() {
+        birthYear.disabled = true;
+        birthMonth.disabled = true;
+        birthDay.disabled = true;
+        man.disabled = true;
+        woman.disabled = true;
+    }
+
+    function notEnter() {
+        document.addEventListener('keydown', function(event) { if (event.key === 'Enter') { event.preventDefault(); } });
+    }
+
     const form = document.querySelector('form');
-    form.addEventListener('submit', function (event) {
-        const nextButton = document.getElementById('next');
-        const emailInput = document.querySelector('#email');
-        const domainInput = document.querySelector('#domain-txt');
-        const domainSelect = document.querySelector('#domain-list');
-        const emailAuth = document.getElementById('authEmail');
-        let authNumber = '';  // 이메일 인증번호 저장 변수
-
-        const frontEmail = emailInput.value.split('@')[0];
-        emailInput.value = frontEmail;
-
-        if (domainSelect.value !== "type") {
-            emailInput.value += "@" + domainSelect.value;
-        } else {
-            emailInput.value += "@" + domainInput.value;
-        }
-
-        emailAuth.addEventListener('click', () => {
-            nextButton.disabled = false; // 인증 버튼 클릭 후 다음 버튼 활성화
-        });
-    });
-
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('input', function (event) {
+        notEnter();
         const year = document.querySelector('#birth-year').value;
         const month = document.querySelector('#birth-month').value;
         const day = document.querySelector('#birth-day').value;
@@ -426,7 +520,8 @@
         }
     });
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('form', function (event) {
+        notEnter();
         const genderInput = document.querySelector('input[name="gender"]:checked');
         const formattedGender = genderInput ? genderInput.value : null;
     });
@@ -522,116 +617,6 @@
         btnCloseModal.addEventListener("click", () => {
             modal.style.display = "none";
         });
-    }
-
-    // 입력한다음 넘어가기
-    const userIdInput = document.getElementById('id');
-    const passwordInput = document.getElementById('password');
-    const passwordConfirmInput = document.getElementById('passwordConfirm');
-    const nicknameInput = document.getElementById('nickname');
-    const emailInput = document.getElementById('email');
-    const emailDomainInput = document.getElementById('domain-txt');
-    const emailSelectInput = document.getElementById('domain-list');
-    const birthYear = document.getElementById('birth-year');
-    const birthMonth = document.getElementById('birth-month');
-    const birthDay = document.getElementById('birth-day');
-    const man = document.getElementById('man');
-    const woman = document.getElementById('woman');
-    const other = document.getElementById('none');
-    const emailAuth = document.getElementById('authEmail');
-    const nextButton = document.getElementById('next')
-
-    // id는 처음에 활성화 돼 있어야 하므로 없어야 함
-    nextButton.disabled = true;
-    passwordInput.disabled = true;
-    passwordConfirmInput.disabled = true;
-    nicknameInput.disabled = true;
-    emailInput.disabled = true;
-    emailDomainInput.disabled = true;
-    emailSelectInput.disabled = true;
-    birthYear.disabled = true;
-    birthMonth.disabled = true;
-    birthDay.disabled = true;
-    man.disabled = true;
-    woman.disabled = true;
-    other.disabled = true;
-    emailAuth.disabled = true;
-
-    function toggleFields() {
-        if (userIdInput.value) {
-            passwordInput.disabled = false;
-        } else {
-            resetFields();
-        }
-    }
-
-    function toggleNicknameField() {
-        if (passwordConfirmInput.value) {
-            nicknameInput.disabled = false;
-        } else {
-            nicknameInput.disabled = true;
-            emailInput.disabled = true;
-        }
-        toggleEmailField();
-    }
-
-    function toggleEmailField() {
-        if (nicknameInput.value) {
-            emailInput.disabled = false;
-            emailDomainInput.disabled = false;
-            emailSelectInput.disabled = false;
-
-        } else {
-            emailInput.disabled = true;
-            emailDomainInput.disabled = true;
-            emailSelectInput.disabled = true;
-        }
-    }
-
-    // 임시로 next버튼 활성화까지 생성
-    emailAuth.addEventListener('click', () => {
-        toggleNextField();
-    });
-
-    function toggleNextField() {
-        nextButton.disabled = false;
-    } // 까지
-
-    function toggleBirthField() {
-        if (emailInput.value) {
-            birthYear.disabled = false;
-            birthMonth.disabled = false;
-            birthDay.disabled = false;
-            man.disabled = false;
-            woman.disabled = false;
-            other.disabled = false;
-            emailAuth.disabled = false; // 나중에 이메일 인증과 함께 변경해야함 // 임시로 여기 둠 - 버튼 활성화
-        } else {
-            birthYear.disabled = true;
-            birthMonth.disabled = true;
-            birthDay.disabled = true;
-            man.disabled = true;
-            woman.disabled = true;
-            other.disabled = true;
-            emailAuth.disabled = true; // 나중에 이메일 인증과 함께 변경해야함 // 임시로 여기 둠 - 버튼 활성화
-        }
-    }
-
-    function resetFields() {
-        passwordInput.disabled = true;
-        passwordConfirmInput.disabled = true;
-        nicknameInput.disabled = true;
-        emailInput.disabled = true;
-        emailDomainInput.disabled = true;
-        emailSelectInput.disabled = true;
-        birthYear.disabled = true;
-        birthMonth.disabled = true;
-        birthDay.disabled = true;
-        man.disabled = true;
-        woman.disabled = true;
-        other.disabled = true;
-        passwordInput.value = "";
-        passwordConfirmInput.value = "";
     }
 </script>
 </body>

@@ -77,6 +77,12 @@ public class SignupController {
     public boolean checkNick(@RequestParam String userNick) {
         return signupService.checkNick(userNick);
     }
+
+    @GetMapping("/checkemail")
+    @ResponseBody
+    public boolean checkEmail(@RequestParam String userEmail) {
+        return signupService.checkEmail(userEmail);
+    }
 }
 
 

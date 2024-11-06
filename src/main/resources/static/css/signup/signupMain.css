@@ -332,6 +332,32 @@
     color: #FFFFFF;
 }
 
+.authConfirm{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    left: 1525px;
+    top: 706px;
+
+    background: mediumspringgreen;
+    outline : 10px solid greenyellow;
+    border-radius: 50px;
+
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 30px;
+    line-height: 60px;
+    text-align: center;
+    display: none;
+    z-index: 99;
+
+    color: #FFFFFF;
+}
+
 .authEmail:active{
     margin-left: 2px;
     margin-top: 2px;
@@ -1020,4 +1046,13 @@ button:disabled {
 
 #togglePasswordConfirm {
     top: 287px
+}
+
+#emailDupilcateCheck {
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 1186px;
+    top: 352px;
+    z-index: 999;
 }

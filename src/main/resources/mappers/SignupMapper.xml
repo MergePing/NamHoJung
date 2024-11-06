@@ -56,4 +56,10 @@
         WHERE USER_NAME = #{ userNick } <!-- 자스에서 쏜 변수라서 DTO 변수가 아닌 userNick이라는 변수이름이 와야함 참고 -->
     </select>
 
+    <select id="checkEmail" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_USER
+        WHERE USER_NAME = #{ userEmail }
+    </select>
+
 </mapper>
