@@ -15,7 +15,6 @@ public class AdminNoticeDTO {
         this.noticeNo = noticeNo;
         this.title = title;
         this.date = date;
-        this.category = category;
     }
 
     public int getNoticeNo() {
@@ -42,11 +41,4 @@ public class AdminNoticeDTO {
         this.date = date;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

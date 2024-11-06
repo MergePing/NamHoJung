@@ -1,21 +1,20 @@
 package com.ohgiraffers.mergyping.user.model.dto;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class AdminNoticeDetailDTO {
 
     private int noticeNo;
     private String title;
     private String content;
-    private LocalDate date;
-    private String category;
+    private Date date;
 
-    public AdminNoticeDetailDTO(int noticeNo, String title, String content, LocalDate date, String category) {
+
+    public AdminNoticeDetailDTO(int noticeNo, String title, String content, Date date) {
         this.noticeNo = noticeNo;
         this.title = title;
         this.content = content;
         this.date = date;
-        this.category = category;
     }
 
     public int getNoticeNo() {
@@ -42,19 +41,12 @@ public class AdminNoticeDetailDTO {
         this.content = content;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 }

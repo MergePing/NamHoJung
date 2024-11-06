@@ -11,7 +11,6 @@
 
 <header>
     <nav>
-        <!--네비바-->
         <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/admin/notice'">공지사항</span>
@@ -28,21 +27,69 @@
     <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
     <section class="top-notice">
-        <h1 class="top-title" th:text="${noticeDetail.title}"></h1>
-        <p class="top-no" th:text="${noticeDetail.noticeNo}"></p>
-        <div id="category1">
-            <p class="top-category" th:text="${noticeDetail.category}"></p>
-        </div>
+        <h1 id="toptitleText" class="top-title" th:text="${noticeDetail.title}"></h1>
+        <p class="date" th:text="${noticeDetail.date}"></p>
+        <p id="noticeNo" th:text="${noticeDetail.noticeNo}"></p>
     </section>
 
+    <!-- 수정 버튼 -->
+    <button id="edit-button">수정</button>
+
+    <!-- 공지사항 상세 내용 -->
     <section class="notice-detail">
-        <h1 class="title" th:text="${noticeDetail.title}"></h1>
-        <p class="date" th:text="${noticeDetail.date}"></p>
-        <p class="category" th:text="'(' + ${noticeDetail.category} + ')'"></p>
-        <div class="content" th:utext="${noticeDetail.content}">
+        <h1 id="titleText" class="title" th:text="${noticeDetail.title}"></h1>
+        <div id="contentText" class="content" th:utext="${noticeDetail.content}"></div>
+
+        <!-- 수정 입력 폼 -->
+        <div id="editForm" style="display: none; position: absolute; top: 0; left: 0;">
+            <input type="text" id="editTitle">
+            <textarea id="editContent"></textarea>
+            <button id="saveButton">저장</button>
         </div>
     </section>
 </main>
+
+<script>
+    document.getElementById('edit-button').addEventListener('click', function() {
+        // 수정 버튼을 숨기고 저장 버튼 보이게 하기
+        document.getElementById('edit-button').style.display = 'none';
+
+        // 기존 텍스트 숨기기
+        document.getElementById('toptitleText').style.display = 'none';
+        document.getElementById('titleText').style.display = 'none';
+        document.getElementById('contentText').style.display = 'none';
+
+        // 수정 입력 폼 보이기
+        document.getElementById('editForm').style.display = 'block';
+
+        // 기존 제목과 내용을 placeholder로 설정
+        document.getElementById('editTitle').value = document.getElementById('titleText').innerText;
+        document.getElementById('editContent').value = document.getElementById('contentText').innerText;
+    });
+
+    document.getElementById('saveButton').addEventListener('click', function() {
+        const noticeNo = document.getElementById('noticeNo').innerText;
+        const title = document.getElementById('editTitle').value;
+        const content = document.getElementById('editContent').value;
+
+        fetch(`/admin/notice/detail/edit/${noticeNo}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, content })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('공지사항이 수정되었습니다.');
+                    location.reload();  // 페이지 새로고침하여 변경사항 반영
+                } else {
+                    alert('수정 실패');
+                }
+            });
+    });
+</script>
 
 </body>
 </html>

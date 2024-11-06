@@ -6,10 +6,7 @@ import com.ohgiraffers.mergyping.user.model.service.AdminNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,13 +60,25 @@ public class AdminNoticeController {
         return response; // 페이지네이션 데이터 JSON 반환
     }
 
+    // 공지사항 상세 조회
     @GetMapping("/admin/notice/detail/{noticeNo}")
     public String getNoticeDetail(@PathVariable("noticeNo") String noticeNo, Model model) {
-
         AdminNoticeDetailDTO noticeDetail = adminNoticeService.getNoticeDetail(noticeNo);
         model.addAttribute("noticeDetail", noticeDetail);
-
-
         return "user/admin/adminnoticedetail";
+    }
+
+    // 공지사항 수정 요청을 처리하는 메서드
+    @PostMapping("/admin/notice/detail/edit/{noticeNo}")
+    @ResponseBody
+    public Map<String, Object> updateNotice(@PathVariable("noticeNo") String noticeNo,
+                                            @RequestBody AdminNoticeDetailDTO noticeDetailDTO) {
+        noticeDetailDTO.setNoticeNo(Integer.parseInt(noticeNo)); // noticeNo 설정
+        boolean updateSuccess = adminNoticeService.updateNotice(noticeDetailDTO);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", updateSuccess);
+        response.put("message", updateSuccess ? "공지사항이 수정되었습니다." : "공지사항 수정에 실패했습니다.");
+        return response;
     }
 }

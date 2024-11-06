@@ -1,3 +1,4 @@
+@charset "UTF-8";
 body{
     width: 100%;
     max-width: 1920px;
@@ -166,30 +167,27 @@ nav span:hover{
     left: 169px;
     top: 231px;
 }
-
-
-/* ---------main--------*/
-main{
+/* 메인 설정 */
+main {
     transition: all 1s;
 }
 
-
-main #box{
+main #box {
     position: absolute;
     width: 1707px;
     top: 200px;
     z-index: -1;
 }
 
-
-main #bg{
+main #bg {
     position: absolute;
     width: 1920px;
     top: 39px;
     z-index: -5;
 }
 
-.notice-detail{
+/* 공지사항 상세 내용 */
+.notice-detail {
     position: relative;
     width: 90%;
     padding: 15px 0;
@@ -199,136 +197,159 @@ main #bg{
     margin-bottom: 44px;
 }
 
-main .notice.active{
-    display: block;
-}
-
-.title{
-
+.title {
     position: absolute;
     width: 547px;
     height: 52px;
-    left: 550px;
+    left: 427px;
     top: 373px;
-
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
     font-weight: 300;
     font-size: 40px;
     line-height: 52px;
-
     color: #FFFFFF;
-
-
 }
+
 .content {
     position: absolute;
     top: 469px;
     left: 427px;
     max-width: 40em;
     padding: 10px;
-
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
     line-height: 1.5;
     color: #FFFFFF;
-
-    white-space: normal; /* 줄바꿈 허용 */
-    overflow-wrap: break-word; /* 단어 단위로 줄바꿈 */
+    white-space: normal;
+    overflow-wrap: break-word;
 }
-.date{
 
+.date {
     position: absolute;
     width: 153px;
     height: 33px;
     left: 1420px;
     top: 240px;
-
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
     line-height: 32px;
-
     color: #FFFFFF;
     white-space: nowrap;
 }
-.category{
-    position: absolute;
-    width: 547px;
-    height: 52px;
-    left: 427px;
-    top: 373px;
 
+.top-title {
+    position: absolute;
+    width: 342px;
+    height: 30px;
+    left: 789px;
+    top: 240px;
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
     font-weight: 300;
-    font-size: 40px;
-    line-height: 52px;
-
+    font-size: 25px;
+    line-height: 32px;
     color: #FFFFFF;
-
-
+    white-space: nowrap;
 }
 
-.top-no{
+/* 수정 버튼 */
+#edit-button {
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+#edit-button:hover {
+    background: #3e8e41;
+}
+
+/* 수정 폼 */
+#editForm {
+    display: none;
+    position: relative;
+    width: 60%;
+    left: 427px;
+    top: 150px;
+}
+
+#editTitle {
+    position: absolute;
+    left: 427px;
+    top: 373px;
+    width: 547px;
+    height: 52px;
+    font-size: 40px;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+#editContent {
+    position: absolute;
+    left: 427px;
+    top: 469px;
+    width: 40em;
+    height: 100px;
+    font-size: 25px;
+}
+
+#saveButton {
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+#edit-button:hover {
+    background: #3e8e41;
+}
+
+#saveButton:hover {
+    background: #3e8e41;
+}
+
+#noticeNo{
+
 
     position: absolute;
     width: 36px;
     height: 31px;
     left: 278px;
     top: 240px;
-    font-family: 'Cafe24 Ssurround air';
+
+    font-family: 'Cafe24SsurroundAir';
     font-style: normal;
-    font-weight: 300;
-    font-size: 25px;
-    line-height: 32px;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
 
     color: #FFFFFF;
-    white-space: nowrap;
 }
 
-.top-title{
-
-    position: absolute;
-    width: 342px;
-    height: 30px;
-    left: 789px;
-    top: 240px;
-
-    font-family: 'Cafe24 Ssurround air';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 25px;
-    line-height: 32px;
-
-    color: #FFFFFF;
-    white-space: nowrap;
-}
-
-#category1 {
-    position: absolute;
-    width: 80px;
-    height: 39px;
-    left: 356px;
-    top: 235px;
-    background: #0E2913;
-    border: 2px solid #FFFFFF;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.top-category {
-    position: relative;
-    font-family: 'Cafe24 Ssurround air';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 25px;
-    line-height: 32px;
-    color: #FFFFFF;
-    white-space: nowrap;
+#editTitle, #editContent {
+    background-color: transparent; /* 배경색을 투명하게 설정 */
+    color: #FFFFFF; /* 텍스트 색상을 배경에 맞추어 설정 */
+    border: none; /* 테두리를 없앰 */
+    outline: none; /* 포커스 시 기본 테두리 없애기 */
+    resize: none; /* 크기 조절 없애기 (원할 경우) */
 }
