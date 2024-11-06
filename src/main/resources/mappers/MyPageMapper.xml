@@ -9,6 +9,7 @@
         <result property="userName" column="USER_NAME"/>
         <result property="email"  column="EMAIL"/>
         <result property="userId" column="USER_ID"/>
+        <result property="userPwd" column="USER_PWD"/>
     </resultMap>
 
     <resultMap id="mypagePostResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO">
@@ -46,6 +47,12 @@
         WHERE USER_NO = #{userNo}
     </select>
 
+    <select id="findId" resultMap="mypageResultMap">
+        SELECT USER_ID
+        FROM TBL_USER
+        WHERE USER_NO = #{userNo}
+    </select>
+
     <select id="existsByNickname" parameterType="String" resultType="boolean">
         SELECT COUNT(*) > 0
         FROM TBL_USER
@@ -59,9 +66,9 @@
         WHERE USER_NO = #{userNo}
     </update>
 
-    <update id="updatePassword" parameterType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
+    <update id="updatePassword"  parameterType="map">
         UPDATE TBL_USER
-        SET USER_PWD = #{newPassword}
+        SET USER_PWD = #{userPwd}
         WHERE USER_NO = #{userNo}
     </update>
 </mapper>

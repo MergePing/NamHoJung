@@ -31,36 +31,40 @@
             <button class="btn-upload">사진수정</button>
             <button class="btn-delete" id="btndelete">탈퇴</button>
 
+            <div class="input-group">
+                <label class="mpId">아이디</label>
+                <div class="userId" th:text="${myPageDTO3.userId}"></div>
+            </div>
 
-                <div class="input-group">
-                    <label class="mpname">닉네임</label>
-                    <form action="/userinfo" method="post">
-                        <input type="text" name="userName" id="nickname" th:placeholder="${myPageDTO.userName}">
-                        <input type="password" name="newPassword" id="password" placeholder="영문 숫자 특수문자로 이루어진 8~12자리">
-                        <button type="submit" class="btn-submit" id="btn-submit">수정</button>
-                    </form>
-                    <button class="btn-check" onclick="checkDuplicate()">중복확인</button>
-                    <div id="duplicateMessage" class="duplicatemsg" style="color: red; display: none;"></div>
-                </div>
+            <div class="input-group">
+                <label class="mpname">닉네임</label>
+                <form action="/userinfo" method="post">
+                    <input type="text" name="userName" id="nickname" th:placeholder="${myPageDTO.userName}">
+                    <input type="password" name="newPassword" id="password" placeholder="영문,숫자,특수문자 8~12자리">
+                    <button type="submit" class="btn-submit" id="btn-submit">수정</button>
+                </form>
+                <button class="btn-check" onclick="checkDuplicate()">중복확인</button>
+                <div id="duplicateMessage" class="duplicatemsg" style="color: red; display: none;"></div>
+            </div>
 
 
             <div class="input-group">
                 <label class="mppw">비밀번호</label>
-                <span class="toggle-password" id="togglePassword">&#128065;</span>
+                <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
                 <button class="mpchange" onclick="validatePassword()">확인</button>
                 <div id="passwordFeedback" class="pwdfeedback" style="color: red; display: none;"></div>
             </div>
 
-            <div id="confirmpopup">
-                <label class="confirmno">인증번호</label>
-                <input type="text" id="confirm-no">
-                <button class="btn-confirm1">인증</button>
-            </div>
+<!--            <div id="confirmpopup">-->
+<!--                <label class="confirmno">인증번호</label>-->
+<!--                <input type="text" id="confirm-no">-->
+<!--                <button class="btn-confirm1">인증</button>-->
+<!--            </div>-->
 
             <div class="input-group">
                 <label class="mpemail">이메일</label>
-                <input type="email" id="email" th:placeholder="${myPageDTO2.email}">
-                <button class="btn-confirm" id="confirmcheck">인증</button>
+                <div id="email" th:text="${myPageDTO2.email}"></div>
+<!--                <button class="btn-confirm" id="confirmcheck">인증</button>-->
             </div>
 
             <button class="btn-cancel" id="btn-cancel">취소</button>
@@ -109,19 +113,20 @@
 
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
+        const passwordIcon = document.getElementById('passwordIcon');
         // 비밀번호 보기/숨기기 토글
         togglePassword.addEventListener('click', () => {
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
+            passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
         });
 
-        const confirmCheck = document.getElementById('confirmcheck');
-        const confirmNo= document.getElementById('confirmpopup');
-
-        confirmCheck.addEventListener('click', () => {
-            confirmNo.style.display = 'block'; // 팝업 표시
-        });
+        // const confirmCheck = document.getElementById('confirmcheck');
+        // const confirmNo= document.getElementById('confirmpopup');
+        //
+        // confirmCheck.addEventListener('click', () => {
+        //     confirmNo.style.display = 'block'; // 팝업 표시
+        // });
 
         const btnCancle =document.getElementById('btn-cancel');
 
@@ -222,6 +227,7 @@
         function checkDuplicate() {
             const nickname = document.getElementById('nickname').value;
             const duplicateMessage = document.getElementById('duplicateMessage');
+            // const btnSubmit = document.getElementById('btn-submit'); // 여기서 btnSubmit을 먼저 선언합니다.
 
             fetch(`/checknickname?nickname=${nickname}`)
                 .then(response => response.json())
@@ -240,6 +246,12 @@
                 .catch(error => console.error('Error:', error));
         }
 
+        // 중복 확인 버튼에 이벤트 리스너 추가
+        const btnCheck = document.querySelector('.btn-check');
+        if (btnCheck) {
+            btnCheck.addEventListener('click', checkDuplicate);
+        }
+
 
 
         // 비밀번호 유효성 검사 함수
@@ -254,12 +266,12 @@
                 passwordFeedback.textContent = "올바른 비밀번호입니다.";
                 passwordFeedback.style.color = "black";
                 passwordFeedback.style.display = "block";
-                document.getElementById('btn-submit').disabled = false;
+                btnsubmit.disabled = false; // 버튼 활성화
             } else {
                 passwordFeedback.textContent = "올바르지 않는 비밀번호 입니다.";
                 passwordFeedback.style.color = "red";
                 passwordFeedback.style.display = "block";
-                document.getElementById('btn-submit').disabled = true; // 버튼 비활성화
+                btnsubmit.disabled = true; // 버튼 비활성화
             }
         }
 
