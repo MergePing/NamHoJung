@@ -93,4 +93,28 @@
         WHERE POST_NO = #{postNo}
     </update>
 
+
+    <!--    <update id="incrementScaryCount">-->
+    <!--        UPDATE TBL_POST-->
+    <!--        SET SCARY_COUNT = SCARY_COUNT + 1-->
+    <!--        WHERE POST_NO = #{postNo}-->
+    <!--    </update>-->
+
+    <!--    <update id="decrementScaryCount">-->
+    <!--        UPDATE TBL_POST-->
+    <!--        SET SCARY_COUNT = SCARY_COUNT - 1-->
+    <!--        WHERE POST_NO = #{postNo}-->
+    <!--    </update>-->
+
+    <!--    <update id="incrementNotScaryCount">-->
+    <!--        UPDATE TBL_POST-->
+    <!--        SET NOT_SCARY_COUNT = NOT_SCARY_COUNT + 1-->
+    <!--        WHERE POST_NO = #{postNo}-->
+    <!--    </update>-->
+
+    <!--    <update id="decrementNotScaryCount">-->
+    <!--        UPDATE TBL_POST-->
+    <!--        SET NOT_SCARY_COUNT = NOT_SCARY_COUNT - 1-->
+    <!--        WHERE POST_NO = #{postNo}-->
+    <!--    </update>-->
 </mapper>

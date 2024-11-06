@@ -173,9 +173,6 @@ nav span:hover{
 /*---------------main------------------*/
 
 
-main{
-    transition: all 1s;
-}
 
 
 main #bg{
@@ -244,12 +241,13 @@ main .qickBtn{
 
 
 main .bg{
-    position: absolute;
     width: 1920px;
-    height: 2317px;
+    position: fixed;
+    height: 100%;
     background: #3B572D;
-    top: 50px;
-    z-index: -555;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 
@@ -258,7 +256,7 @@ main .bg{
     width: 1575px;
     height: 80px;
     left: 145px;
-    top: 188px;
+    top: 175px;
     z-index: 22;
 }
 
@@ -280,41 +278,34 @@ main .bg{
     left:90px;
 }
 
-#header span:nth-of-type(3){
-    position: absolute;
-    width: 318px;
-    height: 62px;
+#header span:nth-of-type(3) {
+    display: inline-block;
     font-family: 'SUIT';
     font-weight: 800;
     font-size: 50px;
     color: #FFFFFF;
-    left:190px;
+    margin-right: 30px;
+    margin-left: 190px;
 }
 
-#header span:nth-of-type(4){
-    position: absolute;
-    width: 289px;
-    height: 30px;
+#header span:nth-of-type(4) {
+    display: inline-block;
     font-family: 'Cafe24Ssurroundair';
     font-weight: 300;
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    left: 550px;
-    top: 25px;
+    margin-left: 10px;
 }
 
 #header span:nth-of-type(5){
-    position: absolute;
-    width: 289px;
-    height: 30px;
+    display: inline-block;
     font-family: 'Cafe24Ssurroundair';
     font-weight: 300;
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    left: 570px;
-    top: 25px;
+    margin-left: 10px;
 }
 
 #header span:nth-of-type(6){
@@ -325,6 +316,16 @@ main .bg{
     top: -25px;
 }
 
+#header span:nth-of-type(7){
+    position: absolute;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+    color: #FFFFFF;
+    left: 1535px;
+    top: 50px;
+}
 
 .post .line{
     position: absolute;
@@ -335,12 +336,14 @@ main .bg{
     left: 145px;
 }
 
+#content{
+    position: relative;
+}
 #content span{
-    position: absolute;
+    display: inline-block;
     width: 937px;
-    height: 1041px;
-    left: 145px;
-    top: 324px;
+    margin-left: 145px;
+    margin-top: 324px;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     line-height: 48px;
@@ -352,7 +355,6 @@ main .bg{
     width: 579px;
     height: 526px;
     top: 324px;
-    filter: blur(7.5px);
     left: 1140px;
 }
 
@@ -361,15 +363,19 @@ main .bg{
     width: 579px;
     height: 526px;
     top: 900px;
-    filter: blur(7.5px);
     left: 1140px;
 }
+
+#box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
 
 .post #writer{
     position: absolute;
     width: 1650px;
     left: 145px;
-    top: 1500px;
 }
 
 #writer img{
@@ -435,7 +441,7 @@ main .bg{
     width: 544px;
     height: 90px;
     left: 1140px;
-    top: 1520px;
+    top: 10px;
 }
 
 #scary div{
@@ -476,7 +482,8 @@ main .bg{
     width: 544px;
     height: 90px;
     left: 1420px;
-    top: 1520px;
+    top: 10px;
+
 }
 
 #notscary div{
@@ -512,15 +519,20 @@ main .bg{
     left: 190px;
 }
 
-.line:nth-child(2){
-    top: 1650px;
+.line2{
+    position: absolute;
+    width: 1575px;
+    height: 7px;
+    background: #0E2913;
+    left: 145px;
+    top: 150px;
 }
 
 .post input{
     position: absolute;
     width: 1307px;
     height: 85px;
-    top: 1720px;
+    top: 200px;
     background: #D9D9D9;
     border-radius: 50px;
     left: 145px;
@@ -536,7 +548,7 @@ main .bg{
     background: #0E2913;
     border: 4px solid #C9E5CA;
     border-radius: 50px;
-    top: 1730px;
+    top: 210px;
     left: 1500px;
     color: #fff;
     font-family: 'Cafe24Ssurroundair';
@@ -549,7 +561,7 @@ main .bg{
     width: 1572px;
     height: 143px;
     left: 145px;
-    top: 1900px;
+    top: 360px;
 }
 
 #comment img:nth-of-type(1){
@@ -572,7 +584,7 @@ main .bg{
     width: 59px;
     height: 59px;
     left: 1380px;
-    top: -35px;
+    top: -25px;
 }
 
 #comment span:nth-of-type(3) {
@@ -583,14 +595,14 @@ main .bg{
     text-align: center;
     color: #FFFFFF;
     left: 1380px;
-    top: 40px;
+    top: 45px;
 }
 
 #comment img:nth-of-type(2){
     position: absolute;
     width: 70px;
     left: 1478px;
-    top: -38px;
+    top: -28px;
 }
 
 #comment span:nth-of-type(4) {
@@ -601,7 +613,7 @@ main .bg{
     text-align: center;
     color: #FFFFFF;
     left: 1492px;
-    top: 40px;
+    top: 45px;
 }
 
 #comment span:nth-of-type(5){
@@ -622,7 +634,7 @@ main .bg{
     width: 1700px;
     height: 143px;
     left: 170px;
-    top: 2070px;
+    top: 530px;
 }
 
 #recomment>img:nth-of-type(1){
@@ -654,13 +666,13 @@ main .bg{
     width: 47px;
     height: 47px;
     left: 1360px;
-    top: -10px;
+    top: -20px;
 }
 
 #recomment span:nth-of-type(3){
     position: absolute;
     left: 1360px;
-    top: 50px;
+    top: 40px;
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 20px;
@@ -672,13 +684,13 @@ main .bg{
     position: absolute;
     width: 55px;
     left: 1460px;
-    top: -10px;
+    top: -23px;
 }
 
 #recomment span:nth-of-type(4){
     position: absolute;
     left: 1472px;
-    top: 50px;
+    top: 40px;
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 20px;
@@ -702,7 +714,7 @@ main .hidden{
     position: absolute;
     width: 134px;
     height: 30px;
-    top: 2260px;
+    top: 750px;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     text-align: center;
@@ -726,6 +738,7 @@ footer .footer{
     background: #0E2913;
     box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
     z-index: 55;
+    margin-top: 50px;
 }
 
 footer .footer p{
