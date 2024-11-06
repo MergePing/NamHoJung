@@ -283,6 +283,8 @@ main .notice div{
     background: #0E2913;
     border: 2px solid #FFFFFF;
     border-radius: 50px;
+
+
 }
 
 
@@ -414,7 +416,11 @@ main .pageNum img:nth-of-type(2){
 }
 
 .notice img:active {
-    transform: scale(0.95); 
+    transform: scale(0.95);
+
 }
+
+
+
 
 

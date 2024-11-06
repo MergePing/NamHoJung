@@ -27,8 +27,16 @@
     <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
     <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
+    <section class="top-notice">
+        <h1 class="top-title" th:text="${noticeDetail.title}"></h1>
+        <p class="top-no" th:text="${noticeDetail.noticeNo}"></p>
+        <div id="category1">
+            <p class="top-category" th:text="${noticeDetail.category}"></p>
+        </div>
+    </section>
+
     <section class="notice-detail">
-        <h1 class="title"th:text="${noticeDetail.title}"></h1>
+        <h1 class="title" th:text="${noticeDetail.title}"></h1>
         <p class="date" th:text="${noticeDetail.date}"></p>
         <p class="category" th:text="'(' + ${noticeDetail.category} + ')'"></p>
         <div class="content" th:utext="${noticeDetail.content}">
