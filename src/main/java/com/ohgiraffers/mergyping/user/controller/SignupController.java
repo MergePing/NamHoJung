@@ -26,6 +26,7 @@ public class SignupController {
         return "user/signup/signup4";
     }
 
+
     @PostMapping("/signup")
     public ModelAndView signup(ModelAndView mv, @ModelAttribute SignupDTO signupDTO) {
             int result = signupService.regist(signupDTO);
