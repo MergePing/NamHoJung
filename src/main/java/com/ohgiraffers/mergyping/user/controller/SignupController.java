@@ -35,10 +35,10 @@ public class SignupController {
 
             if (result > 0) {
                 message = "회원가입이 정상적으로 완료되었습니다.";
-                mv.setViewName("/user/signup/signupConfirm");
+                mv.setViewName("redirect:/signupConfirm");
             } else {
                 message = "회원가입에 실패하였습니다.";
-                mv.setViewName("user/signup/signup3");
+                mv.setViewName("redirect:/signup3");
             }
             mv.addObject("message", message);
 
