@@ -95,8 +95,23 @@
     const btnOpenModal = document.querySelector('.authEmail');
     const btnCloseModal = document.querySelector('.modalBlur');
 
-    // 모달 속도때문에 넣어둬야 함
+    // id는 처음에 활성화 돼 있어야 하므로 없어야 함
+    // nextButton.disabled = true;
+    // passwordInput.disabled = true;
+    // passwordConfirmInput.disabled = true;
+    // nicknameInput.disabled = true;
+    // emailInput.disabled = true;
+    // emailDomainInput.disabled = true;
+    // emailSelectInput.disabled = true;
+    // birthYear.disabled = true;
+    // birthMonth.disabled = true;
+    // birthDay.disabled = true;
+    // man.disabled = true;
+    // woman.disabled = true;
+    // other.disabled = true;
+    // emailAuth.disabled = true;
 
+    // 모달 속도때문에 넣어둬야 함
     btnOpenModal.addEventListener("click", () => {
         modal.style.display = "flex";
     })
@@ -190,19 +205,6 @@
         const modal = document.querySelector('.modalBlur');
         modal.style.display = 'none';
     }
-
-    function toggleAllFields(enable) {
-        // enable 값에 따라 true (활성화), false (비활성화) 설정
-        const fields = [
-            passwordInput, passwordConfirmInput, nicknameInput, emailInput, emailDomainInput,
-            emailSelectInput, birthYear, birthMonth, birthDay, man, woman, other, emailAuth
-        ];
-
-        fields.forEach(field => {
-            field.disabled = !enable; // enable이 true면 disabled=false, false면 disabled=true
-        });
-    }
-
 
     function enableNextButton() {
         const nextButton = document.getElementById('next');
@@ -540,99 +542,6 @@
         birthMonthEl.innerHTML = '<option value="month">월</option>';
         birthDayEl.innerHTML = '<option value="day">일</option>';
     });
-
-    // id는 처음에 활성화 돼 있어야 하므로 없어야 함
-    nextButton.disabled = true;
-    passwordInput.disabled = true;
-    passwordConfirmInput.disabled = true;
-    nicknameInput.disabled = true;
-    emailInput.disabled = true;
-    emailDomainInput.disabled = true;
-    emailSelectInput.disabled = true;
-    birthYear.disabled = true;
-    birthMonth.disabled = true;
-    birthDay.disabled = true;
-    man.disabled = true;
-    woman.disabled = true;
-    other.disabled = true;
-    emailAuth.disabled = true;
-
-    function toggleFields() {
-        if (userIdInput.value) {
-            passwordInput.disabled = false;
-        } else {
-            resetFields();
-        }
-    }
-
-    function toggleNicknameField() {
-        if (passwordConfirmInput.value) {
-            nicknameInput.disabled = false;
-        } else {
-            nicknameInput.disabled = true;
-            emailInput.disabled = true;
-        }
-        toggleEmailField();
-    }
-
-    function toggleEmailField() {
-        if (nicknameInput.value) {
-            emailInput.disabled = false;
-            emailDomainInput.disabled = false;
-            emailSelectInput.disabled = false;
-
-        } else {
-            emailInput.disabled = true;
-            emailDomainInput.disabled = true;
-            emailSelectInput.disabled = true;
-        }
-    }
-
-    // 임시로 next버튼 활성화까지 생성
-    emailAuth.addEventListener('click', () => {
-        toggleNextField();
-    });
-
-    function toggleNextField() {
-        nextButton.disabled = false;
-    } // 까지
-
-    function toggleBirthField() {
-        if (emailInput.value) {
-            birthYear.disabled = false;
-            birthMonth.disabled = false;
-            birthDay.disabled = false;
-            man.disabled = false;
-            woman.disabled = false;
-            other.disabled = false;
-            emailAuth.disabled = false; // 나중에 이메일 인증과 함께 변경해야함 // 임시로 여기 둠 - 버튼 활성화
-        } else {
-            birthYear.disabled = true;
-            birthMonth.disabled = true;
-            birthDay.disabled = true;
-            man.disabled = true;
-            woman.disabled = true;
-            other.disabled = true;
-            emailAuth.disabled = true; // 나중에 이메일 인증과 함께 변경해야함 // 임시로 여기 둠 - 버튼 활성화
-        }
-    }
-
-    function resetFields() {
-        passwordInput.disabled = true;
-        passwordConfirmInput.disabled = true;
-        nicknameInput.disabled = true;
-        emailInput.disabled = true;
-        emailDomainInput.disabled = true;
-        emailSelectInput.disabled = true;
-        birthYear.disabled = true;
-        birthMonth.disabled = true;
-        birthDay.disabled = true;
-        man.disabled = true;
-        woman.disabled = true;
-        other.disabled = true;
-        passwordInput.value = "";
-        passwordConfirmInput.value = "";
-    }
 </script>
 </body>
 </html>
