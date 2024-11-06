@@ -30,7 +30,7 @@
         <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="15" minlength="1" required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
     <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 14글자로 입력해주세요." maxlength="14" minlength="1" required><p id="nicknameCheckMessage"></p>
 
-    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" required>
+    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="emailInput" minlength="1" required>
     <p class="emailMain">@</p>
     <input class="box" id="domain-txt" type="text"/>
     <select class="box" id="domain-list">
@@ -43,6 +43,7 @@
         </select>
     <button type="button" id="authEmail" class="authEmail" onclick="sendAuthCode()">인증</button>
         <button type="button" id="authConfirm" class="authConfirm">완료</button>
+        <input type="hidden" id="hidden-email" name="userEmail" />
 
     <!-- 인증 모달 -->
     <div class="modalBlur">
@@ -444,20 +445,18 @@
         const domainInput = document.querySelector('#domain-txt');
         const domainSelect = document.querySelector('#domain-list');
         const emailAuth = document.getElementById('authEmail');
-        let authNumber = '';  // 이메일 인증번호 저장 변수
 
         const frontEmail = emailInput.value.split('@')[0];
         emailInput.value = frontEmail;
 
-        if (domainSelect.value !== "type") {
-            emailInput.value += "@" + domainSelect.value;
-        } else {
-            emailInput.value += "@" + domainInput.value;
-        }
+        const hiddenEmailField = document.getElementById('hidden-email');
+        hiddenEmailField.value = emailInput.value;
 
-        emailAuth.addEventListener('click', () => {
-            nextButton.disabled = false; // 인증 버튼 클릭 후 다음 버튼 활성화
-        });
+        if (domainSelect.value !== "type") {
+            hiddenEmailField.value += "@" + domainSelect.value;
+        } else {
+            hiddenEmailField.value += "@" + domainInput.value;
+        }
     });
 
     form.addEventListener('submit', function (event) {
@@ -485,7 +484,7 @@
         alert(message);
     }
 
-    // 이메일
+    // 이메일 domain 선택 시 같아지게 (change)
     const domainListEl = document.querySelector('#domain-list')
     const domainInputEl = document.querySelector('#domain-txt')
     domainListEl.addEventListener('change', (event) => {
