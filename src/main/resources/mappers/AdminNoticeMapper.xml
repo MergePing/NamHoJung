@@ -9,8 +9,7 @@
     <select id="selectNoticesByPage" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
         SELECT NOTICE_NO AS noticeNo,
         NOTICE_TITLE AS title,
-        NOTICE_DATE AS date,
-        NOTICE_CATEGORY AS category
+        NOTICE_DATE AS date
         FROM TBL_NOTICE
         ORDER BY NOTICE_NO DESC
         LIMIT #{offset}, #{pageSize}
@@ -20,5 +19,31 @@
     <select id="countNotices" resultType="int">
         SELECT COUNT(*) FROM TBL_NOTICE
     </select>
+
+    <!-- 공지사항 상세 조회 -->
+    <resultMap id="noticeDetailResultMap" type="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO">
+        <result property="noticeNo" column="NOTICE_NO" />
+        <result property="title" column="NOTICE_TITLE" />
+        <result property="content" column="NOTICE_CONTENT" />
+        <result property="date" column="NOTICE_DATE" />
+    </resultMap>
+
+    <select id="selectNoticeDetail" parameterType="String" resultMap="noticeDetailResultMap">
+        SELECT NOTICE_NO,
+        NOTICE_TITLE,
+        NOTICE_CONTENT,
+        NOTICE_DATE
+        FROM TBL_NOTICE
+        WHERE NOTICE_NO = #{noticeNo}
+    </select>
+
+    <update id="updateNotice" parameterType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO">
+        UPDATE TBL_NOTICE
+        SET
+        NOTICE_TITLE = #{title},
+        NOTICE_CONTENT = #{content}
+        WHERE
+        NOTICE_NO = #{noticeNo}
+    </update>
 
 </mapper>
