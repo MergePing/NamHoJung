@@ -30,7 +30,7 @@
         <label for="passwordConfirm" class="pwdConfirmLabel">* 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="14" minlength="1"  required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
     <label for="nickname" class="nicknameLabel">* 닉네임 : </label><input type="text" id="nickname" name="userName" class="nicknameInput" placeholder="한글, 영문, 숫자, 특수문자 등 최대 15글자로 입력해주세요." maxlength="15" minlength="1" required><p id="nicknameCheckMessage"></p>
 
-    <label for="email" class="emailLabel">이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" required>
+    <label for="email" class="emailLabel">* 이메일 : </label><input type="text" id="email" class="emailInput" name="userEmail" minlength="1" required>
     <p class="emailMain">@</p><p id="emailDupilcateCheck"></p>
     <input class="box" id="domain-txt" type="text"/>
     <select class="box" id="domain-list">
@@ -93,9 +93,9 @@
         userEmail.addEventListener('input', function () {
             const userEmailInput = this;
             const userEmail = this.value;
-            const emailInput = document.querySelector('.emailInput');
+            const emailInput = document.getElementById('email');
             const emailDomainInput = document.getElementById('domain-txt');
-            const emailSelectInput = document.getElementById('domain-list')
+            const emailSelectInput = document.getElementById('domain-list');
             const messageElement = document.getElementById('emailDupilcateCheck');
             const rule = /[@]/.test(userEmail);
             if (rule) {
@@ -110,7 +110,7 @@
                 messageElement.textContent = "";
             }
 
-            if (emailInput.value.length > 0 || emailDomainInput.value.length > 0) {
+            if (emailInput.value.length > 0 && emailDomainInput.value.length > 0) {
                 fetch(`/auth/checkemail?userEmail=${ userEmail }`)
                     .then(response => response.json())
                     .then(isAvailable => {
@@ -141,9 +141,9 @@
                     });
             } else {
                 messageElement.textContent = "";
-                emailInput.style.outline = "10px solid red";
-                emailDomainInput.style.outline = "10px solid red";
-                emailSelectInput.style.outline = "10px solid red";
+                emailInput.style.outline = "10px solid white";
+                emailDomainInput.style.outline = "10px solid white";
+                emailSelectInput.style.outline = "10px solid white";
                 emailAuth.disabled = true;
             }
         });

@@ -253,10 +253,10 @@
 .emailLabel{
 
     position: absolute;
-    width: 104px;
+    width: 150px;
     height: 35px;
-    left: 264px;
-    top: 718px;
+    left: 232px;
+    top: 702px;
 
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
@@ -274,7 +274,7 @@
     width: 213px;
     height: 59px;
     left: calc(50% - 213px/2 - 348.5px);
-    top: 706px;
+    top: 684px;
 
     background: #A4A4A4;
     border-radius: 50px;
@@ -298,7 +298,7 @@
     width: 52px;
     height: 65px;
     left: 765px;
-    top: 703px;
+    top: 684px;
 
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
@@ -316,7 +316,7 @@
     width: 100px;
     height: 60px;
     left: 1525px;
-    top: 706px;
+    top: 684px;
 
     background: #4B9D21;
     border: 2px solid #FFFFFF;
@@ -376,7 +376,7 @@ input.box{
         width: 324px;
         height: 59px;
         left: 830px;
-        top: 706px;
+        top: 684px;
 
         background: #A4A4A4;
         border-radius: 50px;
@@ -401,7 +401,7 @@ select.box{
     width: 324px;
     height: 59px;
     left: 1175px;
-    top: 706px;
+    top: 684px;
 
     background: #A4A4A4;
     border-radius: 50px;
