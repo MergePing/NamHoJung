@@ -19,12 +19,9 @@ public interface PostMapper {
     void decrementScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isScary") boolean isScary);
     void incrementNotScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isNotScary") boolean isNotScary);
     void decrementNotScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isNotScary") boolean isNotScary);
-    int getScaryNumber( int postNo);
-    int getNotScaryNumber(int postNo);
-
-
-
+    int getScaryNumber( @RequestParam("postNo") int postNo);
+    int getNotScaryNumber(@RequestParam("postNo") int postNo);
+    void insertPost(SelectPostDTO selectPostDTO);
 }
-
 
 

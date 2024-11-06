@@ -135,9 +135,29 @@
     </select>
 
     <select id="getNotScaryNumber" parameterType="int" resultType="int">
-    SELECT NOT_SCARY_NUMBER
+        SELECT NOT_SCARY_NUMBER
         FROM TBL_POST
         WHERE POST_NO = #{postNo}
     </select>
+
+    <insert id="insertPost" parameterType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+        INSERT INTO TBL_POST (
+        POST_TITLE,
+        POST_CONTENTS,
+        POST_CATEGORY,
+        POST_WRITER,
+        POST_DATE,
+        POST_IMAGE
+        )
+        VALUES (
+        #{postTitle},
+        #{postContent},
+        #{postCategory},
+        #{postWriter},
+        NOW(),
+        #{postImage}
+        );
+    </insert>
+
 
 </mapper>

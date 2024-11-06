@@ -12,9 +12,7 @@
     </style>
 </head>
 <body>
-
 <header>
-
     <nav>
         <!--네비바-->
         <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
@@ -26,7 +24,6 @@
         <span>로그인</span>
         <span>회원가입</span>
     </nav>
-
 </header>
 
 <main>
@@ -43,7 +40,7 @@
 
     <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
 
-    <div class="write" onclick="location.href='/writepost'">
+    <div class="write" onclick="location.href='/newpost'">
         <p >게시글 작성</p>
     </div>
 
@@ -180,9 +177,6 @@
         document.getElementById('img2').addEventListener('click', () => loadPosts(currentPage + 1));
         loadPosts(1);
     });
-
-
-
 </script>
 
 
@@ -225,5 +219,4 @@
     }, 3000);
 
 </script>
-
 </html>

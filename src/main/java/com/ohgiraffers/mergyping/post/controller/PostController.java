@@ -1,25 +1,21 @@
 package com.ohgiraffers.mergyping.post.controller;
 
-import com.ohgiraffers.mergyping.post.model.dto.FileUploadDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 @Controller
@@ -108,6 +104,38 @@ public class PostController {
 
     }
 
+    @GetMapping("/newpost")
+    public String newPostPage() {
+        return "post/newpost";
+    }
+    @PostMapping("/newpost")
+    public ResponseEntity<Map<String, String>> createPost(@RequestParam Map<String, Object> params, @RequestBody(required = false) Map<String, Object> payload) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            SelectPostDTO selectPostDTO = new SelectPostDTO();
+            if (payload != null) {
+                selectPostDTO.setPostTitle((String) payload.get("postTitle"));
+                selectPostDTO.setPostContent((String) payload.get("postContent"));
+                @SuppressWarnings("unchecked")
+                Map<String, String> postImages = (Map<String, String>) payload.get("postImages");
+                String combinedImages = String.join(",", postImages.values());
+                selectPostDTO.setPostImage(combinedImages.getBytes(StandardCharsets.UTF_8));
+            } else {
+                selectPostDTO.setPostTitle((String) params.get("postTitle"));
+                selectPostDTO.setPostContent((String) params.get("postContent"));
+                selectPostDTO.setPostCategory((String) params.get("postCategory"));
+                selectPostDTO.setPostWriter((String) params.get("postWriter")); // 작성자 이름 설정
+            }
+            postService.createPost(selectPostDTO);
+            response.put("status", "success");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
+    }
 
-}

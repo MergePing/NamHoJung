@@ -38,7 +38,7 @@ public class SecurityConfig  {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers("/signupTerms", "/auth/login", "/auth/**","/signup" ,
                     "/auth/fail", "/", "/main", "/css/**", "/img/**",
-                    "/userinfo", "/useractive", "/post", "/intro", "/notice", "/selectnotice", "/selectpost","/writepost",
+                    "/userinfo", "/useractive", "/post", "/intro", "/notice", "/selectnotice", "/selectpost","/newpost","/upload",
                     "/checknickname/**", "/admin/**", "/toggleFavorite", "/post/**","selectpost/**","/toggleScary/**","/toggleNotScary/**").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
