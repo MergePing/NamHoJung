@@ -988,12 +988,16 @@ nav span:hover{
 }
 
 #emailCheckMessage{
+    width: 400px;
     position: absolute;
     font-family: 'SUIT';
     font-style: normal;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 20px;
+    color:red;
     z-index: 999;
+    top:123px;
+    left:45px;
 }
 
 button:disabled {
