@@ -5,14 +5,16 @@ public class MyPageDTO {
     private String email;
     private int userNo;
     private String userId;
+    private String userPwd;
 
     public MyPageDTO(){}
 
-    public MyPageDTO(String userName, String email, int userNo, String userId) {
+    public MyPageDTO(String userName, String email, int userNo, String userId, String userPwd) {
         this.userName = userName;
         this.email = email;
         this.userNo = userNo;
         this.userId = userId;
+        this.userPwd = userPwd;
     }
 
     public String getUserName() {
@@ -47,6 +49,14 @@ public class MyPageDTO {
         this.userId = userId;
     }
 
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
+
     @Override
     public String toString() {
         return "MyPageDTO{" +
@@ -54,6 +64,7 @@ public class MyPageDTO {
                 ", email='" + email + '\'' +
                 ", userNo=" + userNo +
                 ", userId='" + userId + '\'' +
+                ", userPwd='" + userPwd + '\'' +
                 '}';
     }
 }

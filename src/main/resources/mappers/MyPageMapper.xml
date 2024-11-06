@@ -58,6 +58,12 @@
         SET USER_NAME = #{userName}
         WHERE USER_NO = #{userNo}
     </update>
+
+    <update id="updatePassword" parameterType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
+        UPDATE TBL_USER
+        SET USER_PWD = #{newPassword}
+        WHERE USER_NO = #{userNo}
+    </update>
 </mapper>
 
 <!--<result property="userType" column="USER_TYPE"/>-->

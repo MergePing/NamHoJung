@@ -40,4 +40,9 @@ public class MyPageService {
 
         return myPageMapper.findWrittenPost(userNo);
     }
+
+
+    public void updatePassword(int userNo, String encodedPassword) {
+        myPageMapper.updatePassword(userNo, encodedPassword);
+    }
 }

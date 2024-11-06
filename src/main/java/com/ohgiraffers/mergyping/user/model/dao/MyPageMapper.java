@@ -17,4 +17,7 @@ public interface MyPageMapper {
     void modifyUserName(MyPageDTO myPageDTO);
 
     List<MyPagePostDTO> findWrittenPost(int userNo);
+
+
+    void updatePassword(int userNo, String encodedPassword);
 }
