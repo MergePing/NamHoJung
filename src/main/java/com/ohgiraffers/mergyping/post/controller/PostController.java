@@ -1,6 +1,5 @@
 package com.ohgiraffers.mergyping.post.controller;
 
-import com.ohgiraffers.mergyping.post.model.dto.FileUploadDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
@@ -9,17 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.util.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 @Controller
