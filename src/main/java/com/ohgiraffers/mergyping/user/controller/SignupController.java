@@ -45,13 +45,13 @@ public class SignupController {
         return mv;
     }
 
-    @GetMapping("/checkId")
+    @GetMapping("/checkid")
     @ResponseBody
     public boolean checkId(@RequestParam String userId) {
         return signupService.checkId(userId);
     }
 
-    @GetMapping("/checkPassword")
+    @GetMapping("/checkpassword")
     @ResponseBody
     public boolean checkPassword(@RequestParam String userPwd) {
         boolean isValid = userPwd.length() >= 8
@@ -64,7 +64,7 @@ public class SignupController {
         return isValid;
     }
 
-    @GetMapping("/passwordConfirm")
+    @GetMapping("/passwordconfirm")
     @ResponseBody
     public boolean passwordConfirm(@RequestParam String userPwd, @RequestParam String confirmPwd) {
         boolean isValid = userPwd.equals(confirmPwd);
@@ -72,7 +72,7 @@ public class SignupController {
         return isValid;
     }
 
-    @GetMapping("/checkNick")
+    @GetMapping("/checknick")
     @ResponseBody
     public boolean checkNick(@RequestParam String userNick) {
         return signupService.checkNick(userNick);

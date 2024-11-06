@@ -41,7 +41,7 @@
         <option class="sop" value="nate.com">nate.com</option>
         <option class="sop" value="kakao.com">kakao.com</option>
         </select>
-    <button type="button" id="authEmail" class="authEmail" onclick="sendAuthCode()" oninput="toggleNextField()">인증</button>
+    <button type="button" id="authEmail" class="authEmail" onclick="sendAuthCode()" >인증</button>
         <button id="authConfirm" class="authConfirm">완료</button>
 
     <!-- 인증 모달 -->
@@ -93,7 +93,7 @@
         userEmail.addEventListener('input', function () {
             const userEmailInput = this;
             const userEmail = this.value;
-            const emailInput = document.getElementById('email');
+            const emailInput = document.querySelector('.emailInput');
             const emailDomainInput = document.getElementById('domain-txt');
             const emailSelectInput = document.getElementById('domain-list')
             const messageElement = document.getElementById('emailDupilcateCheck');
@@ -110,7 +110,7 @@
                 messageElement.textContent = "";
             }
 
-            if (emailInput.length > 0 && emailDomainInput > 0) {
+            if (emailInput.value.length > 0 || emailDomainInput.value.length > 0) {
                 fetch(`/auth/checkemail?userEmail=${ userEmail }`)
                     .then(response => response.json())
                     .then(isAvailable => {
@@ -315,7 +315,7 @@
         }
 
         if (userId.length > 3) {
-            fetch(`/auth/checkId?userId=${userId}`)
+            fetch(`/auth/checkid?userId=${userId}`)
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
@@ -367,7 +367,7 @@
         }
 
         if (userPwd.length > 7) {
-            fetch(`/auth/checkPassword?userPwd=${encodeURIComponent(userPwd)}`) // 오른쪽이 GetMapping에서 RequestParam으로 불러올 공간
+            fetch(`/auth/checkpassword?userPwd=${encodeURIComponent(userPwd)}`) // 오른쪽이 GetMapping에서 RequestParam으로 불러올 공간
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
@@ -408,7 +408,7 @@
 
         if (userPwd.length > 7) {
             // 위에서 value 안썼으면 안에서 써야함 -> value가 없어도 되기는 하는데 넣는게 좋다.
-            fetch(`/auth/passwordConfirm?userPwd=${encodeURIComponent(userPwd)}&confirmPwd=${encodeURIComponent(userConfirmPwd)}`)
+            fetch(`/auth/passwordconfirm?userPwd=${encodeURIComponent(userPwd)}&confirmPwd=${encodeURIComponent(userConfirmPwd)}`)
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
@@ -452,7 +452,7 @@
         }
 
         if (userNick.length > 0) {
-            fetch(`/auth/checkNick?userNick=${userNick}`)
+            fetch(`/auth/checknick?userNick=${userNick}`)
                 .then(response => response.json())
                 .then(isAvailable => {
                     if (isAvailable) {
