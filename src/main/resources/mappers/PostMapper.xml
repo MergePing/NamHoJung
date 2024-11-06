@@ -128,4 +128,16 @@
     </update>
 
 
+    <select id="getScaryNumber" parameterType="int" resultType="int">
+        SELECT SCARY_NUMBER
+        FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </select>
+
+    <select id="getNotScaryNumber" parameterType="int" resultType="int">
+    SELECT NOT_SCARY_NUMBER
+        FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </select>
+
 </mapper>

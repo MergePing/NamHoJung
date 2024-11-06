@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.post.controller;
 
+import com.ohgiraffers.mergyping.post.model.dto.FileUploadDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
@@ -8,11 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 @Controller
 public class PostController {
@@ -20,18 +28,19 @@ public class PostController {
     private final PostService postService;
 
     @Autowired
-    public PostController(PostService postService){
-        this.postService=postService;
+    public PostController(PostService postService) {
+        this.postService = postService;
     }
 
     @GetMapping("/post")
-    public String postList(Model model){
+    public String postList(Model model) {
         List<PostDTO> postList = postService.postList();
-        model.addAttribute("postList",postList);
+        model.addAttribute("postList", postList);
 
         return "/post/post";
     }
 
+    // 게시글 전체조회 페이징 처리
     @GetMapping("/post/page")
     @ResponseBody
     public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
@@ -42,6 +51,7 @@ public class PostController {
     }
 
 
+    // 즐겨찾기 토글
     @PostMapping("/toggleFavorite")
     @ResponseBody
     public Map<String, Object> toggleFavorite(@RequestBody Map<String, Object> payload) {
@@ -56,6 +66,7 @@ public class PostController {
     }
 
 
+    // 게시글 상세조회 페이지
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
         SelectPostDTO selected = postService.selectById(postNo);
@@ -67,6 +78,7 @@ public class PostController {
         return "post/selectpost";
     }
 
+    // 무서워요 토글
     @PostMapping("/toggleScary")
     @ResponseBody
     public Map<String, Object> toggleScary(@RequestBody Map<String, Object> payload) {
@@ -93,11 +105,8 @@ public class PostController {
         response.put("success", true);
         response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
         return response;
+
     }
-
-
-
-
 
 
 

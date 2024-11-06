@@ -26,21 +26,25 @@ public class PostService {
     }
 
 
+    //즐겨찾기 상태
     public void updateFavoriteStatus(int postNo, boolean isFavorite) {
         postMapper.updateFavoriteStatus(postNo, isFavorite);
     }
 
 
+    // 세부 게시글 조회
     public SelectPostDTO selectById(int postNo) {
         return postMapper.selectById(postNo);
     }
 
 
+    // 게시글 목록 조회
     public List<PostDTO> getPostList() {
         return postMapper.postList();
     }
 
 
+    //무서워요 상태
     public void updateScaryStatus(int postNo, boolean isScary) {
         if (isScary) {
             postMapper.incrementScaryCount(postNo, true);
@@ -57,7 +61,7 @@ public class PostService {
         }
     }
 
-
+    // 무서워요 숫자
     public int getScaryNumber(int postNo) {
         return postMapper.getScaryNumber(postNo);
     }
