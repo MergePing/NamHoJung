@@ -251,12 +251,11 @@
 }
 
 .emailLabel{
-
     position: absolute;
-    width: 104px;
+    width: 150px;
     height: 35px;
-    left: 264px;
-    top: 718px;
+    left: 232px;
+    top: 702px;
 
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
@@ -265,8 +264,6 @@
     line-height: 39px;
 
     color: #FFFFFF;
-
-
 }
 
 .emailInput{
@@ -274,7 +271,7 @@
     width: 213px;
     height: 59px;
     left: calc(50% - 213px/2 - 348.5px);
-    top: 706px;
+    top: 684px;
 
     background: #A4A4A4;
     border-radius: 50px;
@@ -298,7 +295,7 @@
     width: 52px;
     height: 65px;
     left: 765px;
-    top: 703px;
+    top: 684px;
 
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
@@ -316,12 +313,11 @@
     width: 100px;
     height: 60px;
     left: 1525px;
-    top: 706px;
+    top: 684px;
 
     background: #4B9D21;
     border: 2px solid #FFFFFF;
     border-radius: 50px;
-
 
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
@@ -336,6 +332,32 @@
     margin-left: 2px;
     margin-top: 2px;
     box-shadow: 2px 2px 2px black;
+}
+
+.authConfirm{
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 100px;
+    height: 60px;
+    left: 1525px;
+    top: 706px;
+
+    background: mediumspringgreen;
+    outline : 10px solid greenyellow;
+    border-radius: 50px;
+
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 30px;
+    line-height: 60px;
+    text-align: center;
+    display: none;
+    z-index: 1;
+
+    color: #FFFFFF;
 }
 
 input.box{

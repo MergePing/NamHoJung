@@ -48,4 +48,8 @@ public class SignupService {
     public boolean checkNick(String userNick) {
         return signupMapper.checkNick(userNick) == 0;
     }
+
+    public boolean emailExists(String email) {
+        return signupMapper.emailExists(email) == 0;  // 메소드 명과 동일한 메소드로 들어가야 함
+    }
 }

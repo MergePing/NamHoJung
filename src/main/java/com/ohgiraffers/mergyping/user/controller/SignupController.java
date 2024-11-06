@@ -3,9 +3,13 @@ package com.ohgiraffers.mergyping.user.controller;
 import com.ohgiraffers.mergyping.user.model.dto.SignupDTO;
 import com.ohgiraffers.mergyping.user.model.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/auth")
@@ -14,7 +18,7 @@ public class SignupController {
     @Autowired
     private SignupService signupService;
 
-    @GetMapping("/signupTerms")
+    @GetMapping("/signupterms")
     public String signupFront() {
 
         return "user/signup/signup3";
@@ -35,10 +39,10 @@ public class SignupController {
 
             if (result > 0) {
                 message = "회원가입이 정상적으로 완료되었습니다.";
-                mv.setViewName("redirect:/signupConfirm");
+                mv.setViewName("redirect:/auth/signupconfirm");
             } else {
                 message = "회원가입에 실패하였습니다.";
-                mv.setViewName("redirect:/signup3");
+                mv.setViewName("redirect:/signupterms");
             }
             mv.addObject("message", message);
 
@@ -76,6 +80,31 @@ public class SignupController {
     @ResponseBody
     public boolean checkNick(@RequestParam String userNick) {
         return signupService.checkNick(userNick);
+    }
+
+    // json 반환 오류 -> html로 반환이 된다는 둥
+//    @GetMapping("/checkemail")
+//    public ResponseEntity<?> checkEmail(@RequestParam String email) {
+//        boolean exists = signupService.emailExists(email);
+//        if (exists) {
+//            return ResponseEntity.badRequest().body("이메일이 이미 존재합니다.");
+//        } else {
+//            return ResponseEntity.ok("이메일 사용 가능");
+//        }
+//    }
+
+    @GetMapping("/checkemail")
+    public ResponseEntity<?> checkEmail(@RequestParam String email) {
+        if (email == null || email.isEmpty()) {
+            return ResponseEntity.badRequest().body("이메일을 입력해주세요.");
+        }
+
+        boolean exists = signupService.emailExists(email);
+        if (exists) {
+            return ResponseEntity.badRequest().body("이메일이 이미 존재합니다.");
+        } else {
+            return ResponseEntity.ok("이메일 사용 가능");
+        }
     }
 }
 

@@ -36,9 +36,9 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
-            auth.requestMatchers("/signupTerms", "/auth/login", "/auth/**","/signup" ,
-                    "/auth/fail", "/", "/main", "/css/**", "/img/**",
-                    "/userinfo", "/useractive", "/post", "/intro", "/notice", "/selectnotice", "/selectpost","/writepost",
+            auth.requestMatchers( "/auth/**",
+                    "/", "/main", "/css/**", "/img/**",
+                    "/userinfo", "/useractive", "/intro", "/notice", "/selectnotice", "/selectpost","/writepost",
                     "/checknickname/**", "/admin/**", "/toggleFavorite", "/post/**","selectpost/**","/toggleScary/**","/toggleNotScary/**").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
