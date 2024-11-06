@@ -236,10 +236,33 @@
         passwordInput.setAttribute('type', type);
         togglePassword.textContent = type === 'password' ? '👁️' : '🙈'; // 아이콘 변경
     });
-    // 확인 버튼 클릭 시 다른 URL로 이동
+
+
     submitPasswordBtn.addEventListener('click', () => {
-        // URL을 원하는 주소로 변경하세요
-        location.href = '/userinfo';
+        const inputPassword = passwordInput.value;
+
+        // 비밀번호 검증 요청
+        fetch('/verifyPassword', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ inputPassword })
+        })
+            .then(response => response.json())
+            .then(isPasswordCorrect => {
+                if (isPasswordCorrect) {
+                    // 비밀번호가 맞으면 개인정보 페이지로 이동
+                    location.href = '/userinfo';
+                } else {
+                    // 비밀번호가 틀리면 경고 메시지 표시
+                    alert('비밀번호가 일치하지 않습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('비밀번호 검증 요청 실패:', error);
+                alert('비밀번호 확인 중 오류가 발생했습니다.');
+            });
     });
 
     const activebtn = document.getElementById('active');

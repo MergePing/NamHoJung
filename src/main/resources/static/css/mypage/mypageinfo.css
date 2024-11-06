@@ -613,6 +613,19 @@ header{
      font-size: 25px;
      line-height: 32px;
  }
+.pwdfeedback{
+    position: absolute;
+    width: 400px;
+    height: 33px;
+    left: 170px;
+    top: 450px;
+
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 1500;
+    font-size: 25px;
+    line-height: 32px;
+}
 
 
 

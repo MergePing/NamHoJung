@@ -36,6 +36,7 @@
                     <label class="mpname">닉네임</label>
                     <form action="/userinfo" method="post">
                         <input type="text" name="userName" id="nickname" th:placeholder="${myPageDTO.userName}">
+                        <input type="password" name="newPassword" id="password" placeholder="영문 숫자 특수문자로 이루어진 8~12자리">
                         <button type="submit" class="btn-submit" id="btn-submit">수정</button>
                     </form>
                     <button class="btn-check" onclick="checkDuplicate()">중복확인</button>
@@ -45,9 +46,9 @@
 
             <div class="input-group">
                 <label class="mppw">비밀번호</label>
-                <input type="password" id="password" placeholder="비밀번호">
                 <span class="toggle-password" id="togglePassword">&#128065;</span>
-                <button class="mpchange">변경</button>
+                <button class="mpchange" onclick="validatePassword()">확인</button>
+                <div id="passwordFeedback" class="pwdfeedback" style="color: red; display: none;"></div>
             </div>
 
             <div id="confirmpopup">
@@ -238,6 +239,31 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+
+
+
+        // 비밀번호 유효성 검사 함수
+        function validatePassword() {
+            const newPassword = document.getElementById('password').value;
+            const passwordFeedback = document.getElementById('passwordFeedback');
+
+            // 비밀번호 유효성 검사
+            const isValidPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/.test(newPassword);
+
+            if (isValidPassword) {
+                passwordFeedback.textContent = "올바른 비밀번호입니다.";
+                passwordFeedback.style.color = "black";
+                passwordFeedback.style.display = "block";
+                document.getElementById('btn-submit').disabled = false;
+            } else {
+                passwordFeedback.textContent = "올바르지 않는 비밀번호 입니다.";
+                passwordFeedback.style.color = "red";
+                passwordFeedback.style.display = "block";
+                document.getElementById('btn-submit').disabled = true; // 버튼 비활성화
+            }
+        }
+
+
 
 
     </script>
