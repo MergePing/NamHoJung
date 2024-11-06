@@ -41,20 +41,29 @@ public class PostService {
     }
 
 
-//    public void updateScaryStatus(int postNo, boolean isScary) {
-//        if (isScary) {
-//            postMapper.incrementScaryCount(postNo);
-//        } else {
-//            postMapper.decrementScaryCount(postNo);
-//        }
-//    }
-//
-//    public void updateNotScaryStatus(int postNo, boolean isNotScary) {
-//        if (isNotScary) {
-//            postMapper.incrementNotScaryCount(postNo);
-//        } else {
-//            postMapper.decrementNotScaryCount(postNo);
-//        }
-//    }
+    public void updateScaryStatus(int postNo, boolean isScary) {
+        if (isScary) {
+            postMapper.incrementScaryCount(postNo, true);
+        } else {
+            postMapper.decrementScaryCount(postNo, false);
+        }
+    }
+
+    public void updateNotScaryStatus(int postNo, boolean isNotScary) {
+        if (isNotScary) {
+            postMapper.incrementNotScaryCount(postNo, true);
+        } else {
+            postMapper.decrementNotScaryCount(postNo, false);
+        }
+    }
+
+
+    public int getScaryNumber(int postNo) {
+        return postMapper.getScaryNumber(postNo);
+    }
+
+    public int getNotScaryNumber(int postNo) {
+        return postMapper.getNotScaryNumber(postNo);
+    }
 
 }

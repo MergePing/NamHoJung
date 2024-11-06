@@ -20,10 +20,13 @@
         <result property="postWriter" column="POST_WRITER"/>
         <result property="postDate" column="POST_DATE"/>
         <result property="scaryNumber" column="SCARY_NUMBER"/>
+        <result property="notScaryNumber" column="NOT_SCARY_NUMBER"/>
         <result property="commentNumber" column="COMMENTS_NUMBER"/>
         <result property="postReport" column="POST_REPORT"/>
         <result property="postImage" column="POST_IMAGE"/>
         <result property="postFavorite" column="POST_FAVORITE"/>
+        <result property="scary" column="SCARY"/>
+        <result property="notScary" column="NOT_SCARY"/>
     </resultMap>
 
 
@@ -52,7 +55,7 @@
         COMMENTS_NUMBER,
         POST_FAVORITE
         FROM TBL_POST
-        ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize}
+        ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize};
     </select>
 
 
@@ -66,7 +69,7 @@
         COMMENTS_NUMBER,
         POST_FAVORITE
         FROM TBL_POST
-        ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize}
+        ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize};
     </select>
 
     <select id="selectById" resultMap="selectPost">
@@ -78,43 +81,51 @@
         POST_WRITER,
         POST_DATE,
         SCARY_NUMBER,
+        NOT_SCARY_NUMBER,
         COMMENTS_NUMBER,
         POST_REPORT,
         POST_IMAGE,
-        POST_FAVORITE
+        POST_FAVORITE,
+        SCARY,
+        NOT_SCARY
         FROM TBL_POST
-        WHERE POST_NO = #{postNo}
+        WHERE POST_NO = #{postNo};
     </select>
 
 
     <update id="updateFavoriteStatus">
         UPDATE TBL_POST
         SET POST_FAVORITE = #{isFavorite}
-        WHERE POST_NO = #{postNo}
+        WHERE POST_NO = #{postNo};
+    </update>
+
+    <update id="incrementScaryCount">
+        UPDATE TBL_POST
+        SET SCARY = #{isScary},
+        SCARY_NUMBER = SCARY_NUMBER + 1
+        WHERE POST_NO = #{postNo};
+    </update>
+
+    <update id="decrementScaryCount">
+        UPDATE TBL_POST
+        SET SCARY = #{isScary},
+        SCARY_NUMBER = SCARY_NUMBER - 1
+        WHERE POST_NO = #{postNo};
+    </update>
+
+    <update id="incrementNotScaryCount">
+        UPDATE TBL_POST
+        SET NOT_SCARY = #{isNotScary},
+        NOT_SCARY_NUMBER = NOT_SCARY_NUMBER + 1
+        WHERE POST_NO = #{postNo};
+    </update>
+
+    <update id="decrementNotScaryCount">
+        UPDATE TBL_POST
+        SET NOT_SCARY = #{isNotScary},
+        NOT_SCARY_NUMBER = NOT_SCARY_NUMBER - 1
+        WHERE POST_NO = #{postNo};
     </update>
 
 
-    <!--    <update id="incrementScaryCount">-->
-    <!--        UPDATE TBL_POST-->
-    <!--        SET SCARY_COUNT = SCARY_COUNT + 1-->
-    <!--        WHERE POST_NO = #{postNo}-->
-    <!--    </update>-->
-
-    <!--    <update id="decrementScaryCount">-->
-    <!--        UPDATE TBL_POST-->
-    <!--        SET SCARY_COUNT = SCARY_COUNT - 1-->
-    <!--        WHERE POST_NO = #{postNo}-->
-    <!--    </update>-->
-
-    <!--    <update id="incrementNotScaryCount">-->
-    <!--        UPDATE TBL_POST-->
-    <!--        SET NOT_SCARY_COUNT = NOT_SCARY_COUNT + 1-->
-    <!--        WHERE POST_NO = #{postNo}-->
-    <!--    </update>-->
-
-    <!--    <update id="decrementNotScaryCount">-->
-    <!--        UPDATE TBL_POST-->
-    <!--        SET NOT_SCARY_COUNT = NOT_SCARY_COUNT - 1-->
-    <!--        WHERE POST_NO = #{postNo}-->
-    <!--    </update>-->
 </mapper>

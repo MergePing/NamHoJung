@@ -67,31 +67,33 @@ public class PostController {
         return "post/selectpost";
     }
 
-//    @PostMapping("/toggleScary")
-//    @ResponseBody
-//    public Map<String, Object> toggleScary(@RequestBody Map<String, Object> payload) {
-//        int postNo = Integer.parseInt((String) payload.get("postNo"));
-//        boolean isScary = (Boolean) payload.get("isScary");
-//
-//        postService.updateScaryStatus(postNo, isScary);
-//
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("success", true);
-//        return response;
-//    }
-//
-//    @PostMapping("/toggleNotScary")
-//    @ResponseBody
-//    public Map<String, Object> toggleNotScary(@RequestBody Map<String, Object> payload) {
-//        int postNo = Integer.parseInt((String) payload.get("postNo"));
-//        boolean isNotScary = (Boolean) payload.get("isNotScary");
-//
-//        postService.updateNotScaryStatus(postNo, isNotScary);
-//
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("success", true);
-//        return response;
-//    }
+    @PostMapping("/toggleScary")
+    @ResponseBody
+    public Map<String, Object> toggleScary(@RequestBody Map<String, Object> payload) {
+        int postNo = Integer.parseInt((String) payload.get("postNo"));
+        boolean isScary = (Boolean) payload.get("isScary");
+
+        postService.updateScaryStatus(postNo, isScary);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("scaryNumber", postService.getScaryNumber(postNo));
+        return response;
+    }
+
+    @PostMapping("/toggleNotScary")
+    @ResponseBody
+    public Map<String, Object> toggleNotScary(@RequestBody Map<String, Object> payload) {
+        int postNo = Integer.parseInt((String) payload.get("postNo"));
+        boolean isNotScary = (Boolean) payload.get("isNotScary");
+
+        postService.updateNotScaryStatus(postNo, isNotScary);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
+        return response;
+    }
 
 
 
