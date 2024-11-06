@@ -1,7 +1,6 @@
 package com.ohgiraffers.mergyping.post.model.dto;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class SelectPostDTO {
     private int postNo;
@@ -14,14 +13,33 @@ public class SelectPostDTO {
     private int notScaryNumber;
     private int commentNumber;
     private int postReport;
-    private byte postImage;
+    private byte[] postImage;
     private boolean postFavorite;
     private boolean scary;
     private boolean notScary;
 
-    public SelectPostDTO() {
+    public SelectPostDTO() {}
+
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, byte[] postImage, boolean postFavorite, boolean scary, boolean notScary) {
+        this.postNo = postNo;
+        this.postTitle = postTitle;
+        this.postCategory = postCategory;
+        this.postWriter = postWriter;
+        this.postContent = postContent;
+        this.postDate = postDate;
+        this.scaryNumber = scaryNumber;
+        this.notScaryNumber = notScaryNumber;
+        this.commentNumber = commentNumber;
+        this.postReport = postReport;
+        this.postImage = postImage;
+        this.postFavorite = postFavorite;
+        this.scary = scary;
+        this.notScary = notScary;
     }
 
+
+
+    // Getters and setters for all fields
     public int getPostNo() {
         return postNo;
     }
@@ -102,11 +120,11 @@ public class SelectPostDTO {
         this.postReport = postReport;
     }
 
-    public byte getPostImage() {
+    public byte[] getPostImage() {
         return postImage;
     }
 
-    public void setPostImage(byte postImage) {
+    public void setPostImage(byte[] postImage) {
         this.postImage = postImage;
     }
 
@@ -132,25 +150,5 @@ public class SelectPostDTO {
 
     public void setNotScary(boolean notScary) {
         this.notScary = notScary;
-    }
-
-    @Override
-    public String toString() {
-        return "SelectPostDTO{" +
-                "postNo=" + postNo +
-                ", postTitle='" + postTitle + '\'' +
-                ", postCategory='" + postCategory + '\'' +
-                ", postWriter='" + postWriter + '\'' +
-                ", postContent='" + postContent + '\'' +
-                ", postDate=" + postDate +
-                ", scaryNumber=" + scaryNumber +
-                ", notScaryNumber=" + notScaryNumber +
-                ", commentNumber=" + commentNumber +
-                ", postReport=" + postReport +
-                ", postImage=" + postImage +
-                ", postFavorite=" + postFavorite +
-                ", scary=" + scary +
-                ", notScary=" + notScary +
-                '}';
     }
 }

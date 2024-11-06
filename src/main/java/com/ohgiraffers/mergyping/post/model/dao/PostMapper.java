@@ -2,8 +2,9 @@ package com.ohgiraffers.mergyping.post.model.dao;
 
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -14,10 +15,15 @@ public interface PostMapper {
     void updateFavoriteStatus(@RequestParam("postNo") int postNo, @RequestParam("isFavorite") boolean isFavorite);
     List<PostDTO> getPostsByPage(@RequestParam("offset") int offset, @RequestParam("pageSize") int pageSize);
     SelectPostDTO selectById(@RequestParam("postNo") int postNo);
-//    void incrementScaryCount(@RequestParam("postNo") int postNo);
-//    void decrementScaryCount(@RequestParam("postNo") int postNo);
-//    void incrementNotScaryCount(@RequestParam("postNo") int postNo);
-//    void decrementNotScaryCount(@RequestParam("postNo") int postNo);
+    void incrementScaryCount(@RequestParam("postNo") int postNo, @RequestParam("isScary") boolean isScary);
+    void decrementScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isScary") boolean isScary);
+    void incrementNotScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isNotScary") boolean isNotScary);
+    void decrementNotScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isNotScary") boolean isNotScary);
+    int getScaryNumber( int postNo);
+    int getNotScaryNumber(int postNo);
+
+
+
 }
 
 
