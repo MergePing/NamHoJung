@@ -15,8 +15,8 @@ public class PostService {
     private final PostMapper postMapper;
 
     @Autowired
-    public PostService(PostMapper postMapper){
-        this.postMapper=postMapper;
+    public PostService(PostMapper postMapper) {
+        this.postMapper = postMapper;
     }
 
     public List<PostDTO> postList() {
@@ -40,5 +40,21 @@ public class PostService {
         return postMapper.postList();
     }
 
+
+//    public void updateScaryStatus(int postNo, boolean isScary) {
+//        if (isScary) {
+//            postMapper.incrementScaryCount(postNo);
+//        } else {
+//            postMapper.decrementScaryCount(postNo);
+//        }
+//    }
+//
+//    public void updateNotScaryStatus(int postNo, boolean isNotScary) {
+//        if (isNotScary) {
+//            postMapper.incrementNotScaryCount(postNo);
+//        } else {
+//            postMapper.decrementNotScaryCount(postNo);
+//        }
+//    }
 
 }
