@@ -11,55 +11,15 @@ public class SelectPostDTO {
     private String postContent;
     private LocalDate postDate;
     private int scaryNumber;
+    private int notScaryNumber;
     private int commentNumber;
     private int postReport;
     private byte postImage;
     private boolean postFavorite;
-    private int notScaryNumber;
     private boolean scary;
-    private boolean notscary;
+    private boolean notScary;
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int commentNumber, int postReport, byte postImage, boolean postFavorite, int notScaryNumber, boolean scary, boolean notscary) {
-        this.postNo = postNo;
-        this.postTitle = postTitle;
-        this.postCategory = postCategory;
-        this.postWriter = postWriter;
-        this.postContent = postContent;
-        this.postDate = postDate;
-        this.scaryNumber = scaryNumber;
-        this.commentNumber = commentNumber;
-        this.postReport = postReport;
-        this.postImage = postImage;
-        this.postFavorite = postFavorite;
-        this.notScaryNumber = notScaryNumber;
-        this.scary = scary;
-        this.notscary = notscary;
-    }
-
-    public boolean isScary() {
-        return scary;
-    }
-
-    public void setScary(boolean scary) {
-        this.scary = scary;
-    }
-
-    public boolean isNotscary() {
-        return notscary;
-    }
-
-    public void setNotscary(boolean notscary) {
-        this.notscary = notscary;
-    }
-
-    public SelectPostDTO() {}
-
-    public int getNotScaryNumber() {
-        return notScaryNumber;
-    }
-
-    public void setNotScaryNumber(int notScaryNumber) {
-        this.notScaryNumber = notScaryNumber;
+    public SelectPostDTO() {
     }
 
     public int getPostNo() {
@@ -118,6 +78,14 @@ public class SelectPostDTO {
         this.scaryNumber = scaryNumber;
     }
 
+    public int getNotScaryNumber() {
+        return notScaryNumber;
+    }
+
+    public void setNotScaryNumber(int notScaryNumber) {
+        this.notScaryNumber = notScaryNumber;
+    }
+
     public int getCommentNumber() {
         return commentNumber;
     }
@@ -150,6 +118,22 @@ public class SelectPostDTO {
         this.postFavorite = postFavorite;
     }
 
+    public boolean isScary() {
+        return scary;
+    }
+
+    public void setScary(boolean scary) {
+        this.scary = scary;
+    }
+
+    public boolean isNotScary() {
+        return notScary;
+    }
+
+    public void setNotScary(boolean notScary) {
+        this.notScary = notScary;
+    }
+
     @Override
     public String toString() {
         return "SelectPostDTO{" +
@@ -160,10 +144,13 @@ public class SelectPostDTO {
                 ", postContent='" + postContent + '\'' +
                 ", postDate=" + postDate +
                 ", scaryNumber=" + scaryNumber +
+                ", notScaryNumber=" + notScaryNumber +
                 ", commentNumber=" + commentNumber +
                 ", postReport=" + postReport +
                 ", postImage=" + postImage +
                 ", postFavorite=" + postFavorite +
+                ", scary=" + scary +
+                ", notScary=" + notScary +
                 '}';
     }
 }
