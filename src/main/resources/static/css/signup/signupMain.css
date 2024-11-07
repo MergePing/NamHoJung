@@ -1050,6 +1050,7 @@ button:disabled {
     scale:-10%;
     rotate: 180deg;
     left: 875px;
+    z-index: 2;
 }
 
 #togglePassword {
