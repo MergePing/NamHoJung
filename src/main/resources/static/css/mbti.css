@@ -103,8 +103,8 @@ nav span:nth-child(6){
     transition: all 1s;
 }
 
-nav span:nth-child(7){
-    /* 로그인 */
+/*nav span:nth-child(7){
+    !* 로그인 *!
     position: absolute;
     width: 49px;
     height: 21px;
@@ -116,6 +116,24 @@ nav span:nth-child(7){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+}*/
+
+#logoutNav{
+    /* 로그아웃 */
+    position: absolute;
+    width: 100px;
+    height: 21px;
+    left: 1670px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+    background: none;
+    border:none;
+    text-align: center;
 }
 
 nav span:nth-child(8){
@@ -149,4 +167,20 @@ nav span:hover{
     top: 231px;
 }
 
-/*---------------main1------------------*/
+/* mbti basic */
+
+.resolution{
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+
+    background: #FFFFFF;
+}
+
+.background {
+    position: relative;
+    width: 1920px;
+    height: 1107px;
+}
+
+/*  */

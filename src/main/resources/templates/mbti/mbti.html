@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/mbti.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
+<div class="resolution">
+    <img class="background" s>
 <nav>
     <!--네비바-->
     <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
@@ -13,8 +17,12 @@
     <span onclick="location.href='/post'">게시판</span>
     <span>MBTI 검사</span>
     <span id="mypageBtn">마이페이지</span>
-    <span onclick="location.href='/auth/login'">로그인</span>
+    <form th:action="@{/auth/logout}" method="post">
+        <button id="logoutNav" type="submit">로그아웃</button>
+    </form>
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
 </nav>
+
+</div>
 </body>
 </html>

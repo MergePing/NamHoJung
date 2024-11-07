@@ -12,14 +12,14 @@
     <img class="background02" th:src="@{/images/login/background02.png}" alt="배경">
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/main'">
-        <span onclick="window.location.href='/intro/intro.html'">소개</span>
-        <span onclick="window.location.href='/notice/notice.html'">공지사항</span>
-        <span>게시판</span>
-        <span>MBTI 검사</span>
-        <span>마이페이지</span>
-        <span>로그인</span>
-        <span>회원가입</span>
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/notice'">공지사항</span>
+        <span onclick="location.href='/post'">게시판</span>
+        <span onclick="location.href='/mbti'">MBTI 검사</span>
+        <span id="mypageBtn">마이페이지</span>
+        <span onclick="location.href='/auth/login'">로그인</span>
+        <span onclick="location.href='/auth/signupterms'">회원가입</span>
     </nav>
     <div class="uiBackSignConfirm">
     </div>
