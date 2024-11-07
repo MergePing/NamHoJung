@@ -81,4 +81,16 @@ public class AdminNoticeController {
         response.put("message", updateSuccess ? "공지사항이 수정되었습니다." : "공지사항 수정에 실패했습니다.");
         return response;
     }
+    // 공지사항 삭제 요청을 처리하는 메서드
+    @DeleteMapping("/admin/notice/detail/delete/{noticeNo}")
+    @ResponseBody
+    public Map<String, Object> deleteNotice(@PathVariable("noticeNo") String noticeNo) {
+        boolean deleteSuccess = adminNoticeService.deleteNotice(noticeNo);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", deleteSuccess);
+        response.put("message", deleteSuccess ? "공지사항이 삭제되었습니다." : "공지사항 삭제에 실패했습니다.");
+        return response;
+    }
+
 }

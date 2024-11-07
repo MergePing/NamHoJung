@@ -37,4 +37,8 @@ public class AdminNoticeService {
         int rowsAffected = adminNoticeMapper.updateNotice(noticeDetailDTO);
         return rowsAffected > 0; // 업데이트 성공 여부 반환
     }
+
+    public boolean deleteNotice(String noticeNo) {
+        return adminNoticeMapper.deleteNotice(noticeNo) > 0;
+    }
 }
