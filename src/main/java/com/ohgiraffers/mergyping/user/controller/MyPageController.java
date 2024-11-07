@@ -3,6 +3,7 @@ package com.ohgiraffers.mergyping.user.controller;
 import com.ohgiraffers.mergyping.auth.model.AuthDetails;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
+import com.ohgiraffers.mergyping.user.model.dto.MypageCommentDTO;
 import com.ohgiraffers.mergyping.user.model.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -123,6 +124,12 @@ public class MyPageController {
 
             List<MyPagePostDTO> writtenPostList = myPageService.findWrittenPost(userNo);
             model.addAttribute("writtenPostList", writtenPostList);
+
+            List<MypageCommentDTO> writtenCommentList = myPageService.findWrittenComment(userNo);
+            model.addAttribute("writtenCommentList", writtenCommentList);
+
+            List<MyPagePostDTO> writtenFavoriteList = myPageService.findWrittenFavorite(userNo);
+            model.addAttribute("writtenFavoriteList", writtenFavoriteList);
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트

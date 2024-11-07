@@ -13,13 +13,21 @@
     </resultMap>
 
     <resultMap id="mypagePostResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO">
-        <result property="postNo" column="POST_NO"/>
+        <id property="postNo" column="POST_NO"/>
         <result property="postFavorite" column="POST_FAVORITE"/>
         <result property="postTitle" column="POST_TITLE"/>
         <result property="postCategory" column="POST_CATEGORY"/>
         <result property="postDate" column="POST_DATE"/>
         <result property="scaryNumber" column="SCARY_NUMBER"/>
         <result property="commentsNumber" column="COMMENTS_NUMBER"/>
+    </resultMap>
+
+    <resultMap id="mypageCommentResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MypageCommentDTO">
+        <id property="commentNo" column="COMMENT_NO"/>
+        <result property="commentContent" column="COMMENT_CONTENT"/>
+        <result property="userNo" column="USER_NO"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
+        <result property="postNo" column="POST_NO"/>
     </resultMap>
 
     <select id="findWrittenPost" resultMap="mypagePostResultMap">
@@ -33,7 +41,32 @@
                 COMMENTS_NUMBER
             FROM TBL_POST
             WHERE POST_WRITER = #{userNo}
+
     </select>
+
+    <select id="findWrittenComment" resultMap="mypageCommentResultMap">
+        SELECT
+                POST_NO,
+                COMMENT_CONTENT,
+                COMMENT_DATE
+        FROM TBL_COMMENT
+        WHERE USER_NO = #{userNo}
+    </select>
+
+    <select id="findWrittenFavorite" resultMap="mypagePostResultMap">
+        SELECT
+        POST_NO,
+        POST_FAVORITE,
+        POST_TITLE,
+        POST_CATEGORY,
+        POST_DATE,
+        SCARY_NUMBER,
+        COMMENTS_NUMBER
+        FROM TBL_POST
+        WHERE POST_WRITER = #{userNo}
+        AND POST_FAVORITE = true
+    </select>
+
 
     <select id="findNickName"   resultMap="mypageResultMap" >
         SELECT USER_NAME

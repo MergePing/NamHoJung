@@ -29,8 +29,9 @@ main .write1 p { left: 45px; }
 main .write2 p { left: 55px; }
 main .write3 p { left: 75px; }
 
-main .active {
-    background-color: #90c990; /* 활성화된 버튼 배경색 */
+
+.write1.active, .write2.active, .write3.active {
+    background-color: #90c990;
     color: white;
 }
 
@@ -92,6 +93,7 @@ main .sell2 span:nth-of-type(4){
 main .comment{
     position: relative;
     gap: 60px;
+
 }
 
 main .comment span:nth-of-type(1){
@@ -106,7 +108,7 @@ main .comment span:nth-of-type(1){
 main .comment span:nth-of-type(2){
     position: absolute;
     left: 400px;
-    top: 380px;
+    top:380px;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
@@ -120,33 +122,120 @@ main .comment span:nth-of-type(3){
     position: absolute;
     left: 1300px;
     top: 380px;
-    font-family: 'Cafe24Ssurroundair';
+    font-family: 'BMJUA';
     font-size: 25px;
-    letter-spacing: 0.05em;
+
     color: #FFFFFF;
 }
 main .comment span:nth-of-type(4){
     position: absolute;
     left: 1560px;
     top: 380px;
-    font-family: 'Cafe24Ssurroundair';
+    font-family: 'BMJUA';
     font-size: 25px;
-    letter-spacing: 0.05em;
+
     color: #FFFFFF;
 }
 
-nav span:nth-child(4){
-    /* 게시판 */
-    position: absolute;
-    width: 62px;
-    height: 26px;
-    left: 1274px;
-    top: 27px;
 
+main .post1 span:nth-of-type(1){
+    position: absolute;
+    top: 380px;
     font-family: 'BMJUA';
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 26px;
-    transition: all 1s;
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 275px;
+    text-align: center;
 }
+
+
+main .post1 span:nth-of-type(2){
+    position: absolute;
+    left: 380px;
+    top: 380px;
+
+}
+main .post1 span:nth-of-type(3){
+    position: absolute;
+    top: 380px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 500px;
+    text-align: center;
+}
+main .post1 span:nth-of-type(4){
+    position: absolute;
+    top: 380px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left:980px;
+    text-align: center;
+}
+main .post1 span:nth-of-type(5){
+    position: absolute;
+    top: 380px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1120px;
+    text-align: center;
+}
+main .post1 span:nth-of-type(6){
+    position: absolute;
+    top: 380px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1380px;
+    text-align: center;
+}
+main .post1 span:nth-of-type(7){
+    position: absolute;
+    top: 380px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 1560px;
+    text-align: center;
+}
+
+
+
+
+/*.postct{*/
+/*    box-sizing: border-box;*/
+
+/*    position: absolute;*/
+/*    width: 80px;*/
+/*    height: 39px;*/
+/*    top: 380px;*/
+/*    left:980px;*/
+
+/*    background: #0E2913;*/
+/*    border: 2px solid #FFFFFF;*/
+/*    border-radius: 50px;*/
+/*}*/
+
+/*.postct2{*/
+/*    position: absolute;*/
+/*    width: 49px;*/
+/*    height: 30px;*/
+/*    top: 380px;*/
+/*    left:980px;*/
+/*    font-family: 'Cafe24Ssurroundair';*/
+/*    font-style: normal;*/
+/*    font-weight: 300;*/
+/*    font-size: 25px;*/
+/*    line-height: 32px;*/
+/*    text-align: center;*/
+/*    letter-spacing: 0.05em;*/
+
+/*    color: #FFFFFF;*/
+/*}*/
+
+
+
+
 

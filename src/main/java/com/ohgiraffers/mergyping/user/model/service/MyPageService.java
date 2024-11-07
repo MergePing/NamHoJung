@@ -3,6 +3,7 @@ package com.ohgiraffers.mergyping.user.model.service;
 import com.ohgiraffers.mergyping.user.model.dao.MyPageMapper;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
+import com.ohgiraffers.mergyping.user.model.dto.MypageCommentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,5 +55,13 @@ public class MyPageService {
 
     public MyPageDTO findId(int userNo) {
         return myPageMapper.findId(userNo);
+    }
+
+    public List<MypageCommentDTO> findWrittenComment(int userNo) {
+        return myPageMapper.findWrittenComment(userNo);
+    }
+
+    public List<MyPagePostDTO> findWrittenFavorite(int userNo) {
+        return myPageMapper.findWrittenFavorite(userNo);
     }
 }
