@@ -372,7 +372,7 @@ input.box{
         width: 324px;
         height: 59px;
         left: 830px;
-        top: 706px;
+        top: 684px;
 
         background: #A4A4A4;
         border-radius: 50px;
@@ -397,7 +397,7 @@ select.box{
     width: 324px;
     height: 59px;
     left: 1175px;
-    top: 706px;
+    top: 684px;
 
     background: #A4A4A4;
     border-radius: 50px;
@@ -1009,6 +1009,22 @@ nav span:hover{
     color: #6EBA4A;
 }
 
+#duplicateEmailCheck {
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 1186px;
+    top: 751px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #6EBA4A;
+}
+
 #emailCheckMessage{
     width: 400px;
     position: absolute;
@@ -1042,20 +1058,4 @@ button:disabled {
 
 #togglePasswordConfirm {
     top: 287px
-}
-
-#duplicateEmailCheck {
-    position: absolute;
-    width: 550px;
-    height: 35px;
-    left: 1186px;
-    top: 352px;
-
-    font-family: 'Cafe24 Ssurround air';
-    font-style: normal;
-    font-weight: 900;
-    font-size: 100px;
-    line-height: 39px;
-
-    color: #6EBA4A;
 }
