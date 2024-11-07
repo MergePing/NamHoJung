@@ -421,6 +421,92 @@ main .pageNum img:nth-of-type(2){
 }
 
 
+#addNoticeButton {
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+/* 작성 폼 위치 및 스타일 */
+/* 작성 폼 숨기기 및 위치 조정 */
+
+
+#noticeTitle {
+
+
+
+    position: absolute;
+    width: 450px;
+    height: 40px;
+    left: 796px;
+    top: 235px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+
+}
+
+
+#noticeContent {
+
+
+    position: absolute;
+    width: 900px;
+    height: 350px;
+    top: 380px;
+    left: 354px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+
+    background-color: transparent;
+    border: 1px solid #000000;
+    color: #ffffff;
+}
+
+
+
+#cancelButton {
+    position: absolute;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: 'BMJUA';
+    color: #FFFFFF;
+    background-color: #A41F1F;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 118px;
+    height: 48px;
+    top:139px;
+    left: 1450px;
+}
+
+#cancelButton:hover {
+    background-color: #8e1a1a;
+}
+.hidden {
+    display: none;
+}
+
+
 
 
 

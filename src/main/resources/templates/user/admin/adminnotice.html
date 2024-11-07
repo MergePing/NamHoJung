@@ -1,4 +1,4 @@
-<!DOCTYPE html>ㅌ
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,11 +8,8 @@
 </head>
 <body>
 
-
-
 <header>
   <nav>
-    <!--네비바-->
     <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
     <span onclick="location.reload()">공지사항</span>
@@ -22,31 +19,38 @@
     <span>로그인</span>
     <span>회원가입</span>
   </nav>
-
 </header>
 
 <main>
   <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
   <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
+  <!-- 작성 폼 -->
+  <div id="addForm" style="display: none;">
+    <input type="text" id="noticeTitle" placeholder="제목을 입력해주세요">
+    <textarea id="noticeContent" placeholder="내용을 입력해주세요"></textarea>
+  </div>
+
+  <!-- 탭 메뉴 및 검색 -->
   <div class="tab">
     <p id="all">전체</p>
     <p id="alert">알림</p>
   </div>
-  <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요"> <label><img th:src="@{/images/notice/Search-btn.png}"></label>
+  <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요">
+  <label><img th:src="@{/images/notice/Search-btn.png}"></label>
+
+  <!-- 공지사항 목록 -->
   <div class="notices">
     <div th:each="notice : ${noticeList}" class="box">
-      <div class="notice" th:classappend="${notice.category == '알림'} ? 'alertContent allContent' : 'allContent'">
+      <div class="notice" th:classappend="'allContent'">
         <span th:text="${notice.noticeNo}"></span>
-        <div><span th:text="${notice.category}"></span></div>
         <span th:text="${notice.title}"></span>
-
-        <img th:src="@{/images/notice/arrow-btn-dark.png}"
-             th:onclick="|location.href='/admin/notice/detail/' + ${notice.noticeNo}|">
+        <img th:src="@{/images/notice/arrow-btn-dark.png}" th:onclick="|location.href='/admin/notice/detail/' + ${notice.noticeNo}|">
       </div>
     </div>
   </div>
 
+  <!-- 페이지네이션 -->
   <div class="pageNum">
     <a th:href="@{'/admin/notice?page=' + (${currentPage} - 1)}" th:if="${currentPage > 1}">
       <img th:src="@{/images/notice/pre-btn.png}">
@@ -57,9 +61,62 @@
     </a>
   </div>
 </main>
+
+<!-- 공지사항 추가 버튼 -->
+<div class="button-container">
+  <button id="addNoticeButton">제출</button>
+  <button id="cancelButton" style="display: none;">취소</button>
+</div>
+
+<script>
+  document.getElementById('addNoticeButton').addEventListener('click', function() {
+    const addForm = document.getElementById('addForm');
+    const mainElements = document.querySelectorAll('.tab, .notices, .pageNum, input[type="search"], label');
+    const cancelButton = document.getElementById('cancelButton');
+
+    // 작성 폼을 보일 때 추가와 취소 버튼 설정
+    addForm.style.display = 'block';
+    cancelButton.style.display = 'inline-block'; // 취소 버튼을 보이게 설정
+    mainElements.forEach(element => element.classList.add('hidden'));
+  });
+
+  // 취소 버튼 클릭 시 작성 폼 숨김 및 전체 조회로 복귀
+  document.getElementById('cancelButton').addEventListener('click', function() {
+    document.getElementById('addForm').style.display = 'none';
+    const mainElements = document.querySelectorAll('.tab, .notices, .pageNum, input[type="search"], label');
+    mainElements.forEach(element => element.classList.remove('hidden'));
+    document.getElementById('cancelButton').style.display = 'none'; // 취소 버튼 숨김
+  });
+
+  // 추가 버튼을 클릭할 때 서버에 폼 데이터 전송
+  document.getElementById('addNoticeButton').addEventListener('click', function() {
+    const title = document.getElementById('noticeTitle').value;
+    const content = document.getElementById('noticeContent').value;
+
+    if (!title || !content) {
+      alert("제목과 내용을 입력해주세요.");
+      return;
+    }
+
+    fetch('/admin/notice/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title, content })
+    })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert('공지사항이 추가되었습니다.');
+                location.reload();  // 페이지 새로고침하여 추가된 공지사항 반영
+              } else {
+                alert('추가 실패');
+              }
+            })
+            .catch(error => console.error('Error:', error));
+  });
+</script>
+
 </body>
-
-
-
-
 </html>
