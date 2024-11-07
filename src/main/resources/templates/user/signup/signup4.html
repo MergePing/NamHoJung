@@ -208,10 +208,11 @@
                         enableNextButton();
                         subOn();
                         nextButton.disabled = false;
-                        authConfirmButton.style.display = "none";
+                        authConfirmButton.style.display = "block";
                     } else {
                         document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
                         nextButton.disabled = true;
+                        authCodeInput.style.outline = "5px #FD3C3C solid";
                     }
                 })
                 .catch(error => {
