@@ -18,145 +18,158 @@
     background: #0B1B06;
 }
 
-.nav{
-    position: absolute;
+/*---------------nav------------------*/
+nav{
+    position: fixed;
     width: 1920px;
     height: 79px;
     left: 0px;
     top: 0px;
-}
-
-.nav2{
-    position: absolute;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-
     background: #0E2913;
-    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
-.notice{
 
+nav img{
+    /* 남호정 */
     position: absolute;
-    left: 59.11%;
-    right: 36.61%;
-    top: 34.18%;
-    bottom: 32.91%;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 26px;
-    z-index: 1;
-
-color: #C9E6CA;
-}
-
-.info{
-    position: absolute;
-    left: 53.96%;
-    right: 43.85%;
-    top: 34.18%;
-    bottom: 32.91%;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 26px;
-    z-index: 1;
-
-    color: #C9E5CA;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
 
 }
 
-.mbti{
+nav span:nth-child(2) {
+    /* 소개 */
     position: absolute;
-    left: 72.55%;
-    right: 22.97%;
-    top: 34.18%;
-    bottom: 32.91%;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    z-index: 1;
-
     color: #C9E6CA;
+    transition: all 1s;
 }
 
 
-.myPage{
-position: absolute;
-left: 80%;
-right: 14.69%;
-top: 32.91%;
-bottom: 34.18%;
-
-font-family: 'BM JUA_OTF';
-font-style: normal;
-font-weight: 400;
-font-size: 25px;
-line-height: 26px;
-z-index: 1;
-
-color: #C9E6CA;
-}
-
-.login{
+nav span:nth-child(3){
+    /* 공지사항 */
     position: absolute;
-    left: 88.12%;
-    right: 9.32%;
-    top: 36.71%;
-    bottom: 36.71%;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
 
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
     font-weight: 400;
     font-size: 20px;
     line-height: 21px;
-    z-index: 1;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
     color: #A3DA87;
-
+    scale: 130%;
 }
-.sign{
+
+
+.logo img{
     position: absolute;
-    left: 92.29%;
-    right: 4.22%;
-    top: 36.71%;
-    bottom: 36.71%;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 21px;
-    z-index: 1;
-
-    color: #C9E6CA;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
 }
 
-.post{
-    position: absolute;
-    left: 66.35%;
-    right: 30.42%;
-    top: 34.18%;
-    bottom: 32.91%;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 26px;
-    z-index: 1;
-
-    color: #C9E6CA;
-}
+/*---------------main1------------------*/
 
 .background01{
     position: absolute;

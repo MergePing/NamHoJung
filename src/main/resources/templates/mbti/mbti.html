@@ -5,6 +5,16 @@
     <title>Title</title>
 </head>
 <body>
-
+<nav>
+    <!--네비바-->
+    <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+    <span onclick="location.href='/intro'">소개</span>
+    <span onclick="location.href='/notice'">공지사항</span>
+    <span onclick="location.href='/post'">게시판</span>
+    <span>MBTI 검사</span>
+    <span id="mypageBtn">마이페이지</span>
+    <span onclick="location.href='/auth/login'">로그인</span>
+    <span onclick="location.href='/auth/signupterms'">회원가입</span>
+</nav>
 </body>
 </html>
