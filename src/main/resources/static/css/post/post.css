@@ -484,9 +484,7 @@ main .post span:nth-of-type(4){
 
 }
 
-#tabContainer{
-    z-index: 8888;
-}
+
 
 main .post1 .post a>span{
     position: absolute;
@@ -519,65 +517,100 @@ main .post span:nth-of-type(6){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-}
+}.pageNum {
+     position: relative;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
 
-
-main .pageNum img:nth-of-type(1){
+.pageNum img {
+    cursor: pointer;
     position: absolute;
-    left: 880px;
     top: 940px;
 }
 
+.pageNum img:nth-of-type(1) {
+    left: 880px;
+}
 
-main .pageNum p{
-    position: absolute;
-    top: 935px;
+.pageNum img:nth-of-type(2) {
+    left: 1000px;
+}
+
+.pageNum p {
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 30px;
-    color: #FFFFFF;
+    color: #BEBEBE;
+    display: none; /* 처음에는 안보이게 설정 */
+    position: absolute;
+    top: 935px;
 }
 
+.pageNum p.active {
+    display: block; /* active 클래스가 추가되면 보이게 설정 */
+    color: #fff; /* 활성화된 페이지 번호 색상 */
+}
 
-main .pageNum p:nth-of-type(1){
+.pageNum p.inactive {
+    display: block; /* inactive 클래스가 추가되면 보이게 설정 */
+    color: #BEBEBE; /* 비활성화된 페이지 번호 색상 */
+}
+
+.pageNum p.left-920 {
+    left: 920px; /* 920px에 위치하게 설정 */
+}
+
+.pageNum p.left-960 {
+    left: 960px; /* 960px에 위치하게 설정 */
+}
+
+.pageNum #tab1 {
+    left: 920px;
+    display: block;
+}
+
+.pageNum #tab2 {
+    left: 960px;
+    display: block;
+}
+
+.pageNum .change {
     left: 920px;
 }
 
-
-main .pageNum p:nth-of-type(2){
-    left: 960px;
-    color: #BEBEBE;
+.pageNum p:nth-child(odd) {
+    left: 920px;
 }
 
-
-main .pageNum img:nth-of-type(2){
-    position: absolute;
-    left: 1000px;
-    top: 940px;
+.pageNum p:nth-child(even) {
+    left: 960px;
 }
 
 
 
 /*---------------footer------------------*/
-footer .footer{
-    position: absolute;
-    width: 1920px;
-    height: 69px;
-    top: 1080px;
-    background: #0E2913;
-    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
-    z-index: 55;
-}
+    footer .footer{
+        position: absolute;
+        width: 1920px;
+        height: 69px;
+        top: 1080px;
+        background: #0E2913;
+        box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
+        z-index: 55;
+    }
 
-footer .footer p{
-    position: absolute;
-    height: 31px;
-    font-family: 'SUIT';
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 31px;
-    letter-spacing: 0.05em;
-    color: #D5D5D5;
-    left: 750px;
-    top: 20px;
-}
+    footer .footer p{
+        position: absolute;
+        height: 31px;
+        font-family: 'SUIT';
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 31px;
+        letter-spacing: 0.05em;
+        color: #D5D5D5;
+        left: 750px;
+        top: 20px;
+    }
+

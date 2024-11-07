@@ -220,7 +220,10 @@
         const minTop = imgBottom + 10;
         const defaultTop1 = 250;
         const defaultTop2 = 150;
-        box.style.top = `${Math.min(minTop, defaultTop1)}px`;
+        if (contentBottom<1480){
+        box.style.top = `${Math.max(minTop, defaultTop1)}px`;
+
+        }
 
         if (contentBottom>1480){
             box.style.top = `${Math.min(minTop, defaultTop2)}px`;

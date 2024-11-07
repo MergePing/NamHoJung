@@ -58,6 +58,11 @@
         ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize};
     </select>
 
+    <select id="getPostCount" resultMap="postList">
+        SELECT
+        COUNT(*)
+        FROM TBL_POST
+    </select>
 
     <select id="getPostsByPageSelect" resultMap="selectPost">
         SELECT
@@ -135,9 +140,27 @@
     </select>
 
     <select id="getNotScaryNumber" parameterType="int" resultType="int">
-    SELECT NOT_SCARY_NUMBER
+        SELECT NOT_SCARY_NUMBER
         FROM TBL_POST
         WHERE POST_NO = #{postNo}
     </select>
+
+    <insert id="insertPost" parameterType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+        INSERT INTO TBL_POST (
+        POST_TITLE,
+        POST_CONTENTS,
+        POST_CATEGORY,
+        POST_WRITER,
+        POST_IMAGE
+        )
+        VALUES (
+        #{postTitle},
+        #{postContent},
+        #{postCategory},
+        #{postWriter},
+        #{postImage}
+        );
+    </insert>
+
 
 </mapper>

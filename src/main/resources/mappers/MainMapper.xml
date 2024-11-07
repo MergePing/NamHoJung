@@ -6,6 +6,7 @@
     <resultMap id="bestPost" type="com.ohgiraffers.mergyping.user.model.dto.MainDTO">
         <result property="postTitle" column="POST_TITLE"/>
         <result property="postContent" column="POST_CONTENTS"/>
+        <result property="scaryNumber" column="SCARY_NUMBER"/>
     </resultMap>
 
     <select id="bestPost" resultMap="bestPost">
@@ -13,7 +14,7 @@
             POST_TITLE,
             POST_CONTENTS
         FROM TBL_POST
-        ORDER BY SCARY_NUMBER
+        ORDER BY SCARY_NUMBER DESC
         LIMIT 4;
     </select>
 

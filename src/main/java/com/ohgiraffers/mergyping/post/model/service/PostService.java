@@ -70,4 +70,8 @@ public class PostService {
         return postMapper.getNotScaryNumber(postNo);
     }
 
+
+    public void createPost(SelectPostDTO selectPostDTO) { postMapper.insertPost(selectPostDTO); }
+
+    public int getPostCount() { return postMapper.getPostCount();   }
 }
