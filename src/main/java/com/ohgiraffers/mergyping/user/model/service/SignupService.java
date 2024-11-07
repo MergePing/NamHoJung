@@ -48,4 +48,8 @@ public class SignupService {
     public boolean checkNick(String userNick) {
         return signupMapper.checkNick(userNick) == 0;
     }
+
+    public Boolean checkEmailAvailability(String userEmail) {
+        return signupMapper.checkEmail(userEmail) == null;
+    }
 }

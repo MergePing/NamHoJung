@@ -47,22 +47,32 @@
             <button id="saveButton">저장</button>
         </div>
     </section>
+
+    <!-- 삭제 버튼 -->
+    <button id="delete-button">삭제</button>
+
+    <!-- 모달 창 -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <p>공지사항을 삭제하시겠습니까?</p>
+            <div class="button-group">
+                <button id="cancelDeleteButton">취소</button>
+                <button id="confirmDeleteButton">확인</button>
+            </div>
+        </div>
+    </div>
 </main>
 
 <script>
     document.getElementById('edit-button').addEventListener('click', function() {
-        // 수정 버튼을 숨기고 저장 버튼 보이게 하기
         document.getElementById('edit-button').style.display = 'none';
 
-        // 기존 텍스트 숨기기
         document.getElementById('toptitleText').style.display = 'none';
         document.getElementById('titleText').style.display = 'none';
         document.getElementById('contentText').style.display = 'none';
 
-        // 수정 입력 폼 보이기
         document.getElementById('editForm').style.display = 'block';
 
-        // 기존 제목과 내용을 placeholder로 설정
         document.getElementById('editTitle').value = document.getElementById('titleText').innerText;
         document.getElementById('editContent').value = document.getElementById('contentText').innerText;
     });
@@ -83,11 +93,42 @@
             .then(data => {
                 if (data.success) {
                     alert('공지사항이 수정되었습니다.');
-                    location.reload();  // 페이지 새로고침하여 변경사항 반영
+                    location.reload();
                 } else {
                     alert('수정 실패');
                 }
             });
+    });
+
+    // 모달 열기
+    document.getElementById('delete-button').addEventListener('click', function() {
+        document.getElementById('deleteModal').style.display = 'block';
+    });
+
+    // 모달 닫기 - 취소 버튼
+    document.getElementById('cancelDeleteButton').addEventListener('click', function() {
+        document.getElementById('deleteModal').style.display = 'none';
+    });
+
+    // 삭제 요청 - 확인 버튼
+    document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+        const noticeNo = document.getElementById('noticeNo').innerText;
+
+        fetch(`/admin/notice/detail/delete/${noticeNo}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('공지사항이 삭제되었습니다.');
+                    window.location.href = '/admin/notice';
+                } else {
+                    alert('삭제 실패');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+
+        document.getElementById('deleteModal').style.display = 'none';
     });
 </script>
 

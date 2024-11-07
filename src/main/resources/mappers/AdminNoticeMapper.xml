@@ -46,4 +46,9 @@
         NOTICE_NO = #{noticeNo}
     </update>
 
+    <delete id="deleteNotice" parameterType="String">
+        DELETE FROM TBL_NOTICE
+        WHERE NOTICE_NO = #{noticeNo}
+    </delete>
+
 </mapper>

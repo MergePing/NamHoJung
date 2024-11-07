@@ -21,4 +21,7 @@ public interface AdminNoticeMapper {
 
     // 공지사항 수정
     int updateNotice(AdminNoticeDetailDTO noticeDetailDTO);
+
+    // 공지사항 삭제
+    int deleteNotice(@Param("noticeNo") String noticeNo);
 }
