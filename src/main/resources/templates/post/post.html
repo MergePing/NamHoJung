@@ -115,9 +115,14 @@
         let currentPage = 1;
         const pageSize = 7;
         let totalPageCount = 0;
+        let number =0
+        let visibleStart =1;
+        if (totalPageCount<=number){
+        number =number+1;
+        }
 
         function loadPosts(page) {
-            if (page < 1 || (totalPageCount+1 > 0 && page > totalPageCount+1)) return;
+            if (page < 1 || (totalPageCount+1 > 0 && page > totalPageCount+(number+2))) return;
             currentPage = page;
             fetch(`/post/page?page=${page}&pageSize=${pageSize}`)
                 .then(response => response.json())
@@ -162,7 +167,7 @@
                     const postCount = postList.length;
                     totalPageCount = Math.ceil(postCount / pageSize);
 
-                    for (let i = 1; i <= totalPageCount + 1; i++) {
+                    for (let i = number; i <= totalPageCount +(number+2); i++) {
                         const tab = document.createElement('p');
                         tab.id = `tab${i}`;
                         tab.textContent = `${i}`;
@@ -170,11 +175,42 @@
                         tab.style.color = i === currentPage ? '#fff' : '#BEBEBE';
                         tabContainer.appendChild(tab);
                     }
+                    updateVisibility();
                 })
         }
 
-        document.getElementById('img1').addEventListener('click', () => loadPosts(currentPage - 1));
-        document.getElementById('img2').addEventListener('click', () => loadPosts(currentPage + 1));
+        function updateVisibility() {
+            const tabs = document.querySelectorAll('.pageNum p');
+            tabs.forEach(tab => tab.classList.remove('active', 'inactive', 'left-920', 'left-960'));
+
+            for (let i = visibleStart; i < visibleStart + 2 && i <= totalPageCount + number + 2; i++) {
+                if (i === visibleStart) {
+                    tabs[i - 1].classList.add('inactive', 'left-920');
+                } else if (i === visibleStart + 1) {
+                    tabs[i - 1].classList.add('active', 'left-960');
+                }
+            }
+        }
+
+
+        document.getElementById('img1').addEventListener('click', () => {
+            if (visibleStart > 1) {
+                visibleStart--;
+                updateVisibility();
+            } if (currentPage > 1) {
+                loadPosts(currentPage - 1);
+            }
+
+    });
+        document.getElementById('img2').addEventListener('click', () => {
+            if (visibleStart + 1 < totalPageCount+number+2) {
+                visibleStart++;
+                updateVisibility();
+            }
+            if (currentPage < totalPageCount+number+2) {
+                loadPosts(currentPage + 1);
+            }
+        });
         loadPosts(1);
     });
 </script>

@@ -38,6 +38,7 @@
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
+
   </style>
 </head>
 <body>
@@ -66,13 +67,13 @@
 
   </div>
   <div class="post">
+    <form id="postForm" th:action="@{/newpost}" method="post" enctype="multipart/form-data">
     <div id="header">
       <span id="title">
-        <input type="text" id="postTitle" value="제목 : 게시글 제목을 입력해 주세요">
+        <input type="text" id="postTitle" name="postTitle" value="제목 : 게시글 제목을 입력해 주세요">
       </span>
-      <button onclick="submitPost()">작성</button>
-      <button onclick="location.href='/post'">취소</button>
-
+      <button type="button" onclick="submitForm()">작성</button>
+      <button type="button" onclick="location.href='/post'">취소</button>
       <script>
         window.addEventListener('load', () => {
           const title = document.getElementById("title");
@@ -103,7 +104,7 @@
       2. 특정인에 대한 괴롭힘을 조장하는 내용, 욕설이나 악의적인 내용, 상업적인 홍보 등은 사이트 운영규칙 위반에 해당되어 관리자가 삭제할 수 있습니다.
       3. 다른 사람의 창작물이나 저작권이 있는 자료를 허가 없이 사용하거나 게시하지 마세요. 이는 저작권법을 위반하는 행위로, 법적 문제를 일으킬 수 있습니다.
       </pre>
-      <textarea  name="contents" id="postContents" rows="1">
+      <textarea  name="postContent" id="postContent" rows="1">
    이곳에 게시글을 작성 해주세요
       </textarea>
       <input type="file" id="fileInput1" style="display: none;" onchange="uploadFile(1)" />
@@ -114,26 +115,27 @@
     <div id="box">
       <div id="Writer">
         <img th:src="@{/images/post/selectpost/profile-img.png}">
-        <span id="level"></span>
-        <span id="nickname"></span>
-        <span>
+        <span id="level">최고의 정원사</span>
+        <div class="wrapper">
+        <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>
           <img th:src="@{/images/post/selectpost/badge.png}">
-        </span>
+        </div>
       </div>
 
       <div class="line2"></div>
       <div id="category">
-        <span onclick="selectCategory('SF')">SF</span>
-        <span onclick="selectCategory('실화')">실화</span>
-        <span onclick="selectCategory('괴담')">괴담</span>
-        <span onclick="selectCategory('스릴러')">스릴러</span>
-        <span onclick="selectCategory('미스테리')">미스테리</span>
+        <span>카테고리</span>
+        <input id="SF" type="button" value="SF" onclick="selectCategory(this)" />
+        <input id="real" type="button" value="실화" onclick="selectCategory(this)" />
+        <input id="horror" type="button" value="괴담" onclick="selectCategory(this)" />
+        <input id="thrill" type="button" value="스릴러" onclick="selectCategory(this)" />
+        <input id="mystery" type="button" value="미스테리" onclick="selectCategory(this)" />
       </div>
       <input type="hidden" id="postCategory" name="postCategory" value=""/>
-      <input type="hidden" id="postWriter" name="postWriter" value=""/>
-
     </div>
+    </form>
   </div>
+
   <div class="bg"></div>
 </main>
 <footer>
@@ -143,11 +145,46 @@
 </footer>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const currentUserName = '이은서'; // 예시로 '이은서'라는 이름을 사용
-    document.getElementById('nickname').innerText = currentUserName;
-    document.getElementById('postWriter').value = currentUserName;
-  });
+  function selectCategory(button) {
+    // 모든 버튼의 배경색을 초기화합니다.
+    document.querySelectorAll('#category input').forEach(btn => {
+      btn.style.backgroundColor = ''; // 기본 배경색으로 초기화
+    });
+
+    // 클릭된 버튼의 배경색을 변경합니다.
+    button.style.backgroundColor = '#4B9D21';
+
+    // 선택된 카테고리 값을 숨겨진 입력 필드에 설정합니다.
+    document.getElementById('postCategory').value = button.value;
+  }
+
+</script>
+
+
+<script>
+  function submitForm() {
+    const form = document.getElementById('postForm');
+
+    // AJAX 요청을 통해 비동기적으로 폼 데이터를 전송
+    const formData = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: formData,
+    })
+            .then(response => {
+              if (response.ok) {
+                window.location.href = '/post'; // 폼 제출 후 리다이렉트
+              } else {
+                return response.json().then(err => { throw err; });
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+
+    // 기본 폼 제출 동작을 막아줍니다.
+    return false;
+  }
 
 </script>
 
@@ -169,7 +206,6 @@ function uploadFile(index) {
      images[`img${index}`] = data.filePath;
    })
 }
-
 </script>
 
 <script>
@@ -193,51 +229,6 @@ function uploadFile(index) {
   });
 </script>
 
-<script>
-  function selectCategory(category) {
-    document.getElementById('postCategory').value = category;
-    document.querySelectorAll("#category span").forEach(span => {
-      span.style.fontWeight = 'normal';
-    });
-    event.target.style.fontWeight = 'bold';
-  }
-
-  function submitPost() {
-    const postTitle = document.getElementById('postTitle') ? document.getElementById('postTitle').value : '';
-    const postContent = document.getElementById('postContents') ? document.getElementById('postContents').value : '';
-    const postCategory = document.getElementById('postCategory') ? document.getElementById('postCategory').value : '';
-    const postWriter = document.getElementById('postWriter') ? document.getElementById('postWriter').value : '';
-
-    const data = {
-      postTitle: postTitle,
-      postContent: postContent,
-      postCategory: postCategory,
-      postWriter: postWriter,
-      postImages: images
-    };
-
-    fetch('/newpost', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-            .then(response => response.json())
-            .then(data => {
-              if (data.status === "success") {
-                console.log('Success:', data);
-              } else {
-                console.error('Error:', data.message);
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
-  }
-
-
-</script>
 
 <script>
   const floatBtn1 = document.getElementById("light");

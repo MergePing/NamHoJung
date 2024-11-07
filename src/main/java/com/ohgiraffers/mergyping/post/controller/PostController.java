@@ -10,18 +10,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-
 
 @Controller
 public class PostController {
 
     private final PostService postService;
+    private static final String UPLOAD_DIR = "uploads/";
 
     @Autowired
     public PostController(PostService postService) {
@@ -46,6 +48,14 @@ public class PostController {
         return postList.subList(fromIndex, toIndex);
     }
 
+    @GetMapping("/post/count")
+    @ResponseBody
+    public int getPostCount() {
+        return postService.getPostCount();
+    }
+
+
+
 
     // 즐겨찾기 토글
     @PostMapping("/toggleFavorite")
@@ -60,7 +70,6 @@ public class PostController {
         response.put("success", true);
         return response;
     }
-
 
     // 게시글 상세조회 페이지
     @GetMapping("/selectpost/{postNo}")
@@ -108,27 +117,42 @@ public class PostController {
     public String newPostPage() {
         return "post/newpost";
     }
+
     @PostMapping("/newpost")
-    public ResponseEntity<Map<String, String>> createPost(@RequestParam Map<String, Object> params, @RequestBody(required = false) Map<String, Object> payload) {
+    public ResponseEntity<Map<String, String>> createPost(
+            @RequestParam("postTitle") String postTitle,
+            @RequestParam("postContent") String postContent,
+            @RequestParam("postCategory") String postCategory,
+            @RequestParam("postWriter") String postWriter,
+            @RequestParam(value = "file", required = false) List<MultipartFile> files) {
+
         Map<String, String> response = new HashMap<>();
         try {
             SelectPostDTO selectPostDTO = new SelectPostDTO();
-            if (payload != null) {
-                selectPostDTO.setPostTitle((String) payload.get("postTitle"));
-                selectPostDTO.setPostContent((String) payload.get("postContent"));
-                @SuppressWarnings("unchecked")
-                Map<String, String> postImages = (Map<String, String>) payload.get("postImages");
-                String combinedImages = String.join(",", postImages.values());
-                selectPostDTO.setPostImage(combinedImages.getBytes(StandardCharsets.UTF_8));
-            } else {
-                selectPostDTO.setPostTitle((String) params.get("postTitle"));
-                selectPostDTO.setPostContent((String) params.get("postContent"));
-                selectPostDTO.setPostCategory((String) params.get("postCategory"));
-                selectPostDTO.setPostWriter((String) params.get("postWriter")); // 작성자 이름 설정
+            selectPostDTO.setPostTitle(postTitle);
+            selectPostDTO.setPostContent(postContent);
+            selectPostDTO.setPostCategory(postCategory);
+            selectPostDTO.setPostWriter(postWriter);
+
+            // 파일 처리
+            if (files != null && !files.isEmpty()) {
+                StringBuilder combinedImages = new StringBuilder();
+                for (MultipartFile file : files) {
+                    Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+                    Files.createDirectories(path.getParent());
+                    Files.write(path, file.getBytes());
+                    if (combinedImages.length() > 0) {
+                        combinedImages.append(",");
+                    }
+                    combinedImages.append(path.toString());
+                }
+                selectPostDTO.setPostImage(combinedImages.toString().getBytes(StandardCharsets.UTF_8));
             }
+
             postService.createPost(selectPostDTO);
             response.put("status", "success");
             return ResponseEntity.ok(response);
+
         } catch (Exception e) {
             e.printStackTrace();
             response.put("status", "error");
@@ -137,5 +161,27 @@ public class PostController {
         }
     }
 
-    }
+    @PostMapping("/upload")
+    @ResponseBody
+    public Map<String, String> uploadFile(@RequestParam("file") MultipartFile file) {
+        Map<String, String> response = new HashMap<>();
+        if (file.isEmpty()) {
+            response.put("error", "파일이 선택되지 않았습니다.");
+            return response;
+        }
 
+        try {
+            // 파일 저장 경로 설정
+            Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+            Files.createDirectories(path.getParent());
+            Files.write(path, file.getBytes());
+
+            response.put("filePath", path.toString());
+            return response;
+        } catch (IOException e) {
+            e.printStackTrace();
+            response.put("error", "파일 업로드 실패: " + e.getMessage());
+            return response;
+        }
+    }
+}

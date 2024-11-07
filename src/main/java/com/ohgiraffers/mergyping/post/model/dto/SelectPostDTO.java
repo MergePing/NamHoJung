@@ -1,6 +1,7 @@
 package com.ohgiraffers.mergyping.post.model.dto;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class SelectPostDTO {
     private int postNo;
@@ -150,5 +151,25 @@ public class SelectPostDTO {
 
     public void setNotScary(boolean notScary) {
         this.notScary = notScary;
+    }
+
+    @Override
+    public String toString() {
+        return "SelectPostDTO{" +
+                "postNo=" + postNo +
+                ", postTitle='" + postTitle + '\'' +
+                ", postCategory='" + postCategory + '\'' +
+                ", postWriter='" + postWriter + '\'' +
+                ", postContent='" + postContent + '\'' +
+                ", postDate=" + postDate +
+                ", scaryNumber=" + scaryNumber +
+                ", notScaryNumber=" + notScaryNumber +
+                ", commentNumber=" + commentNumber +
+                ", postReport=" + postReport +
+                ", postImage=" + Arrays.toString(postImage) +
+                ", postFavorite=" + postFavorite +
+                ", scary=" + scary +
+                ", notScary=" + notScary +
+                '}';
     }
 }

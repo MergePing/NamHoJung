@@ -22,6 +22,7 @@ public interface PostMapper {
     int getScaryNumber( @RequestParam("postNo") int postNo);
     int getNotScaryNumber(@RequestParam("postNo") int postNo);
     void insertPost(SelectPostDTO selectPostDTO);
+    int getPostCount();
 }
 
 

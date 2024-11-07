@@ -58,6 +58,11 @@
         ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize};
     </select>
 
+    <select id="getPostCount" resultMap="postList">
+        SELECT
+        COUNT(*)
+        FROM TBL_POST
+    </select>
 
     <select id="getPostsByPageSelect" resultMap="selectPost">
         SELECT
@@ -146,7 +151,6 @@
         POST_CONTENTS,
         POST_CATEGORY,
         POST_WRITER,
-        POST_DATE,
         POST_IMAGE
         )
         VALUES (
@@ -154,7 +158,6 @@
         #{postContent},
         #{postCategory},
         #{postWriter},
-        NOW(),
         #{postImage}
         );
     </insert>
