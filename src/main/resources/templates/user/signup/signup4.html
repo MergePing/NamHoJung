@@ -43,7 +43,9 @@
         </select>
     <button type="button" id="authEmail" class="authEmail" onclick="sendAuthCode()">인증</button>
         <button type="button" id="authConfirm" class="authConfirm">완료</button>
-        <input type="hidden" id="hidden-email" name="userEmail" />
+        <input type="hidden" id="hidden-email" name="userEmail"/>
+        <input type="hidden" id="duplicate-hidden-email"/>
+        <p id="duplicateEmailCheck"></p>
 
     <!-- 인증 모달 -->
     <div class="modalBlur">
@@ -459,6 +461,7 @@
         }
     });
 
+    // 날짜
     form.addEventListener('submit', function (event) {
         const year = document.querySelector('#birth-year').value;
         const month = document.querySelector('#birth-month').value;
@@ -552,6 +555,69 @@
         birthYearEl.innerHTML = '<option value="year">출생 연도</option>';
         birthMonthEl.innerHTML = '<option value="month">월</option>';
         birthDayEl.innerHTML = '<option value="day">일</option>';
+    });
+
+    // 이메일 중복을 비교하기 위해 숨겨진 곳에 중복비교를 위한 곳 생성 (기존의 hiddne-email을 사용할 수 있으나 뭔가 로직이 꼬이는지 문제가생겨서 일단 이렇게 하고 추후 최적화 시 사용
+    document.getElementById('email').addEventListener('input', updateEmail);
+    document.getElementById('domain-txt').addEventListener('input', updateEmail);
+    document.getElementById('domain-list').addEventListener('change', updateEmail);
+
+    function updateEmail() {
+        const emailInput = document.querySelector('#email');
+        const domainInput = document.querySelector('#domain-txt');
+        const domainSelect = document.querySelector('#domain-list');
+
+        const frontEmail = emailInput.value.split('@')[0];
+        const hiddenEmailField = document.getElementById('duplicate-hidden-email');
+        hiddenEmailField.value = frontEmail;
+
+        let domain = '';
+
+        if (domainSelect.value !== "type") {
+            domain = domainSelect.value;
+        } else {
+            domain = domainInput.value;
+        }
+
+        if (domain) {
+            hiddenEmailField.value += "@" + domain;
+        }
+    }
+
+    // 이메일 중복 비교
+    document.getElementById('duplicate-hidden-email').addEventListener('onChange', function () {
+        console.log(document.getElementById('duplicate-hidden-email'));
+        const userEmail = this.value;
+        const messageElement = document.getElementById('duplicateEmailCheck');
+        const input = document.getElementById('email')
+        const domain = document.getElementById('domain-txt')
+
+        if (userEmail.length > 0) {
+            fetch(`/auth/checkemail?userEmail=${userEmail}`)
+                .then(response => response.json())
+                .then(isAvailable => {
+                    if (isAvailable) {
+                        messageElement.textContent = "사용 가능한 이메일입니다.";
+                        messageElement.style.color = "#6EBA4A";
+                        input.style.outline = "5px #6EBA4A solid";
+                        domain.style.outline = "5px #6EBA4A solid";
+                    } else {
+                        messageElement.textContent = "중복된 이메일입니다.";
+                        messageElement.style.color = "#FD3C3C";
+                        input.style.outline = "5px #FD3C3C solid";
+                        domain.style.outline = "5px #FD3C3C solid";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageElement.textContent = "사용 불가한 이메일입니다.";
+                    messageElement.style.color = "#FD3C3C";
+                    input.style.outline = "5px #FD3C3C solid";
+                    domain.style.outline = "5px #FD3C3C solid";
+                });
+        } else {
+            messageElement.textContent = "";
+        }
     });
 </script>
 </body>

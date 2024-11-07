@@ -82,29 +82,10 @@ public class SignupController {
         return signupService.checkNick(userNick);
     }
 
-    // json 반환 오류 -> html로 반환이 된다는 둥
-//    @GetMapping("/checkemail")
-//    public ResponseEntity<?> checkEmail(@RequestParam String email) {
-//        boolean exists = signupService.emailExists(email);
-//        if (exists) {
-//            return ResponseEntity.badRequest().body("이메일이 이미 존재합니다.");
-//        } else {
-//            return ResponseEntity.ok("이메일 사용 가능");
-//        }
-//    }
 
     @GetMapping("/checkemail")
-    public ResponseEntity<?> checkEmail(@RequestParam String email) {
-        if (email == null || email.isEmpty()) {
-            return ResponseEntity.badRequest().body("이메일을 입력해주세요.");
-        }
-
-        boolean exists = signupService.emailExists(email);
-        if (exists) {
-            return ResponseEntity.badRequest().body("이메일이 이미 존재합니다.");
-        } else {
-            return ResponseEntity.ok("이메일 사용 가능");
-        }
+    public boolean checkEmail(@RequestParam String userEmail) {
+        return signupService.checkEmail(userEmail);
     }
 }
 
