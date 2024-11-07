@@ -49,7 +49,7 @@ public class SignupService {
         return signupMapper.checkNick(userNick) == 0;
     }
 
-    public boolean checkEmail(String userEmail) {
-        return signupMapper.checkEmail(userEmail) == 0;
+    public Boolean checkEmailAvailability(String userEmail) {
+        return signupMapper.checkEmail(userEmail) == null;
     }
 }

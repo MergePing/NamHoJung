@@ -82,10 +82,12 @@ public class SignupController {
         return signupService.checkNick(userNick);
     }
 
-
     @GetMapping("/checkemail")
-    public boolean checkEmail(@RequestParam String userEmail) {
-        return signupService.checkEmail(userEmail);
+    public ResponseEntity<Map<String, Boolean>> checkEmail(@RequestParam String userEmail) {
+        Boolean isAvailable = signupService.checkEmailAvailability(userEmail);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isAvailable", isAvailable);
+        return ResponseEntity.ok(response);
     }
 }
 

@@ -13,8 +13,8 @@
     <nav>
         <!--네비바-->
         <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
-        <span onclick="location.href='/intro/intro'">소개</span>
-        <span onclick="location.href='/notice/notice'">공지사항</span>
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.href='/notice'">공지사항</span>
         <span>게시판</span>
         <span>MBTI 검사</span>
         <span>마이페이지</span>
@@ -561,15 +561,15 @@
     document.getElementById('email').addEventListener('input', updateEmail);
     document.getElementById('domain-txt').addEventListener('input', updateEmail);
     document.getElementById('domain-list').addEventListener('change', updateEmail);
+    document.getElementById('duplicate-hidden-email').addEventListener('change', updateEmail);
 
     function updateEmail() {
         const emailInput = document.querySelector('#email');
         const domainInput = document.querySelector('#domain-txt');
         const domainSelect = document.querySelector('#domain-list');
 
-        const frontEmail = emailInput.value.split('@')[0];
+        const frontEmail = emailInput.value + '@' + domainInput.value;
         const hiddenEmailField = document.getElementById('duplicate-hidden-email');
-        hiddenEmailField.value = frontEmail;
 
         let domain = '';
 
@@ -580,45 +580,43 @@
         }
 
         if (domain) {
-            hiddenEmailField.value += "@" + domain;
+            hiddenEmailField.value = frontEmail;
+
+            const emailInput = document.querySelector('#email');
+            const domainInput = document.querySelector('#domain-txt');
+            const userEmail = frontEmail;
+            const messageElement = document.getElementById('duplicateEmailCheck');
+            if (userEmail.length > 0) {
+                fetch(`/auth/checkemail?userEmail=${encodeURIComponent(userEmail)}`)
+                    .then(response => response.json())
+                    .then(isAvailable => {
+                        if (isAvailable) {
+                            messageElement.textContent = "사용 가능한 이메일입니다.";
+                            messageElement.style.color = "#6EBA4A";
+                            emailInput.style.outline = "5px #6EBA4A solid";
+                            domainInput.style.outline = "5px #6EBA4A solid";
+                        } else {
+                            messageElement.textContent = "중복된 이메일입니다.";
+                            messageElement.style.color = "#FD3C3C";
+                            emailInput.style.outline = "5px #FD3C3C solid";
+                            domainInput.style.outline = "5px #FD3C3C solid";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        messageElement.textContent = "사용 불가한 이메일입니다.";
+                        messageElement.style.color = "#FD3C3C";
+                        emailInput.style.outline = "5px #FD3C3C solid";
+                        domainInput.style.outline = "5px #FD3C3C solid";
+                    });
+            } else {
+                messageElement.textContent = "";
+            }
+        } else {
+            hiddenEmailField.value = '';
         }
     }
 
-    // 이메일 중복 비교
-    document.getElementById('duplicate-hidden-email').addEventListener('onChange', function () {
-        console.log(document.getElementById('duplicate-hidden-email'));
-        const userEmail = this.value;
-        const messageElement = document.getElementById('duplicateEmailCheck');
-        const input = document.getElementById('email')
-        const domain = document.getElementById('domain-txt')
-
-        if (userEmail.length > 0) {
-            fetch(`/auth/checkemail?userEmail=${userEmail}`)
-                .then(response => response.json())
-                .then(isAvailable => {
-                    if (isAvailable) {
-                        messageElement.textContent = "사용 가능한 이메일입니다.";
-                        messageElement.style.color = "#6EBA4A";
-                        input.style.outline = "5px #6EBA4A solid";
-                        domain.style.outline = "5px #6EBA4A solid";
-                    } else {
-                        messageElement.textContent = "중복된 이메일입니다.";
-                        messageElement.style.color = "#FD3C3C";
-                        input.style.outline = "5px #FD3C3C solid";
-                        domain.style.outline = "5px #FD3C3C solid";
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    messageElement.textContent = "사용 불가한 이메일입니다.";
-                    messageElement.style.color = "#FD3C3C";
-                    input.style.outline = "5px #FD3C3C solid";
-                    domain.style.outline = "5px #FD3C3C solid";
-                });
-        } else {
-            messageElement.textContent = "";
-        }
-    });
 </script>
 </body>
 </html>

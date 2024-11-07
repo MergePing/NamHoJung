@@ -14,5 +14,5 @@ public interface SignupMapper {
 
     int checkNick(String userNick);
 
-    int checkEmail(String userEmail);
+    Boolean checkEmail(String userEmail);
 }
