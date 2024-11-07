@@ -57,7 +57,7 @@ public class EmailService {
                 + "<img src='cid:mailImage' alt='배경' style='position:absolute; z-index: -1'>";
         helper.setText(htmlContent, true);
 
-        // 이메일에 이미지 첨부
+        // 이메일에 이미지 첨부 -> 수정필요
         ClassPathResource image = new ClassPathResource("static/images/email/img.png");
         helper.addInline("mailImage", image);
 
