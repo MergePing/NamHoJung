@@ -341,7 +341,7 @@
     width: 100px;
     height: 60px;
     left: 1525px;
-    top: 706px;
+    top: 684px;
 
     background: mediumspringgreen;
     outline : 10px solid greenyellow;
@@ -1050,6 +1050,7 @@ button:disabled {
     scale:-10%;
     rotate: 180deg;
     left: 875px;
+    z-index: 2;
 }
 
 #togglePassword {
