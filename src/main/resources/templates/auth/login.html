@@ -11,19 +11,17 @@
         <div class="backgroundBasic"></div>
         <img class="background01" th:src="@{/images/login/background01.png}" alt="배경">
         <img class="background02" th:src="@{/images/login/background02.png}" alt="배경">
-            <div class="nav">
-                <div class="nav2">
-<!--                    <div class="logo">남호정</div>-->
-                    <img class="logo" th:src="@{/images/login/logo.png}" alt="로고">
-                    <p class="notice">공지사항</p>
-                    <p class="info">소개</p>
-                    <p class="mbti">mbti검사</p>
-                    <p class="myPage">마이페이지</p>
-                    <p class="login">로그인</p>
-                    <p class="sign" onclick="location.href='/auth/signupterms'">회원가입</p>
-                    <p class="post">게시판</p>
-                    </div>
-            </div>
+        <nav>
+            <!--네비바-->
+            <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+            <span onclick="location.href='/intro'">소개</span>
+            <span onclick="location.href='/notice'">공지사항</span>
+            <span onclick="location.href='/post'">게시판</span>
+            <span>MBTI 검사</span>
+            <span id="mypageBtn">마이페이지</span>
+            <span onclick="location.href='/auth/login'">로그인</span>
+            <span onclick="location.href='/auth/signupterms'">회원가입</span>
+        </nav>
         <form th:action="@{/auth/login}" th:method="post">
         <div class="loginDiv"></div>
         <p class="loginText">로그인</p>
