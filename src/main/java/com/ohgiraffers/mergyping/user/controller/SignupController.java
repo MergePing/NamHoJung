@@ -3,9 +3,13 @@ package com.ohgiraffers.mergyping.user.controller;
 import com.ohgiraffers.mergyping.user.model.dto.SignupDTO;
 import com.ohgiraffers.mergyping.user.model.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/auth")
@@ -14,7 +18,7 @@ public class SignupController {
     @Autowired
     private SignupService signupService;
 
-    @GetMapping("/signupTerms")
+    @GetMapping("/signupterms")
     public String signupFront() {
 
         return "user/signup/signup3";
@@ -35,10 +39,10 @@ public class SignupController {
 
             if (result > 0) {
                 message = "회원가입이 정상적으로 완료되었습니다.";
-                mv.setViewName("/user/signup/signupConfirm");
+                mv.setViewName("redirect:/auth/signupconfirm");
             } else {
                 message = "회원가입에 실패하였습니다.";
-                mv.setViewName("user/signup/signup3");
+                mv.setViewName("redirect:/signupterms");
             }
             mv.addObject("message", message);
 
@@ -76,6 +80,14 @@ public class SignupController {
     @ResponseBody
     public boolean checkNick(@RequestParam String userNick) {
         return signupService.checkNick(userNick);
+    }
+
+    @GetMapping("/checkemail")
+    public ResponseEntity<Map<String, Boolean>> checkEmail(@RequestParam String userEmail) {
+        Boolean isAvailable = signupService.checkEmailAvailability(userEmail);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("isAvailable", isAvailable);
+        return ResponseEntity.ok(response);
     }
 }
 
