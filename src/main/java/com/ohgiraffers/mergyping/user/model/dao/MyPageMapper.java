@@ -2,6 +2,7 @@ package com.ohgiraffers.mergyping.user.model.dao;
 
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
+import com.ohgiraffers.mergyping.user.model.dto.MypageCommentDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,8 @@ public interface MyPageMapper {
 
 
     MyPageDTO findId(int userNo);
+
+    List<MypageCommentDTO> findWrittenComment(int userNo);
+
+    List<MyPagePostDTO> findWrittenFavorite(int userNo);
 }
