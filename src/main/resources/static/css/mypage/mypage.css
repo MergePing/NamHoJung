@@ -138,7 +138,7 @@ aside.show {
     color:#C9E5CA;
     cursor: pointer;
 }
-.logoutfont{
+.logoutFont{
     width:180px;
     height:33px;
     margin-left:59px;
@@ -150,6 +150,8 @@ aside.show {
     line-height: 33px;
     color:#C9E5CA;
     cursor: pointer;
+    background: none;
+    border:none;
 }
 
 
@@ -182,7 +184,7 @@ aside.show {
 .MBTIfont:hover{
     color:#A3DA87;
 }
-.logoutfont:hover{
+.logoutFont:hover{
     color:#A3DA87;
 }
 .mbti-item:hover{

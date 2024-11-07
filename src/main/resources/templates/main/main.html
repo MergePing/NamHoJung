@@ -80,7 +80,9 @@
         </div>
         <div class="mbti-item2">-- MBTI 검사</div>
     </div>
-    <p class="logoutfont">로그아웃</p>
+    <form th:action="@{/auth/logout}" method="post">
+        <button class="logoutFont" type="submit">로그아웃</button>
+    </form>
 </aside>
 <div class="rankpopup" id="rank-popup">
     <p class="scorefont">활동 점수 : </p>
@@ -163,10 +165,6 @@
         <button id="checkAttendanceBtn">출석 체크 하기</button>
     </div>
 </main>
-
-<form th:action="@{/auth/logout}" method="post">
-    <button type="submit">로그아웃</button>
-</form>
 
 <footer>
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
