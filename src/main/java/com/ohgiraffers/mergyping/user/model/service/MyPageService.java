@@ -64,4 +64,8 @@ public class MyPageService {
     public List<MyPagePostDTO> findWrittenFavorite(int userNo) {
         return myPageMapper.findWrittenFavorite(userNo);
     }
+
+    public Map<String, Object> findUserMBTIInfo(int userNo) {
+        return myPageMapper.findUserMBTIInfo(userNo);
+    }
 }

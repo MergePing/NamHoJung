@@ -29,4 +29,6 @@ public interface MyPageMapper {
     List<MypageCommentDTO> findWrittenComment(int userNo);
 
     List<MyPagePostDTO> findWrittenFavorite(int userNo);
+
+    Map<String, Object> findUserMBTIInfo(int userNo);
 }

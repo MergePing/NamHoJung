@@ -104,6 +104,24 @@
         SET USER_PWD = #{userPwd}
         WHERE USER_NO = #{userNo}
     </update>
+
+    <select id="findUserMBTIInfo" parameterType="int" resultType="map">
+        SELECT
+                m.MBTI_TYPE,
+                i.MBTI_INFO
+            FROM TBL_MBTI m
+            JOIN TBL_MBTI_INFO i ON m.MBTI_TYPE = i.MBTI_TYPE
+            WHERE m.USER_NO = #{userNo}
+    </select>
+
+    <insert id="insertAttendance" parameterType="map">
+        INSERT INTO TBL_CHECK (USER_NO, CHECK_DATE, CHECK_STATUS, CHECK_ALL_NO)
+        VALUES (#{userNo}, #{checkDate}, #{checkStatus}, #{checkAllNo})
+        ON DUPLICATE KEY UPDATE
+        CHECK_STATUS = #{checkStatus},
+        CHECK_ALL_NO = CHECK_ALL_NO + 1;
+
+    </insert>
 </mapper>
 
 <!--<result property="userType" column="USER_TYPE"/>-->

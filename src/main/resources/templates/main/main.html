@@ -109,11 +109,9 @@
 </div>
 <div class="mbtipopup" id="mbtiPopup">
     <p class="horrormbti">나의 공포 MBTI</p>
-    <p class="mbticategory">CGET</p>
+    <p class="mbticategory" th:text="${mbtiInfo.MBTI_TYPE}"></p>
     <div class="mbtiexp">
-        <p class="mtbtiexp2">당신은 위험한 순간에 신중하지만
-            사람보다 귀신을 무서워하면서도
-            공포의 스릴을 즈기는 특이한 사람입니다.</p>
+        <p class="mtbtiexp2" th:text="${mbtiInfo.MBTI_INFO}"></p>
     </div>
 </div>
 
@@ -391,26 +389,58 @@
 
         // 출석 체크 버튼 클릭 이벤트
         checkAttendanceBtn.addEventListener('click', function() {
-            document.getElementById(`day-${today}`).classList.add('checked');
-            document.getElementById("checkAttendanceBtn").style.backgroundColor="#0E2813";
-            document.getElementById("checkAttendanceBtn").style.width="560px";
-            document.getElementById("checkAttendanceBtn").style.color="#C0CBBC";
-            document.getElementById("checkAttendanceBtn").style.left="400px";
-            document.getElementById("checkAttendanceBtn").textContent="출석체크를 완료 했습니다";
-        });
-        checkAttendanceBtn.addEventListener('click', function() {
-            const todayDiv = document.getElementById(`day-${today}`);
-            todayDiv.classList.add('checked');
+            // 서버로 출석 체크 요청 보내기
+            fetch('/attendance/check', { method: 'POST' })
+                .then(response => response.text())
+                .then(message => {
+                    alert(message);
 
-            document.getElementById("hand").classList.remove("dn");
+                    // 출석 완료 시 스타일 업데이트
+                    const todayDiv = document.getElementById(`day-${today}`);
+                    todayDiv.classList.add('checked');
 
-            if (!todayDiv.querySelector('img')) {
-                const img = document.createElement('img');
-                img.src = '/images/main/check mark.png';
-                todayDiv.appendChild(img);
-            }
+                    checkAttendanceBtn.style.backgroundColor = "#0E2813";
+                    checkAttendanceBtn.style.width = "560px";
+                    checkAttendanceBtn.style.color = "#C0CBBC";
+                    checkAttendanceBtn.style.left = "400px";
+                    checkAttendanceBtn.textContent = "출석체크를 완료 했습니다";
+
+                    // 손 이미지 표시
+                    document.getElementById("hand").classList.remove("dn");
+
+                    // 출석 체크 마크 이미지 추가
+                    if (!todayDiv.querySelector('img')) {
+                        const img = document.createElement('img');
+                        img.src = '/images/main/check mark.png';
+                        todayDiv.appendChild(img);
+                    }
+                })
+                .catch(error => console.error('출석 체크 실패:', error));
         });
     });
+
+    //     // 출석 체크 버튼 클릭 이벤트
+    //     checkAttendanceBtn.addEventListener('click', function() {
+    //         document.getElementById(`day-${today}`).classList.add('checked');
+    //         document.getElementById("checkAttendanceBtn").style.backgroundColor="#0E2813";
+    //         document.getElementById("checkAttendanceBtn").style.width="560px";
+    //         document.getElementById("checkAttendanceBtn").style.color="#C0CBBC";
+    //         document.getElementById("checkAttendanceBtn").style.left="400px";
+    //         document.getElementById("checkAttendanceBtn").textContent="출석체크를 완료 했습니다";
+    //     });
+    //     checkAttendanceBtn.addEventListener('click', function() {
+    //         const todayDiv = document.getElementById(`day-${today}`);
+    //         todayDiv.classList.add('checked');
+    //
+    //         document.getElementById("hand").classList.remove("dn");
+    //
+    //         if (!todayDiv.querySelector('img')) {
+    //             const img = document.createElement('img');
+    //             img.src = '/images/main/check mark.png';
+    //             todayDiv.appendChild(img);
+    //         }
+    //     });
+    // });
 </script>
 <script>
     function update(e){
