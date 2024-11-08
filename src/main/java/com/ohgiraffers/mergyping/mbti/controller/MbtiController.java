@@ -9,6 +9,6 @@ public class MbtiController {
     @GetMapping("/mbti")
     public String mbtiTest() {
 
-        return "/mbti/mbti";
+        return "/mbti/mbtistart";
     }
 }

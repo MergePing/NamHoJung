@@ -218,3 +218,20 @@ nav span:hover{
 
     color: #FFFFFF;
 }
+
+#mbtiStart2{
+    position: absolute;
+    width: 599px;
+    height: 104px;
+    left: 651px;
+    top: 535px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
