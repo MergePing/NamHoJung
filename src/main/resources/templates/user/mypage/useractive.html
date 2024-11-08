@@ -69,7 +69,9 @@
         </div>
         <div class="mbti-item2">-- MBTI 검사</div>
     </div>
-    <p class="logoutfont">로그아웃</p>
+    <form th:action="@{/auth/logout}" method="post">
+        <button class="logoutFont" type="submit">로그아웃</button>
+    </form>
 </aside>
 <div class="rankpopup" id="rank-popup">
     <p class="scorefont">활동 점수 : </p>
@@ -95,13 +97,13 @@
 
 <div class="mbtipopup" id="mbtiPopup">
     <p class="horrormbti">나의 공포 MBTI</p>
-    <p class="mbticategory">CGET</p>
+    <p class="mbticategory" th:text="${mbtiInfo.MBTI_TYPE}"></p>
     <div class="mbtiexp">
-        <p class="mtbtiexp2">당신은 위험한 순간에 신중하지만
-            사람보다 귀신을 무서워하면서도
-            공포의 스릴을 즈기는 특이한 사람입니다.</p>
+        <p class="mtbtiexp2" th:text="${mbtiInfo.MBTI_INFO}"></p>
     </div>
 </div>
+
+
 
 <main>
     <div class="qickBtn">

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -50,6 +51,9 @@ public class MainController {
             // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
             MyPageDTO myPageDTO = myPageService.findNickName(userNo);
             model.addAttribute("myPageDTO", myPageDTO);
+
+            Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+            model.addAttribute("mbtiInfo", mbtiInfo);
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트

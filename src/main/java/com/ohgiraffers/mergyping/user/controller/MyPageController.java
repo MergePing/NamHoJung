@@ -131,6 +131,9 @@ public class MyPageController {
             List<MyPagePostDTO> writtenFavoriteList = myPageService.findWrittenFavorite(userNo);
             model.addAttribute("writtenFavoriteList", writtenFavoriteList);
 
+            Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+            model.addAttribute("mbtiInfo", mbtiInfo);
+
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트
             return "redirect:/login";
@@ -138,6 +141,8 @@ public class MyPageController {
 
         return "user/mypage/useractive";
     }
+
+
 
     //닉네임 중복
     @GetMapping("/checknickname")
