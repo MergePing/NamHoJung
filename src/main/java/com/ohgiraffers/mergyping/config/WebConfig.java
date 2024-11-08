@@ -11,6 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 정적 리소스 경로 설정
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:C:/lecture/MERGEPING/02-namhojung/uploads/");
+                .addResourceLocations("file:src/main/resources/static/uploads/");
     }
 }

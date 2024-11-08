@@ -34,11 +34,9 @@ public class PostController {
     public String postList(Model model) {
         List<PostDTO> postList = postService.postList();
         model.addAttribute("postList", postList);
-
         return "/post/post";
     }
 
-    // 게시글 전체조회 페이징 처리
     @GetMapping("/post/page")
     @ResponseBody
     public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
@@ -54,7 +52,6 @@ public class PostController {
         return postService.getPostCount();
     }
 
-    // 즐겨찾기 토글
     @PostMapping("/toggleFavorite")
     @ResponseBody
     public Map<String, Object> toggleFavorite(@RequestBody Map<String, Object> payload) {
@@ -68,8 +65,6 @@ public class PostController {
         return response;
     }
 
-
-    // 무서워요 토글
     @PostMapping("/toggleScary")
     @ResponseBody
     public Map<String, Object> toggleScary(@RequestBody Map<String, Object> payload) {
@@ -96,13 +91,13 @@ public class PostController {
         response.put("success", true);
         response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
         return response;
-
     }
 
     @GetMapping("/newpost")
     public String newPostPage() {
         return "post/newpost";
     }
+
     @PostMapping("/newpost")
     public ResponseEntity<Map<String, String>> createPost(
             @RequestParam("postTitle") String postTitle,
@@ -124,7 +119,7 @@ public class PostController {
                 StringBuilder combinedImages = new StringBuilder();
                 for (MultipartFile file : files) {
                     String randomFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-                    Path path = Paths.get("C:/lecture/MERGEPING/02-namhojung/uploads/" + randomFileName);
+                    Path path = Paths.get("src/main/resources/static/uploads/" + randomFileName);
                     Files.createDirectories(path.getParent());
                     Files.write(path, file.getBytes());
                     if (combinedImages.length() > 0) {
@@ -164,6 +159,7 @@ public class PostController {
         model.addAttribute("post", selected);
         return "post/selectpost";
     }
+
 
 
 

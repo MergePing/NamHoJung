@@ -105,20 +105,21 @@
         </div>
 
 
-
-
         <script>
-            const img1 = document.getElementById("img1")
+            const img1 = document.getElementById("img1");
             const img2 = document.getElementById("img2");
 
-            img1.addEventListener('click',()=>{
-                img1.classList.toggle("blur");
-            })
+            if (img1 !== null) {
+                img1.addEventListener('click', () => {
+                    img1.classList.toggle("blur");
+                });
+            }
 
-            img2.addEventListener('click',()=>{
-                img2.classList.toggle("blur");
-            })
-
+            if (img2 !== null) {
+                img2.addEventListener('click', () => {
+                    img2.classList.toggle("blur");
+                });
+            }
 
         </script>
         <div id="box">
@@ -209,41 +210,6 @@
         } }) }
 </script>
 
-<script>
-    window.addEventListener('load', () => {
-        const box = document.getElementById('box');
-        const footer = document.querySelector('footer .footer');
-
-        const boxHeight = box.offsetHeight;
-        const boxTop = box.offsetTop;
-        const footerTop = boxTop + boxHeight + 50; // 박스와의 간격을 50px로 설정
-
-        const img = document.getElementById('img2');
-        const imgBottom = img.getBoundingClientRect().bottom;
-        const contentBottom = content.getBoundingClientRect().bottom;
-        const minTop = imgBottom + 10;
-        const defaultTop1 = 250;
-        const defaultTop2 = 150;
-        if (contentBottom<1480){
-            box.style.top = `${Math.max(minTop, defaultTop1)}px`;
-
-        }
-
-        if (contentBottom>1480){
-            box.style.top = `${Math.min(minTop, defaultTop2)}px`;
-        }
-
-        setTimeout(() => {
-            const boxTop = box.getBoundingClientRect().top + window.scrollY;
-            const footerTop = boxTop + box.scrollHeight + 10;
-            footer.style.position = 'absolute';
-            footer.style.top = `${footerTop}px`;
-        }, 100);
-    });
-
-
-
-</script>
 
 <script>
     function toggleScary(element) {
@@ -281,6 +247,42 @@
                 }
             })
     }
+
+</script>
+
+<script>
+    window.addEventListener('load', () => {
+        const box = document.getElementById('box');
+        const footer = document.querySelector('footer .footer');
+
+        const boxHeight = box.offsetHeight;
+        const boxTop = box.offsetTop;
+        const footerTop = boxTop + boxHeight + 50; // 박스와의 간격을 50px로 설정
+
+        const img = document.getElementById('img2');
+        const imgBottom = img.getBoundingClientRect().bottom;
+        const contentBottom = content.getBoundingClientRect().bottom;
+        const minTop = imgBottom + 10;
+        const defaultTop1 = 250;
+        const defaultTop2 = 150;
+        if (contentBottom<1480){
+            box.style.top = `${Math.max(minTop, defaultTop1)}px`;
+
+        }
+
+        if (contentBottom>1480){
+            box.style.top = `${Math.min(minTop, defaultTop2)}px`;
+        }
+
+        setTimeout(() => {
+            const boxTop = box.getBoundingClientRect().top + window.scrollY;
+            const footerTop = boxTop + box.scrollHeight + 10;
+            footer.style.position = 'absolute';
+            footer.style.top = `${footerTop}px`;
+        }, 100);
+    });
+
+
 
 </script>
 </body>
