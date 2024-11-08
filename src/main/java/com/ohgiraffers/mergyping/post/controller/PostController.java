@@ -26,7 +26,7 @@ public class PostController {
 
     private final PostService postService;
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
-    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "pn0g","gif");
+    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png","gif");
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
@@ -161,6 +161,7 @@ public class PostController {
         }
 
 
+        //새 게시물 생성
     @PostMapping("/newpost")
     public ResponseEntity<Map<String, String>> createPost(
             @RequestParam("postTitle") String postTitle,
@@ -203,6 +204,7 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+    //파일의 이름을 날짜/게시글 번호/이미지 번호로 바꾸고 업로드 폴더에 리턴
     private String saveFile(MultipartFile file, int postNo, int imageNo) throws IOException {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String fileName = date + "/" + postNo + "/" + imageNo + "." + getFileExtension(file.getOriginalFilename());
@@ -212,7 +214,7 @@ public class PostController {
         return "/uploads/" + fileName;
     }
 
-
+// 파일 확장자 확인
     private String getFileExtension(String fileName) {
         int lastIndexOfDot = fileName.lastIndexOf('.');
         if (lastIndexOfDot == -1) {
