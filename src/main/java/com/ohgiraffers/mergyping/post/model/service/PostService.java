@@ -4,6 +4,7 @@ import com.ohgiraffers.mergyping.post.model.dao.PostMapper;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import java.util.List;
 public class PostService {
 
     private final PostMapper postMapper;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public PostService(PostMapper postMapper) {
@@ -71,7 +73,15 @@ public class PostService {
     }
 
 
-    public void createPost(SelectPostDTO selectPostDTO) { postMapper.insertPost(selectPostDTO); }
+    public void createPost(SelectPostDTO selectPostDTO) {
+        postMapper.insertPost(selectPostDTO);
+    }
 
-    public int getPostCount() { return postMapper.getPostCount();   }
+    public int getPostCount() {
+        return postMapper.getPostCount();
+    }
+
+    public int getMaxPostNo() {
+        return postMapper.getMaxPostNo();
+    }
 }

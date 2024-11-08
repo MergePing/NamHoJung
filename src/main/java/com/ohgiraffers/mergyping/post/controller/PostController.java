@@ -118,9 +118,21 @@ public class PostController {
 
     @GetMapping("/newpost")
     public String newPostPage(Model model) {
-        model.addAttribute("post", new SelectPostDTO());
+        SelectPostDTO newPost = new SelectPostDTO();
+        // 새 게시물 생성 시 고유한 postNo 값을 할당
+        newPost.setPostNo(generateNewPostNo()); // 새 postNo를 생성하는 로직을 추가합니다
+        model.addAttribute("post", newPost);
         return "post/newpost";
     }
+
+    // 새 게시물 번호를 생성하는 메서드 예시
+    private int generateNewPostNo() {
+        // postNo를 생성하는 로직을 여기에 추가합니다
+        // 예: 데이터베이스에서 최대 postNo를 가져와서 +1
+        int maxPostNo = postService.getMaxPostNo();
+        return maxPostNo + 1;
+    }
+
 
     // 첫 번째 이미지 업로드
     @PostMapping("/uploadFirstImage")
@@ -192,8 +204,12 @@ public class PostController {
                 String secondImagePath = saveFile(fileSecond, postNo,2);
                 selectPostDTO.setPostImageSecond(secondImagePath);
             }
+// postService.createPost 호출 전에 이미지 경로 확인
+            System.out.println("First Image Path: " + selectPostDTO.getPostImageFirst());
+            System.out.println("Second Image Path: " + selectPostDTO.getPostImageSecond());
 
             postService.createPost(selectPostDTO);
+
             response.put("status", "success");
             return ResponseEntity.ok(response);
 
@@ -207,12 +223,18 @@ public class PostController {
     //파일의 이름을 날짜/게시글 번호/이미지 번호로 바꾸고 업로드 폴더에 리턴
     private String saveFile(MultipartFile file, int postNo, int imageNo) throws IOException {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String fileName = date + "/" + postNo + "/" + imageNo + "." + getFileExtension(file.getOriginalFilename());
+        String fileName = date + "_" + postNo + "_" + imageNo + "." + getFileExtension(file.getOriginalFilename());
         Path path = Paths.get(UPLOAD_DIR + fileName);
         Files.createDirectories(path.getParent());
         Files.write(path, file.getBytes());
+
+        // 디버깅 로그 추가
+        System.out.println("File saved at: " + path.toString());
+
         return "/uploads/" + fileName;
     }
+
+
 
 // 파일 확장자 확인
     private String getFileExtension(String fileName) {

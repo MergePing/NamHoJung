@@ -166,5 +166,11 @@
         );
     </insert>
 
+    <select id="getMaxPostNo" resultType="int">
+            SELECT
+        MAX(POST_NO)
+        FROM TBL_POST
+    </select>
+
 
 </mapper>
