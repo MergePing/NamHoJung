@@ -29,8 +29,8 @@
   <div class="tab">
     <p id="all">전체</p>
   </div>
-  <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요">
-  <label><img th:src="@{/images/notice/Search-btn.png}"></label>
+  <input type="search" id="searchInput" placeholder="&nbsp;&nbsp;검색어를 입력하세요">
+  <label><img th:src="@{/images/notice/Search-btn.png}" id="searchButton"></label>
 
   <!-- 공지사항 목록 -->
   <div class="notices">
@@ -134,6 +134,31 @@
               } else {
                 alert('추가 실패');
               }
+            })
+            .catch(error => console.error('Error:', error));
+  });
+
+  // 검색 버튼 클릭 시 검색어를 포함한 공지사항을 서버에서 가져옴
+  document.getElementById('searchButton').addEventListener('click', function() {
+    const keyword = document.getElementById('searchInput').value;
+
+    fetch(`/admin/notice/search?keyword=${encodeURIComponent(keyword)}`)
+            .then(response => response.json())
+            .then(data => {
+              const notices = data.noticeList;
+              const noticeContainer = document.querySelector('.notices');
+              noticeContainer.innerHTML = ''; // 기존 목록을 초기화
+
+              notices.forEach(notice => {
+                const noticeElement = document.createElement('div');
+                noticeElement.classList.add('notice', 'allContent');
+                noticeElement.innerHTML = `
+          <span>${notice.noticeNo}</span>
+          <span>${notice.title}</span>
+          <img src="/images/notice/arrow-btn-dark.png" onclick="location.href='/admin/notice/detail/${notice.noticeNo}'">
+        `;
+                noticeContainer.appendChild(noticeElement);
+              });
             })
             .catch(error => console.error('Error:', error));
   });

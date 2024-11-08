@@ -27,4 +27,7 @@ public interface AdminNoticeMapper {
 
     // 공지사항 추가
     int insertNotice(AdminNoticeDTO noticeDTO);
+
+    // 공지사항 검색
+    List<AdminNoticeDTO> searchNoticesByTitle(@Param("keyword") String keyword);
 }
