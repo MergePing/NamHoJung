@@ -51,4 +51,9 @@
         WHERE NOTICE_NO = #{noticeNo}
     </delete>
 
+
+    <insert id="insertNotice" parameterType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
+        INSERT INTO TBL_NOTICE (NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, USER_TYPE)
+        VALUES (#{title}, #{content}, NOW(), COALESCE(#{userType}, '관리자'))
+    </insert>
 </mapper>

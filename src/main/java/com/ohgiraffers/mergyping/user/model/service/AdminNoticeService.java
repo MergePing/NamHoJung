@@ -38,7 +38,14 @@ public class AdminNoticeService {
         return rowsAffected > 0; // 업데이트 성공 여부 반환
     }
 
+    // 공지사항 삭제 기능
     public boolean deleteNotice(String noticeNo) {
         return adminNoticeMapper.deleteNotice(noticeNo) > 0;
+    }
+
+    // 공지사항 추가 기능
+    public boolean addNotice(AdminNoticeDTO noticeDTO) {
+        int rowsAffected = adminNoticeMapper.insertNotice(noticeDTO);
+        return rowsAffected > 0; // 추가 성공 여부 반환
     }
 }

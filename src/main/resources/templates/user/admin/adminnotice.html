@@ -1,4 +1,4 @@
-<!DOCTYPE html>ㅌ
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,11 +8,8 @@
 </head>
 <body>
 
-
-
 <header>
   <nav>
-    <!--네비바-->
     <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
     <span onclick="location.reload()">공지사항</span>
@@ -22,31 +19,31 @@
     <span>로그인</span>
     <span>회원가입</span>
   </nav>
-
 </header>
 
-<main>
+<main id="mainContent">
   <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
   <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
+  <!-- 탭 메뉴 및 검색 -->
   <div class="tab">
     <p id="all">전체</p>
-    <p id="alert">알림</p>
   </div>
-  <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요"> <label><img th:src="@{/images/notice/Search-btn.png}"></label>
+  <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요">
+  <label><img th:src="@{/images/notice/Search-btn.png}"></label>
+
+  <!-- 공지사항 목록 -->
   <div class="notices">
     <div th:each="notice : ${noticeList}" class="box">
-      <div class="notice" th:classappend="${notice.category == '알림'} ? 'alertContent allContent' : 'allContent'">
+      <div class="notice" th:classappend="'allContent'">
         <span th:text="${notice.noticeNo}"></span>
-        <div><span th:text="${notice.category}"></span></div>
         <span th:text="${notice.title}"></span>
-
-        <img th:src="@{/images/notice/arrow-btn-dark.png}"
-             th:onclick="|location.href='/admin/notice/detail/' + ${notice.noticeNo}|">
+        <img th:src="@{/images/notice/arrow-btn-dark.png}" th:onclick="|location.href='/admin/notice/detail/' + ${notice.noticeNo}|">
       </div>
     </div>
   </div>
 
+  <!-- 페이지네이션 -->
   <div class="pageNum">
     <a th:href="@{'/admin/notice?page=' + (${currentPage} - 1)}" th:if="${currentPage > 1}">
       <img th:src="@{/images/notice/pre-btn.png}">
@@ -57,9 +54,90 @@
     </a>
   </div>
 </main>
+
+<!-- 공지사항 추가 버튼 -->
+<div class="button-container">
+  <button id="addNoticeButton">공지사항 추가</button>
+  <button id="cancelButton" style="display: none;">취소</button>
+</div>
+
+<!-- 작성 폼 -->
+<div id="addForm" style="display: none;">
+  <input type="text" id="noticeTitle" placeholder="제목을 입력해주세요">
+  <textarea id="noticeContent" placeholder="내용을 입력해주세요"></textarea>
+  <button id="submitNoticeButton">제출</button>
+</div>
+
+<script>
+  document.getElementById('addNoticeButton').addEventListener('click', function() {
+    const addForm = document.getElementById('addForm');
+    const mainContent = document.getElementById('mainContent');
+    const cancelButton = document.getElementById('cancelButton');
+    const addNoticeButton = document.getElementById('addNoticeButton');
+    const submitNoticeButton = document.getElementById('submitNoticeButton');
+
+    // 이미지 외의 모든 메인 콘텐츠 요소 숨기기
+    Array.from(mainContent.children).forEach(element => {
+      if (element.tagName !== 'IMG') {
+        element.style.display = 'none';
+      }
+    });
+
+    // 작성 폼 및 취소 버튼 표시, 공지사항 추가 버튼 숨기기
+    addForm.style.display = 'block';
+    submitNoticeButton.style.display = 'inline-block'; // 제출 버튼을 그 자리에 표시
+    addNoticeButton.style.display = 'none'; // 공지사항 추가 버튼 숨기기
+    cancelButton.style.display = 'inline-block';
+  });
+
+  // 취소 버튼 클릭 시 모든 요소를 원래대로 복구
+  document.getElementById('cancelButton').addEventListener('click', function() {
+    const addForm = document.getElementById('addForm');
+    const mainContent = document.getElementById('mainContent');
+    const addNoticeButton = document.getElementById('addNoticeButton');
+    const submitNoticeButton = document.getElementById('submitNoticeButton');
+
+    // 모든 메인 콘텐츠 요소 다시 표시
+    Array.from(mainContent.children).forEach(element => {
+      element.style.display = 'block';
+    });
+
+    // 작성 폼, 제출 버튼 및 취소 버튼 숨기기, 공지사항 추가 버튼 다시 표시
+    addForm.style.display = 'none';
+    submitNoticeButton.style.display = 'none';
+    addNoticeButton.style.display = 'inline-block';
+    this.style.display = 'none';
+  });
+
+  // 제출 버튼 클릭 시 서버로 데이터 전송
+  document.getElementById('submitNoticeButton').addEventListener('click', function() {
+    const title = document.getElementById('noticeTitle').value;
+    const content = document.getElementById('noticeContent').value;
+
+    if (!title || !content) {
+      alert("제목과 내용을 입력해주세요.");
+      return;
+    }
+
+    fetch('/admin/notice/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ title, content })
+    })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert('공지사항이 추가되었습니다.');
+                location.reload();
+              } else {
+                alert('추가 실패');
+              }
+            })
+            .catch(error => console.error('Error:', error));
+  });
+</script>
+
 </body>
-
-
-
-
 </html>
