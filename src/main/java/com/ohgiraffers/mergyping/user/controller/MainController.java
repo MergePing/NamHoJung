@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +81,27 @@ public class MainController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
         }
     }
+    @PostMapping("/attendenceCheck")
+    @ResponseBody
+    public String checkAttendance() {
+        // 현재 로그인한 유저 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            String todayStr = LocalDate.now().toString();
+
+            // 통합된 출석 체크 및 누적 증가 메서드 호출
+            return myPageService.checkAndIncrementAttendance(userNo, todayStr);
+
+
+
+        }
+        return "로그인 정보가 없습니다.";
+    }
+
 
     @GetMapping("/intro")
     public String intro(){return "/main/intro/intro";}

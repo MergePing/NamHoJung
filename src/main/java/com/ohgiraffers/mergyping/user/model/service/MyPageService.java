@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,4 +70,23 @@ public class MyPageService {
     public Map<String, Object> findUserMBTIInfo(int userNo) {
         return myPageMapper.findUserMBTIInfo(userNo);
     }
+
+    @Transactional
+    public String checkAndIncrementAttendance(int userNo, String todayStr) {
+        // 출석 체크 여부 확인
+        if (myPageMapper.hasCheckedToday(userNo, todayStr)) {
+            return "이미 출석을 체크하셨습니다.";
+        }
+
+        // 출석 체크 등록
+        myPageMapper.checkAttendance(userNo, todayStr);
+
+        // 누적 출석 수 증가
+        System.out.println("누적 출석 수 증가 쿼리 실행: " + userNo);
+        myPageMapper.incrementAttendanceCount(userNo);
+
+        return "출석 체크가 완료되었습니다.";
+
+    }
 }
+
