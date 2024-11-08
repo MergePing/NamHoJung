@@ -95,6 +95,9 @@ public class MainController {
 
             // 통합된 출석 체크 및 누적 증가 메서드 호출
             return myPageService.checkAndIncrementAttendance(userNo, todayStr);
+
+
+
         }
         return "로그인 정보가 없습니다.";
     }
