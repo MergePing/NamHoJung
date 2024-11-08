@@ -221,6 +221,7 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
     //파일의 이름을 날짜/게시글 번호/이미지 번호로 바꾸고 업로드 폴더에 리턴
     private String saveFile(MultipartFile file, int postNo, int imageNo) throws IOException {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -234,6 +235,7 @@ public class PostController {
 
         return "/uploads/" + fileName;
     }
+
 
 
 
