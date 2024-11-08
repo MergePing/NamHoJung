@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="resolution">
-    <img class="background" s>
+    <img class="background" th:src="@{/images/mbti/mbtiBackground.png}" alt="mbti 테스트 배경">
 <nav>
     <!--네비바-->
     <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
@@ -22,7 +22,9 @@
     </form>
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
 </nav>
-
+    <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
+    <img id="bookIco" th:src="@{/images/icon/book.png}" alt="MBTI 시작 전 문구 아이콘">
+    <p id="mbtiStart">공포 MBTI 테스트</p>
 </div>
 </body>
 </html>

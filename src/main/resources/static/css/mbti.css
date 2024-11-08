@@ -173,6 +173,7 @@ nav span:hover{
     position: relative;
     width: 1920px;
     height: 1080px;
+    z-index: -1;
 
     background: #FFFFFF;
 }
@@ -183,4 +184,37 @@ nav span:hover{
     height: 1107px;
 }
 
-/*  */
+/* mbti start */
+
+#testBack {
+    position: absolute;
+    width: 1800px;
+    height: 897px;
+    left: 63px;
+    top: 131px;
+}
+
+#bookIco{
+    position: absolute;
+    width: 105px;
+    height: 105px;
+    left: 607px;
+    top: 384px;
+}
+
+#mbtiStart{
+    position: absolute;
+    width: 529px;
+    height: 82px;
+    left: 759px;
+    top: 388px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 80px;
+    line-height: 82px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
