@@ -57,15 +57,16 @@ public class PostController {
 
         // 이미지 경로 설정
         if (selected.getPostImageFirst() != null) {
-            selected.setPostImageFirst("/uploads/" + selected.getPostImageFirst());
+            selected.setPostImageFirst(selected.getPostImageFirst());
         }
         if (selected.getPostImageSecond() != null) {
-            selected.setPostImageSecond("/uploads/" + selected.getPostImageSecond());
+            selected.setPostImageSecond(selected.getPostImageSecond());
         }
 
         model.addAttribute("post", selected);
         return "post/selectpost"; // 이 부분이 HTML 파일과 매핑되는지 확인
     }
+
 
 
 
