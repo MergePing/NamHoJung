@@ -9,8 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MbtiController {
 
     @GetMapping()
-    public String mbtiTest() {
+    public String mbtiStart() {
 
         return "/mbti/mbtistart";
+    }
+
+    @GetMapping("/test")
+    public String mbtiTest() {
+
+        return "/mbti/mbtitest";
     }
 }

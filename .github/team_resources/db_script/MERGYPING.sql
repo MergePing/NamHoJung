@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `TBL_USER`
     `DELETE_DATE` DATE COMMENT '탈퇴 날짜',
     `USER_SIGN_DATE` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '가입 날짜',
     `USER_GENDER` ENUM('MALE', 'FEMALE', 'OTHER') DEFAULT 'OTHER' COMMENT '성별',
+    `MBTI_STATUS` BOOLEAN NOT NULL DEFAULT FALSE COMMENT 'MBTI 검사 유무',
     -- CONSTRAINT FK_LEVEL_NO FOREIGN KEY (LEVEL_NO) REFERENCES TBL_LEVEL (LEVEL_NO),
     PRIMARY KEY ( `USER_NO` )
     )ENGINE = INNODB COMMENT = '회원';
@@ -128,7 +129,7 @@ DROP TABLE IF EXISTS `TBL_MBTI`;
 CREATE TABLE IF NOT EXISTS `TBL_MBTI`
 (
     `MBTI_NO`    INT NOT NULL AUTO_INCREMENT COMMENT 'MBTI 번호',
-    `MBTI_TYPE`    VARCHAR(255) NOT NULL COMMENT 'MBTI 유형',
+    `MBTI_TYPE`    VARCHAR(255) COMMENT 'MBTI 유형',
     `MBTI_STATUS`    BOOLEAN NOT NULL COMMENT 'MBTI 테스트 유무',
     `USER_NO`    INT NOT NULL COMMENT '회원번호',
     FOREIGN KEY (MBTI_TYPE) REFERENCES TBL_MBTI_INFO (MBTI_TYPE) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -175,22 +176,22 @@ CREATE TABLE IF NOT EXISTS `TBL_REPORT`
 SET FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO `TBL_USER` () VALUES
-                              (1, 'ADMIN', 'whdudtjr0', 'password11', '조영석', 'whdudtjr0@gmail.com', '1999-01-29', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER'),
-                              (2, 'USER', 'user12', 'password12', '홍길동', 'user12@example.com', '1990-01-01', NULL, 1, TRUE, '2024-10-29', '2024-10-28', 'MALE'),
-                              (3, 'USER', 'user13', 'password13', '아무개', 'user13@example.com', '1985-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'FEMALE'),
-                              (4, 'USER', 'user14', 'password14', '테스트', 'user14@gmail.com', '2000-01-01', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER'),
-                              (5, 'USER', 'user15', 'password15', '테씃트', 'user15@example.com', '2001-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER'),
-                              (6, 'USER', 'user16', 'password16', '테트트', 'user16@example.com', '2003-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER'),
-                              (7, 'USER', 'user17', 'password17', '스테트', 'user17@example.com', '2000-02-23', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER'),
-                              (8, 'USER', 'user18', 'password18', '트스테', 'user18@example.com', '1999-01-24', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (9, 'USER', 'user19', 'password19', '길홍동', 'user19@example.com', '1997-03-23', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (10, 'USER', 'user20', 'password20', '무개이2', 'user20@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (11, 'USER', 'user21', 'password20', '무개이3', 'user230@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (12, 'USER', 'user22', 'password20', '무개4', 'user240@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (13, 'USER', 'user23', 'password20', '무개이5', 'user206@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (14, 'USER', 'user24', 'password20', '무개6', 'user207@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (15, 'USER', 'user25', 'password20', '무개이7', 'user208@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER'),
-                              (16, 'USER', 'user26', 'password20', '무개이8', 'user209@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER');
+                              (1, 'ADMIN', 'whdudtjr0', 'password11', '조영석', 'whdudtjr0@gmail.com', '1999-01-29', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE),
+                              (2, 'USER', 'user12', 'password12', '홍길동', 'user12@example.com', '1990-01-01', NULL, 1, TRUE, '2024-10-29', '2024-10-28', 'MALE', TRUE),
+                              (3, 'USER', 'user13', 'password13', '아무개', 'user13@example.com', '1985-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'FEMALE', TRUE),
+                              (4, 'USER', 'user14', 'password14', '테스트', 'user14@gmail.com', '2000-01-01', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE),
+                              (5, 'USER', 'user15', 'password15', '테씃트', 'user15@example.com', '2001-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE),
+                              (6, 'USER', 'user16', 'password16', '테트트', 'user16@example.com', '2003-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER',TRUE),
+                              (7, 'USER', 'user17', 'password17', '스테트', 'user17@example.com', '2000-02-23', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE),
+                              (8, 'USER', 'user18', 'password18', '트스테', 'user18@example.com', '1999-01-24', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (9, 'USER', 'user19', 'password19', '길홍동', 'user19@example.com', '1997-03-23', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (10, 'USER', 'user20', 'password20', '무개이2', 'user20@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (11, 'USER', 'user21', 'password20', '무개이3', 'user230@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (12, 'USER', 'user22', 'password20', '무개4', 'user240@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (13, 'USER', 'user23', 'password20', '무개이5', 'user206@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (14, 'USER', 'user24', 'password20', '무개6', 'user207@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (15, 'USER', 'user25', 'password20', '무개이7', 'user208@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE),
+                              (16, 'USER', 'user26', 'password20', '무개이8', 'user209@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE);
 
 INSERT INTO TBL_LEVEL () VALUES
                              (NULL,"신입 정원사",1),
@@ -491,6 +492,12 @@ INSERT INTO TBL_COMMENT VALUES (null,'이야기 중간에 심장이 뛴다고 �
 INSERT INTO TBL_COMMENT VALUES (null,'진짜 이런 일이 있다면 어떻게 해야 할까요?', 8,17,'2024-10-28',4);
 INSERT INTO TBL_COMMENT VALUES (null,'마치 제 이야기를 듣는 것 같아서 소름 돋았어요.', 9,18,'2024-10-28',5);
 INSERT INTO TBL_COMMENT VALUES (null,'공포 소설의 진수를 보여주네요! 더 많은 이야기 부탁해요.', 10,19,'2024-10-28',6);
+
+INSERT INTO TBL_MBTI_INFO VALUES (
+                                     'NONE',
+                                     'MBTI 검사정보 없음',
+                                     '당신은 MBTI 검사를 실시하지 않았습니다.'
+                                 );
 
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHET',

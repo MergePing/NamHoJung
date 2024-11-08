@@ -327,3 +327,23 @@ nav span:hover{
     margin-top: 2px;
     margin-left: 2px;
 }
+
+.hands{
+    position: absolute;
+    width: 1000px;
+    height: 500px;
+    left: 450px;
+    top: 605px;
+    animation: effect 0.35s ease-out;
+}
+
+@keyframes effect {
+    from {
+        opacity: 1;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 3;
+        transform: none;
+    }
+}

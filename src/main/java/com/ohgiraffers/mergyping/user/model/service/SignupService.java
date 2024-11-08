@@ -6,23 +6,30 @@ import com.ohgiraffers.mergyping.user.model.dto.SignupDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
 @Service
 public class SignupService {
 
-    @Autowired
-    private SignupMapper signupMapper;
+    private final SignupMapper signupMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+    @Autowired
+    public SignupService(SignupMapper signupMapper) {
+        this.signupMapper = signupMapper;
+    }
+
+    @Transactional
     public int regist(SignupDTO signupDTO) {
         signupDTO.setUserPass(passwordEncoder.encode(signupDTO.getUserPass()));
-
+        signupMapper.regist(signupDTO);
+        signupMapper.registMbti(signupDTO);
         int result = 0;
-
         try{
             result = signupMapper.regist(signupDTO);
         } catch (Exception e) {
