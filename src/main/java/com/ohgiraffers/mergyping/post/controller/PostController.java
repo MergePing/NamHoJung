@@ -23,7 +23,7 @@ import java.util.*;
 public class PostController {
 
     private final PostService postService;
-    private static final String UPLOAD_DIR = "uploads/";
+    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
 
     @Autowired
     public PostController(PostService postService) {
@@ -54,9 +54,6 @@ public class PostController {
         return postService.getPostCount();
     }
 
-
-
-
     // 즐겨찾기 토글
     @PostMapping("/toggleFavorite")
     @ResponseBody
@@ -71,17 +68,6 @@ public class PostController {
         return response;
     }
 
-    // 게시글 상세조회 페이지
-    @GetMapping("/selectpost/{postNo}")
-    public String selectById(@PathVariable("postNo") int postNo, Model model) {
-        SelectPostDTO selected = postService.selectById(postNo);
-        if (selected == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
-        }
-        model.addAttribute("post", selected);
-        System.out.println("selected = " + selected);
-        return "post/selectpost";
-    }
 
     // 무서워요 토글
     @PostMapping("/toggleScary")
@@ -117,7 +103,6 @@ public class PostController {
     public String newPostPage() {
         return "post/newpost";
     }
-
     @PostMapping("/newpost")
     public ResponseEntity<Map<String, String>> createPost(
             @RequestParam("postTitle") String postTitle,
@@ -138,13 +123,14 @@ public class PostController {
             if (files != null && !files.isEmpty()) {
                 StringBuilder combinedImages = new StringBuilder();
                 for (MultipartFile file : files) {
-                    Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+                    String randomFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+                    Path path = Paths.get("C:/lecture/MERGEPING/02-namhojung/uploads/" + randomFileName);
                     Files.createDirectories(path.getParent());
                     Files.write(path, file.getBytes());
                     if (combinedImages.length() > 0) {
                         combinedImages.append(",");
                     }
-                    combinedImages.append(path.toString());
+                    combinedImages.append(randomFileName);
                 }
                 selectPostDTO.setPostImage(combinedImages.toString().getBytes(StandardCharsets.UTF_8));
             }
@@ -161,6 +147,26 @@ public class PostController {
         }
     }
 
+    @GetMapping("/selectpost/{postNo}")
+    public String selectById(@PathVariable("postNo") int postNo, Model model) {
+        SelectPostDTO selected = postService.selectById(postNo);
+        if (selected == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
+
+        // 이미지 경로 설정
+        if (selected.getPostImage() != null) {
+            String[] imagePaths = new String(selected.getPostImage(), StandardCharsets.UTF_8).split(",");
+            if (imagePaths.length > 0) selected.setPostImage1("/uploads/" + imagePaths[0]);
+            if (imagePaths.length > 1) selected.setPostImage2("/uploads/" + imagePaths[1]);
+        }
+
+        model.addAttribute("post", selected);
+        return "post/selectpost";
+    }
+
+
+
     @PostMapping("/upload")
     @ResponseBody
     public Map<String, String> uploadFile(@RequestParam("file") MultipartFile file) {
@@ -172,11 +178,12 @@ public class PostController {
 
         try {
             // 파일 저장 경로 설정
-            Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
+            String randomFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            Path path = Paths.get(UPLOAD_DIR + randomFileName);
             Files.createDirectories(path.getParent());
             Files.write(path, file.getBytes());
 
-            response.put("filePath", path.toString());
+            response.put("filePath", "/uploads/" + randomFileName);
             return response;
         } catch (IOException e) {
             e.printStackTrace();
@@ -184,4 +191,5 @@ public class PostController {
             return response;
         }
     }
+
 }

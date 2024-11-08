@@ -100,9 +100,13 @@
         <div class="line"></div>
         <div id="content">
             <span th:text="${post.postContent}"></span>
-            <img th:src="@{/images/post/selectpost/img1.png}" class="blur" id="img1">
-            <img th:src="@{/images/post/selectpost/img2.png}" class="blur" id="img2">
+            <img th:src="@{'/uploads/' + ${post.postImage1}}" th:if="${post.postImage1 != null}" class="blur" id="img1">
+            <img th:src="@{'/uploads/' + ${post.postImage2}}" th:if="${post.postImage2 != null}" class="blur" id="img2">
         </div>
+
+
+
+
         <script>
             const img1 = document.getElementById("img1")
             const img2 = document.getElementById("img2");
@@ -221,7 +225,7 @@
         const defaultTop1 = 250;
         const defaultTop2 = 150;
         if (contentBottom<1480){
-        box.style.top = `${Math.max(minTop, defaultTop1)}px`;
+            box.style.top = `${Math.max(minTop, defaultTop1)}px`;
 
         }
 

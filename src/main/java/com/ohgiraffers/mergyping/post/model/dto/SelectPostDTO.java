@@ -14,14 +14,16 @@ public class SelectPostDTO {
     private int notScaryNumber;
     private int commentNumber;
     private int postReport;
-    private byte[] postImage;
+    private byte[] postImage = new byte[0];
     private boolean postFavorite;
     private boolean scary;
     private boolean notScary;
+    private String postImage1;
+    private String postImage2;
 
     public SelectPostDTO() {}
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, byte[] postImage, boolean postFavorite, boolean scary, boolean notScary) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, byte[] postImage, boolean postFavorite, boolean scary, boolean notScary, String postImage1, String postImage2) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -36,11 +38,10 @@ public class SelectPostDTO {
         this.postFavorite = postFavorite;
         this.scary = scary;
         this.notScary = notScary;
+        this.postImage1 = postImage1;
+        this.postImage2 = postImage2;
     }
 
-
-
-    // Getters and setters for all fields
     public int getPostNo() {
         return postNo;
     }
@@ -153,6 +154,22 @@ public class SelectPostDTO {
         this.notScary = notScary;
     }
 
+    public String getPostImage1() {
+        return postImage1;
+    }
+
+    public void setPostImage1(String postImage1) {
+        this.postImage1 = postImage1;
+    }
+
+    public String getPostImage2() {
+        return postImage2;
+    }
+
+    public void setPostImage2(String postImage2) {
+        this.postImage2 = postImage2;
+    }
+
     @Override
     public String toString() {
         return "SelectPostDTO{" +
@@ -170,6 +187,8 @@ public class SelectPostDTO {
                 ", postFavorite=" + postFavorite +
                 ", scary=" + scary +
                 ", notScary=" + notScary +
+                ", postImage1='" + postImage1 + '\'' +
+                ", postImage2='" + postImage2 + '\'' +
                 '}';
     }
 }

@@ -57,8 +57,8 @@
 <main>
   <div class="qickBtn">
     <!--플로팅 버튼-->
-        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+    <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+    <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
     <div class="clikbtn tr">
       <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
       <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
@@ -68,71 +68,71 @@
   </div>
   <div class="post">
     <form id="postForm" th:action="@{/newpost}" method="post" enctype="multipart/form-data">
-    <div id="header">
+      <div id="header">
       <span id="title">
         <input type="text" id="postTitle" name="postTitle" value="제목 : 게시글 제목을 입력해 주세요">
       </span>
-      <button type="button" onclick="submitForm()">작성</button>
-      <button type="button" onclick="location.href='/post'">취소</button>
-      <script>
-        window.addEventListener('load', () => {
-          const title = document.getElementById("title");
+        <button type="button" onclick="submitForm()">작성</button>
+        <button type="button" onclick="location.href='/post'">취소</button>
+        <script>
+          window.addEventListener('load', () => {
+            const title = document.getElementById("title");
 
-          const checkTitleWidth = () => {
-            const titleWidth = title.offsetWidth;
-            if (titleWidth > 1000) {
-              title.style.fontSize = '35px';
-              title.style.marginTop='15px';
-              title.style.marginLeft='130px';
-            } else {
-              title.style.fontSize = ''; // 기본 폰트 크기로 되돌림
-            }
-          };
+            const checkTitleWidth = () => {
+              const titleWidth = title.offsetWidth;
+              if (titleWidth > 1000) {
+                title.style.fontSize = '35px';
+                title.style.marginTop='15px';
+                title.style.marginLeft='130px';
+              } else {
+                title.style.fontSize = ''; // 기본 폰트 크기로 되돌림
+              }
+            };
 
-          // 페이지 로드 시 및 윈도우 리사이즈 시 폰트 크기 체크
-          checkTitleWidth();
-          window.addEventListener('resize', checkTitleWidth);
-        });
-      </script>
-    </div>
+            // 페이지 로드 시 및 윈도우 리사이즈 시 폰트 크기 체크
+            checkTitleWidth();
+            window.addEventListener('resize', checkTitleWidth);
+          });
+        </script>
+      </div>
 
-    <div class="line"></div>
-    <div id="content">
+      <div class="line"></div>
+      <div id="content">
       <pre>
         <b>* 게시글 작성 시 유의사항 안내 *</b>
       1. 다른 사람의 개인정보(이름, 주소, 전화번호 등)를 포함한 게시글은 금지합니다. 이는 개인정보 보호법 위반에 해당되며  심각한 법적 문제를 초래할 수 있습니다.
       2. 특정인에 대한 괴롭힘을 조장하는 내용, 욕설이나 악의적인 내용, 상업적인 홍보 등은 사이트 운영규칙 위반에 해당되어 관리자가 삭제할 수 있습니다.
       3. 다른 사람의 창작물이나 저작권이 있는 자료를 허가 없이 사용하거나 게시하지 마세요. 이는 저작권법을 위반하는 행위로, 법적 문제를 일으킬 수 있습니다.
       </pre>
-      <textarea  name="postContent" id="postContent" rows="1">
+        <textarea  name="postContent" id="postContent" rows="1">
    이곳에 게시글을 작성 해주세요
       </textarea>
-      <input type="file" id="fileInput1" style="display: none;" onchange="uploadFile(1)" />
-      <input type="file" id="fileInput2" style="display: none;" onchange="uploadFile(2)" />
-      <img id="img1" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
-      <img id="img2" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" /> </div>
+        <input type="file" id="fileInput1" style="display: none;" onchange="uploadFile(1)" />
+        <input type="file" id="fileInput2" style="display: none;" onchange="uploadFile(2)" />
+        <img id="img1" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
+        <img id="img2" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" /> </div>
 
-    <div id="box">
-      <div id="Writer">
-        <img th:src="@{/images/post/selectpost/profile-img.png}">
-        <span id="level">최고의 정원사</span>
-        <div class="wrapper">
-        <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>
-          <img th:src="@{/images/post/selectpost/badge.png}">
+      <div id="box">
+        <div id="Writer">
+          <img th:src="@{/images/post/selectpost/profile-img.png}">
+          <span id="level">최고의 정원사</span>
+          <div class="wrapper">
+            <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>
+            <img th:src="@{/images/post/selectpost/badge.png}">
+          </div>
         </div>
-      </div>
 
-      <div class="line2"></div>
-      <div id="category">
-        <span>카테고리</span>
-        <input id="SF" type="button" value="SF" onclick="selectCategory(this)" />
-        <input id="real" type="button" value="실화" onclick="selectCategory(this)" />
-        <input id="horror" type="button" value="괴담" onclick="selectCategory(this)" />
-        <input id="thrill" type="button" value="스릴러" onclick="selectCategory(this)" />
-        <input id="mystery" type="button" value="미스테리" onclick="selectCategory(this)" />
+        <div class="line2"></div>
+        <div id="category">
+          <span>카테고리</span>
+          <input id="SF" type="button" value="SF" onclick="selectCategory(this)" />
+          <input id="real" type="button" value="실화" onclick="selectCategory(this)" />
+          <input id="horror" type="button" value="괴담" onclick="selectCategory(this)" />
+          <input id="thrill" type="button" value="스릴러" onclick="selectCategory(this)" />
+          <input id="mystery" type="button" value="미스테리" onclick="selectCategory(this)" />
+        </div>
+        <input type="hidden" id="postCategory" name="postCategory" value=""/>
       </div>
-      <input type="hidden" id="postCategory" name="postCategory" value=""/>
-    </div>
     </form>
   </div>
 
@@ -162,18 +162,37 @@
 
 
 <script>
+  let images = {};
+  function uploadFile(index) {
+    const fileInput = document.getElementById(`fileInput${index}`);
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/upload', {
+      method: 'POST',
+      body: formData
+    })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+              document.getElementById(`img${index}`).src = URL.createObjectURL(file);
+              images[`img${index}`] = data.filePath;
+            });
+  }
+
   function submitForm() {
     const form = document.getElementById('postForm');
-
-    // AJAX 요청을 통해 비동기적으로 폼 데이터를 전송
     const formData = new FormData(form);
+    formData.append('img1', images['img1']);
+    formData.append('img2', images['img2']);
     fetch(form.action, {
       method: 'POST',
       body: formData,
     })
             .then(response => {
               if (response.ok) {
-                window.location.href = '/post'; // 폼 제출 후 리다이렉트
+                window.location.href = '/post'; // Redirect after form submission
               } else {
                 return response.json().then(err => { throw err; });
               }
@@ -182,31 +201,12 @@
               console.error('Error:', error);
             });
 
-    // 기본 폼 제출 동작을 막아줍니다.
     return false;
   }
 
+
 </script>
 
-<script>
-let images = {};
-function uploadFile(index) {
-  const fileInput = document.getElementById(`fileInput${index}`);
-  const file = fileInput.files[0];
-  const formData = new FormData();
-  formData.append('file', file);
-
-  fetch('/upload', {
-    method: 'POST',
-    body: formData
-  })
-   .then(response => response.json())
-   .then(data => { console.log('Success:', data);
-     document.getElementById(`img${index}`).src = URL.createObjectURL(file);
-     images[`img${index}`] = data.filePath;
-   })
-}
-</script>
 
 <script>
   window.addEventListener('load', () => {

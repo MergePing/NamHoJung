@@ -118,7 +118,7 @@
         let number =0
         let visibleStart =1;
         if (totalPageCount<=number){
-        number =number+1;
+            number =number+1;
         }
 
         function loadPosts(page) {
@@ -201,7 +201,7 @@
                 loadPosts(currentPage - 1);
             }
 
-    });
+        });
         document.getElementById('img2').addEventListener('click', () => {
             if (visibleStart + 1 < totalPageCount+number+2) {
                 visibleStart++;
