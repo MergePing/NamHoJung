@@ -91,23 +91,10 @@ public class MainController {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
 
-            // 오늘 날짜 확인
-            LocalDate today = LocalDate.now();
-            String todayStr = today.toString();  // "YYYY-MM-DD" 형식
+            String todayStr = LocalDate.now().toString();
 
-            // 출석 체크 여부 확인
-            boolean hasCheckedToday = myPageService.hasCheckedToday(userNo, todayStr);
-            if (hasCheckedToday) {
-                return "이미 출석을 체크하셨습니다.";  // 이미 출석한 경우
-            }
-
-            // 출석 체크 등록
-            myPageService.checkAttendance(userNo, todayStr);
-
-            // 누적 출석 수 증가
-            myPageService.incrementAttendanceCount(userNo);
-
-            return "출석 체크가 완료되었습니다.";
+            // 통합된 출석 체크 및 누적 증가 메서드 호출
+            return myPageService.checkAndIncrementAttendance(userNo, todayStr);
         }
         return "로그인 정보가 없습니다.";
     }

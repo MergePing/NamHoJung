@@ -36,7 +36,7 @@ public interface MyPageMapper {
 
     boolean hasCheckedToday(@Param("userNo") int userNo, @Param("today") String todayStr);
 
-    void checkAttendance(@Param("userNo") int userNo,  @Param("today") String todayStr);
+    void checkAttendance(@Param("userNo") int userNo, @Param("today") String todayStr);
 
     void incrementAttendanceCount(@Param("userNo") int userNo);
 }

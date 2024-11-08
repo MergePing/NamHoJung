@@ -71,17 +71,22 @@ public class MyPageService {
         return myPageMapper.findUserMBTIInfo(userNo);
     }
 
+    @Transactional
+    public String checkAndIncrementAttendance(int userNo, String todayStr) {
+        // 출석 체크 여부 확인
+        if (myPageMapper.hasCheckedToday(userNo, todayStr)) {
+            return "이미 출석을 체크하셨습니다.";
+        }
 
-    public boolean hasCheckedToday(int userNo, String todayStr) {
-        return myPageMapper.hasCheckedToday(userNo, todayStr);
-    }
-
-    public void checkAttendance(int userNo, String todayStr) {
+        // 출석 체크 등록
         myPageMapper.checkAttendance(userNo, todayStr);
-    }
 
-    public void incrementAttendanceCount(int userNo) {
+        // 누적 출석 수 증가
+        System.out.println("누적 출석 수 증가 쿼리 실행: " + userNo);
         myPageMapper.incrementAttendanceCount(userNo);
+
+        return "출석 체크가 완료되었습니다.";
+
     }
 }
 

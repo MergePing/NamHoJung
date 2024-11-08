@@ -131,7 +131,7 @@
     <!-- 누적 출석 수 증가 -->
     <update id="incrementAttendanceCount">
         UPDATE TBL_USER
-        SET CHECK_ALL_NO = CHECK_ALL_NO + 1
+        SET CHECK_ALL_NO = IFNULL(CHECK_ALL_NO, 0) + 1
         WHERE USER_NO = #{userNo}
     </update>
 </mapper>
