@@ -168,7 +168,8 @@
   function uploadFile(index) {
     const fileInput = document.getElementById(`fileInput${index}`);
     const file = fileInput.files[0];
-    const postNo = document.getElementById('postNo').value; // postNo 값을 가져옴
+    // parseInt = 문자열을 정수로 반환하는 함수 (바꾸려는 값, 진수(10진수)
+    const postNo = parseInt(document.getElementById('postNo').value, 10); // 문자열에서 정수로 변환
     const formData = new FormData();
     formData.append('file', file);
     formData.append('postNo', postNo); // postNo 추가
