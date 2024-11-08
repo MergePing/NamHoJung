@@ -124,7 +124,7 @@ nav span:nth-child(6){
     width: 100px;
     height: 21px;
     left: 1670px;
-    top: 27px;
+    top: 29px;
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 20px;
@@ -173,7 +173,6 @@ nav span:hover{
     position: relative;
     width: 1920px;
     height: 1080px;
-    z-index: -1;
 
     background: #FFFFFF;
 }
@@ -192,6 +191,17 @@ nav span:hover{
     height: 897px;
     left: 63px;
     top: 131px;
+    box-sizing: border-box;
+}
+
+#testBack2 {
+    position: absolute;
+    width: 1545px;
+    height: 774px;
+    box-sizing: border-box;
+    left: 180px;
+    top: 200px;
+    border: 10px solid #FFFFFF;
 }
 
 #bookIco{
@@ -217,6 +227,13 @@ nav span:hover{
     text-align: center;
 
     color: #FFFFFF;
+    z-index: 0;
+}
+#mbtiStart::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
 }
 
 #mbtiStart2{
@@ -232,6 +249,81 @@ nav span:hover{
     font-size: 50px;
     line-height: 52px;
     text-align: center;
+    z-index: 0;
 
     color: #FFFFFF;
+}
+
+#mbtiStart2::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
+}
+
+#yes{
+    position: absolute;
+    width: 50px;
+    height: 52px;
+    left: 746px;
+    top: 713px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+    z-index: 0;
+    border-radius: 999px;
+    cursor: pointer;
+}
+#yes::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
+}
+#yes:hover{
+    color:yellow;
+}
+#yes:active{
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+#no{
+    position: absolute;
+    width: 150px;
+    height: 52px;
+    left: 1038px;
+    top: 713px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+    z-index: 0;
+    border-radius: 999px;
+    cursor: pointer;
+}
+#no::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
+}
+
+#no:hover{
+    color:yellow;
+}
+#no:active{
+    margin-top: 2px;
+    margin-left: 2px;
 }
