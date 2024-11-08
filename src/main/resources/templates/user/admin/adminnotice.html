@@ -21,20 +21,13 @@
   </nav>
 </header>
 
-<main>
+<main id="mainContent">
   <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
   <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
-
-  <!-- 작성 폼 -->
-  <div id="addForm" style="display: none;">
-    <input type="text" id="noticeTitle" placeholder="제목을 입력해주세요">
-    <textarea id="noticeContent" placeholder="내용을 입력해주세요"></textarea>
-  </div>
 
   <!-- 탭 메뉴 및 검색 -->
   <div class="tab">
     <p id="all">전체</p>
-    <p id="alert">알림</p>
   </div>
   <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요">
   <label><img th:src="@{/images/notice/Search-btn.png}"></label>
@@ -64,32 +57,60 @@
 
 <!-- 공지사항 추가 버튼 -->
 <div class="button-container">
-  <button id="addNoticeButton">제출</button>
+  <button id="addNoticeButton">공지사항 추가</button>
   <button id="cancelButton" style="display: none;">취소</button>
+</div>
+
+<!-- 작성 폼 -->
+<div id="addForm" style="display: none;">
+  <input type="text" id="noticeTitle" placeholder="제목을 입력해주세요">
+  <textarea id="noticeContent" placeholder="내용을 입력해주세요"></textarea>
+  <button id="submitNoticeButton">제출</button>
 </div>
 
 <script>
   document.getElementById('addNoticeButton').addEventListener('click', function() {
     const addForm = document.getElementById('addForm');
-    const mainElements = document.querySelectorAll('.tab, .notices, .pageNum, input[type="search"], label');
+    const mainContent = document.getElementById('mainContent');
     const cancelButton = document.getElementById('cancelButton');
+    const addNoticeButton = document.getElementById('addNoticeButton');
+    const submitNoticeButton = document.getElementById('submitNoticeButton');
 
-    // 작성 폼을 보일 때 추가와 취소 버튼 설정
+    // 이미지 외의 모든 메인 콘텐츠 요소 숨기기
+    Array.from(mainContent.children).forEach(element => {
+      if (element.tagName !== 'IMG') {
+        element.style.display = 'none';
+      }
+    });
+
+    // 작성 폼 및 취소 버튼 표시, 공지사항 추가 버튼 숨기기
     addForm.style.display = 'block';
-    cancelButton.style.display = 'inline-block'; // 취소 버튼을 보이게 설정
-    mainElements.forEach(element => element.classList.add('hidden'));
+    submitNoticeButton.style.display = 'inline-block'; // 제출 버튼을 그 자리에 표시
+    addNoticeButton.style.display = 'none'; // 공지사항 추가 버튼 숨기기
+    cancelButton.style.display = 'inline-block';
   });
 
-  // 취소 버튼 클릭 시 작성 폼 숨김 및 전체 조회로 복귀
+  // 취소 버튼 클릭 시 모든 요소를 원래대로 복구
   document.getElementById('cancelButton').addEventListener('click', function() {
-    document.getElementById('addForm').style.display = 'none';
-    const mainElements = document.querySelectorAll('.tab, .notices, .pageNum, input[type="search"], label');
-    mainElements.forEach(element => element.classList.remove('hidden'));
-    document.getElementById('cancelButton').style.display = 'none'; // 취소 버튼 숨김
+    const addForm = document.getElementById('addForm');
+    const mainContent = document.getElementById('mainContent');
+    const addNoticeButton = document.getElementById('addNoticeButton');
+    const submitNoticeButton = document.getElementById('submitNoticeButton');
+
+    // 모든 메인 콘텐츠 요소 다시 표시
+    Array.from(mainContent.children).forEach(element => {
+      element.style.display = 'block';
+    });
+
+    // 작성 폼, 제출 버튼 및 취소 버튼 숨기기, 공지사항 추가 버튼 다시 표시
+    addForm.style.display = 'none';
+    submitNoticeButton.style.display = 'none';
+    addNoticeButton.style.display = 'inline-block';
+    this.style.display = 'none';
   });
 
-  // 추가 버튼을 클릭할 때 서버에 폼 데이터 전송
-  document.getElementById('addNoticeButton').addEventListener('click', function() {
+  // 제출 버튼 클릭 시 서버로 데이터 전송
+  document.getElementById('submitNoticeButton').addEventListener('click', function() {
     const title = document.getElementById('noticeTitle').value;
     const content = document.getElementById('noticeContent').value;
 
@@ -109,7 +130,7 @@
             .then(data => {
               if (data.success) {
                 alert('공지사항이 추가되었습니다.');
-                location.reload();  // 페이지 새로고침하여 추가된 공지사항 반영
+                location.reload();
               } else {
                 alert('추가 실패');
               }

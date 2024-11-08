@@ -434,8 +434,7 @@ main .pageNum img:nth-of-type(2){
     cursor: pointer;
 }
 
-/* 작성 폼 위치 및 스타일 */
-/* 작성 폼 숨기기 및 위치 조정 */
+
 
 
 #noticeTitle {
@@ -506,7 +505,18 @@ main .pageNum img:nth-of-type(2){
     display: none;
 }
 
-
+#submitNoticeButton{
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
 
 
 
