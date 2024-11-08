@@ -103,8 +103,8 @@ nav span:nth-child(6){
     transition: all 1s;
 }
 
-nav span:nth-child(7){
-    /* 로그인 */
+/*nav span:nth-child(7){
+    !* 로그인 *!
     position: absolute;
     width: 49px;
     height: 21px;
@@ -116,6 +116,24 @@ nav span:nth-child(7){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+}*/
+
+#logoutNav{
+    /* 로그아웃 */
+    position: absolute;
+    width: 100px;
+    height: 21px;
+    left: 1670px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+    background: none;
+    border:none;
+    text-align: center;
 }
 
 nav span:nth-child(8){
@@ -149,4 +167,183 @@ nav span:hover{
     top: 231px;
 }
 
-/*---------------main1------------------*/
+/* mbti basic */
+
+.resolution{
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+
+    background: #FFFFFF;
+}
+
+.background {
+    position: relative;
+    width: 1920px;
+    height: 1107px;
+}
+
+/* mbti start */
+
+#testBack {
+    position: absolute;
+    width: 1800px;
+    height: 897px;
+    left: 63px;
+    top: 131px;
+    box-sizing: border-box;
+}
+
+#testBack2 {
+    position: absolute;
+    width: 1545px;
+    height: 774px;
+    box-sizing: border-box;
+    left: 180px;
+    top: 200px;
+    border: 10px solid #FFFFFF;
+}
+
+#bookIco{
+    position: absolute;
+    width: 105px;
+    height: 105px;
+    left: 607px;
+    top: 384px;
+}
+
+#mbtiStart{
+    position: absolute;
+    width: 529px;
+    height: 82px;
+    left: 759px;
+    top: 388px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 80px;
+    line-height: 82px;
+    text-align: center;
+
+    color: #FFFFFF;
+    z-index: 0;
+}
+#mbtiStart::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
+}
+
+#mbtiStart2{
+    position: absolute;
+    width: 599px;
+    height: 104px;
+    left: 651px;
+    top: 535px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    text-align: center;
+    z-index: 0;
+
+    color: #FFFFFF;
+}
+
+#mbtiStart2::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
+}
+
+#yes {
+    position: absolute;
+    width: 50px;
+    height: 52px;
+    left: 746px;
+    top: 713px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+    z-index: 0;
+    border-radius: 999px;
+    cursor: pointer;
+}
+#yes::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
+}
+#yes:hover{
+    color:yellow;
+}
+#yes:active{
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+#no{
+    position: absolute;
+    width: 150px;
+    height: 52px;
+    left: 1038px;
+    top: 713px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+    z-index: 0;
+    border-radius: 999px;
+    cursor: pointer;
+}
+#no::before{
+    content: attr(data-content);
+    position: absolute;
+    -webkit-text-stroke: 7px black;
+    z-index: -1;
+}
+
+#no:hover{
+    color:yellow;
+}
+#no:active{
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.hands{
+    position: absolute;
+    width: 1000px;
+    height: 500px;
+    left: 450px;
+    top: 605px;
+    animation: effect 0.35s ease-out;
+}
+
+@keyframes effect {
+    from {
+        opacity: 1;
+        transform: translateY(100px);
+    }
+    to {
+        opacity: 3;
+        transform: none;
+    }
+}

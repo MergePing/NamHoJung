@@ -6,6 +6,7 @@ import com.ohgiraffers.mergyping.common.UserRole;
 import java.time.LocalDate;
 
 public class SignupDTO {
+    private int userNo;
     private String userId;
     private String userPass;
     private String userName;
@@ -13,10 +14,13 @@ public class SignupDTO {
     private LocalDate userBirth;
     private Gender userGender;
     private UserRole userRole;
+    private String mbtiType = "NONE";
+    private boolean mbtiStatus = false;
 
     public SignupDTO() {}
 
-    public SignupDTO(String userId, String userPass, String userName, String userEmail, LocalDate userBirth, Gender userGender, UserRole userRole) {
+    public SignupDTO(int userNo, String userId, String userPass, String userName, String userEmail, LocalDate userBirth, Gender userGender, UserRole userRole, String mbtiType, boolean mbtiStatus) {
+        this.userNo = userNo;
         this.userId = userId;
         this.userPass = userPass;
         this.userName = userName;
@@ -24,6 +28,16 @@ public class SignupDTO {
         this.userBirth = userBirth;
         this.userGender = userGender;
         this.userRole = userRole;
+        this.mbtiType = mbtiType;
+        this.mbtiStatus = mbtiStatus;
+    }
+
+    public int getUserNo() {
+        return userNo;
+    }
+
+    public void setUserNo(int userNo) {
+        this.userNo = userNo;
     }
 
     public String getUserId() {
@@ -82,16 +96,35 @@ public class SignupDTO {
         this.userRole = userRole;
     }
 
+    public String getMbtiType() {
+        return mbtiType;
+    }
+
+    public void setMbtiType(String mbtiType) {
+        this.mbtiType = mbtiType;
+    }
+
+    public boolean isMbtiStatus() {
+        return mbtiStatus;
+    }
+
+    public void setMbtiStatus(boolean mbtiStatus) {
+        this.mbtiStatus = mbtiStatus;
+    }
+
     @Override
     public String toString() {
         return "SignupDTO{" +
-                "userId='" + userId + '\'' +
+                "userNo=" + userNo +
+                ", userId='" + userId + '\'' +
                 ", userPass='" + userPass + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userBirth=" + userBirth +
                 ", userGender=" + userGender +
                 ", userRole=" + userRole +
+                ", mbtiType='" + mbtiType + '\'' +
+                ", mbtiStatus=" + mbtiStatus +
                 '}';
     }
 }

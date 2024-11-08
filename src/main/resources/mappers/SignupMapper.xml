@@ -13,29 +13,51 @@
     </resultMap>
 
     <insert id="regist" parameterType="com.ohgiraffers.mergyping.user.model.dto.SignupDTO">
+        <!-- TBL_USER에 데이터 삽입 -->
         INSERT INTO TBL_USER
         (
-        USER_ID
-        , USER_PWD
-        , USER_NAME
-        , EMAIL
-        , BIRTHDAY
-        , USER_GENDER
+        USER_ID,
+        USER_PWD,
+        USER_NAME,
+        EMAIL,
+        BIRTHDAY,
+        USER_GENDER
         )
         VALUES
         (
-        #{ userId },
-        #{ userPass },
-        #{ userName },
-        #{ userEmail },
-        #{ userBirth },
-        #{ userGender }
+        #{userId},
+        #{userPass},
+        #{userName},
+        #{userEmail},
+        #{userBirth},
+        #{userGender}
+        );
+
+        <!-- 최근 삽입된 USER_NO 가져오기 -->
+        <selectKey keyProperty="userNo" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <insert id="registMbti" parameterType="com.ohgiraffers.mergyping.user.model.dto.SignupDTO">
+        <!-- TBL_MBTI에 데이터 삽입 -->
+        INSERT INTO TBL_MBTI
+        (
+        MBTI_TYPE,
+        MBTI_STATUS,
+        USER_NO
         )
+        VALUES
+        (
+        #{mbtiType},
+        #{mbtiStatus},
+        #{userNo}
+        );
     </insert>
 
     <select id="findByUsername" resultMap="login">
         SELECT
-            USER_NO
+           USER_NO
         ,  USER_ID
         , USER_PWD
         , USER_TYPE

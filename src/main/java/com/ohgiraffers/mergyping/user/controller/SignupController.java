@@ -21,13 +21,13 @@ public class SignupController {
     @GetMapping("/signupterms")
     public String signupFront() {
 
-        return "user/signup/signup3";
+        return "user/signup/signupterms";
     }
 
     @GetMapping("/signup")
     public String signupMain() {
 
-        return "user/signup/signup4";
+        return "user/signup/signup";
     }
 
 
@@ -39,7 +39,7 @@ public class SignupController {
 
             if (result > 0) {
                 message = "회원가입이 정상적으로 완료되었습니다.";
-                mv.setViewName("redirect:/auth/signupconfirm");
+                mv.setViewName("redirect:/signupconfirm");
             } else {
                 message = "회원가입에 실패하였습니다.";
                 mv.setViewName("redirect:/signupterms");

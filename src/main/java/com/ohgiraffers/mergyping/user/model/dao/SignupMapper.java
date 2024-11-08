@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SignupMapper {
     int regist(SignupDTO signupDTO);
 
+    int registMbti(SignupDTO signupDTO);
+
     LoginUserDTO findByUsername(String userId);
 
     int checkId(String userId);
