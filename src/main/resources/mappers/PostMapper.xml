@@ -23,7 +23,8 @@
         <result property="notScaryNumber" column="NOT_SCARY_NUMBER"/>
         <result property="commentNumber" column="COMMENTS_NUMBER"/>
         <result property="postReport" column="POST_REPORT"/>
-        <result property="postImage" column="POST_IMAGE"/>
+        <result property="postImageFirst" column="POST_IMAGE_FIRST"/>
+        <result property="postImageSecond" column="POST_IMAGE_SECOND"/>
         <result property="postFavorite" column="POST_FAVORITE"/>
         <result property="scary" column="SCARY"/>
         <result property="notScary" column="NOT_SCARY"/>
@@ -89,7 +90,8 @@
         NOT_SCARY_NUMBER,
         COMMENTS_NUMBER,
         POST_REPORT,
-        POST_IMAGE,
+        POST_IMAGE_FIRST,
+        POST_IMAGE_SECOND,
         POST_FAVORITE,
         SCARY,
         NOT_SCARY
@@ -151,14 +153,16 @@
         POST_CONTENTS,
         POST_CATEGORY,
         POST_WRITER,
-        POST_IMAGE
+        POST_IMAGE_FIRST,
+        POST_IMAGE_SECOND
         )
         VALUES (
         #{postTitle},
         #{postContent},
         #{postCategory},
         #{postWriter},
-        #{postImage}
+        #{postImageFirst},
+        #{postImageSecond}
         );
     </insert>
 

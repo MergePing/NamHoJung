@@ -1,7 +1,6 @@
 package com.ohgiraffers.mergyping.post.model.dto;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class SelectPostDTO {
     private int postNo;
@@ -14,16 +13,16 @@ public class SelectPostDTO {
     private int notScaryNumber;
     private int commentNumber;
     private int postReport;
-    private byte[] postImage = new byte[0];
+    private String postImageFirst;
+    private String postImageSecond;
     private boolean postFavorite;
     private boolean scary;
     private boolean notScary;
-    private String postImage1;
-    private String postImage2;
+
 
     public SelectPostDTO() {}
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, byte[] postImage, boolean postFavorite, boolean scary, boolean notScary, String postImage1, String postImage2) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -34,12 +33,11 @@ public class SelectPostDTO {
         this.notScaryNumber = notScaryNumber;
         this.commentNumber = commentNumber;
         this.postReport = postReport;
-        this.postImage = postImage;
+        this.postImageFirst = postImageFirst;
+        this.postImageSecond = postImageSecond;
         this.postFavorite = postFavorite;
         this.scary = scary;
         this.notScary = notScary;
-        this.postImage1 = postImage1;
-        this.postImage2 = postImage2;
     }
 
     public int getPostNo() {
@@ -122,12 +120,20 @@ public class SelectPostDTO {
         this.postReport = postReport;
     }
 
-    public byte[] getPostImage() {
-        return postImage;
+    public String getPostImageFirst() {
+        return postImageFirst;
     }
 
-    public void setPostImage(byte[] postImage) {
-        this.postImage = postImage;
+    public void setPostImageFirst(String postImageFirst) {
+        this.postImageFirst = postImageFirst;
+    }
+
+    public String getPostImageSecond() {
+        return postImageSecond;
+    }
+
+    public void setPostImageSecond(String postImageSecond) {
+        this.postImageSecond = postImageSecond;
     }
 
     public boolean isPostFavorite() {
@@ -154,22 +160,6 @@ public class SelectPostDTO {
         this.notScary = notScary;
     }
 
-    public String getPostImage1() {
-        return postImage1;
-    }
-
-    public void setPostImage1(String postImage1) {
-        this.postImage1 = postImage1;
-    }
-
-    public String getPostImage2() {
-        return postImage2;
-    }
-
-    public void setPostImage2(String postImage2) {
-        this.postImage2 = postImage2;
-    }
-
     @Override
     public String toString() {
         return "SelectPostDTO{" +
@@ -183,12 +173,11 @@ public class SelectPostDTO {
                 ", notScaryNumber=" + notScaryNumber +
                 ", commentNumber=" + commentNumber +
                 ", postReport=" + postReport +
-                ", postImage=" + Arrays.toString(postImage) +
+                ", postImageFirst='" + postImageFirst + '\'' +
+                ", postImageSecond='" + postImageSecond + '\'' +
                 ", postFavorite=" + postFavorite +
                 ", scary=" + scary +
                 ", notScary=" + notScary +
-                ", postImage1='" + postImage1 + '\'' +
-                ", postImage2='" + postImage2 + '\'' +
                 '}';
     }
 }

@@ -107,10 +107,12 @@
         <textarea  name="postContent" id="postContent" rows="1">
    이곳에 게시글을 작성 해주세요
       </textarea>
-        <input type="file" id="fileInput1" style="display: none;" onchange="uploadFile(1)" />
-        <input type="file" id="fileInput2" style="display: none;" onchange="uploadFile(2)" />
+        <input type="file" id="fileInput1" accept="image/*" style="display: none;" onchange="uploadFile(1)" />
+        <input type="file" id="fileInput2" accept="image/*" style="display: none;" onchange="uploadFile(2)" />
         <img id="img1" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
         <img id="img2" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" /> </div>
+      <input type="hidden" id="postNo" name="postNo" th:value="${post.postNo}">
+
 
       <div id="box">
         <div id="Writer">
@@ -162,14 +164,16 @@
 
 
 <script>
-  let images = {};
+  let images ={};
   function uploadFile(index) {
     const fileInput = document.getElementById(`fileInput${index}`);
     const file = fileInput.files[0];
+    const postNo = document.getElementById('postNo').value; // postNo 값을 가져옴
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('postNo', postNo); // postNo 추가
 
-    fetch('/upload', {
+    fetch(`/upload${index === 1 ? 'FirstImage' : 'SecondImage'}`, {
       method: 'POST',
       body: formData
     })
@@ -181,11 +185,12 @@
             });
   }
 
+
   function submitForm() {
     const form = document.getElementById('postForm');
     const formData = new FormData(form);
-    formData.append('img1', images['img1']);
-    formData.append('img2', images['img2']);
+    formData.append('img1', images[`img1`] || '');
+    formData.append('img2', images[`img2`] || '');
     fetch(form.action, {
       method: 'POST',
       body: formData,

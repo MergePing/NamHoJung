@@ -9,14 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -24,7 +26,7 @@ public class PostController {
 
     private final PostService postService;
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
-
+    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "pn0g","gif");
     @Autowired
     public PostController(PostService postService) {
         this.postService = postService;
@@ -45,6 +47,27 @@ public class PostController {
         int toIndex = Math.min(fromIndex + pageSize, postList.size());
         return postList.subList(fromIndex, toIndex);
     }
+
+    @GetMapping("/selectpost/{postNo}")
+    public String selectById(@PathVariable("postNo") int postNo, Model model) {
+        SelectPostDTO selected = postService.selectById(postNo);
+        if (selected == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
+
+        // 이미지 경로 설정
+        if (selected.getPostImageFirst() != null) {
+            selected.setPostImageFirst("/uploads/" + selected.getPostImageFirst());
+        }
+        if (selected.getPostImageSecond() != null) {
+            selected.setPostImageSecond("/uploads/" + selected.getPostImageSecond());
+        }
+
+        model.addAttribute("post", selected);
+        return "post/selectpost"; // 이 부분이 HTML 파일과 매핑되는지 확인
+    }
+
+
 
     @GetMapping("/post/count")
     @ResponseBody
@@ -94,9 +117,49 @@ public class PostController {
     }
 
     @GetMapping("/newpost")
-    public String newPostPage() {
+    public String newPostPage(Model model) {
+        model.addAttribute("post", new SelectPostDTO());
         return "post/newpost";
     }
+
+    // 첫 번째 이미지 업로드
+    @PostMapping("/uploadFirstImage")
+    @ResponseBody
+    public Map<String, String> uploadFirstImage(@RequestParam("file") MultipartFile file,int postNo) {
+        return handleFileUpload(file, postNo,1);
+    }
+
+    // 두 번째 이미지 업로드
+    @PostMapping("/uploadSecondImage")
+    @ResponseBody
+    public Map<String, String> uploadSecondImage(@RequestParam("file") MultipartFile file ,int postNo) {
+        return handleFileUpload(file, postNo,2);
+    }
+
+    private Map<String, String> handleFileUpload(MultipartFile file,int postNo, int imageNo) {
+        Map<String, String> response = new HashMap<>();
+        if (file.isEmpty()) {
+            response.put("error", "파일이 선택되지 않았습니다.");
+            return response;
+        }
+
+        String fileExtension = getFileExtension(file.getOriginalFilename());
+        if (!ALLOWED_EXTENSIONS.contains(fileExtension.toLowerCase())){
+            response.put("error","이미지 파일만 업로드 가능합니다");
+            return response;
+        }
+
+        try {
+            String filePath = saveFile(file,postNo,imageNo);
+            response.put("filPath",filePath);
+            return response;
+        } catch (IOException e){
+            e.printStackTrace();
+            response.put("error", "파일 업로드 실패: " + e.getMessage());
+            return response;
+        }
+        }
+
 
     @PostMapping("/newpost")
     public ResponseEntity<Map<String, String>> createPost(
@@ -104,7 +167,9 @@ public class PostController {
             @RequestParam("postContent") String postContent,
             @RequestParam("postCategory") String postCategory,
             @RequestParam("postWriter") String postWriter,
-            @RequestParam(value = "file", required = false) List<MultipartFile> files) {
+            @RequestParam("postNo") int postNo,
+            @RequestParam(value = "fileFirst", required = false) MultipartFile fileFirst,
+            @RequestParam(value = "fileSecond", required = false) MultipartFile fileSecond) {
 
         Map<String, String> response = new HashMap<>();
         try {
@@ -113,21 +178,18 @@ public class PostController {
             selectPostDTO.setPostContent(postContent);
             selectPostDTO.setPostCategory(postCategory);
             selectPostDTO.setPostWriter(postWriter);
+            selectPostDTO.setPostNo(postNo);
 
-            // 파일 처리
-            if (files != null && !files.isEmpty()) {
-                StringBuilder combinedImages = new StringBuilder();
-                for (MultipartFile file : files) {
-                    String randomFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-                    Path path = Paths.get("src/main/resources/static/uploads/" + randomFileName);
-                    Files.createDirectories(path.getParent());
-                    Files.write(path, file.getBytes());
-                    if (combinedImages.length() > 0) {
-                        combinedImages.append(",");
-                    }
-                    combinedImages.append(randomFileName);
-                }
-                selectPostDTO.setPostImage(combinedImages.toString().getBytes(StandardCharsets.UTF_8));
+            // 첫 번째 이미지 파일 처리
+            if (fileFirst != null && !fileFirst.isEmpty()) {
+                String firstImagePath = saveFile(fileFirst, postNo,1);
+                selectPostDTO.setPostImageFirst(firstImagePath);
+            }
+
+            // 두 번째 이미지 파일 처리
+            if (fileSecond != null && !fileSecond.isEmpty()) {
+                String secondImagePath = saveFile(fileSecond, postNo,2);
+                selectPostDTO.setPostImageSecond(secondImagePath);
             }
 
             postService.createPost(selectPostDTO);
@@ -141,51 +203,22 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-
-    @GetMapping("/selectpost/{postNo}")
-    public String selectById(@PathVariable("postNo") int postNo, Model model) {
-        SelectPostDTO selected = postService.selectById(postNo);
-        if (selected == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
-        }
-
-        // 이미지 경로 설정
-        if (selected.getPostImage() != null) {
-            String[] imagePaths = new String(selected.getPostImage(), StandardCharsets.UTF_8).split(",");
-            if (imagePaths.length > 0) selected.setPostImage1("/uploads/" + imagePaths[0]);
-            if (imagePaths.length > 1) selected.setPostImage2("/uploads/" + imagePaths[1]);
-        }
-
-        model.addAttribute("post", selected);
-        return "post/selectpost";
+    private String saveFile(MultipartFile file, int postNo, int imageNo) throws IOException {
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String fileName = date + "/" + postNo + "/" + imageNo + "." + getFileExtension(file.getOriginalFilename());
+        Path path = Paths.get(UPLOAD_DIR + fileName);
+        Files.createDirectories(path.getParent());
+        Files.write(path, file.getBytes());
+        return "/uploads/" + fileName;
     }
 
 
-
-
-    @PostMapping("/upload")
-    @ResponseBody
-    public Map<String, String> uploadFile(@RequestParam("file") MultipartFile file) {
-        Map<String, String> response = new HashMap<>();
-        if (file.isEmpty()) {
-            response.put("error", "파일이 선택되지 않았습니다.");
-            return response;
+    private String getFileExtension(String fileName) {
+        int lastIndexOfDot = fileName.lastIndexOf('.');
+        if (lastIndexOfDot == -1) {
+            return "";
         }
-
-        try {
-            // 파일 저장 경로 설정
-            String randomFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-            Path path = Paths.get(UPLOAD_DIR + randomFileName);
-            Files.createDirectories(path.getParent());
-            Files.write(path, file.getBytes());
-
-            response.put("filePath", "/uploads/" + randomFileName);
-            return response;
-        } catch (IOException e) {
-            e.printStackTrace();
-            response.put("error", "파일 업로드 실패: " + e.getMessage());
-            return response;
-        }
-    }
+        return fileName.substring(lastIndexOfDot + 1); }
 
 }
+
