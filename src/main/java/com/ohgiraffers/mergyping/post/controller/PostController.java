@@ -175,77 +175,72 @@ public class PostController {
 
 
         //새 게시물 생성
-    @PostMapping("/newpost")
-    public ResponseEntity<Map<String, String>> createPost(
-            @RequestParam("postTitle") String postTitle,
-            @RequestParam("postContent") String postContent,
-            @RequestParam("postCategory") String postCategory,
-            @RequestParam("postWriter") String postWriter,
-            @RequestParam("postNo") int postNo,
-            @RequestParam(value = "fileFirst", required = false) MultipartFile fileFirst,
-            @RequestParam(value = "fileSecond", required = false) MultipartFile fileSecond) {
+        @PostMapping("/newpost")
+        public ResponseEntity<Map<String, String>> createPost(
+                @RequestParam("postTitle") String postTitle,
+                @RequestParam("postContent") String postContent,
+                @RequestParam("postCategory") String postCategory,
+                @RequestParam("postWriter") String postWriter,
+                @RequestParam("postNo") int postNo,
+                @RequestParam(value = "fileFirst", required = false) MultipartFile fileFirst,
+                @RequestParam(value = "fileSecond", required = false) MultipartFile fileSecond) {
 
-        Map<String, String> response = new HashMap<>();
-        try {
-            SelectPostDTO selectPostDTO = new SelectPostDTO();
-            selectPostDTO.setPostTitle(postTitle);
-            selectPostDTO.setPostContent(postContent);
-            selectPostDTO.setPostCategory(postCategory);
-            selectPostDTO.setPostWriter(postWriter);
-            selectPostDTO.setPostNo(postNo);
+            Map<String, String> response = new HashMap<>();
+            try {
+                SelectPostDTO selectPostDTO = new SelectPostDTO();
+                selectPostDTO.setPostTitle(postTitle);
+                selectPostDTO.setPostContent(postContent);
+                selectPostDTO.setPostCategory(postCategory);
+                selectPostDTO.setPostWriter(postWriter);
+                selectPostDTO.setPostNo(postNo);
 
-            // 첫 번째 이미지 파일 처리
-            if (fileFirst != null && !fileFirst.isEmpty()) {
-                String firstImagePath = saveFile(fileFirst, postNo,1);
-                selectPostDTO.setPostImageFirst(firstImagePath);
+                if (fileFirst != null && !fileFirst.isEmpty()) {
+                    String firstImagePath = saveFile(fileFirst, postNo, 1);
+                    selectPostDTO.setPostImageFirst(firstImagePath); // 경로 저장
+                }
+
+                if (fileSecond != null && !fileSecond.isEmpty()) {
+                    String secondImagePath = saveFile(fileSecond, postNo, 2);
+                    selectPostDTO.setPostImageSecond(secondImagePath); // 경로 저장
+                }
+
+                postService.createPost(selectPostDTO);
+                response.put("status", "success");
+                return ResponseEntity.ok(response);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.put("status", "error");
+                response.put("message", e.getMessage());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
             }
-
-            // 두 번째 이미지 파일 처리
-            if (fileSecond != null && !fileSecond.isEmpty()) {
-                String secondImagePath = saveFile(fileSecond, postNo,2);
-                selectPostDTO.setPostImageSecond(secondImagePath);
-            }
-// postService.createPost 호출 전에 이미지 경로 확인
-            System.out.println("First Image Path: " + selectPostDTO.getPostImageFirst());
-            System.out.println("Second Image Path: " + selectPostDTO.getPostImageSecond());
-
-            postService.createPost(selectPostDTO);
-
-            response.put("status", "success");
-            return ResponseEntity.ok(response);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.put("status", "error");
-            response.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-    }
+
 
     //파일의 이름을 날짜/게시글 번호/이미지 번호로 바꾸고 업로드 폴더에 리턴
     private String saveFile(MultipartFile file, int postNo, int imageNo) throws IOException {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String fileName = date + "_" + postNo + "_" + imageNo + "." + getFileExtension(file.getOriginalFilename());
-        Path path = Paths.get(UPLOAD_DIR + fileName);
+        String fileExtension = getFileExtension(file.getOriginalFilename()); // 파일 확장자 추출
+        String fileName = date + "_" + postNo + "_" + imageNo + "." + fileExtension;
+        String imagePath = "uploads/" + date + "/" + postNo + "/" + fileName;
+        Path path = Paths.get(UPLOAD_DIR + date + "/" + postNo + "/" + fileName);
         Files.createDirectories(path.getParent());
         Files.write(path, file.getBytes());
 
         // 디버깅 로그 추가
         System.out.println("File saved at: " + path.toString());
 
-        return "/uploads/" + fileName;
+        return imagePath; // 이미지 경로 반환
     }
 
 
-
-
-// 파일 확장자 확인
     private String getFileExtension(String fileName) {
         int lastIndexOfDot = fileName.lastIndexOf('.');
         if (lastIndexOfDot == -1) {
-            return "";
+            return ""; // 확장자가 없는 경우 빈 문자열 반환
         }
-        return fileName.substring(lastIndexOfDot + 1); }
+        return fileName.substring(lastIndexOfDot + 1);
+    }
 
 }
 
