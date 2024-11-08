@@ -48,18 +48,18 @@ public class EmailService {
         helper.setTo(toEmail);
         helper.setSubject("남호정 가입 이메일 인증");
         String htmlContent = "<html>" + "<body>"
-                + "<h1>남호정</h1>"
-                + "<h2>이메일 인증 코드</h2>"
+                + "<h1 style='text-align: center; position:absolute; left:850px; top:10px; color:white; font-style: italic;'>남호정</h1>"
+                + "<h2 style='text-align: center; position: absolute; left: 880px; top:50px; color:white; font-style: italic;>이메일 인증 코드</h2>"
                 + "<h3 style='text-align: center; font-weight: 900; position: absolute; left: 910px; top:100px; color:black; font-style: italic; text-shadow: -1px 0px yellow, 0px 1px yellow, 1px 0px yellow, 0px -1px yellow;'>"
                 + authCode + "</h3>"
                 + "<p style='color:orange; text-align: center; position: absolute; left: 765px; top:150px; font-weight: 900; font-style: italic;'>인증번호의 유효시간은 이메일을 받은 시간부터 30분입니다.</p>"
-                + "<p style='color:greenyellow; text-align: center; position: absolute; left: 870px; top:200px; font-weight: 900;'>남호정 운영진(MergyTeam)</p>"
-                + "<img src='cid:mailImage' alt='배경' style='position:absolute; z-index: -1'>";
+                + "<p style='color:greenyellow; text-align: center; position: absolute; left: 870px; top:200px; font-weight: 900;'>남호정 운영진(MergyTeam)</p>";
+//                + "<img src='cid:mailImage' alt='배경' style='position:absolute; z-index: -1'>";
         helper.setText(htmlContent, true);
 
-        // 이메일에 이미지 첨부 -> 수정필요
-        ClassPathResource image = new ClassPathResource("static/images/email/img.png");
-        helper.addInline("mailImage", image);
+//        // 이메일에 이미지 첨부 -> 수정필요
+//        ClassPathResource image = new ClassPathResource("static/images/email/img.png");
+//        helper.addInline("mailImage", image);
 
 
         mailSender.send(message);

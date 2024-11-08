@@ -327,30 +327,3 @@ nav span:hover{
     margin-top: 2px;
     margin-left: 2px;
 }
-
-/* mbti question */
-
-.qYes, .qNo {
-    display: inline-block;
-    position: absolute;
-    z-index: 0;
-    cursor: pointer;
-}
-.mbti1, .qYes, .qNo {
-    color:white;
-    position:absolute;
-    display:inline;
-    transform: translate(-110%, 0%);
-    z-index: 1;
-}
-.qYes, .qNo {
-    color:white;
-    background-color: black;
-    border-radius: 50px;
-    font-size : 50px;
-    border:10px solid white;
-    cursor: pointer;
-}
-.qYes:hover, .qNo:hover {
-    background-color: aqua;
-}
