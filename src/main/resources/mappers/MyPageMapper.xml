@@ -114,14 +114,26 @@
             WHERE m.USER_NO = #{userNo}
     </select>
 
-    <insert id="insertAttendance" parameterType="map">
-        INSERT INTO TBL_CHECK (USER_NO, CHECK_DATE, CHECK_STATUS, CHECK_ALL_NO)
-        VALUES (#{userNo}, #{checkDate}, #{checkStatus}, #{checkAllNo})
-        ON DUPLICATE KEY UPDATE
-        CHECK_STATUS = #{checkStatus},
-        CHECK_ALL_NO = CHECK_ALL_NO + 1;
+    <!-- 오늘 출석 여부 확인 -->
+    <select id="hasCheckedToday" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM TBL_CHECK
+        WHERE USER_NO = #{userNo}
+        AND CHECK_DATE = #{today}
+    </select>
 
+    <!-- 출석 체크 등록 -->
+    <insert id="checkAttendance">
+        INSERT INTO TBL_CHECK (USER_NO, CHECK_DATE, CHECK_STATUS)
+        VALUES (#{userNo}, #{today}, TRUE)
     </insert>
+
+    <!-- 누적 출석 수 증가 -->
+    <update id="incrementAttendanceCount">
+        UPDATE TBL_USER
+        SET CHECK_ALL_NO = CHECK_ALL_NO + 1
+        WHERE USER_NO = #{userNo}
+    </update>
 </mapper>
 
 <!--<result property="userType" column="USER_TYPE"/>-->

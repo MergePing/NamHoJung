@@ -390,29 +390,29 @@
         // 출석 체크 버튼 클릭 이벤트
         checkAttendanceBtn.addEventListener('click', function() {
             // 서버로 출석 체크 요청 보내기
-            fetch('/attendance/check', { method: 'POST' })
+            fetch('/attendenceCheck', { method: 'POST' })
                 .then(response => response.text())
                 .then(message => {
                     alert(message);
 
-                    // 출석 완료 시 스타일 업데이트
-                    const todayDiv = document.getElementById(`day-${today}`);
-                    todayDiv.classList.add('checked');
+                    if (message === "출석 체크가 완료되었습니다.") {
+                        const todayDiv = document.getElementById(`day-${today}`);
+                        todayDiv.classList.add('checked');
 
-                    checkAttendanceBtn.style.backgroundColor = "#0E2813";
-                    checkAttendanceBtn.style.width = "560px";
-                    checkAttendanceBtn.style.color = "#C0CBBC";
-                    checkAttendanceBtn.style.left = "400px";
-                    checkAttendanceBtn.textContent = "출석체크를 완료 했습니다";
+                        checkAttendanceBtn.style.backgroundColor = "#0E2813";
+                        checkAttendanceBtn.style.width = "560px";
+                        checkAttendanceBtn.style.color = "#C0CBBC";
+                        checkAttendanceBtn.style.left = "400px";
+                        checkAttendanceBtn.textContent = "출석체크를 완료 했습니다";
 
-                    // 손 이미지 표시
-                    document.getElementById("hand").classList.remove("dn");
+                        document.getElementById("hand").classList.remove("dn");
 
-                    // 출석 체크 마크 이미지 추가
-                    if (!todayDiv.querySelector('img')) {
-                        const img = document.createElement('img');
-                        img.src = '/images/main/check mark.png';
-                        todayDiv.appendChild(img);
+                        // 중복 체크 마크 방지
+                        if (!todayDiv.querySelector('img')) {
+                            const img = document.createElement('img');
+                            img.src = '/images/main/check mark.png';
+                            todayDiv.appendChild(img);
+                        }
                     }
                 })
                 .catch(error => console.error('출석 체크 실패:', error));

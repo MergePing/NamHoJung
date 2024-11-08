@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +81,37 @@ public class MainController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
         }
     }
+    @PostMapping("/attendenceCheck")
+    @ResponseBody
+    public String checkAttendance() {
+        // 현재 로그인한 유저 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            // 오늘 날짜 확인
+            LocalDate today = LocalDate.now();
+            String todayStr = today.toString();  // "YYYY-MM-DD" 형식
+
+            // 출석 체크 여부 확인
+            boolean hasCheckedToday = myPageService.hasCheckedToday(userNo, todayStr);
+            if (hasCheckedToday) {
+                return "이미 출석을 체크하셨습니다.";  // 이미 출석한 경우
+            }
+
+            // 출석 체크 등록
+            myPageService.checkAttendance(userNo, todayStr);
+
+            // 누적 출석 수 증가
+            myPageService.incrementAttendanceCount(userNo);
+
+            return "출석 체크가 완료되었습니다.";
+        }
+        return "로그인 정보가 없습니다.";
+    }
+
 
     @GetMapping("/intro")
     public String intro(){return "/main/intro/intro";}

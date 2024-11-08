@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,4 +70,18 @@ public class MyPageService {
     public Map<String, Object> findUserMBTIInfo(int userNo) {
         return myPageMapper.findUserMBTIInfo(userNo);
     }
+
+
+    public boolean hasCheckedToday(int userNo, String todayStr) {
+        return myPageMapper.hasCheckedToday(userNo, todayStr);
+    }
+
+    public void checkAttendance(int userNo, String todayStr) {
+        myPageMapper.checkAttendance(userNo, todayStr);
+    }
+
+    public void incrementAttendanceCount(int userNo) {
+        myPageMapper.incrementAttendanceCount(userNo);
+    }
 }
+
