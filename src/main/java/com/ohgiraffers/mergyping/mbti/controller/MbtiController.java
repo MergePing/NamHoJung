@@ -1,13 +1,10 @@
 package com.ohgiraffers.mergyping.mbti.controller;
 
+import com.ohgiraffers.mergyping.mbti.model.dto.QuestionDTO;
 import com.ohgiraffers.mergyping.mbti.model.service.MbtiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/mbti")
@@ -22,9 +19,10 @@ public class MbtiController {
         return "/mbti/mbtistart";
     }
 
-    @GetMapping("/test")
-    public String getTestPage(Map<String, String> parameter) {
-
-        int 
+    @GetMapping("/question/{questionNo}")
+    @ResponseBody
+    public QuestionDTO getQuestion(@PathVariable("questionNo") int questionNo) {
+        // 문제 번호에 해당하는 문제를 DB에서 가져와 DTO로 반환
+        return mbtiService.getQuestionByNo(questionNo);
     }
 }

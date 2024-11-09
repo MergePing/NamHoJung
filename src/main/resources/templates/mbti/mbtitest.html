@@ -23,13 +23,31 @@
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
   <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
-  <img src="{{questions[0].image}}" alt="MBTI Image" id="question-img" />
-  <p id="question-text" data-content="{{questions[0].question}}">{{questions[0].question}}</p>
+
+
+  <img src="" alt="MBTI Image" id="question-img" />
+  <p id="question-text" th:text="${ questiondto.text }"></p>
+
+
   <img class="hands" th:src="@{/images/mbti/hands.png}" alt="손">
-  <button type="button" id="yes" onclick="answerQuestion('yes')" data-content="예" onclick="">예</button>
-  <button type="button" id="no" onclick="answerQuestion('no')" data-content="아니오" onclick="">아니오</button>
+  <button type="button" class="next" id="yes" onclick="answerQuestion('yes')" data-content="예" onclick="">예</button>
+  <button type="button" class="next" id="no" onclick="answerQuestion('no')" data-content="아니오" onclick="">아니오</button>
 </div>
 </body>
 <script>
+  let currentQuestionNo = 1;
+
+  document.getElementById("next-btn").addEventListener("click", function() {
+    // 서버로 비동기 요청 보내기
+    fetch(`/question/${currentQuestionNo}`)
+            .then(response => response.json())
+            .then(data => {
+              // 문제 내용 업데이트
+              document.getElementById("question-text").textContent = data.question;
+              // 다음 문제로 번호 증가
+              currentQuestionNo++;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+  });
 </script>
 </html>
