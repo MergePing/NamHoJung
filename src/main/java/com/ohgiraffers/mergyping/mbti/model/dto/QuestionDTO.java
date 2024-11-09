@@ -37,12 +37,5 @@ public class QuestionDTO {
         this.text = text;
     }
 
-    @Override
-    public String toString() {
-        return "QuestionDTO{" +
-                "No=" + No +
-                ", image='" + image + '\'' +
-                ", text='" + text + '\'' +
-                '}';
-    }
+
 }

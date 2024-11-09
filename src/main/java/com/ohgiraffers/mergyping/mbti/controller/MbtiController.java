@@ -19,10 +19,14 @@ public class MbtiController {
         return "/mbti/mbtistart";
     }
 
+    @GetMapping("test")
+    public String mbtiTest() {
+        return "/mbti/mbtitest";
+    }
+
     @GetMapping("/question/{questionNo}")
     @ResponseBody
     public QuestionDTO getQuestion(@PathVariable("questionNo") int questionNo) {
-        // 문제 번호에 해당하는 문제를 DB에서 가져와 DTO로 반환
         return mbtiService.getQuestionByNo(questionNo);
     }
 }

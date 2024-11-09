@@ -27,13 +27,19 @@ public class SignupService {
     @Transactional
     public int regist(SignupDTO signupDTO) {
         signupDTO.setUserPass(passwordEncoder.encode(signupDTO.getUserPass()));
-        signupMapper.regist(signupDTO);
-        signupMapper.registMbti(signupDTO);
         int result = 0;
-        try{
-            result = signupMapper.regist(signupDTO);
+        try {
+            signupMapper.regist(signupDTO);
+
+            int userNo = signupDTO.getUserNo();
+            signupDTO.setUserNo(userNo);
+
+            signupMapper.registMbti(signupDTO);
+
+            result = 1;
         } catch (Exception e) {
             e.printStackTrace();
+            result = 0;
         }
         return result;
     }

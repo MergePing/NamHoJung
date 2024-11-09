@@ -25,29 +25,32 @@
   <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
 
 
-  <img src="" alt="MBTI Image" id="question-img" />
-  <p id="question-text" th:text="${ questiondto.text }"></p>
-
+  <img id="question-img" src="/images/mbti/img.png" alt="MBTI Image" />
+  <p id="question-text" th:text="${questiondto != null ? questiondto.text : '시작하기'}"></p>
 
   <img class="hands" th:src="@{/images/mbti/hands.png}" alt="손">
-  <button type="button" class="next" id="yes" onclick="answerQuestion('yes')" data-content="예" onclick="">예</button>
-  <button type="button" class="next" id="no" onclick="answerQuestion('no')" data-content="아니오" onclick="">아니오</button>
+  <button type="button" class="next" id="yes" onclick="answerQuestion('yes')" data-content="예">예</button>
+  <button type="button" class="next" id="no" onclick="answerQuestion('no')" data-content="아니오">아니오</button>
 </div>
 </body>
 <script>
   let currentQuestionNo = 1;
 
-  document.getElementById("next-btn").addEventListener("click", function() {
+  // '예' 또는 '아니오' 버튼 클릭 시 호출되는 함수
+  function answerQuestion(answer) {
+    const imagePath = `/images/mbti/questions/mbti${currentQuestionNo}img.png`;
     // 서버로 비동기 요청 보내기
-    fetch(`/question/${currentQuestionNo}`)
+    fetch(`/mbti/question/${currentQuestionNo}`)
             .then(response => response.json())
             .then(data => {
-              // 문제 내용 업데이트
-              document.getElementById("question-text").textContent = data.question;
-              // 다음 문제로 번호 증가
+              document.getElementById("question-text").textContent = data.text;
+              // 문제 이미지 업데이트
+              // document.getElementById("question-img").src = '/images/mbti/questions/' + data.image; // db경로로 하려고했는데 안돼서 바꿈 - 이 줄은 db넣을때 사용
+              document.getElementById("question-img").src = imagePath;
+              // 문제 번호 증가
               currentQuestionNo++;
             })
             .catch(error => console.error('Error fetching data:', error));
-  });
+  }
 </script>
 </html>

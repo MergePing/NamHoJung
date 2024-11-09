@@ -347,3 +347,33 @@ nav span:hover{
         transform: none;
     }
 }
+
+/* mbtistart */
+
+#question-text{
+    position: absolute;
+    width: 1000px;
+    height: 104px;
+    left: 400px;
+    top: 535px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    text-align: center;
+    z-index: 0;
+
+    color: #FFFFFF;
+}
+
+#question-img{
+    position: absolute;
+    width: 1545px;
+    height: 774px;
+    box-sizing: border-box;
+    left: 180px;
+    top: 200px;
+    border: 10px solid #FFFFFF;
+}
