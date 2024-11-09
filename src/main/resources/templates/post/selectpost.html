@@ -100,14 +100,12 @@
         <div class="line"></div>
         <div id="content">
             <span th:text="${post.postContent}"></span>
-            <!-- 첫 번째 이미지 경로 설정 -->
-<!--            확장자 값이 떠야하는데 null로 나옴 임의로 png넣었음-->
+
+            <!-- 이미지 경로 설정 -->
             <img th:src="@{${post.postImageFirst}}" class="blur" id="img1" alt="첫 번째 이미지">
             <img th:src="@{${post.postImageSecond}}" class="blur" id="img2" alt="두 번째 이미지">
 
         </div>
-
-
 
         <script>
 
@@ -125,14 +123,6 @@
                     img2.classList.toggle("blur");
                 });
             }
-        </script>
-        <script>
-            const post = {
-                postImageFirstExtension: "[[${post.postImageFirstExtension}]]",
-                postImageSecondExtension: "[[${post.postImageSecondExtension}]]"
-            };
-            console.log("First Image Extension: " + post.postImageFirstExtension);
-            console.log("Second Image Extension: " + post.postImageSecondExtension);
         </script>
 
         <div id="box">
