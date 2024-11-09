@@ -134,6 +134,55 @@
         SET CHECK_ALL_NO = IFNULL(CHECK_ALL_NO, 0) + 1
         WHERE USER_NO = #{userNo}
     </update>
+
+    <!-- 출석 날짜 리스트 조회 -->
+    <select id="getAttendanceDates" parameterType="int" resultType="String">
+        SELECT CHECK_DATE
+        FROM TBL_CHECK
+        WHERE USER_NO = #{userNo} AND CHECK_STATUS = TRUE
+        ORDER BY CHECK_DATE
+    </select>
+
+    <!-- 유저 레벨 업데이트하기 -->
+    <update id="updateUserLevel" parameterType="map">
+        UPDATE TBL_USER
+        SET LEVEL_NO = #{levelNo}
+        WHERE USER_NO = #{userNo}
+    </update>
+
+    <!-- 유저의 출석 수 가져오기 -->
+    <select id="getUserAttendanceCount" parameterType="int" resultType="int">
+        SELECT CHECK_ALL_NO
+        FROM TBL_USER
+        WHERE USER_NO = #{userNo}
+    </select>
+
+    <!-- 레벨마다 이름 가져오기 -->
+    <select id="getLevelName" parameterType="int" resultType="string">
+        SELECT LEVEL
+        FROM TBL_LEVEL
+        WHERE LEVEL_NO = #{levelNo}
+    </select>
+
+
+    <!-- 다음 등급을 조회하는 쿼리 -->
+    <select id="getNextLevelName" parameterType="int" resultType="String">
+        SELECT LEVEL
+        FROM TBL_LEVEL
+        WHERE LEVEL_NO = (SELECT LEVEL_NO + 1 FROM TBL_LEVEL WHERE LEVEL_NO = #{currentLevelNo})
+    </select>
+
+<!--    &lt;!&ndash; 다음 등급에 도달하기 위한 출석 횟수 조회 SQL &ndash;&gt;-->
+<!--    <select id="getNextLevelRequiredAttendance" parameterType="map" resultType="int">-->
+<!--        SELECT MIN(CHECK_ALL_NO)-->
+<!--        FROM TBL_USER-->
+<!--        WHERE CHECK_ALL_NO >-->
+<!--        (SELECT CHECK_ALL_NO-->
+<!--        FROM TBL_USER-->
+<!--        WHERE USER_NO = #{userNo})-->
+<!--        AND LEVEL_NO = #{nextLevelNo};-->
+<!--    </select>-->
+
 </mapper>
 
 <!--<result property="userType" column="USER_TYPE"/>-->

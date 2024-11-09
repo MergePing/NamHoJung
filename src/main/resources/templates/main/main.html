@@ -72,7 +72,7 @@
 <aside id="myPageAside">
     <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
-    <p id="rank" class="rankfont">등급: 나는 최강</p>
+    <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
     <p class="infofont" id="info">개인 정보</p>
     <p class="activefont" id="active">활동 기록</p>
     <p class="MBTIfont" id="mbtiButton">MBTI</p>
@@ -87,9 +87,9 @@
     </form>
 </aside>
 <div class="rankpopup" id="rank-popup">
-    <p class="scorefont">활동 점수 : </p>
-    <p class="nextfont">다음 등급 : </p>
-    <p class="needfont">필요 점수 : </p>
+    <p class="scorefont">출석 횟수 : <span th:text="${attendanceCount}"></span></p>
+    <p class="nextfont">다음 등급 : <span th:text="${nextLevelName}"></span></p>
+    <p class="needfont">필요 출석 : <span th:text="${nextLevelRequiredAttendance}"></span></p>
 </div>
 
 <div class="modal-background" id="modal-background">
@@ -386,6 +386,29 @@
             dayDiv.id = `day-${i}`;
             calendar.appendChild(dayDiv);
         }
+        // 출석 상태 로드
+        fetch('/attendanceStatus')
+            .then(response => response.json())
+            .then(dates => {
+                dates.forEach(dateStr => {
+                    const [checkedYear, checkedMonth, checkedDay] = dateStr.split("-");
+                    if (parseInt(checkedYear) === year && parseInt(checkedMonth) === month + 1) {
+                        const checkedDiv = document.getElementById(`day-${parseInt(checkedDay)}`);
+                        if (checkedDiv) {
+                            checkedDiv.classList.add('checked');
+
+                            // 중복 체크 마크 방지
+                            if (!checkedDiv.querySelector('img')) {
+                                const img = document.createElement('img');
+                                img.src = '/images/main/check mark.png';
+                                checkedDiv.appendChild(img);
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('출석 상태 로드 실패:', error));
+
 
         // 출석 체크 버튼 클릭 이벤트
         checkAttendanceBtn.addEventListener('click', function() {

@@ -87,7 +87,7 @@ aside.show {
     color:#C9E5CA;
 }
 .rankfont{
-    width:180px;
+    width:500px;
     height:33px;
     margin-left:59px;
     margin-top:57px;
@@ -192,7 +192,7 @@ aside.show {
 }
 
 .scorefont{
-    width: 118px;
+    width: 500px;
     height: 31px;
     font-family: 'BMJUA';
     font-style: normal;
@@ -205,7 +205,7 @@ aside.show {
 
 }
 .nextfont{
-    width: 118px;
+    width: 500px;
     height: 31px;
     font-family: 'BMJUA';
     font-style: normal;
@@ -217,7 +217,7 @@ aside.show {
     color: #FFFFFF;
 }
 .needfont{
-    width: 118px;
+    width: 500px;
     height: 31px;
     font-family: 'BMJUA';
     font-style: normal;
