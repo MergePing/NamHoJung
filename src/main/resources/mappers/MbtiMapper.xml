@@ -17,4 +17,10 @@
          FROM TBL_MBTI_TEST
         WHERE MBTI_QUESTION_NO = #{ questionNo }
     </select>
+
+    <update id="updateMbti">
+        UPDATE TBL_MBTI
+        SET MBTI_TYPE = #{mbtiType}
+        WHERE USER_NO = #{userNo};
+    </update>
 </mapper>

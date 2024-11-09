@@ -29,8 +29,10 @@
   <p id="question-text" th:text="${questiondto != null ? questiondto.text : '시작하기'}"></p>
 
   <img class="hands" th:src="@{/images/mbti/hands.png}" alt="손">
-  <button type="button" class="next" id="yes" onclick="answerQuestion('yes')" data-content="예">예</button>
-  <button type="button" class="next" id="no" onclick="answerQuestion('no')" data-content="아니오">아니오</button>
+  <form th:action="@{/mbti/submitMbtiResult}" method="post">
+  <button class="next" type="button" id="yes" onclick="answerQuestion('yes')" data-content="예">예</button>
+  <button class="next" type="button" id="no" onclick="answerQuestion('no')" data-content="아니오">아니오</button>
+  </form>
 </div>
 </body>
 <script>
@@ -79,11 +81,39 @@
     }
   }
 
+  function submitMbtiResult() {
+    fetch('/mbti/submitMbtiResult', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'  // JSON 형식으로 전송
+      },
+      body: JSON.stringify({
+        CB: mbtiTesterDTO.CB,
+        HG: mbtiTesterDTO.HG,
+        SE: mbtiTesterDTO.SE,
+        TM: mbtiTesterDTO.TM
+      })
+    })
+            .then(response => response.json())
+            .then(data => {
+              // 성공적으로 결과 페이지로 이동
+              location.href = '/mbti/mbtiresult';
+            })
+            .catch(error => console.error('Error submitting MBTI result:', error));
+  }
+
   let currentQuestionNo = 1;
   const mbtiTesterDTO = new MbtiTesterDTO(); // 결과담을 공간
 
   // '예' 또는 '아니오' 버튼 클릭 시 호출되는 함수
   function answerQuestion(answer) {
+
+    if (currentQuestionNo === 36) {
+      // 모든 질문을 마친 후 결과 전송
+      submitMbtiResult();
+      return;
+    }
+
     mbtiTesterDTO.updateMbti(currentQuestionNo, answer);
     const imagePath = `/images/mbti/questions/mbti${currentQuestionNo}img.png`;
     // 서버로 비동기 요청 보내기
