@@ -101,15 +101,16 @@
         <div id="content">
             <span th:text="${post.postContent}"></span>
             <!-- 첫 번째 이미지 경로 설정 -->
-            <img th:src="@{'/uploads/' + ${post.postDate} + '/' + ${post.postDate} + '_' + ${post.postNo} + '_1.' + ${post.postImageFirstExtension != null ? post.postImageFirstExtension : 'png'}}" class="blur" id="img1" alt="첫 번째 이미지">
-            <!-- 두 번째 이미지 경로 설정 -->
-            <img th:src="@{'/uploads/' + ${post.postDate} + '/' + ${post.postDate} + '_' + ${post.postNo} + '_2.' + ${post.postImageSecondExtension != null ? post.postImageSecondExtension : 'png'}}" class="blur" id="img2" alt="두 번째 이미지">
+<!--            확장자 값이 떠야하는데 null로 나옴 임의로 png넣었음-->
+            <img th:src="@{${post.postImageFirst}}" class="blur" id="img1" alt="첫 번째 이미지">
+            <img th:src="@{${post.postImageSecond}}" class="blur" id="img2" alt="두 번째 이미지">
 
         </div>
 
 
 
         <script>
+
             const img1 = document.getElementById("img1");
             const img2 = document.getElementById("img2");
 
@@ -124,8 +125,16 @@
                     img2.classList.toggle("blur");
                 });
             }
-
         </script>
+        <script>
+            const post = {
+                postImageFirstExtension: "[[${post.postImageFirstExtension}]]",
+                postImageSecondExtension: "[[${post.postImageSecondExtension}]]"
+            };
+            console.log("First Image Extension: " + post.postImageFirstExtension);
+            console.log("Second Image Extension: " + post.postImageSecondExtension);
+        </script>
+
         <div id="box">
             <div id="writer">
                 <img th:src="@{/images/post/selectpost/profile-img.png}">

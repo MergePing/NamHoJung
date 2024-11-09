@@ -328,11 +328,13 @@ public class PostController {
 
                     // 첫번째 이미지의 확장자 주입
                     String firstFileExtension = getFileExtension(fileFirst.getOriginalFilename());
-                    selectPostDTO.setPostImageFirstExtension(firstFileExtension);
+                    selectPostDTO.setPostImageFirstExtension(firstImagePath);
                     System.out.println("firstFileExtension = " + firstFileExtension);
 
                     // 첫번째 파일에 클라이언트가 접근할수있는 경로 주입
                     selectPostDTO.setPostImageFirst("/uploads/"+firstImagePath);
+                }else {
+                    System.out.println("fileFirst is null or empty");
                 }
 
                 // 두번째 파일이 null이 아니고 비어있지 않은 경우 파일, 게시글 번호, 이미지번호를 저장
@@ -345,6 +347,8 @@ public class PostController {
 
                     // 두번째 파일에 클라이언트가 접근할수있는 경로 주입
                     selectPostDTO.setPostImageSecond("/uploads/"+secondImagePath);
+                }else {
+                    System.out.println("fileSecond is null or empty");
                 }
 
                 //게시물을 생성하는서비스 메소드 호출
@@ -401,11 +405,14 @@ public class PostController {
         // 지정한 path에 바이트 배열의 파일을 생성하고 파일을 저장, 만약 파일이 이미 존재하면 덮어씀
         Files.write(path, file.getBytes());
 
+        System.out.println("Original Filename: " + file.getOriginalFilename());
+
+
         // 디버깅 확인을 위한 파일 경로 출력
         System.out.println("File saved at: " + path.toString());
 
         // 클라이언트가 이미지를 볼수있게 이미지 경로 반환
-        return fileExtension;
+        return imagePath;
     }
 
 
