@@ -23,13 +23,13 @@
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
   <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
-  <img class="dynamic-image" id="testBack2" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경2">
-  <img id="bookIco" th:src="@{/images/icon/book.png}" alt="MBTI 시작 전 문구 아이콘">
-  <p id="mbtiStart" class="dynamic-text" data-content="공포 MBTI 테스트"></p>
-  <p id="mbtiStart2" class="dynamic-text" data-content="공포 MBTI를 시작하시겠습니까?평균 소요 시간 7분 ~ 12분"></p>
+  <img src="{{questions[0].image}}" alt="MBTI Image" id="question-img" />
+  <p id="question-text" data-content="{{questions[0].question}}">{{questions[0].question}}</p>
   <img class="hands" th:src="@{/images/mbti/hands.png}" alt="손">
-  <button type="button" id="yes" data-content="예" onclick="">예</button>
-  <button type="button" id="no" data-content="아니오" onclick="">아니오</button>
+  <button type="button" id="yes" onclick="answerQuestion('yes')" data-content="예" onclick="">예</button>
+  <button type="button" id="no" onclick="answerQuestion('no')" data-content="아니오" onclick="">아니오</button>
 </div>
 </body>
+<script>
+</script>
 </html>
