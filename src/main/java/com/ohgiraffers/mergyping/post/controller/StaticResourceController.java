@@ -21,7 +21,11 @@ public class StaticResourceController {
             @PathVariable String date,
             @PathVariable String postNo,
             @PathVariable String fileName) {
+
+        // 요청된 파일 경로에 따라 리소스를 로드
         Resource resource = resourceLoader.getResource("file:src/main/resources/static/uploads/" + date + "/" + postNo + "/" + fileName);
+
+        // 로드 된 리소스 응답 반환
         return ResponseEntity.ok(resource);
     }
 }

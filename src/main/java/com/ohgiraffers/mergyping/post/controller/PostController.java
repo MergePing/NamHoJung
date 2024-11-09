@@ -326,6 +326,11 @@ public class PostController {
                 if (fileFirst != null && !fileFirst.isEmpty()) {
                     String firstImagePath = saveFile(fileFirst, postNo, 1);
 
+                    // 첫번째 이미지의 확장자 주입
+                    String firstFileExtension = getFileExtension(fileFirst.getOriginalFilename());
+                    selectPostDTO.setPostImageFirstExtension(firstFileExtension);
+                    System.out.println("firstFileExtension = " + firstFileExtension);
+
                     // 첫번째 파일에 클라이언트가 접근할수있는 경로 주입
                     selectPostDTO.setPostImageFirst("/uploads/"+firstImagePath);
                 }
@@ -333,6 +338,10 @@ public class PostController {
                 // 두번째 파일이 null이 아니고 비어있지 않은 경우 파일, 게시글 번호, 이미지번호를 저장
                 if (fileSecond != null && !fileSecond.isEmpty()) {
                     String secondImagePath = saveFile(fileSecond, postNo, 2);
+
+                    String secondFileExtension = getFileExtension(fileSecond.getOriginalFilename());
+                    selectPostDTO.setPostImageSecondExtension(secondFileExtension);
+                    System.out.println("secondFileExtension = " + secondFileExtension);
 
                     // 두번째 파일에 클라이언트가 접근할수있는 경로 주입
                     selectPostDTO.setPostImageSecond("/uploads/"+secondImagePath);
@@ -370,6 +379,7 @@ public class PostController {
         // 파일 확장자 추출 아래 getFileExtension 메소드 참고
         //file.getOriginalFilename()는 img1.png 반환, getFileExtension(img1.png)는 png 반환
         String fileExtension = getFileExtension(file.getOriginalFilename());
+        System.out.println("111111111111111"+fileExtension);
 
         // 파일 이름을 위에서 설정한 날짜, 게시글 번호, 이미지 번호. 추출한 확장자로 바꿈 ex) 2024-11-08_13_1.jpg
         String fileName = date + "_" + postNo + "_" + imageNo + "." + fileExtension;
@@ -382,7 +392,7 @@ public class PostController {
 
         //이미지 서버 경로 설정 ex) src/main/resources/static/uploads/2024-11-08/2024-11-08_13_1.jpg
         // 서버경로 - 서버에 있는 내 파일에 저장되는 경로
-        Path path = Paths.get(UPLOAD_DIR + "/"+date+"/" + fileName);
+        Path path = Paths.get(UPLOAD_DIR +imagePath);
 
         // 파일을 저장할 디렉토리 생성, 이미 있는경우 생성하지 않음
         // 이미지 1번을 저장할때는 2024-11-08/ 디렉토리 생성, 2번은 그냥 그 하위로 들어감
@@ -395,25 +405,24 @@ public class PostController {
         System.out.println("File saved at: " + path.toString());
 
         // 클라이언트가 이미지를 볼수있게 이미지 경로 반환
-        return imagePath;
+        return fileExtension;
     }
 
 
 
     // 파일 확장자 추출 .이 있으면 .뒤에 오는 확장자(png,jpg)를 추출하고 없는 경우 빈 문자열 반환
     private String getFileExtension(String fileName) {
-        // 파일에서 마지막.의 인덱스를 찾음
-        int lastIndexOfDot = fileName.lastIndexOf('.');
 
+        // 파일에서 마지막.의 인덱스를 찾음
         // 인덱스에 .이 없는 경우 -1 을 반환함(인데스는 0번부터 시적하기 때문에 -1 반환) -1일 경우 빈 문자열 반환
-        if (lastIndexOfDot == -1) {
+        if (fileName==null||fileName.lastIndexOf('.') == -1) {
             return "";
         }
 
         // substring은 시작하는 인덱스부터 마지막 인덱스까지를 반환하는 메소드
         // 따라서 .이후를 반환하려면 1을 더해줘야함
         // 파일이름의 .이후를 확장자로 반환
-        return fileName.substring(lastIndexOfDot + 1);
+        return fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
     }
 
 }

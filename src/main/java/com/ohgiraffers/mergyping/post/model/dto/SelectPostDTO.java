@@ -18,11 +18,15 @@ public class SelectPostDTO {
     private boolean postFavorite;
     private boolean scary;
     private boolean notScary;
+    private String postImageFirstExtension;
+    private String postImageSecondExtension;
+
+
 
 
     public SelectPostDTO() {}
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -38,6 +42,8 @@ public class SelectPostDTO {
         this.postFavorite = postFavorite;
         this.scary = scary;
         this.notScary = notScary;
+        this.postImageFirstExtension = postImageFirstExtension;
+        this.postImageSecondExtension = postImageSecondExtension;
     }
 
     public int getPostNo() {
@@ -160,6 +166,22 @@ public class SelectPostDTO {
         this.notScary = notScary;
     }
 
+    public String getPostImageFirstExtension() {
+        return postImageFirstExtension;
+    }
+
+    public void setPostImageFirstExtension(String postImageFirstExtension) {
+        this.postImageFirstExtension = postImageFirstExtension;
+    }
+
+    public String getPostImageSecondExtension() {
+        return postImageSecondExtension;
+    }
+
+    public void setPostImageSecondExtension(String postImageSecondExtension) {
+        this.postImageSecondExtension = postImageSecondExtension;
+    }
+
     @Override
     public String toString() {
         return "SelectPostDTO{" +
@@ -178,6 +200,8 @@ public class SelectPostDTO {
                 ", postFavorite=" + postFavorite +
                 ", scary=" + scary +
                 ", notScary=" + notScary +
+                ", postImageFirstExtension='" + postImageFirstExtension + '\'' +
+                ", postImageSecondExtension='" + postImageSecondExtension + '\'' +
                 '}';
     }
 }

@@ -100,8 +100,11 @@
         <div class="line"></div>
         <div id="content">
             <span th:text="${post.postContent}"></span>
-            <img th:src="@{${post.postDate} + '_' + ${post.postNo} + '_1.png'}" class="blur" id="img1" alt="111">
-            <img th:src="@{${post.postDate} + '_' + ${post.postNo} + '_2.png' }" class="blur" id="img2" alt="2222">
+            <!-- 첫 번째 이미지 경로 설정 -->
+            <img th:src="@{'/uploads/' + ${post.postDate} + '/' + ${post.postDate} + '_' + ${post.postNo} + '_1.' + ${post.postImageFirstExtension != null ? post.postImageFirstExtension : 'png'}}" class="blur" id="img1" alt="첫 번째 이미지">
+            <!-- 두 번째 이미지 경로 설정 -->
+            <img th:src="@{'/uploads/' + ${post.postDate} + '/' + ${post.postDate} + '_' + ${post.postNo} + '_2.' + ${post.postImageSecondExtension != null ? post.postImageSecondExtension : 'png'}}" class="blur" id="img2" alt="두 번째 이미지">
+
         </div>
 
 
