@@ -27,10 +27,10 @@ public class MbtiService {
         String mbtiType = "";
 
         // 각 점수에 따라 MBTI 유형을 계산
-        mbtiType += mbtiTesterDTO.getCB() >= 0 ? "C" : "E";
-        mbtiType += mbtiTesterDTO.getHG() >= 0 ? "H" : "S";
-        mbtiType += mbtiTesterDTO.getSE() >= 0 ? "S" : "N";
-        mbtiType += mbtiTesterDTO.getTM() >= 0 ? "T" : "F";
+        mbtiType += mbtiTesterDTO.getCB() >= 1 ? "C" : "B";
+        mbtiType += mbtiTesterDTO.getHG() >= 1 ? "H" : "G";
+        mbtiType += mbtiTesterDTO.getSE() >= 1 ? "S" : "E";
+        mbtiType += mbtiTesterDTO.getTM() >= 1 ? "T" : "M";
 
         return mbtiType;
     }

@@ -15,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/mbti")
 public class MbtiController {
@@ -48,7 +51,8 @@ public class MbtiController {
     }
 
     @PostMapping("/submitMbtiResult")
-    public String submitMbtiResult(@RequestBody MbtiTesterDTO mbtiTesterDTO, Authentication authentication) {
+    @ResponseBody
+    public Map<String, String> submitMbtiResult(@RequestBody MbtiTesterDTO mbtiTesterDTO, Authentication authentication) {
         // 현재 로그인한 사용자의 정보 가져오기
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
         int userNo = authDetails.getUserNo(); // 로그인한 사용자의 userNo를 얻어옵니다.
@@ -66,6 +70,8 @@ public class MbtiController {
         mbtiService.updateMbti(userNo, mbtiResultDTO);
 
         // 성공적으로 처리 후 결과 페이지로 이동
-        return "{\"status\":\"success\"}";
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "success");
+        return response;
     }
 }

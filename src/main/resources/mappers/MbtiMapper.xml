@@ -9,6 +9,13 @@
         <result property="image" column="MBTI_IMG"/>
         <result property="text" column="MBTI_QUESTION"/>
     </resultMap>
+
+    <resultMap id="mbtiResultMap" type="com.ohgiraffers.mergyping.mbti.model.dto.QuestionDTO">
+        <result property="No" column="MBTI_QUESTION_NO"/>
+        <result property="image" column="MBTI_IMG"/>
+        <result property="text" column="MBTI_QUESTION"/>
+    </resultMap>
+
     <select id="getQuestion" resultMap="questionResultMap">
             SELECT
           MBTI_QUESTION_NO
@@ -20,7 +27,8 @@
 
     <update id="updateMbti">
         UPDATE TBL_MBTI
-        SET MBTI_TYPE = #{mbtiType}
+        SET MBTI_TYPE = #{mbtiResultDTO.mbtiType},
+        MBTI_STATUS = TRUE
         WHERE USER_NO = #{userNo};
     </update>
 </mapper>
