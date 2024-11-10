@@ -26,7 +26,7 @@
 
 
   <img id="question-img" src="/images/mbti/img.png" alt="MBTI Image" />
-  <p id="question-text" th:text="${questiondto != null ? questiondto.text : '시작하기'}"></p>
+  <p id="question-text" th:text="${QuestionDTO != null ? QuestionDTO.text : '시작하기'}"></p>
 
   <img class="hands" th:src="@{/images/mbti/hands.png}" alt="손">
   <form th:action="@{/mbti/submitMbtiResult}" method="post">

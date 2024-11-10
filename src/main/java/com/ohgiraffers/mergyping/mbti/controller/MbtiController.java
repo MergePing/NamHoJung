@@ -32,7 +32,8 @@ public class MbtiController {
     }
 
     @GetMapping("test")
-    public String mbtiTest() {
+    public String mbtiTest(Model model) {
+
         return "/mbti/mbtitest";
     }
 

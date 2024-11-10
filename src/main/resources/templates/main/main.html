@@ -80,7 +80,7 @@
         <div id="myMBTI" class="mbti-item">
             -- 나의 MBTI
         </div>
-        <div class="mbti-item2">-- MBTI 검사</div>
+        <div class="mbti-item2" onclick="location.href='/mbti'">-- MBTI 검사</div>
     </div>
     <form th:action="@{/auth/logout}" method="post">
         <button class="logoutFont" type="submit">로그아웃</button>
@@ -127,14 +127,14 @@
             <div class="clikbtn tr">
                 <img th:src="@{/images/main/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
                 <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-                <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+                <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" onclick="location.href='/mbti'" alt="MBTI 테스트">
             </div>
 
         </div>
         <div class="logo"><img th:src="@{/images/main/main-logo-dark.png}" alt="남호정 메인 로고"></div>
         <div class="subtitle"><img th:src="@{/images/main/main-subtitle-dark.png}" alt="남이 이야기 해주는 호러정원"></div>
         <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면">
-        <div class="mainbox tr" id="mainbox"><p id="black">나의 공포 MBTI는?</p></div>
+        <div class="mainbox tr" id="mainbox" onclick="location.href='/mbti'"><p id="black">나의 공포 MBTI는?</p></div>
     </div>
 <img th:src="@{/images/main/main2-best.png}" id="gost">
     <div class="main2">
