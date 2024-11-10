@@ -30,5 +30,19 @@ public class AuthService implements UserDetailsService {
         return new AuthDetails(login);
     }
 
+        public LoginUserDTO authenticate(String username, String password) {
+            // username으로 사용자 정보를 조회
+            LoginUserDTO user = userService.findByUsername(username);
 
-}
+            // 사용자가 존재하지 않거나 패스워드가 일치하지 않는 경우
+            if (user == null || !user.getUserPass().equals(password)) {
+                return null; // 또는 예외를 던질 수 있습니다.
+            }
+
+            // 사용자 정보가 일치하는 경우 반환
+            return user;
+        }
+    }
+
+
+

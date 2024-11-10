@@ -139,20 +139,28 @@
         <h2>베스트 정원</h2>
         <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지">
         <div class="fristbest">
+            <a>
             <img th:src="@{/images/main/main2-img1.png}" alt="베스트 게시물 이미지1">
             <p th:text="${bestPosts[0].postTitle}" class="ellipsis"></p>
             <span class="multiline-ellipsis" th:text="${bestPosts[0].postContent}"> </span>
+            </a>
+            <a>
             <img th:src="@{/images/main/main2-img2.png}" alt="베스트 게시물 이미지2">
             <p th:text="${bestPosts[1].postTitle}" class="ellipsis"></p>
             <span class="multiline-ellipsis" th:text="${bestPosts[1].postContent}"> </span>
+            </a>
+            <a>
             <img th:src="@{/images/main/main2-img3.png}" alt="베스트 게시물 이미지3">
             <p th:text="${bestPosts[2].postTitle}" class="ellipsis"></p>
             <span class="multiline-ellipsis"  th:text="${bestPosts[2].postContent}">
             </span>
+            </a>
+            <a>
             <img th:src="@{/images/main/main2-img4.png}" alt="베스트 게시물 이미지4">
             <p th:text="${bestPosts[3].postTitle}" class="ellipsis"></p>
             <span class="multiline-ellipsis"   th:text="${bestPosts[3].postContent}">
             </span>
+            </a>
         </div>
     </div>
 

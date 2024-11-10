@@ -283,14 +283,18 @@ main .select:active{
 
 }
 
-main .select p{
+main .select button{
     position: absolute;
-    left: 65px;
-    top: 17px;
+    width: 186px;
+    left: 0px;
+    top: 10px;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
+    background: none;
+    border: none;
+    outline: none;
 }
 
 

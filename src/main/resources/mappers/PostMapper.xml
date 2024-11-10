@@ -30,6 +30,13 @@
         <result property="notScary" column="NOT_SCARY"/>
     </resultMap>
 
+    <resultMap id="writerName" type="com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO">
+        <id property="userNo" column="USER_NO"/>
+        <result property="postNo" column="POST_NO"/>
+        <result property="level" column="LEVEL"/>
+        <result property="userName" column="USER_NAME"/>
+    </resultMap>
+
 
     <select id="postList" resultMap="postList">
         SELECT
@@ -56,7 +63,8 @@
         COMMENTS_NUMBER,
         POST_FAVORITE
         FROM TBL_POST
-        ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize};
+        ORDER BY POST_DATE DESC
+        LIMIT #{offset}, #{pageSize};
     </select>
 
     <select id="getPostCount" resultMap="postList">
@@ -98,6 +106,9 @@
         FROM TBL_POST
         WHERE POST_NO = #{postNo};
     </select>
+
+
+
 
 
     <update id="updateFavoriteStatus">
@@ -153,6 +164,7 @@
         POST_CONTENTS,
         POST_CATEGORY,
         POST_WRITER,
+        POST_LEVEL,
         POST_IMAGE_FIRST,
         POST_IMAGE_SECOND
         )
@@ -160,17 +172,48 @@
         #{postTitle},
         #{postContent},
         #{postCategory},
-        #{postWriter},
+        (SELECT A.USER_NAME FROM TBL_USER A WHERE A.USER_NO = #{postWriter}),
+        (SELECT C.LEVEL_NAME FROM TBL_USER A JOIN TBL_LEVEL C ON A.LEVEL_NO = C.LEVEL_NO WHERE A.USER_NO = #{postWriter}),
         #{postImageFirst},
         #{postImageSecond}
         );
     </insert>
+
+
+
+    <select id="writerName" resultMap="writerName">
+        SELECT
+        A.USER_NAME
+        FROM TBL_USER A
+        JOIN TBL_POST B ON B.POST_WRITER = A.USER_NO
+        JOIN TBL_LEVEL C ON A.LEVEL_NO = C.LEVEL_NO
+        WHERE A.USER_NO = #{userNo}
+    </select>
+
+
 
     <select id="getMaxPostNo" resultType="int">
         SELECT
         MAX(POST_NO)
         FROM TBL_POST
     </select>
+
+
+    <select id="searchPost" resultType="com.ohgiraffers.mergyping.post.model.dto.PostDTO" parameterType="string">
+        SELECT
+        POST_NO,
+        POST_TITLE,
+        POST_CATEGORY,
+        POST_DATE,
+        SCARY_NUMBER,
+        COMMENTS_NUMBER,
+        POST_FAVORITE
+        FROM TBL_POST
+        WHERE POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+        OR POST_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY POST_DATE DESC
+    </select>
+
 
 
 </mapper>

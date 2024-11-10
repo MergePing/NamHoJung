@@ -418,6 +418,7 @@ main .bg{
     font-size: 50px;
     margin-top: -150px;
     margin-right: 50px;
+    cursor:pointer;
 }
 
 #Writer .wrapper>img {

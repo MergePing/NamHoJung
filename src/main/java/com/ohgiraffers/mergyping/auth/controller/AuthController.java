@@ -5,12 +5,13 @@ import com.ohgiraffers.mergyping.user.model.dto.LoginUserDTO;
 import com.ohgiraffers.mergyping.user.model.service.MyPageService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/auth") // 경로
@@ -34,5 +35,17 @@ public class AuthController {
 
         return "이메일 인증이 완료되었습니다.";
     }
+
+    @GetMapping("/user-info")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getUserInfo(HttpSession session) {
+        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute("loginUser");
+
+        Map<String, String> userInfo = new HashMap<>();
+        userInfo.put("userName", loginUser.getUserName());
+
+        return ResponseEntity.ok(userInfo);
+    }
+
 
 }

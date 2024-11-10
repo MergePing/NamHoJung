@@ -45,11 +45,11 @@
     </div>
 
     <div class="select">
-        <p>분류</p>
+        <button>분류</button>
     </div>
 
-    <input type="search" value="&nbsp; &nbsp; &nbsp;검색어를 입력하세요">
-    <label><img th:src="@{/images/post/Search-dark.png}"></label>
+    <input type="search" id="searchInput" placeholder="&nbsp; &nbsp; &nbsp;검색어를 입력하세요">
+    <label><img th:src="@{/images/post/Search-dark.png}" id="searchBtn"></label>
 
 
     <div class="sell">
@@ -63,7 +63,7 @@
     </div>
     <div class="post1" id="postContainer">
         <div class="post" th:each="post, iterStat : ${postList}" th:attr="style=${'top: ' + (iterStat.index * 80) + 'px;'}">
-            <span th:text="${post.postNo}"></span>
+            <span th:text="${post.postNo}" id="postNo"></span>
             <span>
             <img th:src="@{/images/post/best-dark.png}" th:if="${post.postFavorite}"
                  th:attr="data-postNo=${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
@@ -107,6 +107,76 @@
             .then(response => response.json()) .then(data => { if (data.success) {
             element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
         } }) .catch(error => console.error('Error:', error)); }
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchBtn = document.getElementById('searchBtn');
+        searchBtn.addEventListener('click', function() {
+            const keyword = String(document.getElementById('searchInput').value);
+            fetchPosts(keyword);
+        });
+
+        function fetchPosts(keyword) {
+            fetch(`/searchpost?keyword=${encodeURIComponent(keyword)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const postContainer = document.getElementById('postContainer');
+                    postContainer.innerHTML = '';
+
+                    if (data && data.posts && Array.isArray(data.posts)) {
+                        const posts = data.posts;
+
+                        if (posts.length === 0) {
+                            const noResultsMessage = document.createElement('p');
+                            noResultsMessage.textContent = '검색 결과가 없습니다.';
+                            postContainer.appendChild(noResultsMessage);
+                        } else {
+                            posts.forEach((post, index) => {
+                                if (post !== null) {
+                                    addNewPost(post, index);
+                                }
+                            });
+                        }
+                    } else {
+                        console.error('Error: Invalid data format or empty posts array', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching posts:', error);
+                });
+        }
+
+        function addNewPost(post, index) {
+            const postContainer = document.getElementById('postContainer');
+            const newPost = document.createElement('div');
+            newPost.classList.add('post');
+            newPost.setAttribute('style', `top: ${index * 80}px`);
+            newPost.innerHTML = `
+            <span>${post.postNo}</span>
+            <span>
+                <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
+                     data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <a href="/selectpost/${post.postNo}">
+                <span>${post.postTitle}</span>
+            </a>
+            <div><span>${post.postCategory}</span></div>
+            <span>${post.postDate}</span>
+            <span>${post.scaryNumber}</span>
+            <span>${post.commentNumber}</span>
+        `;
+            postContainer.appendChild(newPost);
+        }
+    });
+
+
 </script>
 
 

@@ -3,6 +3,7 @@ package com.ohgiraffers.mergyping.post.model.service;
 import com.ohgiraffers.mergyping.post.model.dao.PostMapper;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
+import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -125,6 +126,16 @@ public class PostService {
         // 매퍼를 통해 게시물 번호 중에 가장 큰 값 반환
         return postMapper.getMaxPostNo();
     }
+
+
+    // 게시물 키워드 검색
+    public List<PostDTO> searchPost(String keyword) {
+        List<PostDTO> posts = postMapper.searchPost(keyword);
+        System.out.println("검색 결과: " + posts);
+        return posts;
+    }
+
+
 
 
 }

@@ -1,11 +1,15 @@
 package com.ohgiraffers.mergyping.post.controller;
 
+import com.ohgiraffers.mergyping.auth.model.AuthDetails;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
+import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -214,6 +219,7 @@ public class PostController {
 
         return "post/newpost";
     }
+
 
 
     // 새 게시물 번호를 생성하는 메서드 예시
@@ -432,4 +438,33 @@ public class PostController {
         return fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
     }
 
+    // 게시물 검색
+
+    @GetMapping("/searchpost")
+    public ResponseEntity<Map<String, Object>> searchPosts(@RequestParam(required = false) String keyword) {
+        try {
+            if (keyword == null || keyword.trim().isEmpty()) {
+                throw new IllegalArgumentException("키워드를 입력해주세요.");
+            }
+
+            String decodedKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+            System.out.println("디코딩된 검색어: " + decodedKeyword);
+
+            List<PostDTO> posts = postService.searchPost(decodedKeyword);
+            System.out.println("검색 결과: " + posts);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("posts", posts);
+
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "서버 오류가 발생했습니다."));
+        }
+    }
+
+
 }
+
