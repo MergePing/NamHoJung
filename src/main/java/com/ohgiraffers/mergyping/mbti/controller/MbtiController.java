@@ -50,7 +50,7 @@ public class MbtiController {
         return "/mbti/mbtiresult";
     }
 
-    @PostMapping("/submitMbtiResult")
+    @PostMapping("/submitmbtiresult")
     @ResponseBody
     public Map<String, String> submitMbtiResult(@RequestBody MbtiTesterDTO mbtiTesterDTO, Authentication authentication) {
         // 현재 로그인한 사용자의 정보 가져오기

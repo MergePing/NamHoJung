@@ -82,7 +82,7 @@
   }
 
   function submitMbtiResult() {
-    fetch('/mbti/submitMbtiResult', {
+    fetch('/mbti/submitmbtiresult', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'  // JSON 형식으로 전송
@@ -96,7 +96,6 @@
     })
             .then(response => response.json())
             .then(data => {
-              // 성공적으로 결과 페이지로 이동
               location.href = '/mbti/mbtiresult';
             })
             .catch(error => console.error('Error submitting MBTI result:', error));

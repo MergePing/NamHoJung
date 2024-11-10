@@ -1,12 +1,17 @@
 package com.ohgiraffers.mergyping.mbti.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MbtiTesterDTO {
+    @JsonProperty("CB") // 이거하니까 json에서 넘어온다. 몇시간을 고생해따 ;-; -> fetch로 json보낼때 안되면 해보자
     private int CB;
+    @JsonProperty("HG")
     private int HG;
+    @JsonProperty("SE")
     private int SE;
+    @JsonProperty("TM")
     private int TM;
 
     public MbtiTesterDTO() {}
