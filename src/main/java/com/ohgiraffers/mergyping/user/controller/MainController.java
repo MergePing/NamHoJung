@@ -52,7 +52,7 @@ public class MainController {
 
 
             // 누적된 출석 수 가져오기
-            int attendanceCount = myPageService.getUserAttendanceCount(userNo);
+            Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
             model.addAttribute("attendanceCount", attendanceCount);
 
             // 등급 기준 정해주기
@@ -115,12 +115,10 @@ public class MainController {
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
-
             String todayStr = LocalDate.now().toString();
 
             // 통합된 출석 체크 및 누적 증가 메서드 호출
             return myPageService.checkAndIncrementAttendance(userNo, todayStr);
-
 
 
         }

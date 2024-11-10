@@ -151,8 +151,8 @@
     </update>
 
     <!-- 유저의 출석 수 가져오기 -->
-    <select id="getUserAttendanceCount" parameterType="int" resultType="int">
-        SELECT CHECK_ALL_NO
+    <select id="getUserAttendanceCount" parameterType="int" resultType="Integer">
+        SELECT IFNULL(CHECK_ALL_NO, 0)
         FROM TBL_USER
         WHERE USER_NO = #{userNo}
     </select>
@@ -171,6 +171,11 @@
         FROM TBL_LEVEL
         WHERE LEVEL_NO = (SELECT LEVEL_NO + 1 FROM TBL_LEVEL WHERE LEVEL_NO = #{currentLevelNo})
     </select>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM TBL_USER
+            WHERE USER_NO = #{userNo}
+    </delete>
 
 <!--    &lt;!&ndash; 다음 등급에 도달하기 위한 출석 횟수 조회 SQL &ndash;&gt;-->
 <!--    <select id="getNextLevelRequiredAttendance" parameterType="map" resultType="int">-->

@@ -94,7 +94,7 @@ public class MyPageService {
     }
 
     //누적된 출석 수 가져오기
-    public int getUserAttendanceCount(int userNo) {
+    public Integer getUserAttendanceCount(int userNo) {
         return myPageMapper.getUserAttendanceCount(userNo);
     }
 
@@ -138,12 +138,12 @@ public class MyPageService {
         return myPageMapper.getLevelName(levelNo);
     }
 
-    // 유저의 다음 등급 조회하기
+    // 유저 다음 등급 조회하기
     public String getNextLevelName(int currentLevelNo) {
         return myPageMapper.getNextLevelName(currentLevelNo);
     }
 
-    // 유저의 다음 등급까지 남은 출석 수 조회하기
+    // 유저의 다음등급까지 남은 출석 수 조회
     public int getNextLevelRequiredAttendance(int levelNo, int userAttendanceCount) {
         // 각 레벨의 최소 출석 횟수 기준
         int[] levelAttendanceThresholds = {0, 11, 21, 41, 61, 81, 101, 121, 141, 161};
@@ -162,6 +162,10 @@ public class MyPageService {
         } else {
             return nextLevelAttendance - userAttendanceCount; // 부족한 출석 횟수
         }
+    }
+
+    public void deleteUserAccount(int userNo) {
+        myPageMapper.deleteUser(userNo);
     }
 }
 

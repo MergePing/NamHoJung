@@ -142,7 +142,28 @@ public class MyPageController {
         return "user/mypage/useractive";
     }
 
+    @PostMapping("/deleteAccount")
+    @ResponseBody
+    public ResponseEntity<?> deleteAccount() {
+        // 현재 인증된 사용자 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo(); // 로그인한 유저의 userNo 가져오기
+
+            try {
+                // 회원 탈퇴 처리
+                myPageService.deleteUserAccount(userNo);
+                return ResponseEntity.ok().body("회원 탈퇴가 완료되었습니다.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("회원 탈퇴에 실패하였습니다.");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("인증되지 않은 사용자입니다.");
+        }
+    }
 
     //닉네임 중복
     @GetMapping("/checknickname")
@@ -152,6 +173,8 @@ public class MyPageController {
         response.put("isDuplicate", isDuplicate);
         return ResponseEntity.ok(response);
     }
+
+
 
 
 
