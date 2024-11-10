@@ -10,12 +10,6 @@
         <result property="text" column="MBTI_QUESTION"/>
     </resultMap>
 
-    <resultMap id="mbtiResultMap" type="com.ohgiraffers.mergyping.mbti.model.dto.QuestionDTO">
-        <result property="No" column="MBTI_QUESTION_NO"/>
-        <result property="image" column="MBTI_IMG"/>
-        <result property="text" column="MBTI_QUESTION"/>
-    </resultMap>
-
     <select id="getQuestion" resultMap="questionResultMap">
             SELECT
           MBTI_QUESTION_NO
@@ -31,4 +25,35 @@
         MBTI_STATUS = TRUE
         WHERE USER_NO = #{userNo};
     </update>
+
+    <resultMap id="findResultMap" type="com.ohgiraffers.mergyping.mbti.model.dto.MbtiResultDTO">
+        <result property="userNo" column="USER_NO"/>
+        <result property="mbtiType" column="MBTI_TYPE"/>
+        <result property="mbtiStatus" column="MBTI_STATUS"/>
+    </resultMap>
+
+    <select id="findMbtiResultByUserNo" resultMap="findResultMap">
+        SELECT
+         USER_NO
+        , MBTI_TYPE
+        , MBTI_STATUS
+        FROM TBL_MBTI
+        WHERE USER_NO = #{userNo}
+    </select>
+
+    <resultMap id="MbtiResultMap" type="com.ohgiraffers.mergyping.mbti.model.dto.MbtiInfoDTO">
+        <result property="type" column="MBTI_TYPE"/>
+        <result property="result" column="MBTI_RESULT"/>
+        <result property="info" column="MBTI_INFO"/>
+    </resultMap>
+
+    <select id="findMbtiInfoByType" resultMap="MbtiResultMap">
+        SELECT
+          MBTI_TYPE
+        , MBTI_RESULT
+        , MBTI_INFO
+        FROM TBL_MBTI_INFO
+        WHERE MBTI_TYPE = #{mbtiType}
+    </select>
+
 </mapper>

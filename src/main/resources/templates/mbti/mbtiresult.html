@@ -30,9 +30,12 @@
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
   <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
-  <h2>당신의 MBTI는: ${mbti}</h2>
-  <p>${mbtiTester}</p>
-  <p>${information}</p>
+  <div class="mbti-result">
+    <h1>당신의 MBTI 결과는: <span th:text="${mbtiInfoDTO.type}"></span></h1>
+    <h2>결과 설명</h2>
+    <p th:text="${mbtiInfoDTO.result}"></p>
+    <h3>MBTI 해석</h3>
+    <p th:text="${mbtiInfoDTO.info}"></p>
 </div>
 </body>
 </html>

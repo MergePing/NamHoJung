@@ -1,12 +1,17 @@
 package com.ohgiraffers.mergyping.mbti.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MbtiTesterDTO {
+    @JsonProperty("CB")
     private int CB;
+    @JsonProperty("HG")
     private int HG;
+    @JsonProperty("SE")
     private int SE;
+    @JsonProperty("TM")
     private int TM;
 
     public MbtiTesterDTO() {}
