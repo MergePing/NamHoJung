@@ -1,16 +1,16 @@
 package com.ohgiraffers.mergyping.mbti.controller;
 
 import com.ohgiraffers.mergyping.auth.model.AuthDetails;
+import com.ohgiraffers.mergyping.mbti.model.dto.MbtiInfoDTO;
 import com.ohgiraffers.mergyping.mbti.model.dto.MbtiResultDTO;
 import com.ohgiraffers.mergyping.mbti.model.dto.MbtiTesterDTO;
 import com.ohgiraffers.mergyping.mbti.model.dto.QuestionDTO;
 import com.ohgiraffers.mergyping.mbti.model.service.MbtiService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +43,17 @@ public class MbtiController {
     }
 
     @GetMapping("/mbtiresult")
-    public String resultPage(Model model) {
-        model.addAttribute("message", "MBTI 결과가 성공적으로 업데이트되었습니다.");
+    public String showMbtiResult(Model model, Authentication authentication) {
+        AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
+        int userNo = authDetails.getUserNo();
+
+        MbtiResultDTO mbtiResult = mbtiService.getMbtiResult(userNo);
+
+        MbtiInfoDTO mbtiInfo = mbtiService.findByType(mbtiResult.getMbtiType());
+
+        model.addAttribute("mbtiResultDTO", mbtiResult);
+        model.addAttribute("mbtiInfoDTO", mbtiInfo);
+
         return "/mbti/mbtiresult";
     }
 
@@ -54,7 +63,7 @@ public class MbtiController {
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();
         int userNo = authDetails.getUserNo();
 
-        String mbtiType = mbtiService.calculateMbti(mbtiTesterDTO);
+        String mbtiType = mbtiService.calculateMbti(mbtiTesterDTO);  // MBTI 계산
 
         MbtiResultDTO mbtiResultDTO = new MbtiResultDTO();
         mbtiResultDTO.setUserNo(userNo);

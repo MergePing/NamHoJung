@@ -46,25 +46,25 @@
     }
 
     updateMbti(questionNo, answer) {
-      if (questionNo >= 1 && questionNo <= 9) { // CB 카테고리 (1~9번)
+      if (questionNo >= 1 && questionNo <= 9) {
         if (answer === "yes") {
           this.CB++;
         } else if (answer === "no") {
           this.CB--;
         }
-      } else if (questionNo >= 10 && questionNo <= 18) { // HG 카테고리 (10~18번)
+      } else if (questionNo >= 10 && questionNo <= 18) {
         if (answer === "yes") {
           this.HG++;
         } else if (answer === "no") {
           this.HG--;
         }
-      } else if (questionNo >= 19 && questionNo <= 27) { // SE 카테고리 (19~27번)
+      } else if (questionNo >= 19 && questionNo <= 27) {
         if (answer === "yes") {
           this.SE++;
         } else if (answer === "no") {
           this.SE--;
         }
-      } else if (questionNo >= 28 && questionNo <= 36) { // TM 카테고리 (28~36번)
+      } else if (questionNo >= 28 && questionNo <= 36) {
         if (answer === "yes") {
           this.TM++;
         } else if (answer === "no") {
@@ -72,8 +72,6 @@
         }
       }
     }
-
-
     toString() {
       return `MbtiTester{CB=${this.CB}, HG=${this.HG}, SE=${this.SE}, TM=${this.TM}}`;
     }

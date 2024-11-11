@@ -1,7 +1,7 @@
 package com.ohgiraffers.mergyping.mbti.model.dto;
 
 public class MbtiResultDTO {
-    private int UserNo;
+    private int userNo;
     private String mbtiType;
     private boolean mbtiStatus;
 
@@ -10,17 +10,17 @@ public class MbtiResultDTO {
     }
 
     public MbtiResultDTO(int userNo, String mbtiType, boolean mbtiStatus) {
-        UserNo = userNo;
+        this.userNo = userNo;
         this.mbtiType = mbtiType;
         this.mbtiStatus = mbtiStatus;
     }
 
     public int getUserNo() {
-        return UserNo;
+        return userNo;
     }
 
     public void setUserNo(int userNo) {
-        UserNo = userNo;
+        this.userNo = userNo;
     }
 
     public String getMbtiType() {
@@ -42,7 +42,7 @@ public class MbtiResultDTO {
     @Override
     public String toString() {
         return "MbtiResultDTO{" +
-                "UserNo=" + UserNo +
+                "userNo=" + userNo +
                 ", mbtiType='" + mbtiType + '\'' +
                 ", mbtiStatus=" + mbtiStatus +
                 '}';
