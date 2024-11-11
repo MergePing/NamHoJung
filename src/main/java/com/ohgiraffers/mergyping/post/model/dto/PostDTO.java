@@ -13,10 +13,12 @@ public class PostDTO {
     private int commentNumber;
     private boolean postFavorite;
     private String formattedDate;
+    private String postImageFirstExtension;
+    private String postImageSecondExtension;
 
     public PostDTO() {}
 
-    public PostDTO(int postNo, String postTitle, String postCategory, LocalDate postDate, int scaryNumber, int commentNumber, boolean postFavorite, String formattedDate) {
+    public PostDTO(int postNo, String postTitle, String postCategory, LocalDate postDate, int scaryNumber, int commentNumber, boolean postFavorite, String formattedDate, String postImageFirstExtension, String postImageSecondExtension) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -25,6 +27,8 @@ public class PostDTO {
         this.commentNumber = commentNumber;
         this.postFavorite = postFavorite;
         this.formattedDate = formattedDate;
+        this.postImageFirstExtension = postImageFirstExtension;
+        this.postImageSecondExtension = postImageSecondExtension;
     }
 
     public int getPostNo() {
@@ -91,6 +95,22 @@ public class PostDTO {
         this.formattedDate = formattedDate;
     }
 
+    public String getPostImageFirstExtension() {
+        return postImageFirstExtension;
+    }
+
+    public void setPostImageFirstExtension(String postImageFirstExtension) {
+        this.postImageFirstExtension = postImageFirstExtension;
+    }
+
+    public String getPostImageSecondExtension() {
+        return postImageSecondExtension;
+    }
+
+    public void setPostImageSecondExtension(String postImageSecondExtension) {
+        this.postImageSecondExtension = postImageSecondExtension;
+    }
+
     @Override
     public String toString() {
         return "PostDTO{" +
@@ -102,6 +122,8 @@ public class PostDTO {
                 ", commentNumber=" + commentNumber +
                 ", postFavorite=" + postFavorite +
                 ", formattedDate='" + formattedDate + '\'' +
+                ", postImageFirstExtension='" + postImageFirstExtension + '\'' +
+                ", postImageSecondExtension='" + postImageSecondExtension + '\'' +
                 '}';
     }
 }
