@@ -39,4 +39,17 @@ public interface MyPageMapper {
     void checkAttendance(@Param("userNo") int userNo, @Param("today") String todayStr);
 
     void incrementAttendanceCount(@Param("userNo") int userNo);
+
+    List<String> getAttendanceDates(int userNo);
+
+    int getUserAttendanceCount(int userNo);
+
+    void updateUserLevel(Map<String, Object> params);
+
+    String getLevelName(int levelNo);
+
+    String getNextLevelName(int currentLevelNo);
+
+
+
 }
