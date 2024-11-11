@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>게시판</title>
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+  <link rel="stylesheet" th:href="@{/css/post/post.css}">
+  <style>
+    .post {
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <!--네비바-->
+    <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+    <span onclick="location.href='/intro'">소개</span>
+    <span onclick="location.href='/notice'">공지사항</span>
+    <span onclick="location.href='/post'">게시판</span>
+    <span>MBTI 검사</span>
+    <span>마이페이지</span>
+    <span>로그인</span>
+    <span>회원가입</span>
+  </nav>
+</header>
+
+<main>
+
+
+  <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
+
+
+
+  <div class="select">
+    <p>분류</p>
+  </div>
+
+  <input type="search" value="&nbsp; &nbsp; &nbsp;검색어를 입력하세요">
+  <label><img th:src="@{/images/post/Search-dark.png}"></label>
+
+
+  <div class="sell">
+    <span>번호</span>
+    <span></span>
+    <span>게시물 제목</span>
+    <span>카테고리</span>
+    <span>등록날짜</span>
+    <span>무서워요</span>
+    <span>댓글</span>
+  </div>
+  <div class="post1" id="postContainer">
+    <div class="post" th:each="post, iterStat : ${postList}" th:attr="style=${'top: ' + (iterStat.index * 80) + 'px;'}">
+      <span th:text="${post.postNo}"></span>
+      <a th:src="@{/selectpost/{postNo}(postNo=${post.postNo})}">
+        <span th:text="${post.postTitle}"></span>
+      </a>
+      <div><span th:text="${post.postCategory}"></span></div>
+      <span th:text="${post.postDate}"></span>
+      <span th:text="${post.scaryNumber}"></span>
+      <span th:text="${post.commentNumber}"></span>
+    </div>
+  </div>
+
+
+
+</main>
+
+
+</body>
+
+<script>
+
+</script>
+
+
+<script>
+
+
+
+</script>
+</html>

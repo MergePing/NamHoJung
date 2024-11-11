@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.user.model.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class MyPagePostDTO {
@@ -15,13 +16,13 @@ public class MyPagePostDTO {
     private boolean postFavorite;
     private String postTitle;
     private String postCategory;
-    private String postDate;
+    private LocalDate postDate;
     private int scaryNumber;
     private int commentsNumber;
 
     public MyPagePostDTO() {}
 
-    public MyPagePostDTO(int postWriter, int postNo, boolean postFavorite, String postTitle, String postCategory, String postDate, int scaryNumber, int commentsNumber) {
+    public MyPagePostDTO(int postWriter, int postNo, boolean postFavorite, String postTitle, String postCategory, LocalDate postDate, int scaryNumber, int commentsNumber) {
         this.postWriter = postWriter;
         this.postNo = postNo;
         this.postFavorite = postFavorite;
@@ -72,11 +73,11 @@ public class MyPagePostDTO {
         this.postCategory = postCategory;
     }
 
-    public String getPostDate() {
+    public LocalDate getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(String postDate) {
+    public void setPostDate(LocalDate postDate) {
         this.postDate = postDate;
     }
 

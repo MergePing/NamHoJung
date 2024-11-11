@@ -267,7 +267,6 @@ main .write p{
     color: #FFFFFF;
 }
 
-
 main .select{
     position: absolute;
     width: 186px;
@@ -412,13 +411,6 @@ main .modal button:active, main .modal button:hover{
     font-weight: 600;
 }
 
-
-
-
-
-
-
-
 main input{
     position: absolute;
     width: 668px;
@@ -553,7 +545,7 @@ main .post span:nth-of-type(3){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    width: 410px;
+    width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
@@ -643,15 +635,6 @@ main .post span:nth-of-type(6){
     letter-spacing: 0.05em;
     color: #FFFFFF;
 }
-
-
-
-
-
-
-
-
-
 
 .pageNum {
      position: relative;

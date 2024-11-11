@@ -58,7 +58,7 @@ public class EmailService {
         helper.setText(htmlContent, true);
 
 //        // 이메일에 이미지 첨부 -> 수정필요
-//        ClassPathResource image = new ClassPathResource("static/images/email/img.png");
+//        ClassPathResource image = new ClassPathResource("static/images/email/img2.png");
 //        helper.addInline("mailImage", image);
 
 

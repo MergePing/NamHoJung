@@ -31,8 +31,13 @@ public class MbtiController {
         return "/mbti/mbtistart";
     }
 
-    @GetMapping("test")
+    @GetMapping("/test")
     public String mbtiTest(Model model) {
+
+        // 처음 안내문구를 위해 생성
+        QuestionDTO question = new QuestionDTO();
+        question.setText("질문에 대한 답변을 솔직하게 해주세요 😂");
+        model.addAttribute("QuestionDTO", question);
 
         return "/mbti/mbtitest";
     }

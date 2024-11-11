@@ -8,7 +8,7 @@
 
 -- GRANT ALL PRIVILEGES ON horrordb.* TO 'ohgiraffers'@'%';
 
-USE horrordb;
+-- USE horrordb;
 
 DROP TABLE IF EXISTS `TBL_USER`;
 CREATE TABLE IF NOT EXISTS `TBL_USER`
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS TBL_CHECK
     `USER_NO`    INT NOT NULL COMMENT '회원번호',
     `CHECK_DATE`    DATE NOT NULL COMMENT '날짜',
     `CHECK_STATUS`    BOOLEAN NOT NULL COMMENT '출석여부', -- 출석 여부팔요함?
-    FOREIGN KEY(USER_NO) REFERENCES TBL_USER(USER_NO),
+    FOREIGN KEY(USER_NO) REFERENCES TBL_USER(USER_NO) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY ( `CHECK_NO` )
     )
     ENGINE=INNODB COMMENT = '출석체크';
@@ -57,11 +57,10 @@ CREATE TABLE IF NOT EXISTS TBL_LEVEL
     `LEVEL`    VARCHAR(30) COMMENT '등급',
     `CHECK_NO`    INT NOT NULL COMMENT '출석번호',
     PRIMARY KEY ( `LEVEL_NO` ),
-    FOREIGN KEY(CHECK_NO)
-    REFERENCES TBL_CHECK(CHECK_NO)
+    FOREIGN KEY(CHECK_NO) REFERENCES TBL_CHECK(CHECK_NO) ON UPDATE CASCADE ON DELETE CASCADE
     ) ENGINE=INNODB COMMENT = '등급';
 
-ALTER TABLE `TBL_USER` ADD CONSTRAINT FK_LEVEL_NO FOREIGN KEY (LEVEL_NO) REFERENCES TBL_LEVEL(LEVEL_NO);
+ALTER TABLE `TBL_USER` ADD CONSTRAINT FK_LEVEL_NO FOREIGN KEY (LEVEL_NO) REFERENCES TBL_LEVEL(LEVEL_NO) ON UPDATE CASCADE ON DELETE CASCADE;
 
 -- 게시글 테이블
 DROP TABLE IF EXISTS TBL_POST;
@@ -83,8 +82,7 @@ CREATE TABLE IF NOT EXISTS TBL_POST
     `SCARY` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '무서워요',
     `NOT_SCARY` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '안무서워요',
     PRIMARY KEY ( `POST_NO` ),
-    FOREIGN KEY(POST_WRITER)
-    REFERENCES TBL_USER(USER_NO)
+    FOREIGN KEY(POST_WRITER) REFERENCES TBL_USER(USER_NO) ON UPDATE CASCADE ON DELETE CASCADE
     ) ENGINE=INNODB COMMENT = '게시판';
 
 -- 댓글
@@ -98,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `TBL_COMMENT`
     `COMMENT_DATE`    DATE NOT NULL COMMENT '댓글 작성날짜',
     `POST_NO`    INT NOT NULL COMMENT '게시물 번호',
     CONSTRAINT PK_COMMENT_NO PRIMARY KEY (COMMENT_NO),
-    CONSTRAINT FK_COMMENT_USER_NO FOREIGN KEY (USER_NO) REFERENCES TBL_USER (USER_NO),
-    CONSTRAINT FK_COMMENT_POST_NO FOREIGN KEY (POST_NO) REFERENCES TBL_POST (POST_NO)
+    CONSTRAINT FK_COMMENT_USER_NO FOREIGN KEY (USER_NO) REFERENCES TBL_USER (USER_NO) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_COMMENT_POST_NO FOREIGN KEY (POST_NO) REFERENCES TBL_POST (POST_NO) ON UPDATE CASCADE ON DELETE CASCADE
 
     )ENGINE=INNODB COMMENT = '댓글';
 
@@ -111,8 +109,8 @@ CREATE TABLE  IF NOT EXISTS TBL_ACTION
     `POST_NO`    INT NOT NULL COMMENT '게시물 번호',
     `ACTION_TYPE`    VARCHAR(10) NOT NULL COMMENT '반응구분',
     `COMMENT_NO`    INT COMMENT '댓글 번호',
-    FOREIGN KEY(USER_NO) REFERENCES TBL_USER(USER_NO),
-    FOREIGN KEY(POST_NO) REFERENCES TBL_POST(POST_NO),
+    FOREIGN KEY(USER_NO) REFERENCES TBL_USER(USER_NO) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(POST_NO) REFERENCES TBL_POST(POST_NO) ON UPDATE CASCADE ON DELETE CASCADE,
     PRIMARY KEY ( `USER_NO` )
     )ENGINE=INNODB COMMENT = '반응';
 
@@ -504,98 +502,98 @@ INSERT INTO TBL_MBTI_INFO VALUES (
 
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHET',
-                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포스릴 \n
-                                     C(Cautious) = 신중함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     "성향 : 신중 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포스릴
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감",
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHEM',
-                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기 \n
-                                     C(Cautious) = 신중함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHST',
-                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴 \n
-                                     C(Cautious) = 신중함, H(Human) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHSM',
-                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기 \n
-                                     C(Cautious) = 신중함, H(Human) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGST',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴 \n
-                                     C(Cautious) = 신중함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGSM',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기 \n
-                                     C(Cautious) = 신중함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGET',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴 \n
-                                     C(Cautious) = 신중함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGEM',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기 \n
-                                     C(Cautious) = 신중함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHST',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴 \n
-                                     B(Brave) = 용감함, H(Human) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHSM',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기 \n
-                                     B(Brave) = 용감함, H(Human) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHET',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포스릴 \n
-                                     B(Brave) = 용감함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHEM',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기 \n
-                                     B(Brave) = 용감함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGST',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴 \n
-                                     B(Brave) = 용감함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGSM',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기 \n
-                                     B(Brave) = 용감함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGET',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴 \n
-                                     B(Brave) = 용감함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGEM',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기 \n
-                                     B(Brave) = 용감함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포를 느끼는 구간',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 
@@ -618,272 +616,149 @@ INSERT INTO TBL_MBTI VALUES (16, 'BGEM',TRUE,16);
 
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      1, NULL,
-                                     '담력시험을 하기로 하여 폐가에서 하룻밤을 보내기로 했다. \n
-                                     그러던 중 갑작스러운 인기척에 잠에서 깼다. \n
-                                     어떻게 할까? \n
-                                     1. 그 자리에 숨어서 상황을 지켜본다.\n
-                                     2. 무기로 쓸만한 물건을 찾아 들고 나가서 확인한다.'
+                                     '폐가에서 하룻밤을 보내는 중 무슨 소리가 들린다.   무기가 있는데 숨을까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      2, NULL,
-                                     '집을 가는 길에 항상 지나가야하는 굴다리(OR 골목)가 있다.\n
-                                     오늘은 시간이 늦어 가로등도 꺼지고 불이 없는 상황이다.\n
-                                     이 길로 가지 않으면 10분을 돌아가야하는데 중간에 사람형체인지 모를 이상한 실루엣이 흔들거리고 있다.\n
-                                     돌아가야할까? 그냥 지나갈까?\n
-                                     1. 운동이나 할겸 돌아간다.\n
-                                     2. 무서울 것 없다. 그냥 간다.'
+                                     '어두운 굴다리를 지나가야하는데 최근 소문이 안좋다. 오래걸려도 다른 곳으로 돌아갈까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      3, NULL,
-                                     '산에서 길을 잃고 휴대폰 배터리까지 떨어져 조난당했다.\n
-                                     야생동물이 나올 걱정은 없는 산이지만 어두워져 당장 좋지 않은 상황이다.\n
-                                     최근 심장마비로 알수없이 죽은 사람들이 있어 불안한데 근처에서 소름끼치는 흐느끼는 소리가 들린다.\n
-                                     다행히 조난신호를 보내놓아 구조대가 올 가능성이 있지만 당장은 아닌 상황이다. 어떡할까?\n
-                                     1. 소리가 나는 반대 방향으로 가거나 조난당한 위치에서 그대로 구조를 기다린다.\n
-                                     2. 소리가 나는 곳으로 가본다.'
+                                     '조난당한 산에서 밤에 어디선가 소리가 들린다.     그냥 가만히 있을까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      4, NULL,
-                                     '외국에 놀러갔는데 옥수수 밭을 탐방하던 도중 옥수수 밭에서 조난당했다.\n
-                                     한도 끝도 없는 옥수수 밭에서 조난당했다고 신호는 보낸 상황인데 근처에서 신호를 보냄과 동시에 나한테 무언가 다가오는 소리가 들린다.\n
-                                     구조대가 아닌 것은 확실하지만 어떻게 할까?\n
-                                     1. 살짝 숨어서 무엇이 오는지 지켜본 뒤에 행동한다.\n
-                                     2. 누군지 불러본다.'
+                                     '옥수수 밭에 들어갔다가 조난당했다.             빨간 버튼이 있는데 누르지말까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      5, NULL,
-                                     '외국 여행 중 산에서 삐쩍 마른 곰을 발견했다.\n
-                                     아직 곰을 날 확인한 것은 아니지만 나를 발견하면 미친듯이 달려들 것 같은 예감이 든다\n
-                                     다행히 호신용 총이 있지만 단 한발밖에 없다.\n
-                                     곰이 있는 곳으로 지나가지 않으면 하산할 수 없어 어두워지는 이 상황에 한시가 급하다.\n
-                                     어떻게 해야할까?\n
-                                     1. 조용히 숨을 죽인채 지나가길 기다린다.\n
-                                     2. 곰과 싸운다.'
+                                     '해가 지기 직전 산기슭, 막다른 길에서 아기곰을 발견했다. 지나가길 기다리며 숨을까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      6, NULL,
-                                     '납치를 당해 위험한 상황이다.\n
-                                     다행히 풀려있던 밧줄이 헐거워 풀 수 있었고 옆에서 무기를 찾을 수 있었다.\n
-                                     현재 바깥이 조용하고 새소리가 나는 것으로 보아 낮인 것 같다는 판단을 할 수 있었고\n
-                                     탈출시도를 하거나 여기서 기다렸다가 납치범이 돌아오면 습격을 할 수 있을 것 같다.\n
-                                     어떻게 해야할까?\n
-                                     1. 탈출을 시도한다.\n
-                                     2. 아직 있을지 모른다. 기다렸다가 기습한다.'
+                                     '납치당했지만 손의 구속을 풀고 탈출할 수도 있을 것 같지만 모험이다. 그냥 납치범을 기다렸다가 공격할까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      7, NULL,
-                                     '시골이지만 드디어 내 집을 마련했다.\n
-                                     2층이나 되는 굉장히 넓은 집이다.\n
-                                     혼자 살고 있지만 나에게도 가족이 생기면 굉장히 소중한 집이 될 것 같다.\n
-                                     지금 시간은 오후 11시, 그 때 2층에서 이상한 소리가 들렸고 잘못들었다고 하기엔 굉장히 소름끼치는 소리었다.\n
-                                     어떻게 할까?\n
-                                     1. 설마 집에 누군가 들어왔겠어? 무기가 될만한 것을 찾아서 위로 올라가서 확인한다.\n
-                                     2. 아무리 생각해도 이건 무언가 침입한 것이다. 밖으로 도주한 뒤 안전한 곳에서 경찰에게 도움을 요청한다.'
+                                     '밤 11시 나 혼자 있는데 집 어디선가 소름끼치는 소리가 들린다. 집밖으로 빠르게 나갈까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      8, NULL,
-                                     '나는 산행을 좋아하여 국내 산행은 모두 마치고 외국에 있는 모든 산행을 하기 마음먹어 여행을 다니고 있다.\n
-                                     오늘은 산이 너무 험해 길을 잃고 말았다.\n
-                                     그러나 다행히 산 중턱에서 우거진 숲속에 둘러쌓여진 오두막을 발견했고 겉으로 보기에는 최근까지 누군가가 살았던 흔적이 있었다.\n
-                                     불안한 점은 일반적인 오두막이라기보다는 무언가를 잡는 곳이었다는 느낌이 강하고 일부러 이 안쪽에 지어놓았다는 직감이 들었다.\n
-                                     해가 지기 직전이라서 그냥 갔다가는 야생동물 등의 위험에 노출될 것이다.\n
-                                     어떻게 할까?\n
-                                     1. 그냥 일을 위해 사용하던 오두막일 것이다. 입구에서 주인을 기다리거나 오두막에 들어가본다. (숨어서 지켜볼 수 있는 방법도 있다.)\n
-                                     2. 무슨 일이 있을지 모르는데 해가 지더라도 더 길을 찾아 나아가본다.'
+                                     '조난당한 상황, 핏빛 오두막을 발견했다.          죽을 것 같지만 위험해보이니 들어가지말까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      9, NULL,
-                                     '뒤에서 누군가 쫓아오고 있다.\n
-                                     뛰어서 도망가고 있지만 점점 숨이 차는 상황이다.\n
-                                     측면 모퉁이를 돌았을 때 내가 할 행동은?\n
-                                     어떻게 할까 ?\n
-                                     1. 모퉁이의 숨을 공간을 찾아 재빨리 들어간다.\n
-                                     2. 모퉁이를 돌아 쓰레기 더미에서 무기를 찾아 추격자를 기다렸다가 습격한다.'
+                                     '스토커가 쫓아온다. 나보다 덩치가 커서 싸우더라도 이길지 미지수이다. 계속 도망갈까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      10, NULL,
-                                     '1000평짜리 5층 집에서 일주일만 이것과 함께 살면 100억을 준다고 한다.\n
-                                     집이 매우 넓어서 충분히 숨을 수 있을 것 같다.\n
-                                     어떤 것과 같이 살까?\n
-                                     어떻게 할까 ?\n
-                                     1. 귀신\n
-                                     2. 살인마'
+                                     '1000평짜리 5층 집에서 일주일간 살인마를 피해지내면 100억을 준다고하고 거절하면 귀신이 있는 집에서 일주일을 버텨야한다.'
+                                         '살인마의 집에서 버틸까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      11, NULL,
-                                     '사람이 귀신보다 더 무섭다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '사람이 귀신보다 더 무섭다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      12, NULL,
-                                     '집 침대밑이나 세탁기 안에 숨어있다면 더 무서운건 무엇일까?\n
-                                     1. 사람\n
-                                     2. 괴물'
+                                     '집 침대밑이나 세탁기 안에 괴물보다 사람이 있는게 더 무섭다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      13, NULL,
-                                     '일주일동안 같은 꿈을 꿔야 하는데 선택해야 한다면?\n
-                                     1. 꿈에서 칼든 살인마가 쫓아오는 꿈\n
-                                     2. 물구나무 선 귀신이 팔로 쫓아오는 꿈'
+                                     '예 : 물구나무 선 귀신이 팔로 걸어오면서 쫓아오는 꿈            아니오 : 꿈에서 칼든 살인마가 쫓아오는 꿈'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      14, NULL,
-                                     '담력시험을 하러 폐가에 갔을 때 더 무서운 것은?\n
-                                     1. 피와 사람의 흔적\n
-                                     2. 혼자서 움직이는 의자와 그네'
+                                     '담력시험을 하러 폐가에 갔을 때 더 무서운 것은?     예 : 피와 사람의 흔적 | 아니오 : 혼자서 움직이는 의자와 그네'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      15, NULL,
-                                     '집에 귀가했을 때\n
-                                     내 방으로 들어왔을 때 침대 밑의 무언가와 눈이 마주쳤다.\n
-                                     그건 무엇이었을까?\n
-                                     1. 사람\n
-                                     2. 귀신'
+                                     '귀가 후 내 방에서 침대 밑의 무언가와 마주했다. 뭘까?예 : 사람 | 아니오 : 귀신'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      16, NULL,
-                                     '하나를 선택한다면?\n
-                                     1. 귀신이랑 하룻동안 엘레베이터에 갇혀서 살아남기\n
-                                     2. 살인마와 20층 건물 비상구에서 살아남기'
+                                     '예 : 귀신이랑 하룻동안 엘레베이터에 갇혀서 살아남기   아니오 : 살인마와 20층 건물 비상구에서 살아남기'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      17, NULL,
-                                     '더 동의하는 쪽을 선택하세요.\n
-                                     1. 살인마 뿐만 아니라 귀신도 나에게 해를 입힐 수 있다.\n
-                                     2. 귀신은 나에게 해를 입힐 수 없다. 사람만 조심하면 된다.'
+                                     '예 : 귀신은 나에게 해를 입힐 수 없다. 사람만 조심하면 된다. 아니오 : 살인마 뿐만 아니라 귀신도 나에게 해를 입힐 수 있다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      18, NULL,
-                                     '눈을 감고 머리를 감는 상황이다.\n
-                                     눈을 뜰 수 없는 상황에서 앞에서 무언가 느껴진다.\n
-                                     "무엇이 상상되는가?
-                                     1. 귀신\n
-                                     2. 괴물'
+                                     '눈을 감고 머리를 감는 상황, 기척이 느껴진다?   예 : 사람 | 아니오 : 괴물'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      19, NULL,
-                                     '빙의는 허무맹랑한 지어낸 헛소문일 뿐이다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '빙의는 연기가 아니라 정말 있을 것이다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      20, NULL,
-                                     '공포는 그저 도파민을 위한 수단일 뿐 그 이상도 이하도 아니다./n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '공포는 정말 영적인 무언가가 있기에 느끼는 감정이다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      21, NULL,
-                                     '귀신을 봤다는 것은 그저 피곤하거나 헛것을 본 것일 뿐 의미부여 할 필요 없다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '귀신을 봤다는 경험담은 피곤해서 본 헛것같은 것이 아니다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      22, NULL,
-                                     '사람에게는 기라는 것이 존재한다고 생각한다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '사람에게는 기가 존재한다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      23, NULL,
-                                     '정말 오래된 건물이 있다\n
-                                     해당 건물은 저주받았다는 소문에 아무도 가지 않는다.\n
-                                     심지어 폐가가 된 지 엄청나게 오래됐다.\n
-                                     그 건물에 들어가면 저주받는다는 소문이 있는데\n
-                                     가서 하룻밤만 자고오면 갔다오고 한달 뒤에 1억을 준다고한다.\n
-                                     갔다와서 한달 뒤에 준다는 말이 찝찝하긴 하지만 1억이 수중에 들어온다고 생각하니 고민된다.\n
-                                     어떻게 할까?\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '어떤 건물에 다녀오면 한달 뒤 1억을 준다는데 저주받았다고 한다. 가지말까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      24, NULL,
-                                     '나는 미신을 믿는다. (미신이 내 행동에 영향을 미친다.)\n
-                                     예시) 의자를 빼놓고 자면 의자에 귀신이 앉아서 지켜본다.\n
-                                     예시2) 문을 닫거나 제대로 열지 않고 틈을 만들어 놓으면 틈새로 무언가 지켜본다.\n
-                                     예시3) 베개를 세워놓으면 부모님이 일찍 돌아가신다.\n
-                                     예시4) 다리를 떨면 복이 떨어진다. -> 실제로는 좋은 효과밖에 없음\n
-                                     이런 미신이 나의 행동양식에 영향을 미치는가?\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '나는 미신을 믿는다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      25, NULL,
-                                     '우리나라에서 진행하는 굿과 외국에서 하는 퇴마의식 등을 보았을 때\n
-                                     분명 무언가 존재하는 것이기 때문에 나는 이러한 의식을 믿는다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '우리나라와 외국에서 있는 퇴마의식은 진짜다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      26, NULL,
-                                     '집을 구매하려고 하는데 두개의 매물이 있다.\n
-                                     무엇을 선택할까?\n
-                                     1. 소문이 안좋고 저주받았다는 소문의 아무도 살지 않아온 100평의 집 (이전 주인이 실종됐고 새로 들어온 주인도 실종됐다는 소문)\n
-                                     2. 아무 문제없지만 비싼 25평의 집 (아무 소문도 없지만 오래된 집)'
+                                     '엄청나게 넓고 좋은 집인데 저주받았다는 이야기가 돈다. 사지말까?'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      27, NULL,
-                                     '공포는 좋아하지만 점프스퀘어(갑툭튀)는 싫다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '폐가에 가서 모든 부적을 떼오면 1억을 준다고 하지만 무섭다. 가지말까'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      28, NULL,
-                                     '공포의 진정한 묘미는 시각적인 것 보다 청각적으로 더 많이 작용한다고 생각한다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '공포의 묘미는 점프스퀘어(갑툭튀)다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      29, NULL,
-                                     '잔잔한 공포보다는 극단적인 공포가 좋다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '공포의 진정한 묘미는 청각적인것도 중요하지만 시각적인 것이 가장 중요하다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      30, NULL,
-                                     '두가지의 공포 영화 중 하나를 꼭 골라봐야 한다.\n
-                                     무엇을 볼까?\n
-                                     1. 귀신이야기\n
-                                     2. 살인마와의 추격전'
+                                     '잔잔한 공포보다는 극단적인 공포가 좋다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      31, NULL,
-                                     '영화를 볼 때\n
-                                     귀신이 나온 직후보다 나오기 전을 더 즐긴다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '무서운 영화를 볼 때 귀신이 나오기 전도 좋지만 나온 후가 가장 좋다.'
+
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      32, NULL,
-                                     '공포감을 주는데 있어서 BGM이 없이 공포감을 주는 것은 불가능에 가깝다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '공포감 조성에는 BGM이 없어도 공포감을 주기에 충분하다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      33, NULL,
-                                     '점프스퀘어(갑툭튀)에서 사람을 놀라게 하는 요소는\n
-                                     청각적인 요소보다 시각적인 요소이다.\n
-                                     1. 예\n
-                                     2. 아니오'
+                                     '점프스퀘어(갑툭튀)에서 사람을 놀라게 하는 요소는 청각적인 요소보다 시각적인 요소이다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      34, NULL,
-                                     '공포게임 중 진정한 명작이라함은\n
-                                     1. 분위기의 연출이 뛰어난 게임이다.\n
-                                     2. 분위기 뿐만 아니라 시각적인 뛰어남이 필요하다.'
+                                     '공포게임 중 진정한 명작이라함은 분위기도 중요하지만 스릴을 주는 시각적인 요소가 더 중요하다.'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      35, NULL,
-                                     '공포 장르에서 내가 중요하다고 생각하는 것\n
-                                     1. 진정한 공포게임의 명작이라함은 분위기의 연출이다.\n
-                                     2. 진정한 공포게임은 분위기 뿐만 아니라 시각적인 뛰어남이 필요하다.'
+                                     '예 : 처음부터 끝까지 점프스퀘어(갑툭튀)가 나오는 게임 아니오 : 점프스퀘어(갑툭튀)의 비중이 적고 분위기로 승부하는 게임'
                                  );
 INSERT INTO TBL_MBTI_TEST VALUES (
                                      36, NULL,
-                                     '공포의 장르에서 중요한 부분은 영화, 게임 모두
-                                     1. 스토리가 중요하다.\n
-                                     2. 그냥 무서운 존재만 나타나면 된다.'
+                                     '공포 장르에서 스토리보단 공포요소다.'
                                  );
 
 INSERT INTO `TBL_NOTICE` (`NOTICE_NO`, `NOTICE_TITLE`, `NOTICE_CONTENT`, `USER_TYPE`, `NOTICE_DATE`, `NOTICE_CATEGORY`)
