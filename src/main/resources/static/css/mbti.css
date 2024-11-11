@@ -434,3 +434,32 @@ nav span:hover{
 
     color: #FFFFFF;
 }
+
+.notShare {
+    position: absolute;
+    width: 388px;
+    height: 59px;
+    left: 766px;
+    top: 934px;
+
+    background: #C9C9C9;
+    border-radius: 38px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 60px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.notShare:active {
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.notShare:hover {
+    background: #97ffd6;
+}

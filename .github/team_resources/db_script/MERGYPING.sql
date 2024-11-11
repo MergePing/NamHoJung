@@ -503,82 +503,97 @@ INSERT INTO TBL_MBTI_INFO VALUES (
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHET',
                                      "성향 : 신중 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포스릴
-                                     C(Cautious) = 신중함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포감",
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감",
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHEM',
-                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기\nC(Cautious) = 신중함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHST',
-                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴\nC(Cautious) = 신중함, H(Human) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포감',
+                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CHSM',
-                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기\nC(Cautious) = 신중함, H(Human) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 신중 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGST',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴\nC(Cautious) = 신중함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포감',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGSM',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기\n C(Cautious) = 신중함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGET',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴\nC(Cautious) = 신중함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포감',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'CGEM',
-                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기\nC(Cautious) = 신중함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 신중 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기
+                                     C(Cautious) = 신중함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 신중하며 두려운 존재는 귀신이고 공포를 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHST',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴\nB(Brave) = 용감함, H(Human) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포감',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHSM',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기\nB(Brave) = 용감함, H(Human) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 진지 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHET',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포스릴\nB(Brave) = 용감함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포감',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BHEM',
-                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기\nB(Brave) = 용감함, H(Human) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 용감 | 두려움 : 사람 | 공포 : 즐김 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | H(Human) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 사람이고 공포를 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGST',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴\nB(Brave) = 용감함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 T(Thrill) = 공포감',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGSM',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기\nB(Brave) = 용감함, G(Ghost) = 두려운 존재, S(Scare) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 진지 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 S(Scare) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 무서워하며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGET',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴\nB(Brave) = 용감함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 T(Thrill) = 공포감',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포스릴
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | T(Thrill) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 즐기며 공포를 느끼는 구간은 스릴이 느껴질 때 입니다.'
                                  );
 INSERT INTO TBL_MBTI_INFO VALUES (
                                      'BGEM',
-                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기\nB(Brave) = 용감함, G(Ghost) = 두려운 존재, E(Enjoy) = 공포인식 M(Mood) = 공포감',
+                                     '성향 : 용감 | 두려움 : 귀신 | 공포 : 즐김 | 선호 : 공포분위기
+                                     B(Brave) = 용감함 | G(Ghost) = 두려운 존재 E(Enjoy) = 공포인식 | M(Mood) = 공포감',
                                      '당신은 용감하며 두려운 존재는 귀신이고 공포를 진짜 즐기며 공포를 느끼는 구간은 스멀스멀 다가오는 공포 분위기가 느껴질 때 입니다.'
                                  );
 
