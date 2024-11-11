@@ -189,8 +189,8 @@ nav span:hover{
     position: absolute;
     width: 1800px;
     height: 897px;
-    left: 63px;
-    top: 131px;
+    left: 57px;
+    top: 140px;
     box-sizing: border-box;
 }
 
@@ -354,7 +354,7 @@ nav span:hover{
     position: absolute;
     width: 1000px;
     height: 104px;
-    left: 400px;
+    left: 500px;
     top: 535px;
 
     font-family: 'BM JUA_OTF';
@@ -382,7 +382,7 @@ nav span:hover{
     position: absolute;
     width: 1000px;
     height: 104px;
-    left: 400px;
+    left: 450px;
     top: 300px;
 
     font-family: 'BM JUA_OTF';
@@ -398,9 +398,9 @@ nav span:hover{
 
 #question-text3{
     position: absolute;
-    width: 2000px;
+    width: 1090px;
     height: 104px;
-    left: 400px;
+    left: 450px;
     top: 400px;
 
     font-family: 'BM JUA_OTF';
@@ -415,10 +415,10 @@ nav span:hover{
 }
 #question-text4{
     position: absolute;
-    width: 1000px;
+    width: 1250px;
     height: 104px;
-    left: 400px;
-    top: 800px;
+    left: 350px;
+    top: 600px;
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
