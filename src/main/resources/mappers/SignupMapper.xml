@@ -33,14 +33,12 @@
         #{userGender}
         );
 
-        <!-- 최근 삽입된 USER_NO 가져오기 -->
         <selectKey keyProperty="userNo" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID();
         </selectKey>
     </insert>
 
     <insert id="registMbti" parameterType="com.ohgiraffers.mergyping.user.model.dto.SignupDTO">
-        <!-- TBL_MBTI에 데이터 삽입 -->
         INSERT INTO TBL_MBTI
         (
         MBTI_TYPE,

@@ -23,13 +23,104 @@
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
   <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
-  <img class="dynamic-image" id="testBack2" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경2">
-  <img id="bookIco" th:src="@{/images/icon/book.png}" alt="MBTI 시작 전 문구 아이콘">
-  <p id="mbtiStart" class="dynamic-text" data-content="공포 MBTI 테스트">공포 MBTI 테스트</p>
-  <p id="mbtiStart2" class="dynamic-text" data-content="공포 MBTI를 시작하시겠습니까?평균 소요 시간 7분 ~ 12분"></p>
+
+
+  <img id="question-img" src="/images/mbti/img.png" alt="MBTI Image" />
+  <p id="question-text" th:text="${questiondto != null ? questiondto.text : '시작하기'}"></p>
+
   <img class="hands" th:src="@{/images/mbti/hands.png}" alt="손">
-  <button type="button" id="yes" data-content="예" onclick="">예</button>
-  <button type="button" id="no" data-content="아니오" onclick="">아니오</button>
+  <form th:action="@{/mbti/submitMbtiResult}" method="post">
+  <button class="next" type="button" id="yes" onclick="answerQuestion('yes')" data-content="예">예</button>
+  <button class="next" type="button" id="no" onclick="answerQuestion('no')" data-content="아니오">아니오</button>
+  </form>
 </div>
 </body>
+<script>
+
+  class MbtiTesterDTO {
+    constructor() {
+      this.CB = 0;
+      this.HG = 0;
+      this.SE = 0;
+      this.TM = 0;
+    }
+
+    updateMbti(questionNo, answer) {
+      if (questionNo >= 1 && questionNo <= 9) { // CB 카테고리 (1~9번)
+        if (answer === "yes") {
+          this.CB++;
+        } else if (answer === "no") {
+          this.CB--;
+        }
+      } else if (questionNo >= 10 && questionNo <= 18) { // HG 카테고리 (10~18번)
+        if (answer === "yes") {
+          this.HG++;
+        } else if (answer === "no") {
+          this.HG--;
+        }
+      } else if (questionNo >= 19 && questionNo <= 27) { // SE 카테고리 (19~27번)
+        if (answer === "yes") {
+          this.SE++;
+        } else if (answer === "no") {
+          this.SE--;
+        }
+      } else if (questionNo >= 28 && questionNo <= 36) { // TM 카테고리 (28~36번)
+        if (answer === "yes") {
+          this.TM++;
+        } else if (answer === "no") {
+          this.TM--;
+        }
+      }
+    }
+
+
+    toString() {
+      return `MbtiTester{CB=${this.CB}, HG=${this.HG}, SE=${this.SE}, TM=${this.TM}}`;
+    }
+  }
+
+  function submitMbtiResult() {
+    fetch('/mbti/submitmbtiresult', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        CB: mbtiTesterDTO.CB,
+        HG: mbtiTesterDTO.HG,
+        SE: mbtiTesterDTO.SE,
+        TM: mbtiTesterDTO.TM
+      })
+    })
+            .then(response => response.json())
+            .then(data => {
+              location.href = '/mbti/mbtiresult';
+            })
+            .catch(error => console.error('Error submitting MBTI result:', error));
+  }
+
+  let currentQuestionNo = 1;
+  const mbtiTesterDTO = new MbtiTesterDTO(); // 결과담을 공간
+
+  function answerQuestion(answer) {
+
+    if (currentQuestionNo === 36) {
+      submitMbtiResult();
+      return;
+    }
+
+    mbtiTesterDTO.updateMbti(currentQuestionNo, answer);
+    const imagePath = `/images/mbti/questions/mbti${currentQuestionNo}img.png`;
+    fetch(`/mbti/question/${currentQuestionNo}`)
+            .then(response => response.json())
+            .then(data => {
+              document.getElementById("question-text").textContent = data.text;
+              // document.getElementById("question-img").src = '/images/mbti/questions/' + data.image; // db경로로 하려고했는데 안돼서 바꿈 - 이 줄은 db넣을때 사용
+              document.getElementById("question-img").src = imagePath;
+              currentQuestionNo++;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    console.log(mbtiTesterDTO.toString());
+  }
+</script>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" th:href="@{/css/mbti.css}">
+  <link rel="stylesheet" th:href="@{/css/reset.css}">
+</head>
+<body>
+<div class="resolution">
+  <img class="background" th:src="@{/images/mbti/testBackground.png}" alt="mbti 테스트 배경">
+  <nav>
+    <!--네비바-->
+    <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+    <span onclick="location.href='/intro'">소개</span>
+    <span onclick="location.href='/notice'">공지사항</span>
+    <span onclick="location.href='/post'">게시판</span>
+    <span onclick="location.href='/mbti'">MBTI 검사</span>
+    <span id="mypageBtn">마이페이지</span>
+    <form th:action="@{/auth/logout}" method="post">
+      <button id="logoutNav" type="submit">로그아웃</button>
+    </form>
+    <span onclick="location.href='/auth/signupterms'">회원가입</span>
+  </nav>
+  <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
+  <h2>당신의 MBTI는: ${mbti}</h2>
+  <p>${mbtiTester}</p>
+  <p>${information}</p>
+</div>
+</body>
+</html>
