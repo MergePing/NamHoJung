@@ -57,7 +57,7 @@ public class MbtiController {
         return "/mbti/mbtiresult";
     }
 
-    @PostMapping("/submitMbtiResult")
+    @PostMapping("/submitmbtiresult")
     @ResponseBody
     public Map<String, String> submitMbtiResult(@RequestBody MbtiTesterDTO mbtiTesterDTO, Authentication authentication) {
         AuthDetails authDetails = (AuthDetails) authentication.getPrincipal();

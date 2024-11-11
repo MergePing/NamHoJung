@@ -421,6 +421,128 @@ main .pageNum img:nth-of-type(2){
 }
 
 
+#addNoticeButton {
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
 
 
 
+
+#noticeTitle {
+
+
+
+    position: absolute;
+    width: 450px;
+    height: 40px;
+    left: 796px;
+    top: 235px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+
+}
+
+
+#noticeContent {
+
+
+    position: absolute;
+    width: 900px;
+    height: 350px;
+    top: 380px;
+    left: 354px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+
+    background-color: transparent;
+    border: 1px solid #000000;
+    color: #ffffff;
+}
+
+
+
+#cancelButton {
+    position: absolute;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: 'BMJUA';
+    color: #FFFFFF;
+    background-color: #A41F1F;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 118px;
+    height: 48px;
+    top:139px;
+    left: 1450px;
+}
+
+#cancelButton:hover {
+    background-color: #8e1a1a;
+}
+.hidden {
+    display: none;
+}
+
+#submitNoticeButton{
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+
+.pageNum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* 각 페이지 번호 간의 간격 */
+    margin-top: 20px;
+}
+
+.pageNum span {
+    font-family: 'BMJUA', sans-serif;
+    font-size: 20px; /* 페이지 번호 크기 */
+    padding: 10px 15px; /* 여백을 추가하여 버튼처럼 보이게 함 */
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #4BA41F; /* 버튼 배경색 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    transition: background-color 0.3s;
+}
+
+.pageNum span.active {
+    background-color: #A3DA87; /* 현재 페이지의 배경색 */
+    font-weight: bold; /* 현재 페이지 텍스트 두껍게 */
+}
+
+.pageNum span:hover {
+    background-color: #3B572D; /* 호버 시 배경색 */
+}

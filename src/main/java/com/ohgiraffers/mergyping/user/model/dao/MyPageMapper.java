@@ -6,6 +6,7 @@ import com.ohgiraffers.mergyping.user.model.dto.MypageCommentDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -29,4 +30,26 @@ public interface MyPageMapper {
     List<MypageCommentDTO> findWrittenComment(int userNo);
 
     List<MyPagePostDTO> findWrittenFavorite(int userNo);
+
+    Map<String, Object> findUserMBTIInfo(int userNo);
+
+
+    boolean hasCheckedToday(@Param("userNo") int userNo, @Param("today") String todayStr);
+
+    void checkAttendance(@Param("userNo") int userNo, @Param("today") String todayStr);
+
+    void incrementAttendanceCount(@Param("userNo") int userNo);
+
+    List<String> getAttendanceDates(int userNo);
+
+    Integer getUserAttendanceCount(int userNo);
+
+    void updateUserLevel(Map<String, Object> params);
+
+    String getLevelName(int levelNo);
+
+    String getNextLevelName(int currentLevelNo);
+
+
+    void deleteUser(int userNo);
 }

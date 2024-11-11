@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MbtiTesterDTO {
-    @JsonProperty("CB")
+    @JsonProperty("CB") // 이거하니까 json에서 넘어온다. 몇시간을 고생해따 ;-; -> fetch로 json보낼때 안되면 해보자
     private int CB;
     @JsonProperty("HG")
     private int HG;

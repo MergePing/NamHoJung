@@ -51,4 +51,15 @@
         WHERE NOTICE_NO = #{noticeNo}
     </delete>
 
+
+    <insert id="insertNotice" parameterType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
+        INSERT INTO TBL_NOTICE (NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, USER_TYPE)
+        VALUES (#{title}, #{content}, NOW(), COALESCE(#{userType}, '관리자'))
+    </insert>
+
+    <select id="searchNoticesByTitle" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
+        SELECT NOTICE_NO AS noticeNo, NOTICE_TITLE AS title, NOTICE_DATE AS date
+        FROM TBL_NOTICE
+        WHERE NOTICE_TITLE LIKE #{keyword}
+    </select>
 </mapper>

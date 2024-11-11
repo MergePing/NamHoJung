@@ -81,6 +81,7 @@ public class AdminNoticeController {
         response.put("message", updateSuccess ? "공지사항이 수정되었습니다." : "공지사항 수정에 실패했습니다.");
         return response;
     }
+
     // 공지사항 삭제 요청을 처리하는 메서드
     @DeleteMapping("/admin/notice/detail/delete/{noticeNo}")
     @ResponseBody
@@ -93,4 +94,26 @@ public class AdminNoticeController {
         return response;
     }
 
+    // 공지사항 추가 요청을 처리하는 메서드
+    @PostMapping("/admin/notice/add")
+    @ResponseBody
+    public Map<String, Object> addNotice(@RequestBody AdminNoticeDTO noticeDTO) {
+        boolean addSuccess = adminNoticeService.addNotice(noticeDTO);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", addSuccess);
+        response.put("message", addSuccess ? "공지사항이 추가되었습니다." : "공지사항 추가에 실패했습니다.");
+        return response;
+    }
+
+    // 검색 요청 처리
+    @GetMapping("/admin/notice/search")
+    @ResponseBody
+    public Map<String, Object> searchNotices(@RequestParam("keyword") String keyword) {
+        List<AdminNoticeDTO> notices = adminNoticeService.searchNoticesByTitle(keyword);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("noticeList", notices);
+        return response;
+    }
 }

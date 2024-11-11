@@ -72,14 +72,13 @@
         }
       }
     }
-
     toString() {
       return `MbtiTester{CB=${this.CB}, HG=${this.HG}, SE=${this.SE}, TM=${this.TM}}`;
     }
   }
 
   function submitMbtiResult() {
-    fetch('/mbti/submitMbtiResult', {
+    fetch('/mbti/submitmbtiresult', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

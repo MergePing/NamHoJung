@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainController {
@@ -47,9 +50,36 @@ public class MainController {
             int userNo = userDetails.getUserNo();
             System.out.println("userNo = " + userNo);
 
+
+            // 누적된 출석 수 가져오기
+            Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
+            model.addAttribute("attendanceCount", attendanceCount);
+
+            // 등급 기준 정해주기
+            int levelNo = myPageService.calculateLevel(attendanceCount);
+            System.out.println("levelNo = " + levelNo);
+
+            // 등급 기준과 출석수 기반으로 등급 업데이트하기
+            myPageService.updateUserLevel(userNo, levelNo);
+
+            // 유저의 등급 가져오기
+            String levelName = myPageService.getLevelName(levelNo);
+            model.addAttribute("userLevel", levelName);
+
+            // 유저의 다음 레벨 이름 가져오기
+            String nextLevelName = myPageService.getNextLevelName(levelNo);
+            model.addAttribute("nextLevelName", nextLevelName);
+
+            // 다음 등급에 필요한 출석 횟수 조회
+            int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+            model.addAttribute("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+
             // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
             MyPageDTO myPageDTO = myPageService.findNickName(userNo);
             model.addAttribute("myPageDTO", myPageDTO);
+
+            Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+            model.addAttribute("mbtiInfo", mbtiInfo);
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트
@@ -76,6 +106,40 @@ public class MainController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(false);
         }
     }
+    @PostMapping("/attendenceCheck")
+    @ResponseBody
+    public String checkAttendance() {
+        // 현재 로그인한 유저 정보 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+            String todayStr = LocalDate.now().toString();
+
+            // 통합된 출석 체크 및 누적 증가 메서드 호출
+            return myPageService.checkAndIncrementAttendance(userNo, todayStr);
+
+
+        }
+        return "로그인 정보가 없습니다.";
+    }
+
+    // Controller
+    @GetMapping("/attendanceStatus")
+    @ResponseBody
+    public List<String> getAttendanceStatus() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            // 출석 날짜 리스트 반환 (예: ["2024-10-01", "2024-10-02", ...])
+            return myPageService.getAttendanceDates(userNo);
+        }
+        return Collections.emptyList();
+    }
+
 
     @GetMapping("/intro")
     public String intro(){return "/main/intro/intro";}

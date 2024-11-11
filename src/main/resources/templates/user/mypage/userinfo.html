@@ -87,7 +87,7 @@
         <div class="modal-background2" id="modal-background2">
             <div class="deletepopup" id="deletepopup">
                 <p class="deleteuser">회원 탈퇴를 하시겠습니까?</p>
-                <p class="dangerous">회원 탈퇴 시 일주일간의 유예기간이 있으며 3일 지나면 영구 삭제 됩니다.</p>
+                <p class="dangerous"></p>
                 <div>
                     <button id="cancledBtn" class="cancleBtn">취소</button>
                 </div>
@@ -175,53 +175,58 @@
         const btndelete = document.getElementById('btndelete');
         const deletepopup = document.getElementById('deletepopup');
         const modal2 = document.querySelector('.modal-background2');
-        const submitBtn2= document.getElementById('submitdBtn2');
-        const cancledBtn= document.getElementById('cancledBtn')
-
-        //모달
-        btndelete.addEventListener('click', () => {
-            deletepopup.style.display = 'block';// 회원탈퇴 팝업 표시
-            document.body.style.overflow = "hidden"; // 스크롤 비활성화
-        });
-
-        btndelete.addEventListener("click", ()=>{
-            modal2.style.display="flex";
-            if (modal2.style.display === "flex") {
-                cancledBtn.addEventListener("click", () => {
-                    modal2.style.display = "none";
-                    document.body.style.overflow = "auto"; // 스크롤 다시 활성화
-                });
-            }
-        });
-
-        submitBtn2.addEventListener('click', () => {
-            // URL을 원하는 주소로 변경하세요
-            location.href = '/main';
-        });
+        const submitBtn2 = document.getElementById('submitdBtn2');
+        const cancleBtn = document.getElementById('cancledBtn');
 
         const modifypopup2 = document.getElementById('modify-popup2');
         const modal3 = document.querySelector('.modal-background3');
-        const submitdBtn3= document.getElementById('submitdBtn3');
-        //모달
-        submitBtn2.addEventListener('click', () => {
-            deletepopup.style.display = 'none';
-            modifypopup2.style.display = 'block';// 탈퇴 완료 팝업 표시
+        const submitBtn3 = document.getElementById('submitdBtn3');
+
+        // 탈퇴 확인 모달 열기
+        btndelete.addEventListener('click', () => {
+            deletepopup.style.display='block';
+            modal2.style.display = 'flex';
             document.body.style.overflow = "hidden"; // 스크롤 비활성화
         });
 
-        submitBtn2.addEventListener("click", ()=>{
+        // 취소 버튼 클릭 시 모달 닫기
+        cancleBtn.addEventListener("click", () => {
             modal2.style.display = "none";
-            modal3.style.display="flex";
-            if (modal3.style.display === "flex") {
-                submitdBtn3.addEventListener("click", () => {
-                    modal3.style.display = "none";
-                    document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+            deletepopup.style.display="none";
+            document.body.style.overflow = "auto"; // 스크롤 활성화
+        });
+
+        // 확인 버튼 클릭 시 회원 탈퇴 요청
+        submitBtn2.addEventListener('click', async () => {
+            try {
+                const response = await fetch('/deleteAccount', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // 서버에서 로그인한 유저의 userNo를 처리하기 위해 request body는 비워둡니다.
+                    body: JSON.stringify({})
                 });
+
+                if (response.ok) {
+                    // 탈퇴 성공 시 탈퇴 완료 모달 표시
+                    modal2.style.display = "none";
+                    modifypopup2.style.display='block';
+                    modal3.style.display = "flex";
+                } else {
+                    alert("회원 탈퇴에 실패하였습니다. 다시 시도해주세요.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
             }
         });
-        submitdBtn3.addEventListener('click', () => {
-            // URL을 원하는 주소로 변경하세요
-            location.href = '/main';
+
+        // 탈퇴 완료 확인 버튼 클릭 시 메인 화면으로 이동
+        submitBtn3.addEventListener('click', () => {
+            modal3.style.display = "none";
+            modifypopup2.style.display="none";
+            document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+            location.href = '/auth/login'; // 로그인창
         });
 
         function checkDuplicate() {

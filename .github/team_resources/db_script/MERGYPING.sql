@@ -8,7 +8,7 @@
 
 -- GRANT ALL PRIVILEGES ON horrordb.* TO 'ohgiraffers'@'%';
 
--- USE horrordb;
+USE horrordb;
 
 DROP TABLE IF EXISTS `TBL_USER`;
 CREATE TABLE IF NOT EXISTS `TBL_USER`
