@@ -398,10 +398,10 @@ nav span:hover{
 
 #question-text3{
     position: absolute;
-    width: 1000px;
+    width: 2000px;
     height: 104px;
     left: 400px;
-    top: 700px;
+    top: 400px;
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
