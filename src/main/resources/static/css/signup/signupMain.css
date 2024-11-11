@@ -622,6 +622,31 @@ select.box1{
     border-radius: 50px;
 }
 
+#exitButton{
+    background: black;
+    border-radius: 999px;
+    font-family: 'Cafe24 Ssurround air';
+    font-weight: 1000;
+    width: 40px;
+    height: 40px;
+    top: 15px;
+    left:435px;
+    position: absolute;
+    justify-content: center;
+    color:white;
+    font-size:25px;
+}
+
+#exitButton:hover {
+    color:black;
+    background: white;
+}
+
+#exitButton:active {
+    margin-top: 1px;
+    margin-left: 1px;
+}
+
 .authNumber{
     position:absolute;
     left: 50px;
