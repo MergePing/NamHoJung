@@ -2,9 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>404 에러페이지</title>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
 </head>
 <body>
-
+    <img id="background" th:src="@{/images/error/404.png}">
+    <img id="logo" th:src="@{/images/error/logo.png}" onclick="location.href='/'">
+    <img id="ghost" th:src="@{/images/error/ghost.png}">
+    <img id="bar" th:src="@{/images/error/bar.png}">
+    <p id="errorText">404ERROR</p>
+    <button id="back" type="button" onclick="back()">이전으로</button>
+    <button id="forward" type="button" onclick="location.href='/'">메인으로</button>
+    <p id="info">요청하신 페이지가 존재하지 않거나 삭제되었습니다.<br>불편을 드려 대단히 죄송합니다.</p>
 </body>
+<script>
+    function back() {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            location.href = '/';
+        }
+    }
+</script>
 </html>
