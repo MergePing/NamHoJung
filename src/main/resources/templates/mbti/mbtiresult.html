@@ -12,9 +12,15 @@
   <title>Title</title>
   <link rel="stylesheet" th:href="@{/css/mbti.css}">
   <link rel="stylesheet" th:href="@{/css/reset.css}">
+<!-- 카톡 공유용 -->
+<!--  <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>-->
+<!-- 스크린샷 공유로 변경 -->
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0/html2canvas.min.js?v=1"></script>-->
+<!-- CDN 사용이 안되어서 직접 로컬에 넣음 -->
+  <script th:src="@{/html2canvas.js}"></script>
 </head>
 <body>
-<div class="resolution">
+<div id="resolution" class="resolution">
   <img class="background" th:src="@{/images/mbti/img3.png}" alt="mbti 테스트 배경">
   <nav>
     <!--네비바-->
@@ -36,26 +42,120 @@
     <p id="question-text4" th:text="${mbtiInfoDTO.info}"></p>
 </div>
   <div class="backgroundShare"></div>
-  <img class="share" onclick="shareKaKaotalk()" id="kakaoTalk" th:src="@{/images/icon/kakaotalk.png}">
+  <img class="share" id="kakaoTalk" th:src="@{/images/icon/kakaotalk.png}">
   <img class="share" id="naver" th:src="@{/images/icon/naver.png}">
   <img class="share" id="shareIco" th:src="@{/images/icon/share.png}">
   <img class="share" id="facebook" th:src="@{/images/icon/facebook.png}">
   <img class="share" id="instagram" th:src="@{/images/icon/instagram.png}">
+  <button type="button" id="save" class="saveImage">이미지 저장</button>
   <button type="button" onclick="location.href='/main'" class="notShare">나중에 공유하기</button>
 </div>
 </body>
 <script>
-  const type = document.getElementById('question-text2');
-  const result = document.getElementById('question-text3');
-  const info = document.getElementById('question-text4');
+  // const type = document.getElementById('question-text2');
+  // const result = document.getElementById('question-text3');
+  // const info = document.getElementById('question-text4');
 
-  function shareKaKaotalk() {
-    document.getElementById(this.id).addEventListener('click', function () {
-      shareOnKakaotalk(type, result, info)
-    })
-    function shareOnKakaotalk() {
+  // document.getElementById('kakaoTalk').addEventListener('click', function () {
+  //   shareOnKakaotalk(type, result, info)
+  // })
+  //
+  // function shareOnKakaotalk() {
+  //   Kakao.init('b6eab03ab0c2c2c52202dfabf3e60fe4 -> 도메인이 안맞아서 안되나싶다.'); // 카카오 앱 키
+  //   Kakao.Link.sendDefault({
+  //     objectType: 'feed',
+  //     content: {
+  //       title: text2,
+  //       description: text3 + '\n' + text4,
+  //       imageUrl: 'YOUR_IMAGE_URL',
+  //       link: {
+  //         mobileWebUrl: '모바일 이동용 주소',
+  //         webUrl: '데스크탑 이동용 주소'
+  //       }
+  //     }
+  //   });
+  // }
+  //
+  // document.getElementById('naver').addEventListener('click', function () {
+  //   shareOnNaver(type, result, info)
+  // })
+  //
+  // function shareOnNaver() {
+  //
+  // }
+  //
+  // document.getElementById('shareIco').addEventListener('click', function () {
+  //   shareOnIco(type, result, info)
+  // })
+  //
+  // function shareOnIco() {
+  //
+  // }
+  //
+  // document.getElementById('facebook').addEventListener('click', function () {
+  //   shareOnFacebook(type, result, info)
+  // })
+  //
+  // function shareOnFacebook() {
+  //
+  // }
+  //
+  // document.getElementById('instagram').addEventListener('click', function () {
+  //   shareOnInstagram(type, result, info)
+  // })
+  //
+  // function shareOnInstagram() {
+  //
+  // }
 
-    }
+  // -> 상황상 구현이 어려울거라 판단했고 스크린샷을 보내는 걸로 대체?
+
+  // 전체 스크린샷 찍기용
+  // function captureAndShare() {
+  //   const captureElement = document.querySelector('.resolution'); // 전체 선택했음
+  //
+  //   html2canvas(captureElement).then(function (canvas) {
+  //     const imageUrl = canvas.toDataURL(); // 이미지를 url로 변경하는 과정 (인코딩)
+  //
+  //     shareOnKakaoWithImage(imageUrl);
+  //   });
+  // }
+
+  // Kakao.init('b6eab03ab0c2c2c52202dfabf3e60fe4'); // 카카오 앱 키
+  // function shareOnKakaoWithImage(imageUrl) {
+  //   Kakao.Link.sendDefault({
+  //     objectType: 'feed',
+  //     content: {
+  //       title: 'MBTI 결과', // 제목
+  //       description: '당신의 MBTI 결과를 확인해보세요!', // 설명
+  //       imageUrl: ,
+  //       link: {
+  //         mobileWebUrl: ,
+  //         webUrl: ,
+  //       }
+  //     }
+  //   });
+  // }
+  const capture = document.getElementById('save');
+  const screen = document.getElementById('resolution');
+
+  capture.addEventListener('click', () => {
+    html2canvas(screen).then(canvas => {
+      save(canvas.toDataURL('image/jpg'), 'mbti.jpg');
+    });
+  });
+
+  const save = (url, name) => {
+    const link = document.createElement('a');
+
+    document.body.appendChild(link);
+
+    link.href = url;
+    link.download = name;
+    link.click();
+
+    document.body.removeChild(link);
   }
+
 </script>
 </html>

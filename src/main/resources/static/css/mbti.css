@@ -503,3 +503,29 @@ nav span:hover{
 #instagram{
     left:1041px;
 }
+
+.saveImage {
+    position: absolute;
+    width: 256px;
+    height: 60px;
+    left: 833px;
+    top: 827px;
+
+    background: #FFFFFF;
+    border-radius: 38px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.saveImage:hover {
+    background: #97ffd6;
+}
+
+.saveImage:active {
+    background: #00ff9c;
+}
