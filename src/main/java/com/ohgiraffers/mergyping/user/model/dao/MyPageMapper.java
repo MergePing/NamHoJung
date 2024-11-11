@@ -42,7 +42,7 @@ public interface MyPageMapper {
 
     List<String> getAttendanceDates(int userNo);
 
-    int getUserAttendanceCount(int userNo);
+    Integer getUserAttendanceCount(int userNo);
 
     void updateUserLevel(Map<String, Object> params);
 
@@ -51,5 +51,5 @@ public interface MyPageMapper {
     String getNextLevelName(int currentLevelNo);
 
 
-
+    void deleteUser(int userNo);
 }
