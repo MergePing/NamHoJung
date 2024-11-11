@@ -35,12 +35,12 @@
     </form>
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
+  <div id="image">
   <img id="testBack" th:src="@{/images/mbti/img2.png}" alt="test 시작 전 배경">
-  <div class="mbti-result">
     <h1 id="question-text2">당신의 MBTI 결과는: <span th:text="${mbtiInfoDTO.type}"></span></h1>
     <p id="question-text3" th:text="${mbtiInfoDTO.result}"></p>
     <p id="question-text4" th:text="${mbtiInfoDTO.info}"></p>
-</div>
+  </div>
   <div class="backgroundShare"></div>
   <img class="share" id="kakaoTalk" th:src="@{/images/icon/kakaotalk.png}">
   <img class="share" id="naver" th:src="@{/images/icon/naver.png}">
@@ -137,15 +137,25 @@
   //   });
   // }
   const capture = document.getElementById('save');
-  const screen = document.getElementById('resolution');
+  const screen = document.getElementById('image');
 
   capture.addEventListener('click', () => {
-    html2canvas(screen).then(canvas => {
-      save(canvas.toDataURL('image/jpg'), 'mbti.jpg');
+    html2canvas(screen,
+    {
+      width: 1400,
+      height: 700,
+      x: 275,
+      y: 140,
+      backgroundColor: null   // 이거 쓰면 흰부분 사라져서 유용함
+    }
+    ).then(canvas => {
+      saveMbti(canvas.toDataURL('image/jpg'), 'mbti.jpg');
+    }).catch(error => {
+      console.error("캡처 중 오류 발생:", error);
     });
   });
 
-  const save = (url, name) => {
+  const saveMbti = (url, name) => {
     const link = document.createElement('a');
 
     document.body.appendChild(link);
