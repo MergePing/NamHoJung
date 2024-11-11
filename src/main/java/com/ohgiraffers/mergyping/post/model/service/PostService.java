@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,15 @@ public class PostService {
         List<PostDTO> postList = postMapper.postList();
 
         return postList;
+    }
+
+    // 게시글 정렬하는 메소드
+    public List<PostDTO> postListSort(String orderBy, String category) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("orderBy",orderBy);
+        params.put("category",category);
+
+        return postMapper.postListSort(params);
     }
 
 

@@ -9,6 +9,9 @@
         .post {
             position: relative;
         }
+        .dn{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -47,7 +50,171 @@
     <div class="select">
         <button>분류</button>
     </div>
+    <div class="modal dn">
+        <div class="modalContent">
+            <button id="modalSelect">분류</button>
+            <div id="category">
+                <button id="modalCategory">카테고리</button>
+                <div class="categoryBox dn">
+                    <button id="real">실화</button>
+                    <button id="mystery">미스테리</button>
+                    <button id="sf">SF</button>
+                    <button id="thrill">스릴러</button>
+                    <button id="ghost">괴담</button>
+                </div>
+            </div>
+            <button id="modalComment">댓글순</button>
+            <button id="modalScary">인기순</button>
+            <button id="modalNew">작성순</button>
+            <button id="modalFavorite">즐겨찾기</button>
+        </div>
+    </div>
+<!--    카테고리 분류-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.querySelector(".modal");
+            const modalBtn = document.querySelector(".select button");
+            const select = document.getElementById("modalSelect");
+            const category = document.getElementById("modalCategory");
+            const categoryBox = document.querySelector(".categoryBox");
+            const real = document.getElementById("real");
+            const mystery = document.getElementById("mystery");
+            const sf = document.getElementById("sf");
+            const thrill = document.getElementById("thrill");
+            const ghost = document.getElementById("ghost");
+            const comment = document.getElementById("modalComment");
+            const scary = document.getElementById("modalScary");
+            const New = document.getElementById("modalNew");
+            const favorite = document.getElementById("modalFavorite");
 
+            function updatePosts(orderBy, category) {
+                let url = `/post/sort?orderBy=${encodeURIComponent(orderBy)}`;
+                if (category) {
+                    url += `&category=${encodeURIComponent(category)}`;
+                }
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Fetched data:', data); // 데이터 확인을 위한 콘솔 로그
+                        renderPosts(data.postList);
+                    })
+                    .catch(error => console.error('Error fetching posts:', error));
+            }
+
+            modalBtn.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+            });
+            select.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+            });
+
+            category.addEventListener('click', () => {
+                categoryBox.classList.toggle("dn");
+                modalBtn.innerText = "카테고리";
+                select.innerText = "카테고리";
+                toggleCategoryButtons();
+                select.addEventListener('click',()=>{
+                    select.innerText="분류";
+                    toggleCategoryButtons()
+                    categoryBox.classList.toggle("dn")
+
+                })
+            });
+
+            function toggleCategoryButtons() {
+                comment.classList.toggle("dn");
+                scary.classList.toggle("dn");
+                New.classList.toggle("dn");
+                favorite.classList.toggle("dn");
+                category.classList.toggle("dn");
+            }
+
+            comment.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "댓글순";
+                updatePosts("COMMENTS_NUMBER", null);
+            });
+
+            scary.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "인기순";
+                updatePosts("SCARY_NUMBER", null);
+            });
+
+            New.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "작성순";
+                updatePosts("POST_DATE", null);
+            });
+
+            favorite.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "즐겨찾기순";
+                updatePosts("POST_FAVORITE", null);
+            });
+
+            real.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "실화";
+                updatePosts("POST_NO", "실화");
+            });
+
+            mystery.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "미스테리";
+                updatePosts("POST_NO", "미스테리");
+            });
+
+            sf.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "SF";
+                updatePosts("POST_NO", "SF");
+            });
+
+            thrill.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "스릴러";
+                updatePosts("POST_NO", "스릴러");
+            });
+
+            ghost.addEventListener('click', () => {
+                modal.classList.toggle("dn");
+                modalBtn.innerText = "괴담";
+
+                updatePosts("POST_NO", "괴담");
+            });
+
+            function renderPosts(posts) {
+                const postContainer = document.getElementById('postContainer');
+                postContainer.innerHTML = '';
+                posts.forEach((post, index) => addNewPost(post, index));
+
+                    function addNewPost(post, index) {
+                        const postContainer = document.getElementById('postContainer');
+                        const newPost = document.createElement('div');
+                        newPost.classList.add('post');
+                        newPost.setAttribute('style', `top: ${index * 80}px`);
+                        newPost.innerHTML = `
+            <span>${post.postNo}</span>
+            <span>
+                <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
+                     data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <a href="/selectpost/${post.postNo}">
+                <span>${post.postTitle}</span>
+            </a>
+            <div><span>${post.postCategory}</span></div>
+            <span>${post.postDate}</span>
+            <span>${post.scaryNumber}</span>
+            <span>${post.commentNumber}</span>
+        `;
+                        postContainer.appendChild(newPost);
+                    }
+            }
+            // 초기 데이터 렌더링
+            updatePosts("POST_NO", null)
+        });
+    </script>
     <input type="search" id="searchInput" placeholder="&nbsp; &nbsp; &nbsp;검색어를 입력하세요">
     <label><img th:src="@{/images/post/Search-dark.png}" id="searchBtn"></label>
 
@@ -86,8 +253,6 @@
         </div>
         <img th:src="@{/images/notice/next-btn.png}" id="img2">
     </div>
-
-
 </main>
 
 <footer>
@@ -96,6 +261,7 @@
 
 </body>
 
+<!--즐겨찾기-->
 <script>
     function toggleFavorite(element) {
         const postNo = element.getAttribute('data-postNo');
@@ -109,7 +275,7 @@
         } }) .catch(error => console.error('Error:', error)); }
 </script>
 
-
+<!--검색-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const searchBtn = document.getElementById('searchBtn');
@@ -177,7 +343,7 @@
 
 </script>
 
-
+<!--페이징-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         let currentPage = 1;
@@ -284,7 +450,7 @@
 </script>
 
 
-
+<!--플로팅 버튼-->
 <script>
     const floatBtn1 = document.getElementById("light");
     const floatBtn2 = document.getElementById("dark");

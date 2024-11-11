@@ -63,6 +63,25 @@ public class PostController {
     }
 
 
+    // 게시글 정렬
+    @GetMapping("/post/sort")
+    public ResponseEntity<Map<String,Object>> postListSort(
+            @RequestParam(required = false) String orderBy,
+            @RequestParam(required = false) String category) {
+
+        // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
+        List<PostDTO> postList = postService.postListSort(orderBy,category);
+
+        Map<String,Object> response = new HashMap<>();
+
+        // 모델에 postList라는 이름으로 게시글 목롣 추가
+        response.put("postList", postList);
+
+        //뷰 반환
+        return ResponseEntity.ok(response);
+    }
+
+
     @GetMapping("/post/page")
     @ResponseBody
     public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
@@ -491,6 +510,7 @@ public class PostController {
 
                 // 키워드를 통해 검색 수행
                 // 문제 발생 null
+                // 해결 완료 xml쪽 문제였음
                 List<PostDTO> posts = postService.searchPost(keyword);
                 System.out.println("검색 결과: " + posts);
 

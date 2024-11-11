@@ -17,6 +17,9 @@ public interface PostMapper {
     // 게시글 전체 목록조회
     List<PostDTO> postList();
 
+    // 게시글 정렬
+    List<PostDTO> postListSort(@RequestParam("params") Map<String, Object> params);
+
     // 게시글 번호와 즐겨찾기 여부로 즐겨 찾기 상태 업데이트
     void updateFavoriteStatus(@RequestParam("postNo") int postNo, @RequestParam("isFavorite") boolean isFavorite);
 
