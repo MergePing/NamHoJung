@@ -24,7 +24,6 @@
   </nav>
   <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
 
-
   <img id="question-img" src="/images/mbti/img.png" alt="MBTI Image" />
   <p id="question-text" th:text="${QuestionDTO != null ? QuestionDTO.text : '😂'}"></p>
 
@@ -36,7 +35,6 @@
 </div>
 </body>
 <script>
-
   class MbtiTesterDTO {
     constructor() {
       this.CB = 0;
