@@ -439,7 +439,7 @@ nav span:hover{
     position: absolute;
     width: 388px;
     height: 59px;
-    left: 766px;
+    left: 770px;
     top: 934px;
 
     background: #C9C9C9;
@@ -468,7 +468,7 @@ nav span:hover{
     position: absolute;
     width: 256px;
     height: 53px;
-    left: 833px;
+    left: 840px;
     top: 831px;
 
     background: #FFFFFF;
@@ -479,7 +479,7 @@ nav span:hover{
     position: absolute;
     width: 44px;
     height: 44px;
-    left: 837px;
+    left: 840px;
     top: 836px;
 }
 
@@ -489,26 +489,26 @@ nav span:hover{
 }
 
 #naver{
-    left:888px;
+    left:891px;
 }
 
 #shareIco{
-    left:939px;
+    left:942px;
 }
 
 #facebook{
-    left:990px;
+    left:993px;
 }
 
 #instagram{
-    left:1041px;
+    left:1044px;
 }
 
 .saveImage {
     position: absolute;
-    width: 256px;
+    width: 257px;
     height: 60px;
-    left: 833px;
+    left: 840px;
     top: 827px;
 
     background: #FFFFFF;
@@ -528,4 +528,26 @@ nav span:hover{
 
 .saveImage:active {
     background: #00ff9c;
+}
+
+/* loadingbar */
+#loadingbarMain {
+    position: absolute;
+    width: 1527px;
+    height: 30px;
+    background-color: blue;
+    margin-top: 20px;
+    top:140px;
+    left:189px;
+    z-index: 10;
+    outline: black 15px solid;
+}
+
+#loadingbar {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background-color: red;
+    transition: width 0.1s ease-in-out;
+    z-index: 10;
 }
