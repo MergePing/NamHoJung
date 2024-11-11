@@ -122,14 +122,10 @@ public class MyPageController {
             MyPageDTO myPageDTO = myPageService.findNickName(userNo);
             model.addAttribute("myPageDTO", myPageDTO);
 
-            List<MyPagePostDTO> writtenPostList = myPageService.findWrittenPost(userNo);
-            model.addAttribute("writtenPostList", writtenPostList);
 
-            List<MypageCommentDTO> writtenCommentList = myPageService.findWrittenComment(userNo);
-            model.addAttribute("writtenCommentList", writtenCommentList);
 
-            List<MyPagePostDTO> writtenFavoriteList = myPageService.findWrittenFavorite(userNo);
-            model.addAttribute("writtenFavoriteList", writtenFavoriteList);
+
+
 
             Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
             model.addAttribute("mbtiInfo", mbtiInfo);
@@ -141,6 +137,53 @@ public class MyPageController {
 
         return "user/mypage/useractive";
     }
+
+
+    @GetMapping("/getPosts")
+    public ResponseEntity<List<MyPagePostDTO>> getPosts() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            List<MyPagePostDTO> writtenPostList = myPageService.findWrittenPost(userNo);
+            return ResponseEntity.ok(writtenPostList); // JSON 형식으로 반환
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환
+        }
+    }
+
+    @GetMapping("/getComments")
+    public ResponseEntity<List<MypageCommentDTO>> getComments() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            List<MypageCommentDTO> writtenCommentList = myPageService.findWrittenComment(userNo);
+            return ResponseEntity.ok(writtenCommentList); // JSON 형식으로 반환
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환
+        }
+    }
+
+    @GetMapping("/getFavorites")
+    public ResponseEntity<List<MyPagePostDTO>> getFavorites() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            List<MyPagePostDTO> writtenFavoriteList = myPageService.findWrittenFavorite(userNo);
+            return ResponseEntity.ok(writtenFavoriteList); // JSON 형식으로 반환
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환
+        }
+    }
+
 
     @PostMapping("/deleteAccount")
     @ResponseBody
