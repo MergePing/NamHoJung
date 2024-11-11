@@ -529,7 +529,3 @@ nav span:hover{
 .saveImage:active {
     background: #00ff9c;
 }
-
-#image{
-    position: relative;
-}
