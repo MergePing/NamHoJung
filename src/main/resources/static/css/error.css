@@ -1,5 +1,5 @@
 #resolution{
-    position: absolute;
+    position:relative;
     width:1920px;
     height:1080px;
 }
@@ -16,16 +16,7 @@
     height: 45px;
     left: 48px;
     top: 18px;
-
-    font-family: 'Sandoll Ggigigig';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 45px;
-    line-height: 45px;
-
-    color: #FFFFFF;
-
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 #ghost{
@@ -34,13 +25,6 @@
     height: 200px;
     left: 860px;
     top: 31px;
-
-    left: 9.38%;
-    right: 9.38%;
-    top: 9.38%;
-    bottom: 9.37%;
-
-    background: #000000;
 }
 
 #bar{
@@ -67,19 +51,11 @@
 
     color: #FFFFFF;
 
-    border: 1px solid #000000;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
 }
 
 #back{
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    gap: 10px;
-
     position: absolute;
     width: 420px;
     height: 225px;
@@ -88,24 +64,53 @@
 
     border: 25px solid #FFFFFF;
     border-radius: 50px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 100px;
+    line-height: 125px;
+    background: none;
+    color: #FFFFFF;
 }
 
-#main{
+#back:hover{
+    color:green
+}
+
+#back:active{
+    margin-left: 2px;
+    margin-top: 5px;
+}
+
+#forward{
     box-sizing: border-box;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    gap: 10px;
-
     position: absolute;
     width: 423px;
     height: 225px;
     left: 1068px;
     top: 533px;
+
+    border: 25px solid #FFFFFF;
     border-radius: 50px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 100px;
+    line-height: 125px;
+    background: none;
+
+    color: #FFFFFF;
+}
+
+#forward:hover{
+    color:green
+}
+
+#forward:active{
+    margin-left: 2px;
+    margin-top: 5px;
 }
 
 #info{
@@ -114,4 +119,13 @@
     height: 124px;
     left: 581px;
     top: 857px;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 62px;
+    text-align: center;
+
+    color: #FFFFFF;
 }
