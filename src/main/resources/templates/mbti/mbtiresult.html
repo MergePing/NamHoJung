@@ -36,7 +36,7 @@
     <p id="question-text4" th:text="${mbtiInfoDTO.info}"></p>
 </div>
   <div class="backgroundShare"></div>
-  <img class="share" id="kakaoTalk" th:src="@{/images/icon/kakaotalk.png}">
+  <img class="share" onclick="shareKaKaotalk()" id="kakaoTalk" th:src="@{/images/icon/kakaotalk.png}">
   <img class="share" id="naver" th:src="@{/images/icon/naver.png}">
   <img class="share" id="shareIco" th:src="@{/images/icon/share.png}">
   <img class="share" id="facebook" th:src="@{/images/icon/facebook.png}">
@@ -44,4 +44,18 @@
   <button type="button" onclick="location.href='/main'" class="notShare">나중에 공유하기</button>
 </div>
 </body>
+<script>
+  const type = document.getElementById('question-text2');
+  const result = document.getElementById('question-text3');
+  const info = document.getElementById('question-text4');
+
+  function shareKaKaotalk() {
+    document.getElementById(this.id).addEventListener('click', function () {
+      shareOnKakaotalk(type, result, info)
+    })
+    function shareOnKakaotalk() {
+
+    }
+  }
+</script>
 </html>
