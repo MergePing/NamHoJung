@@ -1,9 +1,117 @@
 #resolution{
+    position: absolute;
     width:1920px;
     height:1080px;
 }
 
 #background{
+    position:absolute;
     width:1920px;
     height:1080px;
+}
+
+#logo{
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+    font-family: 'Sandoll Ggigigig';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 45px;
+    line-height: 45px;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#ghost{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 860px;
+    top: 31px;
+
+    left: 9.38%;
+    right: 9.38%;
+    top: 9.38%;
+    bottom: 9.37%;
+
+    background: #000000;
+}
+
+#bar{
+    position: absolute;
+    left: 20.05%;
+    right: 20%;
+    top: 40.65%;
+    bottom: 54.81%;
+}
+
+#errorText{
+    position: absolute;
+    width: 1003px;
+    height: 206px;
+    left: 454px;
+    top: 212px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 200px;
+    line-height: 206px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    border: 1px solid #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#back{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    gap: 10px;
+
+    position: absolute;
+    width: 420px;
+    height: 225px;
+    left: 385px;
+    top: 533px;
+
+    border: 25px solid #FFFFFF;
+    border-radius: 50px;
+}
+
+#main{
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    gap: 10px;
+
+    position: absolute;
+    width: 423px;
+    height: 225px;
+    left: 1068px;
+    top: 533px;
+    border-radius: 50px;
+}
+
+#info{
+    position: absolute;
+    width: 759px;
+    height: 124px;
+    left: 581px;
+    top: 857px;
 }
