@@ -463,3 +463,43 @@ nav span:hover{
 .notShare:hover {
     background: #97ffd6;
 }
+
+.backgroundShare {
+    position: absolute;
+    width: 256px;
+    height: 53px;
+    left: 833px;
+    top: 831px;
+
+    background: #FFFFFF;
+    border-radius: 38px;
+}
+
+.share{
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    left: 837px;
+    top: 836px;
+}
+
+.share:active{
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+#naver{
+    left:888px;
+}
+
+#shareIco{
+    left:939px;
+}
+
+#facebook{
+    left:990px;
+}
+
+#instagram{
+    left:1041px;
+}
