@@ -35,6 +35,7 @@
         <result property="email"  column="EMAIL"/>
         <result property="userId" column="USER_ID"/>
         <result property="userPwd" column="USER_PWD"/>
+    </resultMap>
     <resultMap id="writerName" type="com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO">
         <id property="userNo" column="USER_NO"/>
         <result property="postNo" column="POST_NO"/>

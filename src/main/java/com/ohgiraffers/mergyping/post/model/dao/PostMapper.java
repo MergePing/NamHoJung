@@ -3,9 +3,7 @@ package com.ohgiraffers.mergyping.post.model.dao;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -33,16 +31,16 @@ public interface PostMapper {
     void incrementScaryCount(@RequestParam("postNo") int postNo, @RequestParam("isScary") boolean isScary);
 
     // 게시글 번호와 무서워요 여부로 무서워요 개수 감소
-    void decrementScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isScary") boolean isScary);
+    void decrementScaryCount(@RequestParam("postNo") int postNo, @RequestParam("isScary") boolean isScary);
 
     // 게시글 번호와 안무서워요 여부로 안무서워요 개수 증가
-    void incrementNotScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isNotScary") boolean isNotScary);
+    void incrementNotScaryCount(@RequestParam("postNo") int postNo, @RequestParam("isNotScary") boolean isNotScary);
 
     // 게시글 번호와 안무서워요 여부로 안무서워요 개수 감소
-    void decrementNotScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isNotScary") boolean isNotScary);
+    void decrementNotScaryCount(@RequestParam("postNo") int postNo, @RequestParam("isNotScary") boolean isNotScary);
 
     // 게시글 번호로 해당하는 게시물의 무서워요 개수 조회
-    int getScaryNumber( @RequestParam("postNo") int postNo);
+    int getScaryNumber(@RequestParam("postNo") int postNo);
 
     // 게시글 번호로 해당하는 게시물의 안무서워요 개수 조회
     int getNotScaryNumber(@RequestParam("postNo") int postNo);
@@ -63,8 +61,7 @@ public interface PostMapper {
     void updateUserLevel(Map<String, Object> params);
 
     String getLevelName(int levelNo);
-}
 
-    // 게시물 검색
     List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
 }
+

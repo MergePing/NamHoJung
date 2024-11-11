@@ -226,7 +226,7 @@ public class PostController {
 
 
     @GetMapping("/newpost")
-    public String newPostPage(Model model) {
+    public String newPostPage(Model model,WriterNameDTO writer) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
@@ -245,7 +245,7 @@ public class PostController {
             int levelNo = postService.calculateLevel(attendanceCount);
             System.out.println("levelNo = " + levelNo);
           
-    public String newPostPage(Model model,WriterNameDTO writer) {
+//    public String newPostPage(Model model,WriterNameDTO writer) {
 
             // 등급 기준과 출석수 기반으로 등급 업데이트하기
             postService.updateUserLevel(userNo, levelNo);
