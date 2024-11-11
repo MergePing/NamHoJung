@@ -295,7 +295,128 @@ main .select button{
     background: none;
     border: none;
     outline: none;
+
 }
+
+main .modal{
+    position: absolute;
+    width: 1920px;
+    height: 1080px;
+    background: rgba(14, 41, 19, 0.6);
+    z-index: 6666666666;
+}
+
+main .modal button{
+    position: absolute;
+    width: 186px;
+    height: 53px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    border: 2px #fff solid;
+    outline: none;
+    background: #0E2913;
+    border-radius: 40px;
+    transition:  background 0.7s;
+
+}
+
+main .modalContent>button:nth-of-type(1){
+    top: 180px;
+    left: 730px;
+}
+
+main .modalContent>button:nth-of-type(2){
+    top: 280px;
+    left: 508px;
+
+}
+
+main .modalContent>button:nth-of-type(3){
+    top: 280px;
+    left: 730px;
+}
+
+main .modalContent>button:nth-of-type(4){
+    top: 280px;
+    left: 952px;
+
+}
+
+main .modalContent #category>button{
+    top: 355px;
+    left: 620px;
+
+}
+main .modalContent>button:nth-of-type(5){
+    top: 355px;
+    left: 850px;
+}
+
+
+
+.modal .modalContent .categoryBox button{
+    position: absolute;
+    width: 150px;
+    height: 53px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    border: 2px #fff solid;
+    outline: none;
+    background: #0E2913;
+    border-radius: 40px;
+    transition:  background 0.7s;
+    z-index: 30;
+}
+
+.modalContent .categoryBox button:nth-of-type(1){
+    top: 280px;
+    left: 410px;
+}
+
+.modalContent .categoryBox button:nth-of-type(2){
+    top: 280px;
+    left: 580px;
+}
+
+.modalContent .categoryBox button:nth-of-type(3){
+    top: 280px;
+    left: 750px;
+}
+
+.modalContent .categoryBox button:nth-of-type(4){
+    top: 280px;
+    left: 920px;
+}
+
+.modalContent .categoryBox button:nth-of-type(5){
+    top: 280px;
+    left: 1090px;
+}
+
+
+main .modal button:active, main .modal button:hover{
+    border: 5px solid #FFFFFF;
+    background: #4B9D21;
+    color: #000;
+    font-weight: 600;
+}
+.modal .modalContent .categoryBox button:active,
+.modal .modalContent .categoryBox button:hover{
+    border: 5px solid #FFFFFF;
+    background: #4B9D21;
+    color: #000;
+    font-weight: 600;
+}
+
+
+
+
+
+
 
 
 main input{
@@ -521,7 +642,18 @@ main .post span:nth-of-type(6){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-}.pageNum {
+}
+
+
+
+
+
+
+
+
+
+
+.pageNum {
      position: relative;
      display: flex;
      justify-content: center;
@@ -591,6 +723,9 @@ main .post span:nth-of-type(6){
 .pageNum p:nth-child(even) {
     left: 960px;
 }
+
+
+
 
 
 
