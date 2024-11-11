@@ -48,4 +48,11 @@ public class AdminNoticeService {
         int rowsAffected = adminNoticeMapper.insertNotice(noticeDTO);
         return rowsAffected > 0; // 추가 성공 여부 반환
     }
+
+
+    // 공지사항 검색 기능
+    public List<AdminNoticeDTO> searchNoticesByTitle(String keyword) {
+        return adminNoticeMapper.searchNoticesByTitle("%" + keyword + "%");
+    }
+
 }

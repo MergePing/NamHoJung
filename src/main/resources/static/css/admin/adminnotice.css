@@ -519,4 +519,30 @@ main .pageNum img:nth-of-type(2){
 }
 
 
+.pageNum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* 각 페이지 번호 간의 간격 */
+    margin-top: 20px;
+}
 
+.pageNum span {
+    font-family: 'BMJUA', sans-serif;
+    font-size: 20px; /* 페이지 번호 크기 */
+    padding: 10px 15px; /* 여백을 추가하여 버튼처럼 보이게 함 */
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #4BA41F; /* 버튼 배경색 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    transition: background-color 0.3s;
+}
+
+.pageNum span.active {
+    background-color: #A3DA87; /* 현재 페이지의 배경색 */
+    font-weight: bold; /* 현재 페이지 텍스트 두껍게 */
+}
+
+.pageNum span:hover {
+    background-color: #3B572D; /* 호버 시 배경색 */
+}

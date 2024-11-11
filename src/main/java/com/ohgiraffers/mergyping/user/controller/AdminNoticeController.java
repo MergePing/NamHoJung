@@ -105,4 +105,15 @@ public class AdminNoticeController {
         response.put("message", addSuccess ? "공지사항이 추가되었습니다." : "공지사항 추가에 실패했습니다.");
         return response;
     }
+
+    // 검색 요청 처리
+    @GetMapping("/admin/notice/search")
+    @ResponseBody
+    public Map<String, Object> searchNotices(@RequestParam("keyword") String keyword) {
+        List<AdminNoticeDTO> notices = adminNoticeService.searchNoticesByTitle(keyword);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("noticeList", notices);
+        return response;
+    }
 }
