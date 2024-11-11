@@ -240,7 +240,7 @@ nav span:hover{
     position: absolute;
     width: 599px;
     height: 104px;
-    left: 651px;
+    left: 675px;
     top: 535px;
 
     font-family: 'BM JUA_OTF';
@@ -356,6 +356,10 @@ nav span:hover{
     height: 104px;
     left: 500px;
     top: 535px;
+    text-shadow: -1px -1px 0 #000000,
+                  1px -1px 0 #000000,
+                 -1px  1px 0 #000000,
+                  1px  1px 0 #000000;
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
