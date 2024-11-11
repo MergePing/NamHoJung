@@ -205,7 +205,7 @@ public class PostController {
 
 
     @GetMapping("/newpost")
-    public String newPostPage(Model model) {
+    public String newPostPage(Model model,WriterNameDTO writer) {
 
         // 새로운 데이터를 저장할 DTO 생성
         SelectPostDTO newPost = new SelectPostDTO();
@@ -216,6 +216,7 @@ public class PostController {
         // 모델에 post라는 키 값으로 newPost라는 DTO값을 추가
         // 뷰 파일에서 post 객체를 쓰기 위해서
         model.addAttribute("post", newPost);
+        model.addAttribute("writer", writer);
 
         return "post/newpost";
     }
