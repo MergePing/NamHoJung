@@ -44,15 +44,7 @@
   </div>
 
   <!-- 페이지네이션 -->
-  <div class="pageNum">
-    <a th:href="@{'/admin/notice?page=' + (${currentPage} - 1)}" th:if="${currentPage > 1}">
-      <img th:src="@{/images/notice/pre-btn.png}">
-    </a>
-    <p th:text="${currentPage}">1</p>
-    <a th:href="@{'/admin/notice?page=' + (${currentPage} + 1)}" th:if="${currentPage < totalPages}">
-      <img th:src="@{/images/notice/next-btn.png}">
-    </a>
-  </div>
+  <div class="pagination" id="pagination-links"></div>
 </main>
 
 <!-- 공지사항 추가 버튼 -->
@@ -69,6 +61,8 @@
 </div>
 
 <script>
+
+
   document.getElementById('addNoticeButton').addEventListener('click', function() {
     const addForm = document.getElementById('addForm');
     const mainContent = document.getElementById('mainContent');
