@@ -31,11 +31,11 @@
   </nav>
   <img id="testBack" th:src="@{/images/mbti/testBackground.png}" alt="test 시작 전 배경">
   <div class="mbti-result">
-    <h1>당신의 MBTI 결과는: <span th:text="${mbtiInfoDTO.type}"></span></h1>
+    <h1 id="question-text2">당신의 MBTI 결과는: <span th:text="${mbtiInfoDTO.type}"></span></h1>
     <h2>결과 설명</h2>
-    <p th:text="${mbtiInfoDTO.result}"></p>
+    <p id="question-text3" th:text="${mbtiInfoDTO.result}"></p>
     <h3>MBTI 해석</h3>
-    <p th:text="${mbtiInfoDTO.info}"></p>
+    <p id="question-text4" th:text="${mbtiInfoDTO.info}"></p>
 </div>
 </body>
 </html>

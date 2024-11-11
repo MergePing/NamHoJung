@@ -377,3 +377,56 @@ nav span:hover{
     top: 200px;
     border: 10px solid #FFFFFF;
 }
+
+#question-text2{
+    position: absolute;
+    width: 1000px;
+    height: 104px;
+    left: 400px;
+    top: 535px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    text-align: center;
+    z-index: 0;
+
+    color: #FFFFFF;
+}
+
+#question-text3{
+    position: absolute;
+    width: 1000px;
+    height: 104px;
+    left: 400px;
+    top: 535px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    text-align: center;
+    z-index: 0;
+
+    color: #FFFFFF;
+}
+#question-text4{
+    position: absolute;
+    width: 1000px;
+    height: 104px;
+    left: 400px;
+    top: 535px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 52px;
+    text-align: center;
+    z-index: 0;
+
+    color: #FFFFFF;
+}
