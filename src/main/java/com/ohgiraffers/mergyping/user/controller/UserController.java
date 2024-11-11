@@ -23,7 +23,7 @@ public class UserController {
     }
 
     // 초기 로딩 시 사용자 리스트 페이지를 보여줍니다 (URL 변경 없음)
-    @GetMapping("/admin/users")
+    @GetMapping("/admin/user")
     public String showUserList(Model model) {
         int page = 1; // 초기 로딩 시 기본 페이지 번호
         int pageSize = 8;
