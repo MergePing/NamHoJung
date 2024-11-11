@@ -50,4 +50,7 @@ public interface PostMapper {
 
     // 현재 게시물 번호의 최대값 조회
     int getMaxPostNo();
+
+    // 게시물 검색
+    List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
 }
