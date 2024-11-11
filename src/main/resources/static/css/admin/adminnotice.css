@@ -546,3 +546,24 @@ main .pageNum img:nth-of-type(2){
 .pageNum span:hover {
     background-color: #3B572D; /* 호버 시 배경색 */
 }
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    font-family: "BMJUA";
+    font-size: 30px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #0E2913;
+    padding: 5px 10px;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    color: white;
+}
