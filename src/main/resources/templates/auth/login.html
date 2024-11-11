@@ -56,6 +56,26 @@
         togglePasswordVisibility('inputPwd');
     });
 
+    // 아이디 저장
+    window.onload = function() {
+        const savedId = localStorage.getItem('savedUserId');
+        if (savedId) {
+            document.getElementById('inputId').value = savedId;
+            document.getElementById('saveId').checked = true;
+        }
+    }
+
+    document.querySelector('form').onsubmit = function() {
+        const userId = document.getElementById('inputId').value;
+        const saveId = document.getElementById('saveId').checked;
+
+        if (saveId) {
+            localStorage.setItem('savedUserId', userId);
+        } else {
+            localStorage.removeItem('savedUserId');
+        }
+    };
+
 </script>
 </body>
 </html>
