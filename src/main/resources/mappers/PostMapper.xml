@@ -95,9 +95,9 @@
         LIMIT #{offset}, #{pageSize};
     </select>
 
-    <select id="getPostCount" resultMap="postList">
+    <select id="getPostCount" resultType="int">
         SELECT
-        COUNT(*)
+        COUNT(POST_NO)
         FROM TBL_POST
     </select>
 

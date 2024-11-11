@@ -694,36 +694,6 @@ main .post span:nth-of-type(6){
     color: #BEBEBE; /* 비활성화된 페이지 번호 색상 */
 }
 
-.pageNum p.left-920 {
-    left: 920px; /* 920px에 위치하게 설정 */
-}
-
-.pageNum p.left-960 {
-    left: 960px; /* 960px에 위치하게 설정 */
-}
-
-.pageNum #tab1 {
-    left: 920px;
-    display: block;
-}
-
-.pageNum #tab2 {
-    left: 960px;
-    display: block;
-}
-
-.pageNum .change {
-    left: 920px;
-}
-
-.pageNum p:nth-child(odd) {
-    left: 920px;
-}
-
-.pageNum p:nth-child(even) {
-    left: 960px;
-}
-
 
 
 
