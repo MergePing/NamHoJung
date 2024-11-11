@@ -70,7 +70,7 @@
     <form id="postForm" th:action="@{/newpost}" method="post" enctype="multipart/form-data">
       <div id="header">
       <span id="title">
-        <input type="text" id="postTitle" name="postTitle" value="제목 : 게시글 제목을 입력해 주세요">
+        <input type="text" id="postTitle" name="postTitle" placeholder="제목 : 게시글 제목을 입력해 주세요">
       </span>
         <button type="button" onclick="submitForm()">작성</button>
         <button type="button" onclick="location.href='/post'">취소</button>
@@ -122,6 +122,9 @@
           <div class="wrapper">
             <p class="username"><span th:text="${myPageDTO.userName}"></span></p>
 <!--            <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>-->
+          <span id="level" th:text="${writer.level}"></span>
+          <div class="wrapper">
+            <input type="text" id="postWriter" name="postWriter" readonly th:value="${writer.userName}"/>
             <img th:src="@{/images/post/selectpost/badge.png}">
           </div>
         </div>
@@ -147,6 +150,31 @@
     <p>ⓒ 2024 MergePing. All right reserved. </p>
   </div>
 </footer>
+
+<script> // 서버에서 유저 정보를 받아오는 함수
+function fetchUserInfo() {
+  fetch('/auth/user-info')
+          .then(response => response.json())
+          .then(data => {
+            // 받아온 데이터에서 유저 이름과 레벨을 설정
+            var userName = data.userName;
+            var userLevel = data.userLevel;
+            // 해당 DOM 요소들을 선택
+            var postWriterInput = document.getElementById("postWriter");
+            var levelSpan = document.getElementById("level");
+            // 받아온 데이터를 DOM 요소에 설정
+            postWriterInput.value = userName;
+            levelSpan.textContent = userLevel;
+          })
+          .catch(error => {
+            console.error('Error fetching user info:', error);
+          });
+}
+// 페이지 로드 시 유저 정보를 받아와서 설정
+document.addEventListener("DOMContentLoaded", function() {
+  fetchUserInfo();
+});
+</script>
 
 <script>
   function selectCategory(button) {

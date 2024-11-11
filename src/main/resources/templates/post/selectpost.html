@@ -204,7 +204,7 @@
     function toggleFavorite(element) {
         const postNo = element.getAttribute('data-postNo');
         const isFavorite = element.getAttribute('src').includes('best-dark.png');
-        fetch(`/toggleFavorite`, {
+        fetch(`/togglefavorite`, {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
@@ -219,7 +219,7 @@
         const postNo = element.getAttribute('data-postNo');
         const isScary = element.getAttribute('src').includes('scary-btn-after.png');
 
-        fetch(`/toggleScary`, {
+        fetch(`/togglescary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postNo: postNo, isScary: !isScary })
@@ -237,7 +237,7 @@
         const postNo = element.getAttribute('data-postNo');
         const isNotScary = element.getAttribute('src').includes('not-scary-btn-after.png');
 
-        fetch(`/toggleNotScary`, {
+        fetch(`/togglenotscary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postNo: postNo, isNotScary: !isNotScary })

@@ -61,3 +61,7 @@ public interface PostMapper {
 
     String getLevelName(int levelNo);
 }
+
+    // 게시물 검색
+    List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
+}

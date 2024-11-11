@@ -3,6 +3,7 @@ package com.ohgiraffers.mergyping.post.controller;
 import com.ohgiraffers.mergyping.auth.model.AuthDetails;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
+import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -223,6 +225,8 @@ public class PostController {
             // 등급 기준 정해주기
             int levelNo = postService.calculateLevel(attendanceCount);
             System.out.println("levelNo = " + levelNo);
+          
+    public String newPostPage(Model model,WriterNameDTO writer) {
 
             // 등급 기준과 출석수 기반으로 등급 업데이트하기
             postService.updateUserLevel(userNo, levelNo);
@@ -245,9 +249,11 @@ public class PostController {
         // 모델에 post라는 키 값으로 newPost라는 DTO값을 추가
         // 뷰 파일에서 post 객체를 쓰기 위해서
         model.addAttribute("post", newPost);
+        model.addAttribute("writer", writer);
 
         return "post/newpost";
     }
+
 
 
     // 새 게시물 번호를 생성하는 메서드 예시
@@ -466,4 +472,46 @@ public class PostController {
         return fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
     }
 
-}
+    // 게시물 검색
+
+        @GetMapping("/searchpost")
+        @ResponseBody
+        public Map<String, Object> searchPosts(@RequestParam("keyword") String keyword) {
+            Map<String, Object> response = new HashMap<>();
+            try {
+                // 키워드가 입력되지 않앗을 때
+                if (keyword == null || keyword.trim().isEmpty()) {
+                    throw new IllegalArgumentException("키워드를 입력해주세요.");
+                }
+
+                // 키워드 UTF-8로 디코딩
+                // 여기까진 문제 없음
+                String decodedKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+                System.out.println("디코딩된 검색어: " + decodedKeyword);
+
+                // 키워드를 통해 검색 수행
+                // 문제 발생 null
+                List<PostDTO> posts = postService.searchPost(keyword);
+                System.out.println("검색 결과: " + posts);
+
+                // 검색 결과를 맵에 담기
+                response.put("posts", posts);
+                System.out.println("response = " + response);
+            }
+
+            catch (IllegalArgumentException e) {
+                // 키워드가 없을 경우 에러 처리
+                response.put("error", e.getMessage());
+                return response;
+            } catch (Exception e) {
+                // 기타 에러 처리
+                e.printStackTrace();
+                response.put("error", "서버 오류가 발생했습니다.");
+                return response;
+            }
+            return response; // JSON 형식으로 응답을 반환
+        }
+    }
+
+
+

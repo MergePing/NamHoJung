@@ -1,129 +1,159 @@
-
-.container {
-
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-
-    background: #FFFFFF;
+@charset "UTF-8";
+body{
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    color: #000000;
+    overflow-x: hidden;
 }
-
-.nav{
-
-    position: absolute;
+.dn{
+    display: none;
+}
+.tr{
+    transition: all 0.7s;
+}
+/*---------------nav------------------*/
+nav{
+    position: fixed;
     width: 1920px;
     height: 79px;
     left: 0px;
     top: 0px;
-
     background: #0E2913;
-    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 
-.nav ul li a {
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 25px;
-    line-height: 26px;
-    color: #C9E6CA;
-    text-decoration: none;
-}
 
-#intro {
-
+nav img{
+    /* 남호정 */
     position: absolute;
     width: 82px;
-    height: 26px;
-    left: 1135px;
-    top: 27px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
 }
 
-
-
-#notice {
-
+nav span:nth-child(2) {
+    /* 소개 */
     position: absolute;
     width: 42px;
     height: 26px;
     left: 1036px;
     top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
 }
 
 
-#post {
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
 
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
     position: absolute;
     width: 62px;
     height: 26px;
     left: 1274px;
     top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
 }
 
 
-#mbti {
+nav span:nth-child(5){
+    /* mbti검사 */
     position: absolute;
-    width: 86px;
+    width: 101px;
     height: 26px;
     left: 1393px;
     top: 27px;
 
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
+    font-family: 'BMJUA';
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    /* identical to box height */
-
     color: #C9E6CA;
-
-
 }
 
-#mypage {
 
+nav span:nth-child(6){
+    /* 마이페이지 */
     position: absolute;
     width: 102px;
     height: 26px;
     left: 1536px;
     top: 26px;
 
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
 }
 
-#logout {
 
-
+nav span:nth-child(7){
+    /* 로그인 */
     position: absolute;
-    width: 65px;
+    width: 49px;
     height: 21px;
-    left: 1685px;
+    left: 1692px;
     top: 29px;
 
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
 }
-#signup {
 
+
+nav span:nth-child(8){
+    /* 회원가입 */
     position: absolute;
     width: 67px;
     height: 21px;
     left: 1772px;
     top: 29px;
 
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
 }
-    body {
 
 
-        background-size: cover;
-        /* serene-garden-scene-rainy-night-illuminated-by-lamp-post-generative-ai 1 */
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}
 
-        position: absolute;
-        width: 1920px;
-        height: 1280px;
-        left: 0px;
-        top: 34px;
-
-
-
-    }
 
 
 
@@ -305,7 +335,21 @@ main {
     font-family: "Cafe24 Ssurround air";
 }
 
+#profile-button {
 
+    /* Rectangle 122 */
+
+    position: absolute;
+    width: 291px;
+    height: 65px;
+    left: 1262px;
+    top: 491px;
+
+    background: #408D1C;
+    border-radius: 50px;
+    z-index: 10;
+
+}
 
 
 

@@ -4,12 +4,14 @@ import com.ohgiraffers.mergyping.post.model.dao.PostMapper;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
+import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -173,3 +175,16 @@ public class PostService {
         return postMapper.getLevelName(levelNo);
     }
 }
+
+    // 게시물 키워드 검색
+    public List<PostDTO> searchPost(String keyword) {
+            System.out.println("keyword = " + keyword);
+            // 여기도 잘나옴
+            return postMapper.searchPost("%" + keyword + "%");
+        }
+
+
+
+    }
+
+

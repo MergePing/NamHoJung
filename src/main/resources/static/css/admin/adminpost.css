@@ -242,31 +242,6 @@ main .qickBtn{
     z-index: 9999;
 }
 
-main .write{
-    box-sizing: border-box;
-    position: absolute;
-    width: 254px;
-    height: 53px;
-    background: #0E2913;
-    border: 2px solid #FFFFFF;
-    border-radius: 20px;
-    top: 180px;
-    left: 210px;
-}
-
-main .write p{
-    position: absolute;
-    width: 150px;
-    left: 55px;
-    top: 10px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 600;
-    font-size: 25px;
-    line-height: 30px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-}
-
 
 main .select{
     position: absolute;
@@ -283,18 +258,14 @@ main .select:active{
 
 }
 
-main .select button{
+main .select p{
     position: absolute;
-    width: 186px;
-    left: 0px;
-    top: 10px;
+    left: 65px;
+    top: 17px;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    background: none;
-    border: none;
-    outline: none;
 }
 
 
@@ -432,7 +403,7 @@ main .post span:nth-of-type(3){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    width: 300px;
+    width: 410px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
@@ -521,100 +492,4 @@ main .post span:nth-of-type(6){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-}
-.pageNum {
-     position: relative;
-     display: flex;
-     justify-content: center;
-     align-items: center;
- }
-
-.pageNum img {
-    cursor: pointer;
-    position: absolute;
-    top: 940px;
-}
-
-.pageNum img:nth-of-type(1) {
-    left: 880px;
-}
-
-.pageNum img:nth-of-type(2) {
-    left: 1000px;
-}
-
-.pageNum p {
-    font-family: 'BMJUA';
-    font-weight: 400;
-    font-size: 30px;
-    color: #BEBEBE;
-    display: none; /* 처음에는 안보이게 설정 */
-    position: absolute;
-    top: 935px;
-}
-
-.pageNum p.active {
-    display: block; /* active 클래스가 추가되면 보이게 설정 */
-    color: #fff; /* 활성화된 페이지 번호 색상 */
-}
-
-.pageNum p.inactive {
-    display: block; /* inactive 클래스가 추가되면 보이게 설정 */
-    color: #BEBEBE; /* 비활성화된 페이지 번호 색상 */
-}
-
-.pageNum p.left-920 {
-    left: 920px; /* 920px에 위치하게 설정 */
-}
-
-.pageNum p.left-960 {
-    left: 960px; /* 960px에 위치하게 설정 */
-}
-
-.pageNum #tab1 {
-    left: 920px;
-    display: block;
-}
-
-.pageNum #tab2 {
-    left: 960px;
-    display: block;
-}
-
-.pageNum .change {
-    left: 920px;
-}
-
-.pageNum p:nth-child(odd) {
-    left: 920px;
-}
-
-.pageNum p:nth-child(even) {
-    left: 960px;
-}
-
-
-
-/*---------------footer------------------*/
-footer .footer{
-    position: absolute;
-    width: 1920px;
-    height: 69px;
-    top: 1080px;
-    background: #0E2913;
-    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
-    z-index: 55;
-}
-
-footer .footer p{
-    position: absolute;
-    height: 31px;
-    font-family: 'SUIT';
-    font-weight: 500;
-    font-size: 25px;
-    line-height: 31px;
-    letter-spacing: 0.05em;
-    color: #D5D5D5;
-    left: 750px;
-    top: 20px;
 }

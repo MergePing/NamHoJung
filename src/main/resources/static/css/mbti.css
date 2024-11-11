@@ -170,7 +170,7 @@ nav span:hover{
 /* mbti basic */
 
 .resolution{
-    position: relative;
+    position: absolute;
     width: 1920px;
     height: 1080px;
 
@@ -178,7 +178,7 @@ nav span:hover{
 }
 
 .background {
-    position: relative;
+    position: absolute;
     width: 1920px;
     height: 1107px;
 }
@@ -189,8 +189,8 @@ nav span:hover{
     position: absolute;
     width: 1800px;
     height: 897px;
-    left: 63px;
-    top: 131px;
+    left: 57px;
+    top: 140px;
     box-sizing: border-box;
 }
 
@@ -240,7 +240,7 @@ nav span:hover{
     position: absolute;
     width: 599px;
     height: 104px;
-    left: 651px;
+    left: 675px;
     top: 535px;
 
     font-family: 'BM JUA_OTF';
@@ -265,7 +265,7 @@ nav span:hover{
     position: absolute;
     width: 50px;
     height: 52px;
-    left: 746px;
+    left: 765px;
     top: 713px;
 
     font-family: 'BM JUA_OTF';
@@ -298,7 +298,7 @@ nav span:hover{
     position: absolute;
     width: 150px;
     height: 52px;
-    left: 1038px;
+    left: 1055px;
     top: 713px;
 
     font-family: 'BM JUA_OTF';
@@ -354,8 +354,12 @@ nav span:hover{
     position: absolute;
     width: 1000px;
     height: 104px;
-    left: 400px;
+    left: 500px;
     top: 535px;
+    text-shadow: -1px -1px 0 #000000,
+                  1px -1px 0 #000000,
+                 -1px  1px 0 #000000,
+                  1px  1px 0 #000000;
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
@@ -363,7 +367,7 @@ nav span:hover{
     font-size: 50px;
     line-height: 52px;
     text-align: center;
-    z-index: 0;
+    z-index: 1;
 
     color: #FFFFFF;
 }
@@ -382,8 +386,8 @@ nav span:hover{
     position: absolute;
     width: 1000px;
     height: 104px;
-    left: 400px;
-    top: 535px;
+    left: 450px;
+    top: 300px;
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
@@ -391,17 +395,17 @@ nav span:hover{
     font-size: 50px;
     line-height: 52px;
     text-align: center;
-    z-index: 0;
+    z-index: 1;
 
     color: #FFFFFF;
 }
 
 #question-text3{
     position: absolute;
-    width: 1000px;
+    width: 1090px;
     height: 104px;
-    left: 400px;
-    top: 535px;
+    left: 450px;
+    top: 400px;
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
@@ -409,16 +413,16 @@ nav span:hover{
     font-size: 50px;
     line-height: 52px;
     text-align: center;
-    z-index: 0;
+    z-index: 1;
 
     color: #FFFFFF;
 }
 #question-text4{
     position: absolute;
-    width: 1000px;
+    width: 1250px;
     height: 104px;
-    left: 400px;
-    top: 535px;
+    left: 350px;
+    top: 600px;
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
@@ -426,7 +430,102 @@ nav span:hover{
     font-size: 50px;
     line-height: 52px;
     text-align: center;
-    z-index: 0;
+    z-index: 1;
 
     color: #FFFFFF;
+}
+
+.notShare {
+    position: absolute;
+    width: 388px;
+    height: 59px;
+    left: 766px;
+    top: 934px;
+
+    background: #C9C9C9;
+    border-radius: 38px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 60px;
+    text-align: center;
+
+    color: #000000;
+}
+
+.notShare:active {
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+.notShare:hover {
+    background: #97ffd6;
+}
+
+.backgroundShare {
+    position: absolute;
+    width: 256px;
+    height: 53px;
+    left: 833px;
+    top: 831px;
+
+    background: #FFFFFF;
+    border-radius: 38px;
+}
+
+.share{
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    left: 837px;
+    top: 836px;
+}
+
+.share:active{
+    margin-top: 2px;
+    margin-left: 2px;
+}
+
+#naver{
+    left:888px;
+}
+
+#shareIco{
+    left:939px;
+}
+
+#facebook{
+    left:990px;
+}
+
+#instagram{
+    left:1041px;
+}
+
+.saveImage {
+    position: absolute;
+    width: 256px;
+    height: 60px;
+    left: 833px;
+    top: 827px;
+
+    background: #FFFFFF;
+    border-radius: 38px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.saveImage:hover {
+    background: #97ffd6;
+}
+
+.saveImage:active {
+    background: #00ff9c;
 }
