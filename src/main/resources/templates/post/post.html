@@ -69,6 +69,7 @@
             <button id="modalFavorite">즐겨찾기</button>
         </div>
     </div>
+<!--    카테고리 분류-->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.querySelector(".modal");
@@ -260,6 +261,7 @@
 
 </body>
 
+<!--즐겨찾기-->
 <script>
     function toggleFavorite(element) {
         const postNo = element.getAttribute('data-postNo');
@@ -273,7 +275,7 @@
         } }) .catch(error => console.error('Error:', error)); }
 </script>
 
-
+<!--검색-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const searchBtn = document.getElementById('searchBtn');
@@ -341,7 +343,7 @@
 
 </script>
 
-
+<!--페이징-->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         let currentPage = 1;
@@ -448,7 +450,7 @@
 </script>
 
 
-
+<!--플로팅 버튼-->
 <script>
     const floatBtn1 = document.getElementById("light");
     const floatBtn2 = document.getElementById("dark");
