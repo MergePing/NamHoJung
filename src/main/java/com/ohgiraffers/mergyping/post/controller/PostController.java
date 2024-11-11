@@ -83,21 +83,22 @@ public class PostController {
 
 
     @GetMapping("/post/page")
-    @ResponseBody
-    public List<PostDTO> getPosts(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
+    public ResponseEntity<List<PostDTO>> getPostsByPage(
+            @RequestParam("page") int page, @RequestParam("pageSize") int pageSize) {
 
-        // 서비스에서 게시글 목록 받아옴
-        List<PostDTO> postList = postService.getPostList();
-
-        // 페이징 처리를 위해 시작 인덱스 지정
-        // 페이지는 1부터 시작하지만 인덱스는 0부터 시작하기 때문에 -1을 추가
-        int fromIndex = (page - 1) * pageSize;
-
-        // 리스트의 크기를 넘지 않도록 시작인덱스에 페이지의 크기를 더한 것과 게시글 목록의 크기중 작은 값을 종료 인덱스에 저장
-        int toIndex = Math.min(fromIndex + pageSize, postList.size());
-
-        // 지정된 범위의 게시글 목록 반환 시작인덱스 부터 종료 인덱스까지의 리스트 반환
-        return postList.subList(fromIndex, toIndex);
+//        // 서비스에서 게시글 목록 받아옴
+//        List<PostDTO> postList = postService.getPostList();
+//
+//        // 페이징 처리를 위해 시작 인덱스 지정
+//        // 페이지는 1부터 시작하지만 인덱스는 0부터 시작하기 때문에 -1을 추가
+//        int fromIndex = (page - 1) * pageSize;
+//        // 리스트의 크기를 넘지 않도록 시작인덱스에 페이지의 크기를 더한 것과 게시글 목록의 크기중 작은 값을 종료 인덱스에 저장
+//        int toIndex = Math.min(fromIndex + pageSize, postList.size());
+//
+//        // 지정된 범위의 게시글 목록 반환 시작인덱스 부터 종료 인덱스까지의 리스트 반환
+//        return postList.subList(fromIndex, toIndex);
+        List<PostDTO> posts = postService.getPostsByPage(page, pageSize);
+        return ResponseEntity.ok(posts);
     }
 
 

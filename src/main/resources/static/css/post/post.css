@@ -636,25 +636,28 @@ main .post span:nth-of-type(6){
     color: #FFFFFF;
 }
 
+
+
 .pageNum {
      position: relative;
-     display: flex;
+     display: inline-block;
      justify-content: center;
      align-items: center;
+    top: 920px;
+    z-index: 300;
  }
 
 .pageNum img {
     cursor: pointer;
     position: absolute;
-    top: 940px;
 }
 
 .pageNum img:nth-of-type(1) {
-    left: 880px;
+    left: 780px;
 }
 
 .pageNum img:nth-of-type(2) {
-    left: 1000px;
+    left: 1100px;
 }
 
 .pageNum p {
@@ -662,54 +665,29 @@ main .post span:nth-of-type(6){
     font-weight: 400;
     font-size: 30px;
     color: #BEBEBE;
-    display: none; /* 처음에는 안보이게 설정 */
     position: absolute;
-    top: 935px;
+    top: -5px;
 }
 
-.pageNum p.active {
-    display: block; /* active 클래스가 추가되면 보이게 설정 */
-    color: #fff; /* 활성화된 페이지 번호 색상 */
+.pageNum p:nth-of-type(1){
+    left: 830px;
 }
 
-.pageNum p.inactive {
-    display: block; /* inactive 클래스가 추가되면 보이게 설정 */
-    color: #BEBEBE; /* 비활성화된 페이지 번호 색상 */
+.pageNum p:nth-of-type(2){
+    left: 885px;
 }
 
-.pageNum p.left-920 {
-    left: 920px; /* 920px에 위치하게 설정 */
+.pageNum p:nth-of-type(3){
+    left: 940px;
 }
 
-.pageNum p.left-960 {
-    left: 960px; /* 960px에 위치하게 설정 */
+.pageNum p:nth-of-type(4){
+    left: 995px;
 }
 
-.pageNum #tab1 {
-    left: 920px;
-    display: block;
+.pageNum p:nth-of-type(5){
+    left:1050px;
 }
-
-.pageNum #tab2 {
-    left: 960px;
-    display: block;
-}
-
-.pageNum .change {
-    left: 920px;
-}
-
-.pageNum p:nth-child(odd) {
-    left: 920px;
-}
-
-.pageNum p:nth-child(even) {
-    left: 960px;
-}
-
-
-
-
 
 
 /*---------------footer------------------*/
