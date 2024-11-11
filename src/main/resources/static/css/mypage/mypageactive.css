@@ -138,7 +138,14 @@ main .comment span:nth-of-type(4){
 }
 
 
-main .post1 span:nth-of-type(1){
+main .myp{
+    position: relative;
+    gap: 60px;
+
+}
+
+
+main .myp span:nth-of-type(1){
     position: absolute;
     top: 380px;
     font-family: 'BMJUA';
@@ -149,31 +156,34 @@ main .post1 span:nth-of-type(1){
 }
 
 
-main .post1 span:nth-of-type(2){
-    position: absolute;
-    left: 380px;
-    top: 380px;
+/*main .myp span:nth-of-type(2){*/
+/*    position: absolute;*/
+/*    left: 380px;*/
+/*    top: 380px;*/
 
-}
-main .post1 span:nth-of-type(3){
+/*}*/
+
+
+main .myp a span:nth-of-type(1){
     position: absolute;
     top: 380px;
+    left: 510px;
     font-family: 'BMJUA';
     font-size: 30px;
     color: #FFFFFF;
-    left: 500px;
+
     text-align: center;
 }
-main .post1 span:nth-of-type(4){
+main .myp span:nth-of-type(3){
     position: absolute;
-    top: 380px;
+    top: 370px;
     font-family: 'BMJUA';
     font-size: 30px;
     color: #FFFFFF;
-    left:980px;
+    left:1050px;
     text-align: center;
 }
-main .post1 span:nth-of-type(5){
+main .myp2 div span:nth-of-type(1){
     position: absolute;
     top: 380px;
     font-family: 'BMJUA';
@@ -182,16 +192,7 @@ main .post1 span:nth-of-type(5){
     left: 1120px;
     text-align: center;
 }
-main .post1 span:nth-of-type(6){
-    position: absolute;
-    top: 380px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 1380px;
-    text-align: center;
-}
-main .post1 span:nth-of-type(7){
+main .myp span:nth-of-type(5){
     position: absolute;
     top: 380px;
     font-family: 'BMJUA';
@@ -200,6 +201,15 @@ main .post1 span:nth-of-type(7){
     left: 1560px;
     text-align: center;
 }
+/*main .myp span:nth-of-type(6){*/
+/*    position: absolute;*/
+/*    top: 380px;*/
+/*    font-family: 'BMJUA';*/
+/*    font-size: 30px;*/
+/*    color: #FFFFFF;*/
+/*    left: 1560px;*/
+/*    text-align: center;*/
+/*}*/
 
 
 

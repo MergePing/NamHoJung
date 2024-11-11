@@ -30,6 +30,11 @@
         <result property="notScary" column="NOT_SCARY"/>
     </resultMap>
 
+    <resultMap id="mypageResultMap" type="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
+        <result property="userName" column="USER_NAME"/>
+        <result property="email"  column="EMAIL"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPwd" column="USER_PWD"/>
     <resultMap id="writerName" type="com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO">
         <id property="userNo" column="USER_NO"/>
         <result property="postNo" column="POST_NO"/>
@@ -198,6 +203,32 @@
         FROM TBL_POST
     </select>
 
+    <select id="findNickName"   resultMap="mypageResultMap" >
+        SELECT USER_NAME
+        FROM TBL_USER
+        WHERE USER_NO= #{userNo}
+    </select>
+
+    <!-- 유저 레벨 업데이트하기 -->
+    <update id="updateUserLevel" parameterType="map">
+        UPDATE TBL_USER
+        SET LEVEL_NO = #{levelNo}
+        WHERE USER_NO = #{userNo}
+    </update>
+
+    <!-- 유저의 출석 수 가져오기 -->
+    <select id="getUserAttendanceCount" parameterType="int" resultType="Integer">
+        SELECT IFNULL(CHECK_ALL_NO, 0)
+        FROM TBL_USER
+        WHERE USER_NO = #{userNo}
+    </select>
+
+    <!-- 레벨마다 이름 가져오기 -->
+    <select id="getLevelName" parameterType="int" resultType="string">
+        SELECT LEVEL
+        FROM TBL_LEVEL
+        WHERE LEVEL_NO = #{levelNo}
+    </select>
 
     <select id="searchPost" resultMap="postList" parameterType="string">
         SELECT

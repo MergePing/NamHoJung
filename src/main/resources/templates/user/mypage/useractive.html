@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>게시판</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
+
     <link rel="stylesheet" th:href="@{/css/post/post.css}">
     <link rel="stylesheet" th:href="@{/css/mypage/mypageactive.css}">
     <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
@@ -163,102 +164,47 @@
     </div>
 
 
-
-    <div class="post1" id="postsContent" th:each="post : ${writtenPostList}">
-        <span th:text="${post.postNo}"></span>
-        <span>
-            <img th:if="${post.postFavorite == true}" th:src="@{/images/post/best-dark.png}" alt="즐겨찾기 이미지">
-            <img th:unless="${post.postFavorite == true}" th:src="@{/images/post/best-none-dark.png}" alt="즐겨찾기 없음 이미지">
-        </span>
-        <span th:text="${post.postTitle}"></span>
-        <span class="postct2" th:text="${post.postCategory}"></span>
-        <span th:text="${post.postDate}"></span>
-        <span th:text="${post.scaryNumber}"></span>
-        <span th:text="${post.commentsNumber}"></span>
+    <div id="postContainer" class="myp">
+        <div  id="postsContent"  class="myp2" th:each="post : ${writtenPostList}">
+            <span class="postno" th:text="${post.postNo}"></span>
+            <span>
+                <img th:if="${post.postFavorite == true}" th:src="@{/images/post/best-dark.png}" alt="즐겨찾기 이미지">
+                <img th:unless="${post.postFavorite == true}" th:src="@{/images/post/best-none-dark.png}" alt="즐겨찾기 없음 이미지">
+            </span>
+            <span class="posttitle" th:text="${post.postTitle}"></span>
+            <span class="postct2" th:text="${post.postCategory}"></span>
+            <span th:text="${post.postDate}"></span>
+            <span th:text="${post.scaryNumber}"></span>
+            <span th:text="${post.commentsNumber}"></span>
+        </div>
     </div>
 
-
-    <div id="commentsContent" class="comment" style="display: none;" th:each="comment : ${writtenCommentList}" >
-            <span th:text ="${comment.postNo}"></span>
-            <span th:text="${comment.commentContent}"> </span>
-            <span th:text="${comment.commentDate}"></span>
-            <span>323</span>
+    <div id="commentContainer">
+        <div id="commentsContent" class="comment" style="display: none;" th:each="comment : ${writtenCommentList}" >
+                <span th:text ="${comment.postNo}"></span>
+                <span th:text="${comment.commentContent}"> </span>
+                <span th:text="${comment.commentDate}"></span>
+                <span>323</span>
+        </div>
     </div>
 
-    <div id="favoritesContent" class="post1" style="display: none;" th:each="post2 : ${writtenFavoriteList}">
-        <span th:text ="${post2.postNo}">1</span>
-        <span>
-            <img th:if="${post2.postFavorite == true}" th:src="@{/images/post/best-dark.png}" alt="즐겨찾기 이미지">
-            <img th:unless="${post2.postFavorite == true}" th:src="@{/images/post/best-none-dark.png}" alt="즐겨찾기 없음 이미지">
-        </span>
-        <span th:text="${post2.postTitle}"></span>
-        <span th:text="${post2.postCategory}"></span>
-        <span th:text="${post2.postDate}"></span>
-        <span th:text="${post2.scaryNumber}"></span>
-        <span th:text="${post2.commentsNumber}"></span>
+    <div id="favoriteContainer" class="myp">
+        <div id="favoritesContent" class="myp2" style="display: none;" th:each="post2 : ${writtenFavoriteList}">
+            <span th:text ="${post2.postNo}"></span>
+            <span>
+                <img th:src="@{/images/post/best-dark.png}" th:if="${post2.postFavorite}"
+                     th:attr="data-postNo=${post2.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-none-dark.png}" th:unless="${post2.postFavorite}"
+                 th:attr="data-postNo=${post2.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+            </span>
+            <span th:text="${post2.postTitle}"></span>
+            <span th:text="${post2.postCategory}"></span>
+            <span th:text="${post2.postDate}"></span>
+            <span th:text="${post2.scaryNumber}"></span>
+            <span th:text="${post2.commentsNumber}"></span>
+        </div>
     </div>
 
-
-
-<!--    <div class="post2 dn">-->
-<!--        <div class="post" >-->
-<!--            <span>07</span>-->
-<!--            <span><img th:src="@{/images/post/best-dark.png}"></span>-->
-<!--            <span>2024년 11월 서비스 오픈 안내</span>-->
-<!--            <div><span>SF</span></div>-->
-<!--            <span>2024.10.23</span>-->
-<!--            <span>616</span>-->
-<!--            <span>134</span>-->
-<!--        </div>-->
-
-<!--    </div>-->
-
-
-<!--    <div id="commentsContent2" class="comment" style="display: none;">-->
-<!--        <span>10</span>-->
-<!--        <span>어렵다 개어렵다 하기싫어 개하기싫어 짜증나 개짜증나 </span>-->
-<!--        <span>2024.10.24</span>-->
-<!--        <span>323</span>-->
-
-<!--    </div>-->
-<!--    -->
-<!--    <div id="favoritesContent2" class="post" style="display: none;">-->
-<!--        <span>14</span>-->
-<!--        <span><img th:src="@{/images/post/best-dark.png}"></span>-->
-<!--        <span>뷁뷁뷁뷁뷁부렉</span>-->
-<!--        <div><span>실화</span></div>-->
-<!--        <span>2024.10.25</span>-->
-<!--        <span>322</span>-->
-<!--        <span>100</span>-->
-<!--    </div>-->
-
-
-<!--    <div class="pageNum" id="postsPagination">-->
-<!--        <img th:src="@{/images/notice/pre-btn.png}" id="img1">-->
-<!--        <div class="tab">-->
-<!--            <p id="tab1">1</p>-->
-<!--            <p id="tab2">2</p>-->
-<!--        </div>-->
-<!--        <img th:src="@{/images/notice/next-btn.png}" id="img2">-->
-<!--    </div>-->
-
-<!--    <div class="pageNum" id="commentsPagination" style="display: none">-->
-<!--        <img th:src="@{/images/notice/pre-btn.png}" id="commentimg">-->
-<!--        <div class="tab">-->
-<!--            <p id="commenttab1">1</p>-->
-<!--            <p id="commenttab2">2</p>-->
-<!--        </div>-->
-<!--        <img th:src="@{/images/notice/next-btn.png}" id="commentimg2">-->
-<!--    </div>-->
-
-<!--    <div class="pageNum" id="favoritesPagination" style="display: none">-->
-<!--        <img th:src="@{/images/notice/pre-btn.png}" id="favoriteimg">-->
-<!--        <div class="tab">-->
-<!--            <p id="favoritetab1">1</p>-->
-<!--            <p id="favoritetab2">2</p>-->
-<!--        </div>-->
-<!--        <img th:src="@{/images/notice/next-btn.png}" id="favoriteimg2">-->
-<!--    </div>-->
 
 
 </main>
@@ -296,14 +242,132 @@
             if (sellPostsContent) sellPostsContent.style.display = "none";
             if (sellCommentsContent) sellCommentsContent.style.display = "none";
             if (sellFavoriteContent) sellFavoriteContent.style.display = "none";
-            if (postsContent) postsContent.style.display = "none";
-            // querySelectorAll로 여러 개의 댓글을 선택했으므로, 각 댓글에 대해 display 스타일을 설정
+
+            if (postsContent) postsContent.innerHTML = "";  // 이전 게시글들 초기화
+            // 댓글들을 하나씩 숨기기
             if (commentsContent) {
                 commentsContent.forEach(comment => {
-                    comment.style.display = "none";  // 각 댓글을 숨김
+                    comment.style.display = "none";
                 });
             }
-            if (favoritesContent) favoritesContent.style.display = "none";
+            if (favoritesContent) favoritesContent.innerHTML = "";   // 이전 즐겨찾기들 초기화
+
+            // 동적으로 추가된 요소들을 모두 삭제
+            const postContainer = document.getElementById('postContainer');
+            if (postContainer) {
+                postContainer.innerHTML = ""; // 추가된 게시글을 모두 제거
+            }
+            const commentContainer = document.getElementById('commentContainer');
+            if (commentContainer) {
+                commentContainer.innerHTML = ""; // 추가된 댓글을 모두 제거
+            }
+            const favoriteContainer = document.getElementById('favoriteContainer');
+            if (favoriteContainer) {
+                favoriteContainer.innerHTML = ""; // 추가된 즐겨찾기를 모두 제거
+            }
+        }
+        // 게시글 추가 함수
+        function addNewPost(post, index) {
+            const postContainer = document.getElementById('postContainer');
+            const newPost = document.createElement('div');
+            // 포지션을 relative로 설정하여 자식 요소들이 절대 위치를 가질 수 있도록 합니다.
+            postContainer.style.position = 'relative';
+
+            newPost.classList.add('post');
+            newPost.setAttribute('style', `position: absolute; margin-top: ${index * 80}px`);
+            newPost.innerHTML = `
+                <span>${post.postNo}</span>
+                <span>
+                   <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
+                data-postNo="${post.postNo}" class="favorite-icon" >
+                </span>
+                <a href="/selectpost/${post.postNo}">
+                    <span>${post.postTitle}</span>
+                </a>
+                <div><span>${post.postCategory}</span></div>
+                <span>${post.postDate}</span>
+                <span>${post.scaryNumber}</span>
+                <span>${post.commentNumber}</span>
+    `;
+            postContainer.appendChild(newPost);
+        }
+
+        // 댓글 추가 함수
+        function addNewComment(comment, index) {
+            const commentContainer = document.getElementById('commentContainer');
+            const newComment = document.createElement('div');
+            newComment.classList.add('comment');
+            newComment.setAttribute('style', `top: ${index * 80}px`);
+            newComment.innerHTML = `
+                <span>${comment.postNo}</span>
+                <span>${comment.commentContent}</span>
+                <span>${comment.commentDate}</span>
+                <span>${comment.likes}</span>
+    `;
+            commentContainer.appendChild(newComment);
+        }
+
+        // 즐겨찾기 추가 함수
+        function addNewFavorite(post, index) {
+            const favoriteContainer = document.getElementById('favoriteContainer');
+            const newFavorite = document.createElement('div');
+            newFavorite.classList.add('post');
+            newFavorite.setAttribute('style', `top: ${index * 80}px`);
+            newFavorite.innerHTML = `
+        <span>${post.postNo}</span>
+        <span>
+            <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
+                data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+        </span>
+        <a href="/selectpost/${post.postNo}">
+            <span>${post.postTitle}</span>
+        </a>
+        <div><span>${post.postCategory}</span></div>
+        <span>${post.postDate}</span>
+        <span>${post.scaryNumber}</span>
+        <span>${post.commentNumber}</span>
+    `;
+            favoriteContainer.appendChild(newFavorite);
+        }
+
+        // fetch로 데이터 가져오기
+        function fetchPosts() {
+            fetch('/getPosts')
+                .then(response => response.json())
+                .then(posts => {
+                    if (Array.isArray(posts)) {
+                        posts.forEach((post, index) => addNewPost(post,index));
+                    } else {
+                        console.error("잘못된 데이터 형식:", posts);
+                    }
+                })
+                .catch(error => console.error("에러 발생:", error)); // 에러 처리
+        }
+
+        function fetchComments() {
+            fetch('/getComments')
+                .then(response => response.json())
+                .then(comments => {
+                    if (Array.isArray(comments)) {
+                        comments.forEach((comment,index) => addNewComment(comment,index));
+                    } else {
+                        console.error("잘못된 데이터 형식:", comments);
+                    }
+                })
+                .catch(error => console.error("에러 발생:", error)); // 에러 처리
+        }
+
+        function fetchFavorites() {
+            fetch('/getFavorites')
+                .then(response => response.json())
+                .then(favorites => {
+                    if (Array.isArray(favorites)) {
+                        favorites.forEach((favorite,index) => addNewFavorite(favorite,index));
+                    } else {
+                        console.error("잘못된 데이터 형식:", favorites);
+                    }
+                })
+                .catch(error => console.error("에러 발생:", error)); // 에러 처리
         }
 
         // 작성한 게시글 버튼 클릭 이벤트
@@ -314,6 +378,7 @@
             write1.classList.add("active"); // 버튼 색 변경
             if (sellPostsContent) sellPostsContent.style.display = "block";
             if (postsContent) postsContent.style.display = "block";
+            fetchPosts();
         });
 
         // 작성한 댓글 버튼 클릭 이벤트
@@ -328,7 +393,9 @@
                     comment.style.display = "block";  // 각 댓글을 표시
 
                 });
+
             }
+            fetchComments();
         });
 
         // 즐겨찾기 버튼 클릭 이벤트
@@ -339,6 +406,8 @@
             write3.classList.add("active"); // 버튼 색 변경
             if (sellFavoriteContent) sellFavoriteContent.style.display = "block";
             if (favoritesContent) favoritesContent.style.display = "block";
+
+            fetchFavorites();
         });
 
         // 페이지 로드 시 기본으로 '작성한 게시글'이 보이도록 설정
@@ -346,7 +415,47 @@
 
 
 
+
+
 </script>
+
+<script>
+    function toggleFavorite(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isFavorite = element.getAttribute('src').includes('best-dark.png'); // 현재 즐겨찾기 상태 확인
+
+        // 즐겨찾기 상태를 토글하기 위한 서버 요청
+        fetch(`/toggleFavorite`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 즐겨찾기 상태가 성공적으로 변경되었으면 아이콘의 src를 변경
+                    element.src = isFavorite
+                        ? '/images/post/best-none-dark.png'
+                        : '/images/post/best-dark.png';
+
+                    // 즐겨찾기 활성화된 경우 (아이콘이 'best-dark.png'일 때)
+                    if (isFavorite) {
+                        // 해당 게시글을 찾고, DOM에서 제거
+                        const postElement = element.closest('.post'); // .post 클래스를 가진 요소 찾기
+                        postElement.remove(); // 해당 요소 제거
+                    }
+                } else {
+                    console.log('즐겨찾기 상태 변경 실패');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+
 <script>
 
     // const write1 = document.getElementById('write1');

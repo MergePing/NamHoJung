@@ -432,7 +432,7 @@ main .post span:nth-of-type(3){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    width: 410px;
+    width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
@@ -521,7 +521,8 @@ main .post span:nth-of-type(6){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-}.pageNum {
+}
+.pageNum {
      position: relative;
      display: flex;
      justify-content: center;

@@ -2,12 +2,14 @@ package com.ohgiraffers.mergyping.post.model.dao;
 
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
+import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface PostMapper {
@@ -50,6 +52,15 @@ public interface PostMapper {
 
     // 현재 게시물 번호의 최대값 조회
     int getMaxPostNo();
+
+    MyPageDTO findNickName(int userNo);
+
+    Integer getUserAttendanceCount(int userNo);
+
+    void updateUserLevel(Map<String, Object> params);
+
+    String getLevelName(int levelNo);
+}
 
     // 게시물 검색
     List<PostDTO> searchPost(@RequestParam("keyword")String keyword);

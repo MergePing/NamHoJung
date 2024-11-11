@@ -5,6 +5,7 @@ import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
+import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -83,6 +84,7 @@ public class PostController {
 
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
+
 
         // 서비스를 통해 게시글 번호로 게시물 조회
         SelectPostDTO selected = postService.selectById(postNo);
@@ -205,8 +207,39 @@ public class PostController {
 
 
     @GetMapping("/newpost")
+    public String newPostPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
+            MyPageDTO myPageDTO = postService.findNickName(userNo);
+            model.addAttribute("myPageDTO", myPageDTO);
+
+            // 누적된 출석 수 가져오기
+            Integer attendanceCount = postService.getUserAttendanceCount(userNo);
+            model.addAttribute("attendanceCount", attendanceCount);
+
+            // 등급 기준 정해주기
+            int levelNo = postService.calculateLevel(attendanceCount);
+            System.out.println("levelNo = " + levelNo);
+          
     public String newPostPage(Model model,WriterNameDTO writer) {
 
+            // 등급 기준과 출석수 기반으로 등급 업데이트하기
+            postService.updateUserLevel(userNo, levelNo);
+
+            // 유저의 등급 가져오기
+            String levelName = postService.getLevelName(levelNo);
+            model.addAttribute("userLevel", levelName);
+
+
+        } else {
+            // 인증되지 않은 경우 로그인 페이지로 리다이렉트
+            return "redirect:/login";
+        }
         // 새로운 데이터를 저장할 DTO 생성
         SelectPostDTO newPost = new SelectPostDTO();
 
