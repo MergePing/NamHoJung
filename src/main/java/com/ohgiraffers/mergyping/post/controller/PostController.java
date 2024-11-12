@@ -305,6 +305,7 @@ public class PostController {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
 
+/*
             // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
             MyPageDTO myPageDTO = postService.findNickName(userNo);
             model.addAttribute("myPageDTO", myPageDTO);
@@ -316,15 +317,16 @@ public class PostController {
             // 등급 기준 정해주기
             int levelNo = postService.calculateLevel(attendanceCount);
             System.out.println("levelNo = " + levelNo);
+*/
 
 //    public String newPostPage(Model model,WriterNameDTO writer) {
 
-            // 등급 기준과 출석수 기반으로 등급 업데이트하기
+/*            // 등급 기준과 출석수 기반으로 등급 업데이트하기
             postService.updateUserLevel(userNo, levelNo);
 
             // 유저의 등급 가져오기
             String levelName = postService.getLevelName(levelNo);
-            model.addAttribute("userLevel", levelName);
+            model.addAttribute("userLevel", levelName);*/
 
 
         } else {
@@ -404,8 +406,6 @@ public class PostController {
             return response;
         }
     }
-
-
 
     // 첫 번째 이미지 업로드
     @PostMapping("/uploadFirstImage")

@@ -66,7 +66,3 @@ public interface PostMapper {
     void incrementCommentCount(int postNo);
 }
 
-    List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
-
-
-}

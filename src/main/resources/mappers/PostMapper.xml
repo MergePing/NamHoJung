@@ -205,7 +205,6 @@
         POST_CONTENTS,
         POST_CATEGORY,
         POST_WRITER,
-        POST_LEVEL,
         POST_IMAGE_FIRST,
         POST_IMAGE_SECOND
         )
@@ -213,14 +212,11 @@
         #{postTitle},
         #{postContent},
         #{postCategory},
-        (SELECT A.USER_NAME FROM TBL_USER A WHERE A.USER_NO = #{postWriter}),
-        (SELECT C.LEVEL_NAME FROM TBL_USER A JOIN TBL_LEVEL C ON A.LEVEL_NO = C.LEVEL_NO WHERE A.USER_NO = #{postWriter}),
+        1, <!-- 임시로 0을 사용하여 외래 키 제약을 피합니다. -->
         #{postImageFirst},
         #{postImageSecond}
         );
     </insert>
-
-
 
     <select id="writerName" resultMap="writerName">
         SELECT
