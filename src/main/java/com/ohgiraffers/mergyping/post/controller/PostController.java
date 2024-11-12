@@ -65,20 +65,18 @@ public class PostController {
 
     // 게시글 정렬
     @GetMapping("/post/sort")
-    public ResponseEntity<Map<String,Object>> postListSort(
+    public ResponseEntity<List<PostDTO>> postListSort(
             @RequestParam(required = false) String orderBy,
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) String category,
+            @RequestParam("page") int page,
+            @RequestParam("pageSize") int pagSize
+            ) {
 
         // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
-        List<PostDTO> postList = postService.postListSort(orderBy,category);
-
-        Map<String,Object> response = new HashMap<>();
-
-        // 모델에 postList라는 이름으로 게시글 목롣 추가
-        response.put("postList", postList);
+        List<PostDTO> posts = postService.postListSort(orderBy,category,page,pagSize);
 
         //뷰 반환
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(posts);
     }
 
 
@@ -100,6 +98,16 @@ public class PostController {
         List<PostDTO> posts = postService.getPostsByPage(page, pageSize);
         return ResponseEntity.ok(posts);
     }
+
+    public ResponseEntity<List<PostDTO>> postListSort1(
+            @RequestParam(required = false) String orderBy,
+            @RequestParam(required = false) String category,
+            @RequestParam("page") int page,
+            @RequestParam("pageSize") int pageSize) {
+        List<PostDTO> posts = postService.postListSort1(orderBy, category, page, pageSize);
+        return ResponseEntity.ok(posts);
+    }
+
 
 
     @GetMapping("/selectpost/{postNo}")
@@ -245,7 +253,7 @@ public class PostController {
             // 등급 기준 정해주기
             int levelNo = postService.calculateLevel(attendanceCount);
             System.out.println("levelNo = " + levelNo);
-          
+
 //    public String newPostPage(Model model,WriterNameDTO writer) {
 
             // 등급 기준과 출석수 기반으로 등급 업데이트하기
@@ -494,45 +502,44 @@ public class PostController {
 
     // 게시물 검색
 
-        @GetMapping("/searchpost")
-        @ResponseBody
-        public Map<String, Object> searchPosts(@RequestParam("keyword") String keyword) {
-            Map<String, Object> response = new HashMap<>();
-            try {
-                // 키워드가 입력되지 않앗을 때
-                if (keyword == null || keyword.trim().isEmpty()) {
-                    throw new IllegalArgumentException("키워드를 입력해주세요.");
-                }
-
-                // 키워드 UTF-8로 디코딩
-                // 여기까진 문제 없음
-                String decodedKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
-                System.out.println("디코딩된 검색어: " + decodedKeyword);
-
-                // 키워드를 통해 검색 수행
-                // 문제 발생 null
-                // 해결 완료 xml쪽 문제였음
-                List<PostDTO> posts = postService.searchPost(keyword);
-                System.out.println("검색 결과: " + posts);
-
-                // 검색 결과를 맵에 담기
-                response.put("posts", posts);
-                System.out.println("response = " + response);
+    @GetMapping("/searchpost")
+    @ResponseBody
+    public Map<String, Object> searchPosts(@RequestParam("keyword") String keyword) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            // 키워드가 입력되지 않앗을 때
+            if (keyword == null || keyword.trim().isEmpty()) {
+                throw new IllegalArgumentException("키워드를 입력해주세요.");
             }
 
-            catch (IllegalArgumentException e) {
-                // 키워드가 없을 경우 에러 처리
-                response.put("error", e.getMessage());
-                return response;
-            } catch (Exception e) {
-                // 기타 에러 처리
-                e.printStackTrace();
-                response.put("error", "서버 오류가 발생했습니다.");
-                return response;
-            }
-            return response; // JSON 형식으로 응답을 반환
+            // 키워드 UTF-8로 디코딩
+            // 여기까진 문제 없음
+            String decodedKeyword = URLDecoder.decode(keyword, StandardCharsets.UTF_8);
+            System.out.println("디코딩된 검색어: " + decodedKeyword);
+
+            // 키워드를 통해 검색 수행
+            // 문제 발생 null
+            // 해결 완료 xml쪽 문제였음
+            List<PostDTO> posts = postService.searchPost(keyword);
+            System.out.println("검색 결과: " + posts);
+
+            // 검색 결과를 맵에 담기
+            response.put("posts", posts);
+            System.out.println("response = " + response);
         }
-    }
 
+        catch (IllegalArgumentException e) {
+            // 키워드가 없을 경우 에러 처리
+            response.put("error", e.getMessage());
+            return response;
+        } catch (Exception e) {
+            // 기타 에러 처리
+            e.printStackTrace();
+            response.put("error", "서버 오류가 발생했습니다.");
+            return response;
+        }
+        return response; // JSON 형식으로 응답을 반환
+    }
+}
 
 
