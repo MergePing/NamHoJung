@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.post.model.dao;
 
+import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
@@ -54,13 +55,16 @@ public interface PostMapper {
     // 현재 게시물 번호의 최대값 조회
     int getMaxPostNo();
 
-    MyPageDTO findNickName(int userNo);
+    List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
 
-    Integer getUserAttendanceCount(int userNo);
 
-    void updateUserLevel(Map<String, Object> params);
+    List<CommentDTO> selectCommentsByPostNo(int postNo);
 
-    String getLevelName(int levelNo);
+
+    int insertComment(CommentDTO commentDTO);
+
+    void incrementCommentCount(int postNo);
+}
 
     List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
 

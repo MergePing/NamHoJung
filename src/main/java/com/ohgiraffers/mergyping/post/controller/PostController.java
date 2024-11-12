@@ -1,6 +1,7 @@
 package com.ohgiraffers.mergyping.post.controller;
 
 import com.ohgiraffers.mergyping.auth.model.AuthDetails;
+import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
@@ -113,6 +114,13 @@ public class PostController {
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        int userNo=-1;
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            userNo = userDetails.getUserNo();
+        }
+
 
         // 서비스를 통해 게시글 번호로 게시물 조회
         SelectPostDTO selected = postService.selectById(postNo);
@@ -139,9 +147,63 @@ public class PostController {
         // 모델에 post라는 이름으로 선택한 게시글 추가
         model.addAttribute("post", selected);
 
+        List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+
+        model.addAttribute("comments", comments);
+        model.addAttribute("userNo", userNo);
+
         // 뷰 반환
         return "post/selectpost";
     }
+
+    @PostMapping("/selectpost/{postNo}/comment")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
+                                                          @RequestParam("commentContent") String commentContent) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "로그인 후 댓글을 작성할 수 있습니다."));
+        }
+
+        AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+        int userNo = userDetails.getUserNo();
+
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setCommentContent(commentContent);
+        commentDTO.setUserNo(userNo);
+        commentDTO.setPostNo(postNo);
+
+        // 댓글 추가 후 응답 설정
+        boolean isAdded = postService.addComment(commentDTO);
+        System.out.println("isAdded = " + isAdded);
+        Map<String, Object> response = new HashMap<>();
+
+        if (isAdded) {
+            // 댓글 추가 성공 후, 게시물의 댓글 수를 증가시킴
+            boolean isCommentCountUpdated = postService.incrementCommentCount(postNo);
+
+            if (isCommentCountUpdated) {
+                // 댓글 수 증가에 성공한 경우 최신 댓글 목록을 가져옴
+                List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+                response.put("success", true);
+                response.put("comments", comments); // 생성된 댓글 정보 반환
+            } else {
+                response.put("success", false);
+                response.put("error", "댓글 수 업데이트에 실패했습니다.");
+            }
+        } else {
+            // 댓글 작성 실패 시
+            response.put("success", false);
+            response.put("error", "댓글 작성에 실패했습니다.");
+        }
+
+        return ResponseEntity.ok(response);
+
+    }
+
+
 
 
 
@@ -236,6 +298,7 @@ public class PostController {
 
     @GetMapping("/newpost")
     public String newPostPage(Model model,WriterNameDTO writer) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
@@ -268,6 +331,7 @@ public class PostController {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트
             return "redirect:/login";
         }
+
         // 새로운 데이터를 저장할 DTO 생성
         SelectPostDTO newPost = new SelectPostDTO();
 
