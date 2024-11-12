@@ -419,14 +419,17 @@ main .bg{
 /*    margin-top: -150px;*/
 /*    margin-right: 50px;*/
 /*}*/
-.username{
+#postWriter{
     color: #fff;
     font-family: SUIT;
     font-weight: 800;
     font-size: 50px;
     position: absolute;
     left:140px;
-    top:80px;
+    top:60px;
+    background: none;
+    border: none;
+    outline: none;
 }
 
 #Writer .wrapper>img {
@@ -449,15 +452,16 @@ main .bg{
 
 #category{
     position: relative;
-    top: 75px;
+    top: 175px;
 }
 #category>span{
     position: absolute;
-    left: 172px;
+    left: 143px;
     font-family: 'SUIT';
     font-weight: 800;
     font-size: 50px;
     color: #FFFFFF;
+    width: 200px;
 }
 
 #category input{

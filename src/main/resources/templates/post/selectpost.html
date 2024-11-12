@@ -102,10 +102,26 @@
             <span th:text="${post.postContent}"></span>
 
             <!-- 이미지 경로 설정 -->
-            <img th:src="@{${post.postImageFirst}}" class="blur" id="img1" alt="첫 번째 이미지">
-            <img th:src="@{${post.postImageSecond}}" class="blur" id="img2" alt="두 번째 이미지">
+            <img class="blur" id="img1" th:data-src="@{${post.postImageFirst}}" alt="첫 번째 이미지">
+            <img class="blur" id="img2" th:data-src="@{${post.postImageSecond}}" alt="두 번째 이미지">
+
 
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const img1 = document.getElementById('img1');
+                const img2 = document.getElementById('img2');
+
+                if (img1 && img1.dataset.src) {
+                    img1.src = img1.dataset.src + `?t=${new Date().getTime()}`;
+                }
+
+                if (img2 && img2.dataset.src) {
+                    img2.src = img2.dataset.src + `?t=${new Date().getTime()}`;
+                }
+            });
+        </script>
+
 
         <script>
 
