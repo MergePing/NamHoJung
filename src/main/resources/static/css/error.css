@@ -1,0 +1,131 @@
+#resolution{
+    position:relative;
+    width:1920px;
+    height:1080px;
+}
+
+#background{
+    position:absolute;
+    width:1920px;
+    height:1080px;
+}
+
+#logo{
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#ghost{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    left: 860px;
+    top: 31px;
+}
+
+#bar{
+    position: absolute;
+    left: 20.05%;
+    right: 20%;
+    top: 40.65%;
+    bottom: 54.81%;
+}
+
+#errorText{
+    position: absolute;
+    width: 1003px;
+    height: 206px;
+    left: 454px;
+    top: 212px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 200px;
+    line-height: 206px;
+    text-align: center;
+
+    color: #FFFFFF;
+
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+#back{
+    position: absolute;
+    width: 420px;
+    height: 225px;
+    left: 385px;
+    top: 533px;
+
+    border: 25px solid #FFFFFF;
+    border-radius: 50px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 100px;
+    line-height: 125px;
+    background: none;
+    color: #FFFFFF;
+}
+
+#back:hover{
+    color:green
+}
+
+#back:active{
+    margin-left: 2px;
+    margin-top: 5px;
+}
+
+#forward{
+    box-sizing: border-box;
+    position: absolute;
+    width: 423px;
+    height: 225px;
+    left: 1068px;
+    top: 533px;
+
+    border: 25px solid #FFFFFF;
+    border-radius: 50px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 100px;
+    line-height: 125px;
+    background: none;
+
+    color: #FFFFFF;
+}
+
+#forward:hover{
+    color:green
+}
+
+#forward:active{
+    margin-left: 2px;
+    margin-top: 5px;
+}
+
+#info{
+    position: absolute;
+    width: 759px;
+    height: 124px;
+    left: 581px;
+    top: 857px;
+
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 50px;
+    line-height: 62px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
