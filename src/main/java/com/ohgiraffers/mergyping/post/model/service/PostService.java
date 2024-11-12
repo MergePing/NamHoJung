@@ -186,4 +186,10 @@ public class PostService {
         // 여기도 잘나옴
         return postMapper.searchPost("%" + keyword + "%");
     }
+
+    public List<PostDTO> getPostsByPage(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        return postMapper.getPostsByPage(offset, pageSize);
+    }
+
 }

@@ -87,7 +87,7 @@
     </select>
 
 
-    <select id="getPostsByPage" resultType="com.ohgiraffers.mergyping.post.model.dto.PostDTO">
+    <select id="getPostsByPage" resultMap="postList">
         SELECT
         POST_NO,
         POST_TITLE,
@@ -97,13 +97,13 @@
         COMMENTS_NUMBER,
         POST_FAVORITE
         FROM TBL_POST
-        ORDER BY POST_DATE DESC
+        ORDER BY POST_NO DESC
         LIMIT #{offset}, #{pageSize};
     </select>
 
-    <select id="getPostCount" resultMap="postList">
+    <select id="getPostCount" resultType="int">
         SELECT
-        COUNT(*)
+        COUNT(POST_NO)
         FROM TBL_POST
     </select>
 
