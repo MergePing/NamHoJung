@@ -64,7 +64,6 @@
   const closeModalButton = document.getElementById('exitButton');
   const authNumberInput = document.getElementById('authNumber');
   const authButton = document.getElementById('authEmail');
-  const idModal = document.querySelector('.idModal');
 
   authButton.addEventListener('click', () => {
     onAndOff();
@@ -164,6 +163,7 @@
                   if (data.success) {  // 성공 시 실행할 부분
                     closeAuthModal();
                     enableConfirmButton();
+                    idModal();
                   } else {
                     document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
                   }
@@ -194,6 +194,11 @@
       return userId.substring(0, 4) + '*'.repeat(userId.length - 4);
     }
 
+    function idModal() {
+      const idModal = document.querySelector('.idModal');
+      idModal.style.display="flex";
+    }
+
     function enableConfirmButton() {
       authConfirmButton.style.display = "block";
       document.getElementById('email').readOnly = true;
@@ -208,7 +213,6 @@
               .then(response => response.json())
               .then(data => {
                 if (data.success) {
-                  idModal.style.display="block";
                   const maskedUserId = maskUserId(data.userId);
                   document.querySelector('.idModal').innerText = `아이디: ${data.userId}`;
                 } else {

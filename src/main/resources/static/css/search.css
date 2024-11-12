@@ -698,3 +698,15 @@ option{
     top:275px;
     left:705px;
 }
+
+.idModal {
+    display:none;
+    position:absolute;
+    z-index:99;
+    width:100px;
+    height:100px;
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+}
