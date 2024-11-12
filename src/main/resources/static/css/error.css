@@ -5,7 +5,7 @@
 }
 
 #background{
-    position:absolute;
+    position:relative;
     width:1920px;
     height:1080px;
 }
@@ -29,10 +29,8 @@
 
 #bar{
     position: absolute;
-    left: 20.05%;
-    right: 20%;
-    top: 40.65%;
-    bottom: 54.81%;
+    left: 390px;
+    top: 400px;
 }
 
 #errorText{
@@ -59,7 +57,7 @@
     position: absolute;
     width: 420px;
     height: 225px;
-    left: 385px;
+    left: 400px;
     top: 533px;
 
     border: 25px solid #FFFFFF;
@@ -88,7 +86,7 @@
     position: absolute;
     width: 423px;
     height: 225px;
-    left: 1068px;
+    left: 1110px;
     top: 533px;
 
     border: 25px solid #FFFFFF;
