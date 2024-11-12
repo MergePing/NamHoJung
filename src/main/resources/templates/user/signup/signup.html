@@ -53,6 +53,7 @@
         <div class="modalGuide">
             <h1 style="color:white;">이메일 인증</h1>
             <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6" ><p id="emailCheckMessage"></p>
+            <button type="button" id="exitButton">X</button>
         </div>
     </div>
 
@@ -99,6 +100,7 @@
     const modal = document.querySelector('.modalBlur');
     const btnOpenModal = document.querySelector('.authEmail');
     const authConfirmButton = document.getElementById('authConfirm');
+    const closeModalButton = document.getElementById('exitButton');
 
     nextButton.disabled = true;
     passwordInput.disabled = true;
@@ -131,12 +133,9 @@
         modal.style.display = "flex";
     })
 
-    // 모달 끄는 버튼 생성해야 해서 넣어둬야 함 -> X버튼 생성하고 사용할것임
-    if (modal.style.display === "flex") {
-        modal.addEventListener("click", () => {
-            modal.style.display = "none";
+    closeModalButton.addEventListener("click", () => {
+        modal.style.display = "none";
         });
-    }
 
     function subOn() {
         birthYear.disabled = false;
