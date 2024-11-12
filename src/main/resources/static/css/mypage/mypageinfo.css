@@ -41,6 +41,11 @@ nav span:nth-child(7){
     left: 600px;
 
 }
+
+.infopopup #fileInput{
+    display: none;
+}
+
 .userfont{
     position: absolute;
     width: 106px;

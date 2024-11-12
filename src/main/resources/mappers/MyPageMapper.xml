@@ -188,6 +188,33 @@
 <!--        AND LEVEL_NO = #{nextLevelNo};-->
 <!--    </select>-->
 
+
+
+<!--_________________________img__________________________-->
+
+
+    <update id="updateProfileImage">
+        UPDATE TBL_USER
+        SET USER_IMAGE = #{fileUrl}
+        WHERE USER_NO = #{userNo}
+    </update>
+
+
+    <select id="findUserInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
+        SELECT
+        USER_NO,
+        USER_NAME,
+        USER_EMAIL,
+        USER_ID,
+        USER_IMAGE
+        FROM TBL_USER
+        WHERE USER_NO = #{userNo}
+    </select>
+
+
+
+
+
 </mapper>
 
 <!--<result property="userType" column="USER_TYPE"/>-->
@@ -199,3 +226,5 @@
 <!--<result property="userImage" column="USER_IMAGE"/>-->
 <!--<result property="phone" column="PHONE"/>-->
 <!--<result property="levelNo" column="LEVEL_NO"/>-->
+
+

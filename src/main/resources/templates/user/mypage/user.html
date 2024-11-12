@@ -27,7 +27,7 @@
 
     <aside id="myPageAside">
         <p class="mypagefont">마이페이지</p>
-        <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+        <img th:src="@{${myPageDTO.profileImage != null ? myPageDTO.profileImage : '@{/images/mypageimages/profile.png}'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
         <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
         <p id="rank" class="rankfont">등급: <img th:src="@{/images/mypageimages/rank-1.png}" alt="랭크" class="rank-photo" id="rankPhoto"></p>
         <p class="infofont" id="info">개인 정보</p>

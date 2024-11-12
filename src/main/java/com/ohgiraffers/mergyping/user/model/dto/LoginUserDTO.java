@@ -12,6 +12,7 @@ public class LoginUserDTO {
     private String userPass;
     private UserRole userRole;
     private String userName;
+    private String userImage;
 
 
     public List<String> getRole() {
@@ -22,12 +23,13 @@ public class LoginUserDTO {
     }
     public LoginUserDTO() {}
 
-    public LoginUserDTO(int userNo, String userId, String userPass, UserRole userRole, String userName) {
+    public LoginUserDTO(int userNo, String userId, String userPass, UserRole userRole, String userName, String userImage) {
         this.userNo = userNo;
         this.userId = userId;
         this.userPass = userPass;
         this.userRole = userRole;
         this.userName = userName;
+        this.userImage = userImage;
     }
 
     public int getUserNo() {
@@ -70,6 +72,13 @@ public class LoginUserDTO {
         this.userName = userName;
     }
 
+    public String getUserImage() {
+        return userImage;
+    }
+
+    public void setUserImage(String fileUrl) {
+    }
+
     @Override
     public String toString() {
         return "LoginUserDTO{" +
@@ -78,6 +87,7 @@ public class LoginUserDTO {
                 ", userPass='" + userPass + '\'' +
                 ", userRole=" + userRole +
                 ", userName='" + userName + '\'' +
+                ", userImage='" + userImage + '\'' +
                 '}';
     }
 }

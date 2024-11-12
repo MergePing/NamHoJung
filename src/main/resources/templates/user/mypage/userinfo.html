@@ -27,11 +27,13 @@
         <img class="infobackground" th:src="@{/images/mypageimages/background.png}" alt="다크모드 메인페이지 배경화면">
         <div class="infopopup">
             <p class="userfont">개인 정보</p>
-            <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
-            <button class="btn-upload">사진수정</button>
+            <img th:src="@{${myPageDTO.profileImage != null ? myPageDTO.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+            <button class="btn-upload" onclick="document.getElementById('fileInput').click()">사진수정</button>
+            <input type="file" id="fileInput" onchange="uploadProfilePhoto()">
             <button class="btn-delete" id="btndelete">탈퇴</button>
 
-            <div class="input-group">
+
+        <div class="input-group">
                 <label class="mpId">아이디</label>
                 <div class="userId" th:text="${myPageDTO3.userId}"></div>
             </div>
@@ -109,6 +111,40 @@
             </div>
         </div>
     </div>
+
+
+<script>
+    function uploadProfilePhoto() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('profilePhoto', file);
+
+        fetch('/uploadProfilePhoto', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('profilePhoto').src = data.filePath + '?t=' + new Date().getTime();
+                    // useractive.html 과 user.html에 있는 프로필 사진을 업데이트
+                    document.querySelectorAll('.profile-photo').forEach(img => {
+                        img.src = data.filePath + '?t=' + new Date().getTime();
+                    });
+                } else {
+                    console.error('Profile photo upload failed:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+
+
+
+
     <script>
 
         const togglePassword = document.getElementById('togglePassword');

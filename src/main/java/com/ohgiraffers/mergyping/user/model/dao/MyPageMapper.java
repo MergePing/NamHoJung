@@ -5,6 +5,7 @@ import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MypageCommentDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -52,4 +53,9 @@ public interface MyPageMapper {
 
 
     void deleteUser(int userNo);
+
+    void updateProfileImage(@RequestParam("userNo") int userNo, @RequestParam("fileUrl") String fileUrl);
+
+    MyPageDTO findUserInfo(@RequestParam("userNo") int userNo);
+
 }
