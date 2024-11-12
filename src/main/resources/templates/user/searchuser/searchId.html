@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div class="idModal">th:text={}</div>
+  <div class="idModal"></div>
 
 </div>
 <script>
@@ -64,6 +64,7 @@
   const closeModalButton = document.getElementById('exitButton');
   const authNumberInput = document.getElementById('authNumber');
   const authButton = document.getElementById('authEmail');
+  const idModal = document.querySelector('.idModal');
 
   authButton.addEventListener('click', () => {
     onAndOff();
@@ -207,6 +208,7 @@
               .then(response => response.json())
               .then(data => {
                 if (data.success) {
+                  idModal.style.display="block";
                   const maskedUserId = maskUserId(data.userId);
                   document.querySelector('.idModal').innerText = `아이디: ${data.userId}`;
                 } else {
