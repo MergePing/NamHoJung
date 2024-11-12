@@ -31,7 +31,6 @@ public class AuthController {
     @GetMapping("/verify")
     public String verify(@RequestParam String code) {
 
-
         return "이메일 인증이 완료되었습니다.";
     }
 
