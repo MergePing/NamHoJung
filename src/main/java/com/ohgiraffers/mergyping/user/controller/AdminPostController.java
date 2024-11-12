@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class AdminPostController {
@@ -20,24 +23,36 @@ public class AdminPostController {
         this.adminPostService = adminPostService;
     }
 
-    // 게시물 리스트 페이지
+    // HTML 렌더링용 메서드
     @GetMapping("/admin/post")
     public String adminPosts(Model model,
                              @RequestParam(defaultValue = "1") int page,
                              @RequestParam(defaultValue = "7") int pageSize) {
+        Map<String, Object> pagedPosts = adminPostService.getPagedPosts(page, pageSize);
 
-        // 서비스 호출
-        List<AdminPostDTO> posts = adminPostService.getPosts(page, pageSize);
-        int totalPosts = adminPostService.getTotalPosts();
-        int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+        // 모델에 페이지 정보 추가
+        model.addAttribute("postList", pagedPosts.get("posts"));
+        model.addAttribute("currentPage", pagedPosts.get("currentPage"));
+        model.addAttribute("totalPages", pagedPosts.get("totalPages"));
+        model.addAttribute("startPage", pagedPosts.get("startPage"));
+        model.addAttribute("endPage", pagedPosts.get("endPage"));
 
-        // 모델에 데이터 추가
-        model.addAttribute("postList", posts);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("startPage", Math.max(1, page - 2));
-        model.addAttribute("endPage", Math.min(totalPages, page + 2));
+        return "user/admin/adminpost"; // View 반환
+    }
 
-        return "user/admin/adminpost"; // 뷰 반환
+    // AJAX 데이터 반환용 메서드
+    @GetMapping("/admin/post/data")
+    @ResponseBody
+    public Map<String, Object> getPosts(@RequestParam(defaultValue = "1") int page,
+                                        @RequestParam(defaultValue = "7") int pageSize) {
+        Map<String, Object> pagedPosts = adminPostService.getPagedPosts(page, pageSize);
+
+        // JSON 응답으로 페이지 정보 반환
+        Map<String, Object> response = new HashMap<>();
+        response.put("postList", pagedPosts.get("posts"));
+        response.put("currentPage", pagedPosts.get("currentPage"));
+        response.put("totalPages", pagedPosts.get("totalPages"));
+
+        return response;
     }
 }

@@ -172,9 +172,20 @@ nav span:hover{
 
 /*---------------main------------------*/
 
-.main{
-    transition: all 1s;
+
+
+main {
+    margin-top: 79px; /* nav 아래 공간 확보 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 */
+    justify-content: flex-start; /* 세로 정렬 */
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(100vh - 79px); /* 화면 전체 높이에서 nav 높이를 제외 */
 }
+
 
 #bg {
     position: absolute;
@@ -185,7 +196,6 @@ nav span:hover{
 
 /* 공통 스타일 */
 .sell-item {
-    position: absolute;
     height: 31px;
     font-family: 'BM JUA_OTF';
     font-style: normal;
@@ -193,65 +203,51 @@ nav span:hover{
     font-size: 30px;
     line-height: 31px;
     color: #FFFFFF;
+    text-align: center;
+    flex: 1;
 }
 
 /* 개별 스타일 */
 .sell-number {
-    width: 50px;
-    top: 275px;
-    left: 250px;
+    flex: 0.5;
 }
 
 .sell-title {
-    width: 127px;
-    top: 275px;
-    left: 489px;
+    flex: 2;
+    text-align: left;
     white-space: nowrap; /* 줄넘김 방지 */
 }
 
-.sell-category {
-    width: 98px;
-    top: 275px;
-    left: 997px;
+.sell-category, .sell-date, .sell-scary, .sell-comment {
+    flex: 1;
 }
 
-.sell-date {
-    width: 105px;
-    top: 275px;
-    left: 1204px;
-}
-
-.sell-scary {
-    width: 97px;
-    top: 275px;
-    left: 1398px;
-}
-
-.sell-comment {
-    width: 49px;
-    top: 275px;
-    left: 1587px;
-    text-align: center;
-}
 /* 게시물 리스트 */
+.post1 {
+    display: flex;
+    flex-direction: column; /* 게시물을 세로로 정렬 */
+    align-items: center; /* 리스트를 중앙 정렬 */
+    gap: 10px; /* 항목 간 간격 */
+    padding: 20px; /* 리스트 전체 여백 */
+    width: 100%; /* 리스트의 전체 너비 설정 */
+    font-family: Cafe24SsurroundAir;
+    font-size: 30px;
+}
+
 .post {
     display: flex;
-    position: absolute;
-    top: 250px; /* 첫 번째 항목의 시작 위치 */
-    justify-content: space-between; /* 요소 간 간격 균등 조정 */
+    justify-content: space-between; /* 항목 간 간격 균등 */
     align-items: center; /* 수직 중앙 정렬 */
-    font-family: 'Cafe24SsurroundAir';
-    font-size: 30px;
-    gap: 0px; /* 항목 사이의 간격 추가 */
-    padding: 20px;
+    width: 80%; /* 리스트의 너비를 화면의 80%로 설정 */
+    padding: 10px; /* 내부 여백 */
+    box-sizing: border-box; /* 패딩 포함한 크기 계산 */
 }
 
 /* 개별 항목 스타일 */
 .post-item {
-    text-align: center; /* 가운데 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
     color: #FFFFFF;
-    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-
+    flex: 1; /* 모든 항목 동일한 크기 */
 }
 
 /* 특정 항목 조정 */
@@ -261,7 +257,7 @@ nav span:hover{
 
 .post-item-title {
     flex: 2; /* 제목은 넓게 */
-    text-align: left; /* 왼쪽 정렬 */
+    text-align: left; /* 제목은 왼쪽 정렬 */
 }
 
 .post-item-category,
@@ -271,14 +267,24 @@ nav span:hover{
     flex: 1; /* 동일한 너비 */
 }
 
-.post-item-comment{
-    flex: 0.1;
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center; /* 페이지네이션 버튼을 가운데 정렬 */
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-/* 간격 조정 */
-.post1 {
-    display: flex;
-    flex-direction: column; /* 항목들을 수직으로 나열 */
-    gap: 10px; /* 항목 간 간격 */
-    padding: 10px; /* 리스트 전체 여백 */
+.pagination-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.pagination-btn:hover {
+    background-color: #ddd;
+}
+
+

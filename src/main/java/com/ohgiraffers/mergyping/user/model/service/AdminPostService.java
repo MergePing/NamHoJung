@@ -5,7 +5,9 @@ import com.ohgiraffers.mergyping.user.model.dto.AdminPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AdminPostService {
@@ -16,14 +18,24 @@ public class AdminPostService {
         this.adminPostMapper = adminPostMapper;
     }
 
-    // 페이지 번호와 페이지 크기를 기반으로 게시물 목록을 가져오는 메서드
-    public List<AdminPostDTO> getPosts(int page, int pageSize) {
-        int offset = (page - 1) * pageSize; // 오프셋 계산
-        return adminPostMapper.selectPostsByPage(offset, pageSize);
-    }
+    public Map<String, Object> getPagedPosts(int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        List<AdminPostDTO> posts = adminPostMapper.selectPostsByPage(offset, pageSize);
+        int totalPosts = adminPostMapper.countAllPosts();
+        int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
 
-    // 전체 게시물 수를 가져오는 메서드
-    public int getTotalPosts() {
-        return adminPostMapper.countAllPosts();
+        // 페이지네이션 정보 계산
+        int startPage = Math.max(1, page - 2);
+        int endPage = Math.min(totalPages, page + 2);
+
+        // 결과 반환
+        Map<String, Object> pagedPosts = new HashMap<>();
+        pagedPosts.put("posts", posts);
+        pagedPosts.put("currentPage", page);
+        pagedPosts.put("totalPages", totalPages);
+        pagedPosts.put("startPage", startPage);
+        pagedPosts.put("endPage", endPage);
+
+        return pagedPosts;
     }
 }

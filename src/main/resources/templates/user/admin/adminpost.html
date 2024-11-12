@@ -5,16 +5,10 @@
   <title>게시판전체조회</title>
   <link rel="stylesheet" th:href="@{/css/reset.css}">
   <link rel="stylesheet" th:href="@{/css/admin/adminpost.css}">
-  <style>
-    .post {
-      position: relative;
-    }
-  </style>
 </head>
 <body>
 <header>
   <nav>
-    <!-- 네비게이션 바 -->
     <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
     <span onclick="location.href='/notice'">공지사항</span>
@@ -25,39 +19,91 @@
     <span>회원가입</span>
   </nav>
 </header>
-<!-- 배경 이미지 -->
 
 <main>
   <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
 
-  <!-- 분류 및 검색 -->
   <div class="select">
     <p>분류</p>
   </div>
   <input type="search" placeholder="검색어를 입력하세요">
   <label><img th:src="@{/images/post/Search-dark.png}"></label>
 
-  <!-- 게시물 리스트 헤더 -->
   <div class="sell">
-    <span class="sell-item sell-number">번호</span>
-    <span class="sell-item sell-title">게시물 제목</span>
-    <span class="sell-item sell-category">카테고리</span>
-    <span class="sell-item sell-date">등록날짜</span>
-    <span class="sell-item sell-scary">무서워요</span>
-    <span class="sell-item sell-comment">댓글</span>
+    <span class="sell-item">번호</span>
+    <span class="sell-item">게시물 제목</span>
+    <span class="sell-item">카테고리</span>
+    <span class="sell-item">등록날짜</span>
+    <span class="sell-item">무서워요</span>
+    <span class="sell-item">댓글</span>
   </div>
 
-  <!-- 게시물 리스트 -->
-  <div class="post1">
-    <div class="post" th:each="post : ${postList}">
-      <span th:text="${post.postNo}" class="post-item post-item-number"></span>
-      <span th:text="${post.postTitle}" class="post-item post-item-title"></span>
-      <span th:text="${post.postCategory}" class="post-item post-item-category"></span>
-      <span th:text="${#temporals.format(post.postDate, 'yyyy-MM-dd')}" class="post-item post-item-date"></span>
-      <span th:text="${post.scaryNumber}" class="post-item post-item-scary"></span>
-      <span th:text="${post.commentNumber}" class="post-item post-item-comment"></span>
-    </div>
+  <div id="postContainer" class="post1">
+    <!-- AJAX로 가져온 게시물 리스트가 여기에 추가됩니다 -->
+  </div>
+
+  <div id="pagination" class="pagination">
+    <!-- AJAX로 생성된 페이지네이션 버튼 -->
   </div>
 </main>
+
+<script>
+  const pageSize = 7; // 한 페이지에 표시할 게시물 수
+  let currentPage = 1; // 현재 페이지
+
+  // 게시물 데이터를 가져와 화면에 렌더링
+  function loadPosts(page) {
+    fetch(`/admin/post/data?page=${page}&pageSize=${pageSize}`)
+            .then(response => response.json())
+            .then(data => {
+              renderPosts(data.postList); // 게시물 렌더링
+              renderPagination(data.currentPage, data.totalPages); // 페이지네이션 렌더링
+            })
+            .catch(error => console.error('Error:', error));
+  }
+
+  // 게시물 리스트 렌더링
+  function renderPosts(postList) {
+    const postContainer = document.getElementById('postContainer');
+    postContainer.innerHTML = ''; // 기존 게시물 초기화
+
+    postList.forEach(post => {
+      const postDiv = document.createElement('div');
+      postDiv.classList.add('post');
+
+
+      const formattedDate = new Date(post.postDate).toISOString().split('T')[0];
+
+      postDiv.innerHTML = `
+          <span class="post-item">${post.postNo}</span>
+          <span class="post-item">${post.postTitle}</span>
+          <span class="post-item">${post.postCategory}</span>
+          <span class="post-item">${formattedDate}</span>
+          <span class="post-item">${post.scaryNumber}</span>
+          <span class="post-item">${post.commentNumber}</span>
+        `;
+      postContainer.appendChild(postDiv);
+    });
+  }
+
+  // 페이지네이션 렌더링
+  function renderPagination(currentPage, totalPages) {
+    const paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = ''; // 기존 페이지네이션 초기화
+
+    // 페이지 번호 생성
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.classList.add('pagination-btn');
+      if (i === currentPage) pageButton.classList.add('active'); // 현재 페이지 강조
+      pageButton.addEventListener('click', () => loadPosts(i));
+      paginationContainer.appendChild(pageButton);
+    }
+  }
+
+  // 초기 로드
+  loadPosts(currentPage);
 </script>
+</body>
 </html>
