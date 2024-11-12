@@ -175,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `TBL_REPORT`
 SET FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO `TBL_USER` () VALUES
-                              (1, 'ADMIN', 'whdudtjr0', 'password11', '조영석', 'whdudtjr0@gmail.com', '1999-01-29', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
+                              (1, 'ADMIN', 'admin0101', '$2a$10$ZoUNQ1foCQcPOJ1Y2Y/YIelPupYw/EK6DSJhcLSpKv093WfQmUpD2', '관리자', 'whdudtjr0@gmail.com', '1999-01-29', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
                               (2, 'USER', 'user12', 'password12', '홍길동', 'user12@example.com', '1990-01-01', NULL, 1, TRUE, '2024-10-29', '2024-10-28', 'MALE', TRUE,NULL),
                               (3, 'USER', 'user13', 'password13', '아무개', 'user13@example.com', '1985-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'FEMALE', TRUE,NULL),
                               (4, 'USER', 'user14', 'password14', '테스트', 'user14@gmail.com', '2000-01-01', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),

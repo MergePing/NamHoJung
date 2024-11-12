@@ -1,6 +1,7 @@
 package com.ohgiraffers.mergyping.user.controller;
 
 import com.ohgiraffers.mergyping.auth.model.AuthDetails;
+import com.ohgiraffers.mergyping.common.UserRole;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MypageCommentDTO;
@@ -42,7 +43,7 @@ public class MyPageController {
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
-
+            UserRole role = userDetails.getUserRole();
 
             // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
             MyPageDTO myPageDTO = myPageService.findNickName(userNo);
@@ -59,7 +60,14 @@ public class MyPageController {
             return "redirect:/login";
         }
 
-        return "user/mypage/userinfo"; // userinfo.html로 이동
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
+
+        if (isAdmin) {
+            return "redirect:user/admin/admin";
+        } else {
+            return "user/mypage/userinfo"; // userinfo.html로 이동
+        }
     }
 
     @PostMapping("/userinfo")
