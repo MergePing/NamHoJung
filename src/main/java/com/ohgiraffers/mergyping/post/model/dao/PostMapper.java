@@ -17,7 +17,7 @@ public interface PostMapper {
     List<PostDTO> postList();
 
     // 게시글 정렬
-    List<PostDTO> postListSort(@RequestParam("params") Map<String, Object> params);
+    List<PostDTO> postListSort(Map<String, Object> params);
 
     // 게시글 번호와 즐겨찾기 여부로 즐겨 찾기 상태 업데이트
     void updateFavoriteStatus(@RequestParam("postNo") int postNo, @RequestParam("isFavorite") boolean isFavorite);
@@ -66,3 +66,7 @@ public interface PostMapper {
     void incrementCommentCount(int postNo);
 }
 
+    List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
+
+
+}

@@ -85,14 +85,13 @@
             <when test="orderBy != null and orderBy != ''">
                 ${orderBy} DESC
             </when>
-            <when test="orderBy != null and orderBy = 'POST_DATE'">
-                POST_DATE
-            </when>
             <otherwise>
                 POST_NO DESC
             </otherwise>
         </choose>
+        LIMIT #{offset}, #{pageSize}
     </select>
+
 
 
     <select id="getPostsByPage" resultMap="postList">

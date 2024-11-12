@@ -744,24 +744,19 @@ select.box1{
 }
 
 .button{
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-    gap: 10px;
-    background: rgba(74, 114, 54, 0);
-
-    position: absolute;
     width: 192px;
     height: 145px;
-    left: 700px;
-    top: 575px;
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 50px;
 
     border: 10px solid #FFFFFF;
     border-radius: 100px;
-    flex: none;
+    color: #FFFFFF;
+    position: absolute;
+    align-items: center;
+    background: none;
 }
 
 .button:active{
@@ -771,49 +766,13 @@ select.box1{
 }
 
 #mainButton{
-    width: 192px;
-    height: 145px;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 50px;
-    line-height: 62px;
-
-    color: #FFFFFF;
-}
-
-.main {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background: rgba(74, 114, 54);
-
-    position: absolute;
-    width: 192px;
-    height: 145px;
-
-    border: 10px solid #FFFFFF;
-    border-radius: 100px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    z-index: 2;
-}
+    left: 700px;
+    top: 575px;
+    }
 
 #mbtiButton{
     left: 1030px;
-    width: 192px;
-    height: 145px;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 50px;
-    line-height: 62px;
-    color: #FFFFFF;
+    top: 575px;
 }
 
 

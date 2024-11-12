@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ohgiraffers.mergyping.user.model.dao.AdminPostMapper">
+
+    <!-- 게시물 목록 조회 -->
+    <select id="selectPostsByPage" parameterType="map" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminPostDTO">
+        SELECT
+        POST_NO AS postNo,
+        POST_TITLE AS postTitle,
+        POST_CATEGORY AS postCategory,
+        POST_DATE AS postDate,
+        SCARY_NUMBER AS scaryNumber,
+        COMMENTS_NUMBER AS commentNumber
+        FROM TBL_POST
+        ORDER BY POST_NO DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 전체 게시물 수 조회 -->
+    <select id="countAllPosts" resultType="int">
+        SELECT COUNT(*) FROM TBL_POST
+    </select>
+
+
+    <select id="searchPosts" parameterType="map" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminPostDTO">
+        SELECT
+        POST_NO AS postNo,
+        POST_TITLE AS postTitle,
+        POST_CATEGORY AS postCategory,
+        POST_DATE AS postDate,
+        SCARY_NUMBER AS scaryNumber,
+        COMMENTS_NUMBER AS commentNumber
+        FROM TBL_POST
+        WHERE POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY POST_NO DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countPostsByKeyword" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_POST
+        WHERE POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+
+    <select id="selectPostDetail" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminPostDTO">
+        SELECT
+        POST_NO AS postNo,
+        POST_TITLE AS postTitle,
+        POST_CONTENTS AS postContent,
+        POST_CATEGORY AS postCategory,
+        POST_DATE AS postDate,
+        SCARY_NUMBER AS scaryNumber,
+        COMMENTS_NUMBER AS commentNumber
+        FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </select>
+</mapper>

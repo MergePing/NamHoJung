@@ -175,11 +175,11 @@ CREATE TABLE IF NOT EXISTS `TBL_REPORT`
 SET FOREIGN_KEY_CHECKS = 0;
 
 INSERT INTO `TBL_USER` () VALUES
-                              (1, 'ADMIN', 'whdudtjr0', 'password11', '조영석', 'whdudtjr0@gmail.com', '1999-01-29', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
-                              (2, 'USER', 'user12', 'password12', '홍길동', 'user12@example.com', '1990-01-01', NULL, 1, TRUE, '2024-10-29', '2024-10-28', 'MALE', TRUE,NULL),
-                              (3, 'USER', 'user13', 'password13', '아무개', 'user13@example.com', '1985-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'FEMALE', TRUE,NULL),
-                              (4, 'USER', 'user14', 'password14', '테스트', 'user14@gmail.com', '2000-01-01', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
-                              (5, 'USER', 'user15', 'password15', '테씃트', 'user15@example.com', '2001-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
+                              (1, 'ADMIN', 'hyojung', '$2a$10$V7ghhipLgHeKLu5/wWRgN.91ROghy4iI4v16anxR0bUMSrYIxKk66', '관리자', 'koala.ohgiraffers@gmail.com', '2004-01-29', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
+                              (2, 'ADMIN', 'hojun', '$2a$10$ULs9o8Y.ZVVNiyyVvIWXzem7snEMlXmQ1Y17hnNFbTmHytekVa5WW', '이호준', 'taylor951006@gmail.com', '1990-01-01', NULL, 1, TRUE, '2024-10-29', '2024-10-28', 'MALE', TRUE,NULL),
+                              (3, 'ADMIN', 'soonbin', '$2a$10$ZHlqxUKuaMC.F93rCHnDnewjznWgiKUkD8m1yM8hJUT2AFqTlDxSa', '황순빈', 'ghkdtnsqls04@gmail.com', '1985-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'FEMALE', TRUE,NULL),
+                              (4, 'ADMIN', 'les0906', '$2a$10$MKXoDktnXmBj7G34QgOj3.WKF94ClW5.w32oLaWUeC/CjcUmQlq5.', '이은서', 'lesles09061211@gmail.com', '2000-01-01', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
+                              (5, 'ADMIN', 'dse113', '$2a$10$f12aYOFIZ7yA/XP3FjZDteNpozz07ZrUdVolW/nnZejiBPazX8luC', '조영석', 'whdudtjr0@gmail.com', '2001-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
                               (6, 'USER', 'user16', 'password16', '테트트', 'user16@example.com', '2003-05-15', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER',TRUE,NULL),
                               (7, 'USER', 'user17', 'password17', '스테트', 'user17@example.com', '2000-02-23', NULL, 1, FALSE, NULL, '2024-10-28', 'OTHER', TRUE,NULL),
                               (8, 'USER', 'user18', 'password18', '트스테', 'user18@example.com', '1999-01-24', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE,NULL),
@@ -191,7 +191,6 @@ INSERT INTO `TBL_USER` () VALUES
                               (14, 'USER', 'user24', 'password20', '무개6', 'user207@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE,NULL),
                               (15, 'USER', 'user25', 'password20', '무개이7', 'user208@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE,NULL),
                               (16, 'USER', 'user26', 'password20', '무개이8', 'user209@example.com', '2001-01-15', NULL, 1, FALSE, NULL , '2024-10-28', 'OTHER', TRUE,NULL);
-
 INSERT INTO TBL_LEVEL () VALUES
                              (NULL,"신입 정원사",1),
                              (NULL,"초보 정원사",2),

@@ -35,13 +35,17 @@ public class PostService {
     }
 
     // 게시글 정렬하는 메소드
-    public List<PostDTO> postListSort(String orderBy, String category) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("orderBy", orderBy);
-        params.put("category", category);
+        public List<PostDTO> postListSort1(String orderBy, String category, int page, int pageSize) {
+            int offset =  (page - 1) * pageSize;
+            Map<String, Object> params = new HashMap<>();
+            params.put("orderBy", orderBy);
+            params.put("category", category);
+            params.put("offset", offset);
+            params.put("pageSize", pageSize);
 
-        return postMapper.postListSort(params);
-    }
+            return postMapper.postListSort(params);
+        }
+
 
 
     //즐겨찾기 상태 업데이트
@@ -171,5 +175,17 @@ public class PostService {
             e.printStackTrace();
             return false;
         }
+    }
+}
+
+    public List<PostDTO> postListSort(String orderBy, String category,int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        Map<String, Object> params = new HashMap<>();
+        params.put("orderBy", orderBy);
+        params.put("category", category);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+
+        return postMapper.postListSort(params);
     }
 }
