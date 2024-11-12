@@ -12,4 +12,8 @@ public interface AdminPostMapper {
 
     // 전체 게시물 수 조회
     int countAllPosts();
+
+    List<AdminPostDTO> searchPosts(String keyword, int offset, int pageSize);
+
+    int countPostsByKeyword(String keyword);
 }

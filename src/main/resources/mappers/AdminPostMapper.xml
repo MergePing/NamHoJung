@@ -24,4 +24,24 @@
         SELECT COUNT(*) FROM TBL_POST
     </select>
 
+
+    <select id="searchPosts" parameterType="map" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminPostDTO">
+        SELECT
+        POST_NO AS postNo,
+        POST_TITLE AS postTitle,
+        POST_CATEGORY AS postCategory,
+        POST_DATE AS postDate,
+        SCARY_NUMBER AS scaryNumber,
+        COMMENTS_NUMBER AS commentNumber
+        FROM TBL_POST
+        WHERE POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY POST_NO DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countPostsByKeyword" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_POST
+        WHERE POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
+    </select>
 </mapper>
