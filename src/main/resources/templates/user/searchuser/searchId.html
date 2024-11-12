@@ -47,12 +47,14 @@
       <h1 style="color:white;" id="authLabel">이메일 인증</h1>
       <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6" ><p id="emailCheckMessage"></p>
       <button type="button" id="exitButton">X</button>
+      <div id="stop"></div>
     </div>
   </div>
 
 
 </div>
 <script>
+
   const emailInput = document.getElementById('email');
   const emailDomainInput = document.getElementById('domain-txt');
   const emailSelectInput = document.getElementById('domain-list');
@@ -61,9 +63,16 @@
   const btnOpenModal = document.querySelector('.authImg');
   const authConfirmButton = document.getElementById('authConfirm');
   const closeModalButton = document.getElementById('exitButton');
-  const authNumberInput = document.querySelector('.authNumber');
+  const authNumberInput = document.getElementById('authNumber');
+  const authButton = document.getElementById('authEmail');
 
-  authNumberInput.disabled = true; // 처음에 비활성화 시켜놓고 인증 버튼 누르면 활성화 시키는 쪽으로
+  const stopAuth = document.getElementById('stop'); // 계속 인증버튼 누름 방지용
+
+  authNumberInput.disabled = true;
+
+  authButton.addEventListener('click', () => {
+    stopAuth.style.display="block";
+  })
 
   // 모달 속도때문에 넣어둬야 함
   btnOpenModal.addEventListener("click", () => {
@@ -89,8 +98,8 @@
     domainInput.value = domain;
   });
 
-
   // 이메일 인증
+
   function sendAuthCode() {
     const emailPrefix = document.getElementById('email').value;
     const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
@@ -114,15 +123,14 @@
             .then(data => {
               if (data.success) {
                 openAuthModal();
+                authNumberInput.disabled = false;
               } else {
                 alert("인증 번호 전송에 실패했습니다.");
-                nextButton.disabled = true;
               }
             })
             .catch(error => {
               console.error('Error:', error);
               alert("서버와의 통신에 실패했습니다.");
-              nextButton.disabled = true;
             });
   }
 
@@ -149,7 +157,6 @@
                 if (data.success) {  // 성공 시 실행할 부분
                   closeAuthModal();
                   enableConfirmButton();
-                  document.getElementById('emailCheckMessage2').innerText = "";
                 } else {
                   document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
                 }
@@ -213,7 +220,7 @@
       domainInputEl.value = ""
       domainInputEl.disabled = false
     }
-  })
+  });
 </script>
 </body>
 </html>
