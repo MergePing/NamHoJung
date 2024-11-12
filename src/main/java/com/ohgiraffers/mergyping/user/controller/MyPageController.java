@@ -64,7 +64,7 @@ public class MyPageController {
                 .anyMatch(authority -> authority.getAuthority().equals("ADMIN"));
 
         if (isAdmin) {
-            return "redirect:user/admin/admin";
+            return "redirect:/admin";
         } else {
             return "user/mypage/userinfo"; // userinfo.html로 이동
         }
