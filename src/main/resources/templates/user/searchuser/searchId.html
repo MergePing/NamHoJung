@@ -47,14 +47,10 @@
       <h1 style="color:white;" id="authLabel">이메일 인증</h1>
       <label for="authNumber" class="authNumber">인증 번호 : </label><input id="authNumber" type="text" name="authNumber" placeholder="인증번호 입력" maxlength="6" ><p id="emailCheckMessage"></p>
       <button type="button" id="exitButton">X</button>
-      <div id="stop"></div>
     </div>
   </div>
-
-
 </div>
 <script>
-
   const emailInput = document.getElementById('email');
   const emailDomainInput = document.getElementById('domain-txt');
   const emailSelectInput = document.getElementById('domain-list');
@@ -66,13 +62,22 @@
   const authNumberInput = document.getElementById('authNumber');
   const authButton = document.getElementById('authEmail');
 
-  const stopAuth = document.getElementById('stop'); // 계속 인증버튼 누름 방지용
+  authButton.addEventListener('click', () => {
+    onAndOff();
+    alert("이메일을 보냈습니다. 30초간 버튼을 비활성화합니다.")
+  })
 
   authNumberInput.disabled = true;
 
-  authButton.addEventListener('click', () => {
-    stopAuth.style.display="block";
-  })
+  function on() {
+    authButton.disabled = false;
+  }
+
+  function onAndOff() {
+    authButton.disabled = true;
+    setTimeout(on, 30000)
+  }
+
 
   // 모달 속도때문에 넣어둬야 함
   btnOpenModal.addEventListener("click", () => {
@@ -99,7 +104,6 @@
   });
 
   // 이메일 인증
-
   function sendAuthCode() {
     const emailPrefix = document.getElementById('email').value;
     const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
@@ -132,95 +136,103 @@
               console.error('Error:', error);
               alert("서버와의 통신에 실패했습니다.");
             });
-  }
 
-  function checkAuthCode() {
-    const authCodeInput = document.getElementById('authNumber').value;
+    function checkAuthCode() {
+      const authCodeInput = document.getElementById('authNumber').value;
 
-    const emailPrefix = document.getElementById('email').value;
-    const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
-    const userEmail = emailPrefix + '@' + emailDomain;
+      const emailPrefix = document.getElementById('email').value;
+      const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
+      const userEmail = emailPrefix + '@' + emailDomain;
 
-    if (authCodeInput.length === 6) {
-      fetch('/auth/verifyauthCode', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: userEmail,
-          authCode: authCodeInput
-        }),
-      })
-              .then(response => response.json())
-              .then(data => {
-                if (data.success) {  // 성공 시 실행할 부분
-                  closeAuthModal();
-                  enableConfirmButton();
-                } else {
-                  document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
-                }
-              })
-              .catch(error => {
-                console.error('Error:', error);
-                alert("서버와의 통신에 실패했습니다.");
-              });
+      if (authCodeInput.length === 6) {
+        fetch('/auth/verifyauthCode', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: userEmail,
+            authCode: authCodeInput
+          }),
+        })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {  // 성공 시 실행할 부분
+                    closeAuthModal();
+                    enableConfirmButton();
+                  } else {
+                    document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  alert("서버와의 통신에 실패했습니다.");
+                });
+      }
+
+      console.log(authCodeInput);
     }
 
-    console.log(authCodeInput);
-  }
-
-  function openAuthModal() {
-    const modal = document.querySelector('.modalBlur');
-    modal.style.display = 'flex';
-  }
-
-  function closeAuthModal() {
-    const modal = document.querySelector('.modalBlur');
-    modal.style.display = 'none';
-  }
-
-  function enableConfirmButton() {
-    authConfirmButton.style.display = "block";
-    document.getElementById('email').readOnly = true;
-    document.getElementById('domain-txt').readOnly = true;
-    document.getElementById('domain-list').readOnly = true;
-  }
-
-  document.getElementById('authNumber').addEventListener('input', checkAuthCode);
-
-  // 이메일 부분 로직
-  notEnter();
-  const form = document.querySelector('form');
-  form.addEventListener('submit', function (event) {
-    const emailInput = document.querySelector('#email');
-    const domainInput = document.querySelector('#domain-txt');
-    const domainSelect = document.querySelector('#domain-list');
-
-    const frontEmail = emailInput.value.split('@')[0];
-    emailInput.value = frontEmail;
-
-    const hiddenEmailField = document.getElementById('hidden-email');
-    hiddenEmailField.value = emailInput.value;
-
-    if (domainSelect.value !== "type") {
-      hiddenEmailField.value += "@" + domainSelect.value;
-    } else {
-      hiddenEmailField.value += "@" + domainInput.value;
+    function openAuthModal() {
+      const modal = document.querySelector('.modalBlur');
+      modal.style.display = 'flex';
     }
-  });
 
-  const domainListEl = document.querySelector('#domain-list')
-  const domainInputEl = document.querySelector('#domain-txt')
-  domainListEl.addEventListener('change', (event) => {
-    if (event.target.value !== "type") {
-      domainInputEl.value = event.target.value
-      domainInputEl.disabled = true
-    } else {
-      domainInputEl.value = ""
-      domainInputEl.disabled = false
+    function closeAuthModal() {
+      const modal = document.querySelector('.modalBlur');
+      modal.style.display = 'none';
     }
-  });
+
+    function enableConfirmButton() {
+      authConfirmButton.style.display = "block";
+      document.getElementById('email').readOnly = true;
+      document.getElementById('domain-txt').readOnly = true;
+      document.getElementById('domain-list').readOnly = true;
+    }
+
+    document.getElementById('authNumber').addEventListener('input', checkAuthCode);
+
+    function notEnter() {
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+        }
+      });
+    }
+
+    // 이메일 부분 로직
+    notEnter();
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function (event) {
+      const emailInput = document.querySelector('#email');
+      const domainInput = document.querySelector('#domain-txt');
+      const domainSelect = document.querySelector('#domain-list');
+
+      const frontEmail = emailInput.value.split('@')[0];
+      emailInput.value = frontEmail;
+
+      const hiddenEmailField = document.getElementById('hidden-email');
+      hiddenEmailField.value = emailInput.value;
+
+      if (domainSelect.value !== "type") {
+        hiddenEmailField.value += "@" + domainSelect.value;
+      } else {
+        hiddenEmailField.value += "@" + domainInput.value;
+      }
+    });
+
+    const domainListEl = document.querySelector('#domain-list')
+    const domainInputEl = document.querySelector('#domain-txt')
+    domainListEl.addEventListener('change', (event) => {
+      if (event.target.value !== "type") {
+        domainInputEl.value = event.target.value
+        domainInputEl.disabled = true
+      } else {
+        domainInputEl.value = ""
+        domainInputEl.disabled = false
+      }
+    });
+  }
 </script>
 </body>
 </html>
