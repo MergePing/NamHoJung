@@ -38,4 +38,13 @@ public class AdminPostService {
 
         return pagedPosts;
     }
+
+    public List<AdminPostDTO> searchPosts(String keyword, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        return adminPostMapper.searchPosts(keyword, offset, pageSize); // 검색 쿼리 실행
+    }
+
+    public int countPostsByKeyword(String keyword) {
+        return adminPostMapper.countPostsByKeyword(keyword); // 검색된 게시물 총 개수
+    }
 }

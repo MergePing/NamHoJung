@@ -55,4 +55,22 @@ public class AdminPostController {
 
         return response;
     }
+
+
+    @GetMapping("/admin/post/search")
+    @ResponseBody
+    public Map<String, Object> searchPosts(@RequestParam("keyword") String keyword,
+                                           @RequestParam(defaultValue = "1") int page,
+                                           @RequestParam(defaultValue = "7") int pageSize) {
+        List<AdminPostDTO> posts = adminPostService.searchPosts(keyword, page, pageSize);
+        int totalPosts = adminPostService.countPostsByKeyword(keyword); // 검색된 게시물 수
+        int totalPages = (int) Math.ceil((double) totalPosts / pageSize);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("postList", posts);
+        response.put("currentPage", page);
+        response.put("totalPages", totalPages);
+
+        return response;
+    }
 }
