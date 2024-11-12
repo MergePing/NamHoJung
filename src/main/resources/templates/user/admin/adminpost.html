@@ -14,7 +14,7 @@
 <body>
 <header>
   <nav>
-    <!--네비바-->
+    <!-- 네비게이션 바 -->
     <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
     <span onclick="location.href='/notice'">공지사항</span>
@@ -27,20 +27,19 @@
 </header>
 
 <main>
-
-
+  <!-- 배경 이미지 -->
   <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
 
-
-
+  <!-- 분류 -->
   <div class="select">
     <p>분류</p>
   </div>
 
-  <input type="search" value="&nbsp; &nbsp; &nbsp;검색어를 입력하세요">
+  <!-- 검색 -->
+  <input type="search" placeholder="검색어를 입력하세요">
   <label><img th:src="@{/images/post/Search-dark.png}"></label>
 
-
+  <!-- 게시물 리스트 헤더 -->
   <div class="sell">
     <span>번호</span>
     <span></span>
@@ -50,34 +49,23 @@
     <span>무서워요</span>
     <span>댓글</span>
   </div>
+
+  <!-- 게시물 리스트 -->
   <div class="post1" id="postContainer">
     <div class="post" th:each="post, iterStat : ${postList}" th:attr="style=${'top: ' + (iterStat.index * 80) + 'px;'}">
       <span th:text="${post.postNo}"></span>
-      <a th:src="@{/selectpost/{postNo}(postNo=${post.postNo})}">
+      <a th:href="@{/selectpost/{postNo}(postNo=${post.postNo})}">
         <span th:text="${post.postTitle}"></span>
       </a>
       <div><span th:text="${post.postCategory}"></span></div>
-      <span th:text="${post.postDate}"></span>
+      <span th:text="${#temporals.format(post.postDate, 'yyyy-MM-dd')}"></span>
       <span th:text="${post.scaryNumber}"></span>
       <span th:text="${post.commentNumber}"></span>
     </div>
   </div>
-
-
-
 </main>
-
-
 </body>
-
 <script>
-
-</script>
-
-
-<script>
-
-
-
+  // JavaScript 영역 - 필요한 경우 여기에 추가하세요.
 </script>
 </html>
