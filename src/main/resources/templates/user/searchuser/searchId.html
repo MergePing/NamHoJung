@@ -172,9 +172,9 @@
                   alert("서버와의 통신에 실패했습니다.");
                 });
       }
-
       console.log(authCodeInput);
     }
+    document.getElementById('authNumber').addEventListener('input', checkAuthCode);
 
     function openAuthModal() {
       const modal = document.querySelector('.modalBlur');
@@ -186,14 +186,40 @@
       modal.style.display = 'none';
     }
 
+    function maskUserId(userId) {
+      if (userId.length <= 4) {
+        return userId; // 4자리 이하의 아이디는 그대로 표시
+      }
+      return userId.substring(0, 4) + '*'.repeat(userId.length - 4);
+    }
+
     function enableConfirmButton() {
       authConfirmButton.style.display = "block";
       document.getElementById('email').readOnly = true;
       document.getElementById('domain-txt').readOnly = true;
       document.getElementById('domain-list').readOnly = true;
+
+      const emailPrefix = document.getElementById('email').value;
+      const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
+      const userEmail = emailPrefix + '@' + emailDomain;
+
+      fetch(`/find/findid?userEmail=${encodeURIComponent(userEmail)}`)
+              .then(response => response.json())
+              .then(data => {
+                if (data.success) {
+                  const maskedUserId = maskUserId(data.userId);
+                  document.querySelector('.idModal').innerText = `아이디: ${data.userId}`;
+                } else {
+                  alert("아이디를 찾지 못했습니다.");
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert("서버와의 통신에 실패했습니다.");
+              });
+    }
     }
 
-    document.getElementById('authNumber').addEventListener('input', checkAuthCode);
 
     function notEnter() {
       document.addEventListener('keydown', function (event) {
@@ -235,7 +261,6 @@
         domainInputEl.disabled = false
       }
     });
-  }
 
   // 이메일 중복일 경우 아이디 알려주기
   document.getElementById('email').addEventListener('input', updateEmail);
