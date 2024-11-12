@@ -1,0 +1,732 @@
+@charset "UTF-8";
+body{
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+.dn{
+    display: none;
+}
+
+.tr{
+    transition: all 0.7s;
+}
+
+/*---------------nav------------------*/
+nav{
+    position: fixed;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+nav img{
+    /* 남호정 */
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+}
+
+nav span:nth-child(2) {
+    /* 소개 */
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #A3DA87;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
+}
+
+
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}
+
+
+
+/*---------------main------------------*/
+
+
+
+
+main #bg{
+    position: absolute;
+    width: 1920px;
+    top: 39px;
+    z-index: -5;
+}
+
+
+main .qickBtn img{
+    position: absolute;
+    width: 109px;
+    height: 109px;
+    left: 1759px;
+    top: 780px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+
+
+main .qickBtn img:first-child{
+    z-index: 55;
+    top: 780px;
+}
+
+
+main .qickBtn .clikbtn img:first-child{
+    /* Upward Arrow */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 664px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(2){
+    /* Sun */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 560px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(3){
+    /* Test Results */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 456px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn{
+    position: sticky;
+    top: -50px;
+    z-index: 9999;
+}
+
+
+main .bg{
+    width: 1920px;
+    position: fixed;
+    height: 100%;
+    background: #3B572D;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+.post #header{
+    position: absolute;
+    width: 1575px;
+    height: 80px;
+    left: 145px;
+    top: 175px;
+    z-index: 22;
+}
+
+
+#header span:nth-of-type(1) {
+    position: absolute;
+    width: 70px;
+    height: 62px;
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 50px;
+    color: #FFFFFF;
+    left:90px
+}
+
+#header span:nth-of-type(2) {
+    display: inline-block;
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 50px;
+    color: #FFFFFF;
+    margin-right: 30px;
+    margin-left: 190px;
+}
+
+#header span:nth-of-type(3){
+    display: inline-block;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 300;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
+#header span:nth-of-type(4){
+    display: inline-block;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 300;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    margin-left: 10px;
+}
+
+
+
+.post .line{
+    position: absolute;
+    width: 1575px;
+    height: 7px;
+    top: 270px;
+    background: #0E2913;
+    left: 145px;
+}
+
+#content{
+    position: relative;
+}
+#content span{
+    display: inline-block;
+    width: 937px;
+    margin-left: 145px;
+    margin-top: 324px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    line-height: 48px;
+    color: #FFFFFF;
+}
+
+#content img:nth-of-type(1){
+    position: absolute;
+    width: 579px;
+    height: 526px;
+    top: 324px;
+    left: 1140px;
+}
+
+#content img:nth-of-type(2){
+    position: absolute;
+    width: 579px;
+    height: 526px;
+    top: 900px;
+    left: 1140px;
+}
+
+#box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+
+.post #writer{
+    position: absolute;
+    width: 1650px;
+    left: 145px;
+}
+
+#writer img{
+    position: absolute;
+    top: 10px;
+}
+
+#writer span:nth-of-type(1){
+    position: absolute;
+    width: 165px;
+    height: 33px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 130px;
+    top: 20px;
+}
+
+#writer span:nth-of-type(2){
+    position: absolute;
+    width: 350px;
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 50px;
+    color: #FFFFFF;
+    top: 60px;
+    left: 130px;
+}
+
+#writer span:nth-of-type(3){
+    position: absolute;
+    width: 115px;
+    left: 470px;
+    top: 5px;
+}
+
+#writer div{
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    background: #0E2913;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    top: 70px;
+    left: 580px;
+}
+
+#writer div span:nth-of-type(1){
+    position: absolute;
+    height: 30px;
+    font-family: 'Cafe24 Ssurround air';
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: -42px;
+    top: 5px;
+}
+
+.post #scary{
+    position: absolute;
+    width: 544px;
+    height: 90px;
+    left: 1140px;
+    top: 10px;
+}
+
+#scary div{
+    position: absolute;
+    width: 136px;
+    height: 43px;
+    background: #B53E3E;
+    border: 3px solid #0E2913;
+    border-radius: 50px;
+    top: 0px;
+    left: 110px;
+}
+
+#scary div span{
+    position: absolute;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    text-align: center;
+    color: #0E2913;
+    top: 8px;
+    left: 18px;
+}
+
+#scary>span{
+    position: absolute;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: #FFFFFF;
+    top: 70px;
+    left: 150px;
+}
+
+
+.post #notscary{
+    position: absolute;
+    width: 544px;
+    height: 90px;
+    left: 1420px;
+    top: 10px;
+
+}
+
+#notscary div{
+    position: absolute;
+    width: 180px;
+    height: 43px;
+    background: #408D1C;
+    border: 3px solid #0E2913;
+    border-radius: 50px;
+    top: 0px;
+    left: 120px;
+}
+
+#notscary div span{
+    position: absolute;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    text-align: center;
+    color: #0E2913;
+    top: 8px;
+    left: 25px;
+}
+
+#notscary>span{
+    position: absolute;
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+    color: #FFFFFF;
+    top: 70px;
+    left: 190px;
+}
+
+.line2{
+    position: absolute;
+    width: 1575px;
+    height: 7px;
+    background: #0E2913;
+    left: 145px;
+    top: 150px;
+}
+
+.post input{
+    position: absolute;
+    width: 1307px;
+    height: 85px;
+    top: 200px;
+    background: #D9D9D9;
+    border-radius: 50px;
+    left: 145px;
+    color: #3F3F3F;
+    font-family: Cafe24SsurroundAir;
+    font-size: 30px;
+}
+
+.post button{
+    position: absolute;
+    width: 198px;
+    height: 65px;
+    background: #0E2913;
+    border: 4px solid #C9E5CA;
+    border-radius: 50px;
+    top: 210px;
+    left: 1500px;
+    color: #fff;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+}
+
+.post #comment{
+    position: absolute;
+    width: 1572px;
+    height: 143px;
+    left: 145px;
+    top: 360px;
+}
+
+#comment img:nth-of-type(1){
+    width: 73px;
+    height: 73px;
+}
+
+#comment span:nth-of-type(1){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 45px;
+    color: #FFFFFF;
+    top: 20px;
+    left: 105px;
+}
+
+#comment span img:nth-of-type(1){
+    position: absolute;
+    width: 59px;
+    height: 59px;
+    left: 1380px;
+    top: -25px;
+}
+
+#comment span:nth-of-type(3) {
+    position: absolute;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+    color: #FFFFFF;
+    left: 1380px;
+    top: 45px;
+}
+
+#comment img:nth-of-type(2){
+    position: absolute;
+    width: 70px;
+    left: 1478px;
+    top: -28px;
+}
+
+#comment span:nth-of-type(4) {
+    position: absolute;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+    color: #FFFFFF;
+    left: 1492px;
+    top: 45px;
+}
+
+#comment span:nth-of-type(5){
+    position: absolute;
+    width: 1563px;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 0px;
+    top: 100px;
+}
+
+
+.post #recomment{
+    position: absolute;
+    width: 1700px;
+    height: 143px;
+    left: 170px;
+    top: 530px;
+}
+
+#recomment>img:nth-of-type(1){
+    position: absolute;
+    width: 50px;
+    left: 0px;
+    top: 0px;
+}
+
+#recomment>img:nth-of-type(2){
+    position: absolute;
+    width: 58px;
+    left: 80px;
+    top: 10px;
+}
+
+#recomment span:nth-of-type(1){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 40px;
+    color: #FFFFFF;
+    top: 20px;
+    left: 160px;
+}
+
+#recomment span img:nth-of-type(1){
+    position: absolute;
+    width: 47px;
+    height: 47px;
+    left: 1360px;
+    top: -20px;
+}
+
+#recomment span:nth-of-type(3){
+    position: absolute;
+    left: 1360px;
+    top: 40px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#recomment>img:nth-of-type(3){
+    position: absolute;
+    width: 55px;
+    left: 1460px;
+    top: -23px;
+}
+
+#recomment span:nth-of-type(4){
+    position: absolute;
+    left: 1472px;
+    top: 40px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#recomment span:nth-of-type(5){
+    position: absolute;
+    width: 1436px;
+    left: 80px;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    top: 100px;
+}
+
+main .hidden{
+    position: absolute;
+    width: 134px;
+    height: 30px;
+    top: 750px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 900px;
+    border-bottom: #fff solid 3px;
+}
+
+
+
+
+
+
+/*---------------footer------------------*/
+footer .footer{
+    position: absolute;
+    width: 1920px;
+    height: 69px;
+    top: 2350px;
+    background: #0E2913;
+    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
+    z-index: 55;
+    margin-top: 50px;
+}
+
+footer .footer p{
+    position: absolute;
+    height: 31px;
+    font-family: 'SUIT';
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: 0.05em;
+    color: #D5D5D5;
+    left: 750px;
+    top: 20px;
+}

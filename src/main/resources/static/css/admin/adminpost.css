@@ -287,4 +287,12 @@ main {
     background-color: #ddd;
 }
 
+.post-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
 
+.post-link:hover {
+    color: #333;
+}

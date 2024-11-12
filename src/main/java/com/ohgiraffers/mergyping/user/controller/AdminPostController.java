@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -72,5 +73,12 @@ public class AdminPostController {
         response.put("totalPages", totalPages);
 
         return response;
+    }
+
+    @GetMapping("/admin/post/detail/{postNo}")
+    public String getPostDetail(@PathVariable("postNo") int postNo, Model model) {
+        AdminPostDTO postDetail = adminPostService.getPostDetail(postNo); // 게시물 정보 가져오기
+        model.addAttribute("postDetail", postDetail); // 모델에 게시물 추가
+        return "user/admin/adminpostdetail"; // 상세 페이지 뷰 반환
     }
 }
