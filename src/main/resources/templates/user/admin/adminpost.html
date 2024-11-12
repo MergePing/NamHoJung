@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>게시판</title>
+  <title>게시판전체조회</title>
   <link rel="stylesheet" th:href="@{/css/reset.css}">
-  <link rel="stylesheet" th:href="@{/css/post/post.css}">
+  <link rel="stylesheet" th:href="@{/css/admin/adminpost.css}">
   <style>
     .post {
       position: relative;
@@ -25,47 +25,39 @@
     <span>회원가입</span>
   </nav>
 </header>
+<!-- 배경 이미지 -->
 
 <main>
-  <!-- 배경 이미지 -->
   <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
 
-  <!-- 분류 -->
+  <!-- 분류 및 검색 -->
   <div class="select">
     <p>분류</p>
   </div>
-
-  <!-- 검색 -->
   <input type="search" placeholder="검색어를 입력하세요">
   <label><img th:src="@{/images/post/Search-dark.png}"></label>
 
   <!-- 게시물 리스트 헤더 -->
   <div class="sell">
-    <span>번호</span>
-    <span></span>
-    <span>게시물 제목</span>
-    <span>카테고리</span>
-    <span>등록날짜</span>
-    <span>무서워요</span>
-    <span>댓글</span>
+    <span class="sell-item sell-number">번호</span>
+    <span class="sell-item sell-title">게시물 제목</span>
+    <span class="sell-item sell-category">카테고리</span>
+    <span class="sell-item sell-date">등록날짜</span>
+    <span class="sell-item sell-scary">무서워요</span>
+    <span class="sell-item sell-comment">댓글</span>
   </div>
 
   <!-- 게시물 리스트 -->
-  <div class="post1" id="postContainer">
-    <div class="post" th:each="post, iterStat : ${postList}" th:attr="style=${'top: ' + (iterStat.index * 80) + 'px;'}">
-      <span th:text="${post.postNo}"></span>
-      <a th:href="@{/selectpost/{postNo}(postNo=${post.postNo})}">
-        <span th:text="${post.postTitle}"></span>
-      </a>
-      <div><span th:text="${post.postCategory}"></span></div>
-      <span th:text="${#temporals.format(post.postDate, 'yyyy-MM-dd')}"></span>
-      <span th:text="${post.scaryNumber}"></span>
-      <span th:text="${post.commentNumber}"></span>
+  <div class="post1">
+    <div class="post" th:each="post : ${postList}">
+      <span th:text="${post.postNo}" class="post-item post-item-number"></span>
+      <span th:text="${post.postTitle}" class="post-item post-item-title"></span>
+      <span th:text="${post.postCategory}" class="post-item post-item-category"></span>
+      <span th:text="${#temporals.format(post.postDate, 'yyyy-MM-dd')}" class="post-item post-item-date"></span>
+      <span th:text="${post.scaryNumber}" class="post-item post-item-scary"></span>
+      <span th:text="${post.commentNumber}" class="post-item post-item-comment"></span>
     </div>
   </div>
 </main>
-</body>
-<script>
-  // JavaScript 영역 - 필요한 경우 여기에 추가하세요.
 </script>
 </html>

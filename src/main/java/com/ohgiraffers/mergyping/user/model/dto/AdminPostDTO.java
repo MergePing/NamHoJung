@@ -1,25 +1,19 @@
 package com.ohgiraffers.mergyping.user.model.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AdminPostDTO {
     private int postNo;
     private String postTitle;
     private String postCategory;
-    private LocalDate postDate; // 변경: LocalDate로 정의
+    private LocalDateTime postDate; // 변경: LocalDate로 정의
     private int scaryNumber;
     private int commentNumber;
 
-    public AdminPostDTO() {}
-
-    public AdminPostDTO(int postNo, String postTitle, String postCategory, LocalDate postDate, int scaryNumber, int commentNumber) {
-        this.postNo = postNo;
-        this.postTitle = postTitle;
-        this.postCategory = postCategory;
-        this.postDate = postDate;
-        this.scaryNumber = scaryNumber;
-        this.commentNumber = commentNumber;
+    public AdminPostDTO() {
     }
+
 
     public int getPostNo() {
         return postNo;
@@ -45,11 +39,11 @@ public class AdminPostDTO {
         this.postCategory = postCategory;
     }
 
-    public LocalDate getPostDate() {
-        return postDate; // LocalDate로 변경된 getter
+    public LocalDateTime getPostDate() {
+        return postDate;
     }
 
-    public void setPostDate(LocalDate postDate) { // LocalDate로 변경된 setter
+    public void setPostDate(LocalDateTime postDate) {
         this.postDate = postDate;
     }
 
@@ -69,15 +63,15 @@ public class AdminPostDTO {
         this.commentNumber = commentNumber;
     }
 
-    @Override
-    public String toString() {
-        return "AdminPostDTO{" +
-                "postNo=" + postNo +
-                ", postTitle='" + postTitle + '\'' +
-                ", postCategory='" + postCategory + '\'' +
-                ", postDate=" + postDate +
-                ", scaryNumber=" + scaryNumber +
-                ", commentNumber=" + commentNumber +
-                '}';
+    public AdminPostDTO(int postNo, String postTitle, String postCategory, LocalDateTime postDate, int scaryNumber, int commentNumber) {
+        this.postNo = postNo;
+        this.postTitle = postTitle;
+        this.postCategory = postCategory;
+        this.postDate = postDate;
+        this.scaryNumber = scaryNumber;
+        this.commentNumber = commentNumber;
+
+
+
     }
 }

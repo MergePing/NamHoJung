@@ -11,7 +11,7 @@
         POST_NO AS postNo,
         POST_TITLE AS postTitle,
         POST_CATEGORY AS postCategory,
-        DATE(POST_DATE) AS postDate,
+        POST_DATE AS postDate,
         SCARY_NUMBER AS scaryNumber,
         COMMENTS_NUMBER AS commentNumber
         FROM TBL_POST
