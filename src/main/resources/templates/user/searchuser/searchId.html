@@ -61,6 +61,9 @@
   const btnOpenModal = document.querySelector('.authImg');
   const authConfirmButton = document.getElementById('authConfirm');
   const closeModalButton = document.getElementById('exitButton');
+  const authNumberInput = document.querySelector('.authNumber');
+
+  authNumberInput.disabled = true; // 처음에 비활성화 시켜놓고 인증 버튼 누르면 활성화 시키는 쪽으로
 
   // 모달 속도때문에 넣어둬야 함
   btnOpenModal.addEventListener("click", () => {
@@ -143,22 +146,17 @@
       })
               .then(response => response.json())
               .then(data => {
-                if (data.success) {
+                if (data.success) {  // 성공 시 실행할 부분
                   closeAuthModal();
-                  enableNextButton();
-                  subOn();
-                  nextButton.disabled = false;
-                  authConfirmButton.style.display = "block";
+                  enableConfirmButton();
+                  document.getElementById('emailCheckMessage2').innerText = "";
                 } else {
                   document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
-                  nextButton.disabled = true;
-                  authCodeInput.style.outline = "5px #FD3C3C solid";
                 }
               })
               .catch(error => {
                 console.error('Error:', error);
                 alert("서버와의 통신에 실패했습니다.");
-                nextButton.disabled = true;
               });
     }
 
@@ -175,9 +173,8 @@
     modal.style.display = 'none';
   }
 
-  function enableNextButton() {
-    const nextButton = document.getElementById('next');
-    nextButton.disabled = false;
+  function enableConfirmButton() {
+    authConfirmButton.style.display = "block";
     document.getElementById('email').readOnly = true;
     document.getElementById('domain-txt').readOnly = true;
     document.getElementById('domain-list').readOnly = true;

@@ -552,8 +552,8 @@ nav span:hover{
     position: absolute;
     width: 100px;
     height: 60px;
-    left: 1535px;
-    top: 684px;
+    left: 1020px;
+    top: 160px;
 
     background: mediumspringgreen;
     outline : 10px solid greenyellow;
@@ -633,7 +633,7 @@ option{
 
 .authNumber{
     position:absolute;
-    left: -315px;
+    left: 290px;
     top: 250px;
     font-family: 'Cafe24 Ssurround air';
     font-style: normal;
@@ -679,9 +679,22 @@ option{
     width: 40px;
     height: 40px;
     top: 20px;
-    left:1050px;
+    left:1075px;
     position: absolute;
     justify-content: center;
     color:white;
     font-size:25px;
+}
+
+#emailCheckMessage{
+    width: 400px;
+    position: absolute;
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    color:red;
+    z-index: 999;
+    top:275px;
+    left:705px;
 }

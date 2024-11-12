@@ -46,7 +46,7 @@ public class EmailService {
 
         helper.setFrom(fromEmail);
         helper.setTo(toEmail);
-        helper.setSubject("남호정 가입 이메일 인증");
+        helper.setSubject("남호정 이메일 인증");
         String htmlContent = "<html>" + "<body>"
                 + "<h1 style='text-align: center; position:absolute; left:850px; top:10px; color:white; font-style: italic;'>남호정</h1>"
                 + "<h2 style='text-align: center; position: absolute; left: 880px; top:50px; color:white; font-style: italic;>이메일 인증 코드</h2>"
