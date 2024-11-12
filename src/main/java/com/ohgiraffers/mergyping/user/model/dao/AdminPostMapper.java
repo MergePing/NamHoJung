@@ -16,4 +16,6 @@ public interface AdminPostMapper {
     List<AdminPostDTO> searchPosts(String keyword, int offset, int pageSize);
 
     int countPostsByKeyword(String keyword);
+
+    AdminPostDTO selectPostDetail(int postNo);
 }

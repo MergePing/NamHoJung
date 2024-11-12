@@ -46,5 +46,10 @@ public class AdminPostService {
 
     public int countPostsByKeyword(String keyword) {
         return adminPostMapper.countPostsByKeyword(keyword); // 검색된 게시물 총 개수
+
+    }
+
+    public AdminPostDTO getPostDetail(int postNo) {
+        return adminPostMapper.selectPostDetail(postNo);
     }
 }

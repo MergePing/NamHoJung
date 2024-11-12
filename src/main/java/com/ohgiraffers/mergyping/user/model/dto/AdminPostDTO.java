@@ -6,12 +6,24 @@ import java.time.LocalDateTime;
 public class AdminPostDTO {
     private int postNo;
     private String postTitle;
+    private String postContent;
     private String postCategory;
     private LocalDateTime postDate; // 변경: LocalDate로 정의
     private int scaryNumber;
     private int commentNumber;
 
     public AdminPostDTO() {
+    }
+
+
+    public AdminPostDTO(int postNo, String postTitle, String postContent, String postCategory, LocalDateTime postDate, int scaryNumber, int commentNumber) {
+        this.postNo = postNo;
+        this.postTitle = postTitle;
+        this.postContent = postContent;
+        this.postCategory = postCategory;
+        this.postDate = postDate;
+        this.scaryNumber = scaryNumber;
+        this.commentNumber = commentNumber;
     }
 
 
@@ -29,6 +41,14 @@ public class AdminPostDTO {
 
     public void setPostTitle(String postTitle) {
         this.postTitle = postTitle;
+    }
+
+    public String getPostContent() {
+        return postContent;
+    }
+
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
     }
 
     public String getPostCategory() {
@@ -61,17 +81,5 @@ public class AdminPostDTO {
 
     public void setCommentNumber(int commentNumber) {
         this.commentNumber = commentNumber;
-    }
-
-    public AdminPostDTO(int postNo, String postTitle, String postCategory, LocalDateTime postDate, int scaryNumber, int commentNumber) {
-        this.postNo = postNo;
-        this.postTitle = postTitle;
-        this.postCategory = postCategory;
-        this.postDate = postDate;
-        this.scaryNumber = scaryNumber;
-        this.commentNumber = commentNumber;
-
-
-
     }
 }

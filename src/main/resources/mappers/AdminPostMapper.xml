@@ -44,4 +44,18 @@
         FROM TBL_POST
         WHERE POST_TITLE LIKE CONCAT('%', #{keyword}, '%')
     </select>
+
+
+    <select id="selectPostDetail" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminPostDTO">
+        SELECT
+        POST_NO AS postNo,
+        POST_TITLE AS postTitle,
+        POST_CONTENTS AS postContent,
+        POST_CATEGORY AS postCategory,
+        POST_DATE AS postDate,
+        SCARY_NUMBER AS scaryNumber,
+        COMMENTS_NUMBER AS commentNumber
+        FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </select>
 </mapper>
