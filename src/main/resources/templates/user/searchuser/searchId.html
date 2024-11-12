@@ -236,6 +236,59 @@
       }
     });
   }
+
+  // 이메일 중복일 경우 아이디 알려주기
+  document.getElementById('email').addEventListener('input', updateEmail);
+  document.getElementById('domain-txt').addEventListener('input', updateEmail);
+  document.getElementById('domain-list').addEventListener('change', updateEmail);
+  document.getElementById('duplicate-hidden-email').addEventListener('change', updateEmail);
+
+  function updateEmail() {
+    const emailInput = document.querySelector('#email');
+    const domainInput = document.querySelector('#domain-txt');
+    const domainSelect = document.querySelector('#domain-list');
+
+    const frontEmail = emailInput.value + '@' + domainInput.value;
+    const hiddenEmailField = document.getElementById('duplicate-hidden-email');
+
+    let domain = '';
+
+    if (domainSelect.value !== "type") {
+      domain = domainSelect.value;
+    } else {
+      domain = domainInput.value;
+    }
+
+    if (domain) {
+      hiddenEmailField.value = frontEmail;
+
+      const emailInput = document.querySelector('#email');
+      const domainInput = document.querySelector('#domain-txt');
+      const userEmail = frontEmail;
+      const messageElement = document.getElementById('duplicateEmailCheck');
+      if (userEmail.length > 0) {
+        fetch(`/auth/searchemail?userEmail=${encodeURIComponent(userEmail)}`)
+                .then(response => response.json())
+                .then(isAvailable => {
+                  if (isAvailable) {
+
+                  } else {
+                    alert("회원 인증이 알맞지 않습니다. 다시 시도해주세요.")
+                  }
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  alert("회원 인증에 오류가 있습니다. 다시 시도해주세요.")
+                });
+      } else {
+        messageElement.textContent = "";
+        authButton.disabled = true;
+      }
+    } else {
+      hiddenEmailField.value = '';
+      authButton.disabled = true;
+    }
+  }
 </script>
 </body>
 </html>
