@@ -163,8 +163,30 @@
 
 
             <div class="line2"></div>
-            <input type="text" value="&nbsp; &nbsp; &nbsp; 댓글을 작성해주세요">
-            <button type="submit">댓글 작성</button>
+
+            <!-- 댓글 작성 영역 -->
+            <div id="comment-section">
+                <input type="text" id="comment-input" placeholder="댓글을 입력하세요..." />
+                <button onclick="submitComment()">댓글 작성</button>
+            </div>
+
+            <!-- 댓글 목록 -->
+            <div id="comments-list">
+                <div th:each="comment : ${comments}">
+                    <div class="comment">
+                        <img th:src="@{/images/post/selectpost/profile-img.png}">
+                        <span th:text="${comment.username}"></span>
+                        <span th:text="${comment.userLevel}"></span>
+                        <span th:text="${comment.commentContent}"></span>
+                        <span th:text="${comment.commentDate}"></span>
+                        <img th:src="@{/images/post/selectpost/like-btn-before.png}">
+                        <span>좋아요</span>
+                        <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                        <span>신고</span>
+
+                    </div>
+                </div>
+            </div>
 <!--            <div id="comment">-->
 <!--                <img th:src="@{/images/post/selectpost/profile-img.png}">-->
 <!--                <span th:text="${post.postWriter}"></span>-->
@@ -200,6 +222,86 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
+
+<script>
+    function submitComment() {
+        const commentInput = document.getElementById("comment-input");
+        const commentContent = commentInput.value.trim();
+
+        if (!commentContent) {
+            alert("댓글 내용을 입력해주세요.");
+            return;
+        }
+
+        // 게시물 번호 가져오기 (예: favorite-icon의 data-postNo 속성)
+        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");/* 게시물 번호 */;
+
+        function addCommentToDOM(comments) {
+            const commentsList = document.getElementById("comments-list");
+
+            // 기존 댓글 목록을 제거하고 새로운 댓글 목록을 추가
+            commentsList.innerHTML = "";
+
+            // comments가 배열인 경우만 처리
+            if (Array.isArray(comments)) {
+                comments.forEach((comment,index) => {
+                    const commentDiv = document.createElement("div");
+                    commentDiv.classList.add("comment");
+
+                    // 각 댓글의 위치를 동적으로 설정
+                    commentDiv.style.position = "relative";
+                    commentDiv.style.margintop = `${index * 150}px`;  // 댓글 간 간격 조절
+
+
+                    // 댓글 내용 추가 (사용자 이름, 레벨, 댓글 날짜 등 포함)
+                    commentDiv.innerHTML = `
+                        <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
+                        <span>${comment.username}</span>
+                        <span>${comment.userLevel}</span>
+                        <span>${comment.commentContent}</span>
+                        <span>${comment.commentDate}</span>
+                        <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
+                        <span>좋아요</span>
+                        <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
+                        <span>신고</span>
+            `;
+
+                    commentsList.appendChild(commentDiv);
+                });
+            } else {
+                console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
+            }
+        }
+
+        fetch(`/selectpost/${postNo}/comment`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                commentContent: commentContent
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.success) {
+                    // 댓글 추가 후 서버에서 최신 댓글 목록을 받아옴
+                    if (Array.isArray(data.comments)) {
+                        addCommentToDOM(data.comments);  // 댓글 목록을 DOM에 추가
+                    } else {
+                        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+                    }
+                    commentInput.value = "";
+                } else {
+                    alert(data.error || "댓글 작성에 실패했습니다.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+    }
+
+
+</script>
 <script>
     function toggleFavorite(element) {
         const postNo = element.getAttribute('data-postNo');

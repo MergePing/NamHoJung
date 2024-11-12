@@ -43,6 +43,14 @@
         <result property="userName" column="USER_NAME"/>
     </resultMap>
 
+    <resultMap id="commentResultMap" type="com.ohgiraffers.mergyping.comment.model.dto.CommentDTO">
+        <result property="commentNo" column="COMMENT_NO"/>
+        <result property="commentContent" column="COMMENT_CONTENT"/>
+        <result property="commentDate" column="COMMENT_DATE"/>
+        <result property="username" column="USER_NAME"/>
+        <result property="userLevel" column="LEVEL"/>
+    </resultMap>
+
 
     <select id="postList" resultMap="postList">
         SELECT
@@ -272,6 +280,44 @@
         WHERE POST_TITLE LIKE #{keyword}
         ORDER BY POST_NO;
     </select>
+
+    <!-- 댓글 저장 -->
+    <insert id="insertComment">
+        INSERT INTO TBL_COMMENT
+                (COMMENT_CONTENT,
+                USER_NO,
+                COMMENT_DATE,
+                POST_NO)
+        VALUES
+                (#{commentContent},
+                #{userNo},
+                NOW(),
+                #{postNo})
+    </insert>
+
+    <!-- 특정 게시물의 댓글 목록 조회 -->
+    <select id="selectCommentsByPostNo" resultMap="commentResultMap">
+        SELECT
+        C.COMMENT_NO,
+        C.COMMENT_CONTENT,
+        C.COMMENT_DATE,
+        U.USER_NAME AS USER_NAME,
+        L.LEVEL AS LEVEL
+        FROM
+        TBL_COMMENT C
+        JOIN TBL_USER U ON C.USER_NO = U.USER_NO
+        LEFT JOIN TBL_LEVEL L ON U.LEVEL_NO = L.LEVEL_NO
+        WHERE
+        C.POST_NO = #{postNo}
+        ORDER BY
+        C.COMMENT_DATE ASC
+    </select>
+
+    <update id="incrementCommentCount">
+        UPDATE TBL_POST
+        SET COMMENTS_NUMBER = COMMENTS_NUMBER + 1
+        WHERE POST_NO = #{postNo}
+    </update>
 
 
 

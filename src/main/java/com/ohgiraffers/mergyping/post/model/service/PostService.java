@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.post.model.service;
 
+import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
 import com.ohgiraffers.mergyping.post.model.dao.PostMapper;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
@@ -7,6 +8,7 @@ import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -137,49 +139,6 @@ public class PostService {
     }
 
 
-    public MyPageDTO findNickName(int userNo) {
-        return postMapper.findNickName(userNo);
-    }
-
-    public Integer getUserAttendanceCount(int userNo) {
-        return postMapper.getUserAttendanceCount(userNo);
-    }
-
-    public int calculateLevel(Integer attendanceCount) {
-        if (attendanceCount >= 161) {
-            return 10; // 고인물 정원사
-        } else if (attendanceCount >= 141) {
-            return 9;  // 최고의 정원사
-        } else if (attendanceCount >= 121) {
-            return 8;  // 역사에 남을 정원사
-        } else if (attendanceCount >= 101) {
-            return 7;  // 베테랑 정원사
-        } else if (attendanceCount >= 81) {
-            return 6;  // 성공한 정원사
-        } else if (attendanceCount >= 61) {
-            return 5;  // 최상급 정원사
-        } else if (attendanceCount >= 41) {
-            return 4;  // 고급 정원사
-        } else if (attendanceCount >= 21) {
-            return 3;  // 중급 정원사
-        } else if (attendanceCount >= 11) {
-            return 2;  // 초보 정원사
-        } else {
-            return 1;  // 신입 정원사
-        }
-    }
-
-    public void updateUserLevel(int userNo, int levelNo) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("userNo", userNo);
-        params.put("levelNo", levelNo);
-        postMapper.updateUserLevel(params);
-    }
-
-    public String getLevelName(int levelNo) {
-        return postMapper.getLevelName(levelNo);
-    }
-
 
     public List<PostDTO> searchPost(String keyword) {
         System.out.println("keyword = " + keyword);
@@ -192,4 +151,25 @@ public class PostService {
         return postMapper.getPostsByPage(offset, pageSize);
     }
 
+    public List<CommentDTO> getCommentsByPostNo(int postNo) {
+        return postMapper.selectCommentsByPostNo(postNo);
+    }
+
+
+    public boolean addComment(CommentDTO commentDTO) {
+
+        // 매퍼 메서드 호출하여 댓글 추가하고 성공 여부 반환
+        int result = postMapper.insertComment(commentDTO);
+        return result > 0;  // 결과가 0보다 크면 성공, 그렇지 않으면 실패
+    }
+
+    public boolean incrementCommentCount(int postNo) {
+        try {
+            postMapper.incrementCommentCount(postNo);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
