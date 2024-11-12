@@ -68,6 +68,10 @@ nav span:nth-child(7){
     border-radius: 100px;
 }
 
+#profilePhoto{
+    display: none;
+}
+
 .btn-upload{
 
     position: absolute;

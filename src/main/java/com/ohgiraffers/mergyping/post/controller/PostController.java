@@ -371,6 +371,7 @@ public class PostController {
             @RequestParam("postContent") String postContent,
             @RequestParam("postCategory") String postCategory,
             @RequestParam("postWriter") String postWriter,
+            @RequestParam("writerLevel") String writerLevel,
             @RequestParam("postNo") int postNo,
 
             // required = flase로 매개변수가 필수가 아님을 표시
@@ -388,6 +389,7 @@ public class PostController {
             selectPostDTO.setPostContent(postContent);
             selectPostDTO.setPostCategory(postCategory);
             selectPostDTO.setPostWriter(postWriter);
+            selectPostDTO.setWriterLevel(writerLevel);
             selectPostDTO.setPostNo(postNo);
 
             // 첫번째 파일이 null이 아니고 비어있지 않은 경우 파일, 게시글 번호, 이미지번호를 저장

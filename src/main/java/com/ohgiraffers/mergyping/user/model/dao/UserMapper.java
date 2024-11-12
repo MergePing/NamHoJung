@@ -25,4 +25,5 @@ public interface UserMapper {
     // 닉네임 검색 결과 목록 조회
     List<UserDTO> searchUsersByNickname(@Param("nickname") String nickname);
 
+    void updateUserImage(String postImageFirst, int userNo);
 }

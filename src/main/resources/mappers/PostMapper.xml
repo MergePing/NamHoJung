@@ -18,6 +18,7 @@
         <result property="postContent" column="POST_CONTENTS"/>
         <result property="postCategory" column="POST_CATEGORY"/>
         <result property="postWriter" column="POST_WRITER"/>
+        <result property="writerLevel" column="WRITER_LEVEL"/>
         <result property="postDate" column="POST_DATE"/>
         <result property="scaryNumber" column="SCARY_NUMBER"/>
         <result property="notScaryNumber" column="NOT_SCARY_NUMBER"/>
@@ -197,7 +198,7 @@
         POST_CONTENTS,
         POST_CATEGORY,
         POST_WRITER,
-        POST_LEVEL,
+        WRITER_LEVEL,
         POST_IMAGE_FIRST,
         POST_IMAGE_SECOND
         )
@@ -205,8 +206,8 @@
         #{postTitle},
         #{postContent},
         #{postCategory},
-        (SELECT A.USER_NAME FROM TBL_USER A WHERE A.USER_NO = #{postWriter}),
-        (SELECT C.LEVEL_NAME FROM TBL_USER A JOIN TBL_LEVEL C ON A.LEVEL_NO = C.LEVEL_NO WHERE A.USER_NO = #{postWriter}),
+        #{postWriter},
+        #{writerLevel},
         #{postImageFirst},
         #{postImageSecond}
         );

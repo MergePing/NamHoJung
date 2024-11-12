@@ -41,4 +41,6 @@ public class UserService {
     public List<UserDTO> searchUsersByNickname(String nickname) {
         return userMapper.searchUsersByNickname(nickname);
     }
+
+    public void updateUserProfileImage(String postImageFirst, int userNo) { userMapper.updateUserImage(postImageFirst, userNo); }
 }

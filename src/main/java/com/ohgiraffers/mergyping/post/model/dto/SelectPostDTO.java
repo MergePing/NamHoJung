@@ -7,6 +7,7 @@ public class SelectPostDTO {
     private String postTitle;
     private String postCategory;
     private String postWriter;
+    private String writerLevel;
     private String postContent;
     private LocalDate postDate;
     private int scaryNumber;
@@ -26,11 +27,12 @@ public class SelectPostDTO {
 
     public SelectPostDTO() {}
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String writerLevel, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
         this.postWriter = postWriter;
+        this.writerLevel = writerLevel;
         this.postContent = postContent;
         this.postDate = postDate;
         this.scaryNumber = scaryNumber;
@@ -76,6 +78,14 @@ public class SelectPostDTO {
 
     public void setPostWriter(String postWriter) {
         this.postWriter = postWriter;
+    }
+
+    public String getWriterLevel() {
+        return writerLevel;
+    }
+
+    public void setWriterLevel(String writerLevel) {
+        this.writerLevel = writerLevel;
     }
 
     public String getPostContent() {
@@ -189,6 +199,7 @@ public class SelectPostDTO {
                 ", postTitle='" + postTitle + '\'' +
                 ", postCategory='" + postCategory + '\'' +
                 ", postWriter='" + postWriter + '\'' +
+                ", writerLevel='" + writerLevel + '\'' +
                 ", postContent='" + postContent + '\'' +
                 ", postDate=" + postDate +
                 ", scaryNumber=" + scaryNumber +

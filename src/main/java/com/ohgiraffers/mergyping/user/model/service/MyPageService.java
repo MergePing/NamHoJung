@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.user.model.service;
 
+import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.user.model.dao.MyPageMapper;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPagePostDTO;
@@ -167,5 +168,6 @@ public class MyPageService {
     public void deleteUserAccount(int userNo) {
         myPageMapper.deleteUser(userNo);
     }
+
 }
 

@@ -30,6 +30,10 @@
         <result property="postNo" column="POST_NO"/>
     </resultMap>
 
+
+
+
+
     <select id="findWrittenPost" resultMap="mypagePostResultMap">
         SELECT
                 POST_NO,

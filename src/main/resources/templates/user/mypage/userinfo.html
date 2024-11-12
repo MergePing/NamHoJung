@@ -27,9 +27,59 @@
         <img class="infobackground" th:src="@{/images/mypageimages/background.png}" alt="다크모드 메인페이지 배경화면">
         <div class="infopopup">
             <p class="userfont">개인 정보</p>
-            <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
-            <button class="btn-upload">사진수정</button>
+            <input type="file" id="profilePhoto" accept="image/*" name="profilePhoto"  onchange="uploadFile()" alt="프로필 사진"/>
+                     <img id="profilePhotoPreview" th:src="@{/images/mypageimages/profile.png}" alt="Uploaded Image Preview" class="profile-photo" onclick="document.getElementById('profilePhoto').click();"/>
+            <button class="btn-upload" onclick="document.getElementById('profilePhoto').click();">사진수정</button>
             <button class="btn-delete" id="btndelete">탈퇴</button>
+            <script>
+                let images = {};
+
+                function uploadFile() {
+                    const fileInput = document.getElementById('profilePhoto');
+                    const file = fileInput.files[0];
+                    const userNo = parseInt(document.getElementById('userNo').value, 10); // 문자열에서 정수로 변환
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    formData.append('userNo', userNo);
+
+                    fetch('/uploadprofile', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('Success:', data);
+                            document.getElementById('profilePhotoPreview').src = URL.createObjectURL(file);
+                            images['profilePhotoPreview'] = data.filePath;
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                }
+
+                function submitForm() {
+                    const form = document.getElementById('postForm');
+                    const formData = new FormData(form);
+                    formData.append('profilePhotoPreview', images['profilePhotoPreview'] || '');
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                window.location.href = '/userinfo';
+                            } else {
+                                return response.json().then(err => { throw err; });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+
+                    return false;
+                }
+            </script>
+
 
             <div class="input-group">
                 <label class="mpId">아이디</label>
@@ -38,8 +88,9 @@
 
             <div class="input-group">
                 <label class="mpname">닉네임</label>
-                <form action="/userinfo" method="post">
+                <form id="postForm" action="/userinfo" method="post" onsubmit="return submitForm()">
                     <input type="text" name="userName" id="nickname" th:placeholder="${myPageDTO.userName}">
+                    <input type="hidden" id="userNo" name="userNo" th:value="${myPageDTO.userNo}">
                     <input type="password" name="newPassword" id="password" placeholder="영문,숫자,특수문자 8~12자리">
                     <button type="submit" class="btn-submit" id="btn-submit">수정</button>
                 </form>
@@ -48,16 +99,18 @@
             </div>
 
 
+
             <div class="input-group">
                 <label class="mppw">비밀번호</label>
-                <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
+                <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png"
+                                                                       alt="eye-icon"/></span>
                 <button class="mpchange" onclick="validatePassword()">확인</button>
                 <div id="passwordFeedback" class="pwdfeedback" style="color: red; display: none;"></div>
             </div>
 
-<!--            <div id="confirmpopup">-->
-<!--                <label class="confirmno">인증번호</label>-->
-<!--                <input type="text" id="confirm-no">-->
+            <!--            <div id="confirmpopup">-->
+            <!--                <label class="confirmno">인증번호</label>-->
+            <!--                <input type="text" id="confirm-no">-->
 <!--                <button class="btn-confirm1">인증</button>-->
 <!--            </div>-->
 

@@ -72,4 +72,12 @@
         GROUP BY u.USER_NO
         ORDER BY u.USER_NO
     </select>
+
+    <!-- userMapper.xml -->
+    <update id="updateUserImage">
+        UPDATE TBL_USER
+        SET USER_IMAGE = #{postImageFirst}
+        WHERE USER_NO = #{userNo}
+    </update>
+
 </mapper>
