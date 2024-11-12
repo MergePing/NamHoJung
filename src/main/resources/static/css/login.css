@@ -241,6 +241,13 @@ nav span:hover{
     color: #FFFFFF;
 }
 
+.search:hover{
+    color:black;
+}
+
+.search:active{
+    color:greenyellow;
+}
 
 .saveId {
     position: absolute;

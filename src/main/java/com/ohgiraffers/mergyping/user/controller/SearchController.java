@@ -13,4 +13,10 @@ public class SearchController {
 
         return "/user/searchuser/searchuser";
     }
+
+    @GetMapping("/id")
+    public String serachId() {
+
+        return "/user/searchuser/searchId";
+    }
 }
