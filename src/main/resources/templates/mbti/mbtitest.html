@@ -9,6 +9,11 @@
 <body>
 <div class="resolution">
   <img class="background" th:src="@{/images/mbti/testBackground.png}" alt="mbti 테스트 배경">
+
+  <div id="loadingbarMain">
+    <div id="loadingbar"></div>
+  </div>
+
   <nav>
     <!--네비바-->
     <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
@@ -94,9 +99,14 @@
             })
             .catch(error => console.error('Error submitting MBTI result:', error));
   }
-
-  let currentQuestionNo = 1;
+  const totalQuestions = 36; // 변하지 않을거니까 const
+  let currentQuestionNo = 1; // 변해야 하니까 let
   const mbtiTesterDTO = new MbtiTesterDTO(); // 결과담을 공간
+
+  function updateLoadingBar() {
+    const progress = (currentQuestionNo - 1) / totalQuestions * 100;
+    document.getElementById("loadingbar").style.width = progress + "%";
+  }
 
   function answerQuestion(answer) {
 
@@ -104,6 +114,8 @@
       submitMbtiResult();
       return;
     }
+
+    updateLoadingBar();
 
     mbtiTesterDTO.updateMbti(currentQuestionNo, answer);
     const imagePath = `/images/mbti/questions/mbti${currentQuestionNo}img.png`;
