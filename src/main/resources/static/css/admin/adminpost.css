@@ -173,323 +173,118 @@ nav span:hover{
 /*---------------main------------------*/
 
 
-main{
-    transition: all 1s;
+
+main {
+    margin-top: 79px; /* nav 아래 공간 확보 */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 가운데 정렬 */
+    justify-content: flex-start; /* 세로 정렬 */
+    padding: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: calc(100vh - 79px); /* 화면 전체 높이에서 nav 높이를 제외 */
 }
 
 
-main #bg{
+#bg {
     position: absolute;
     width: 1920px;
     top: 39px;
     z-index: -5;
 }
 
-
-main .qickBtn img{
-    position: absolute;
-    width: 109px;
-    height: 109px;
-    left: 1759px;
-    top: 780px;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-}
-
-
-main .qickBtn img:first-child{
-    z-index: 55;
-    top: 780px;
-}
-
-
-main .qickBtn .clikbtn img:first-child{
-    /* Upward Arrow */
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    left: 1768px;
-    top: 664px;
-    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
-}
-
-
-main .qickBtn .clikbtn img:nth-child(2){
-    /* Sun */
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    left: 1768px;
-    top: 560px;
-    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
-}
-
-
-main .qickBtn .clikbtn img:nth-child(3){
-    /* Test Results */
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    left: 1768px;
-    top: 456px;
-    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
-}
-
-
-main .qickBtn{
-    position: sticky;
-    top: -50px;
-    z-index: 9999;
-}
-
-
-main .select{
-    position: absolute;
-    width: 186px;
-    height: 53px;
-    background: #0E2913;
-    border-radius: 40px;
-    top: 180px;
-    left: 730px;
-}
-
-main .select:active{
-    border: 3px solid #FFFFFF;
-
-}
-
-main .select p{
-    position: absolute;
-    left: 65px;
-    top: 17px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-}
-
-
-main input{
-    position: absolute;
-    width: 668px;
-    height: 53px;
-    background: #0E2913;
-    border-radius: 40px;
-    top: 180px;
-    left: 930px;
-    border: none;
-    color: #fff;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    letter-spacing: 0.05em;
-}
-
-
-main label img{
-    position: absolute;
-    width: 66px;
-    height: 66px;
-    left: 1620px;
-    top: 178px;
-}
-
-
-main .sell span:nth-of-type(1){
-    position: absolute;
-    width: 50px;
+/* 공통 스타일 */
+.sell-item {
     height: 31px;
-    top: 280px;
-    font-family: 'BMJUA';
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
     font-size: 30px;
+    line-height: 31px;
     color: #FFFFFF;
-    left: 260px;
-}
-
-
-main .sell span:nth-of-type(2){
-    position: absolute;
-    width: 200px;
-    height: 31px;
-    top: 280px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 360px;
-}
-
-
-main .sell span:nth-of-type(3){
-    position: absolute;
-    width: 200px;
-    height: 31px;
-    top: 280px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 500px;
-}
-
-
-main .sell span:nth-of-type(4){
-    position: absolute;
-    width: 200px;
-    height: 31px;
-    top: 280px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 950px;
-}
-
-
-main .sell span:nth-of-type(5){
-    position: absolute;
-    width: 200px;
-    height: 31px;
-    top: 280px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 1150px;
-}
-
-
-main .sell span:nth-of-type(6){
-    position: absolute;
-    width: 200px;
-    height: 31px;
-    top: 280px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 1350px;
-}
-
-
-main .sell span:nth-of-type(7){
-    position: absolute;
-    width: 200px;
-    height: 31px;
-    top: 280px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 1550px;
-}
-
-
-main .post{
-    position: relative;
-    gap: 60px;
-}
-
-
-main .post span:nth-of-type(1){
-    position: absolute;
-    top: 380px;
-    font-family: 'BMJUA';
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 270px;
     text-align: center;
+    flex: 1;
 }
 
-
-main .post span:nth-of-type(3){
-    position: absolute;
-    left: 1120px;
-    top: 380px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    width: 410px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space:nowrap;
-    height:auto;
-    padding-top: 5px;
-    padding-bottom: 5px;
+/* 개별 스타일 */
+.sell-number {
+    flex: 0.5;
 }
 
-
-main .post span img{
-    position: absolute;
-    width: 56px;
-    left: 376px;
-    top: 365px;
-}
-
-
-main .post div{
-    box-sizing: border-box;
-    position: absolute;
-    width: 160px;
-    height: 45px;
-    left: 925px;
-    top: 365px;
-    background: #0E2913;
-    border: 2px solid #FFFFFF;
-    border-radius: 50px;
-}
-
-
-main .post div span:nth-of-type(1){
-    position: absolute;
-    width: 120px;
-    height: 30px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    text-align: center;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    left: 19px;
-    top: 10px;
-}
-
-
-main .post span:nth-of-type(4){
-    position: absolute;
-    left: 1380px;
-    top: 380px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-
-}
-
-
-
-main .post1 .post a>span{
-    position: absolute;
-    width: 400px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space:nowrap;
-    height:auto;
-    left: 510px;
+.sell-title {
+    flex: 2;
     text-align: left;
+    white-space: nowrap; /* 줄넘김 방지 */
 }
 
-main .post span:nth-of-type(5){
-    position: absolute;
-    left: 1560px;
-    top: 380px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    letter-spacing: 0.05em;
+.sell-category, .sell-date, .sell-scary, .sell-comment {
+    flex: 1;
+}
+
+/* 게시물 리스트 */
+.post1 {
+    display: flex;
+    flex-direction: column; /* 게시물을 세로로 정렬 */
+    align-items: center; /* 리스트를 중앙 정렬 */
+    gap: 10px; /* 항목 간 간격 */
+    padding: 20px; /* 리스트 전체 여백 */
+    width: 100%; /* 리스트의 전체 너비 설정 */
+    font-family: Cafe24SsurroundAir;
+    font-size: 30px;
+}
+
+.post {
+    display: flex;
+    justify-content: space-between; /* 항목 간 간격 균등 */
+    align-items: center; /* 수직 중앙 정렬 */
+    width: 80%; /* 리스트의 너비를 화면의 80%로 설정 */
+    padding: 10px; /* 내부 여백 */
+    box-sizing: border-box; /* 패딩 포함한 크기 계산 */
+}
+
+/* 개별 항목 스타일 */
+.post-item {
+    text-align: center; /* 텍스트 가운데 정렬 */
     color: #FFFFFF;
+    flex: 1; /* 모든 항목 동일한 크기 */
+}
 
+/* 특정 항목 조정 */
+.post-item-number {
+    flex: 0.5; /* 번호는 좁게 */
+}
+
+.post-item-title {
+    flex: 2; /* 제목은 넓게 */
+    text-align: left; /* 제목은 왼쪽 정렬 */
+}
+
+.post-item-category,
+.post-item-date,
+.post-item-scary,
+.post-item-comment {
+    flex: 1; /* 동일한 너비 */
+}
+
+/* 페이지네이션 */
+.pagination {
+    display: flex;
+    justify-content: center; /* 페이지네이션 버튼을 가운데 정렬 */
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination-btn {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-btn:hover {
+    background-color: #ddd;
 }
 
 
-main .post span:nth-of-type(6){
-    position: absolute;
-    left: 1560px;
-    top: 380px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-}
