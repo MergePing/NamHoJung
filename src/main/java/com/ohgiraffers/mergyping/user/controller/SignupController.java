@@ -39,14 +39,20 @@ public class SignupController {
 
             if (result > 0) {
                 message = "회원가입이 정상적으로 완료되었습니다.";
-                mv.setViewName("redirect:/signupconfirm");
+                mv.setViewName("redirect:/auth/signupconfirm");
             } else {
                 message = "회원가입에 실패하였습니다.";
-                mv.setViewName("redirect:/signupterms");
+                mv.setViewName("redirect:/auth/login");
             }
             mv.addObject("message", message);
 
         return mv;
+    }
+
+    @GetMapping("/signupconfirm")
+    public String signupConfirm() {
+
+        return "/user/signup/signupconfirm";
     }
 
     @GetMapping("/checkId")
