@@ -39,7 +39,7 @@ public class PostController {
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
 
     // 이미지 파일만 받기 위한 허용되는 확장자 목록
-    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png","gif");
+    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png","gif","webp");
 
 
     // 서비스 생성자
@@ -143,6 +143,7 @@ public class PostController {
             // PostImageSecond의 현재 값을 다시 PostImageSecond 필드에 추가
             selected.setPostImageSecond(selected.getPostImageSecond());
         }
+        System.out.println("selected11111111111111111 = " + selected);
 
         // 모델에 post라는 이름으로 선택한 게시글 추가
         model.addAttribute("post", selected);
@@ -544,6 +545,8 @@ public class PostController {
         System.out.println("File saved at: " + path.toString());
 
         // 클라이언트가 이미지를 볼수있게 이미지 경로 반환
+
+        System.out.println("222222222222"+imagePath);
         return imagePath;
     }
 
