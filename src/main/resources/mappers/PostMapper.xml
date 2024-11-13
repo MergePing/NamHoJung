@@ -315,6 +315,21 @@
         WHERE POST_NO = #{postNo}
     </update>
 
+
+    <select id="findUserInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
+        SELECT
+        USER_NO,
+        USER_NAME,
+        EMAIL,
+        USER_ID,
+        USER_IMAGE AS profileImage
+        FROM TBL_USER
+        WHERE USER_NO = #{userNo}
+    </select>
+
+
+
+
 <!--    &lt;!&ndash; 댓글 수정 쿼리 &ndash;&gt;-->
 <!--    <update id="updateComment" parameterType="com.ohgiraffers.mergyping.comment.model.dto.CommentDTO">-->
 <!--        UPDATE TBL_COMMENT-->

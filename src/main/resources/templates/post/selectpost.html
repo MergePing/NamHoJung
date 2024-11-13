@@ -43,7 +43,7 @@
         }
     </style>
 </head>
-<body>
+<body data-user-id="${user.id}">
 <header>
     <nav>
         <!-- 네비바 -->
@@ -216,6 +216,28 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
+
+<script>
+    function fetchProfileImage(element) {
+        const userId = document.body.getAttribute('data-user-id');
+        const writerId = element.getAttribute('data-writer-id');
+
+        fetch(`/getUserProfileImage?userId=${writerId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (writerId === userId) {
+                    element.src = data.profileImage;
+                } else {
+                    element.src = data.profileImage;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching profile image:', error);
+            });
+    }
+</script>
+
+
 
 <script>
     function submitComment() {
