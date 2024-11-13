@@ -94,6 +94,12 @@
 #### [목차로 이동](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#%EB%AA%A9%EC%B0%A8)
 
 ## 6. Project work division (업무 구분) / 수정예정
+이호준
+로그인(Security) - 로그인 실패, 로그인 실패 박스 이벤트, 아이디 찾기, 비밀번호 찾기
+회원가입 - 이메일 인증, 회원정보 저장
+MBTI 검사 - MBTI 검사 및 유형 구분 및 DB 저장
+형상 관리 - github 관리
+
 
 #### [목차로 이동](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#%EB%AA%A9%EC%B0%A8)
 
