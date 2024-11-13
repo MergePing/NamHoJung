@@ -23,10 +23,12 @@ public class SelectPostDTO {
     private boolean notScary;
     private String postImageFirstExtension;
     private String postImageSecondExtension;
+    private String profileImage;
 
     public SelectPostDTO() {}
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, int postWriter, String postWriterName, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension) {
+
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension, String profileImage) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -45,6 +47,7 @@ public class SelectPostDTO {
         this.notScary = notScary;
         this.postImageFirstExtension = postImageFirstExtension;
         this.postImageSecondExtension = postImageSecondExtension;
+        this.profileImage = profileImage;
     }
 
     public int getPostNo() {
@@ -191,6 +194,14 @@ public class SelectPostDTO {
         this.postImageSecondExtension = postImageSecondExtension;
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     @Override
     public String toString() {
         return "SelectPostDTO{" +
@@ -212,6 +223,7 @@ public class SelectPostDTO {
                 ", notScary=" + notScary +
                 ", postImageFirstExtension='" + postImageFirstExtension + '\'' +
                 ", postImageSecondExtension='" + postImageSecondExtension + '\'' +
+                ", profileImage='" + profileImage + '\'' +
                 '}';
     }
 }
