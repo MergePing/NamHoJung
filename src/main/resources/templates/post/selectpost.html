@@ -142,9 +142,18 @@
         </script>
 
         <div id="box">
-            <div id="writer">
-                <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
-                <span th:text="${post.postWriterName}"></span>
+            <div id="writer" class="post-user">
+
+                <div th:if="${userInfo.userName} == ${post.postWriterName}">
+                    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}"
+                         alt="프로필 사진" class="profile-photo" id="profilePhoto">
+                </div>
+                <div th:if="${userInfo.userName} != ${post.postWriterName}">
+                    <img th:src="@{${post.profileImage != null ? post.profileImage : '/images/mypageimages/profile.png'}}"
+                         alt="프로필 사진" class="profile-photo" id="profilePhoto1">
+                </div>
+
+                <span th:text="${userInfo.level}"></span>
                 <span th:text="${post.postWriterName}"></span>
                 <span> <img th:src="@{/images/post/selectpost/badge.png}">
             </span> <div> <span th:text="${post.postCategory}"></span>
