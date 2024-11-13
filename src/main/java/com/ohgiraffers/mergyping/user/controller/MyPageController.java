@@ -17,7 +17,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +32,8 @@ public class MyPageController {
 
     private final MyPageService myPageService;
     private final PasswordEncoder passwordEncoder;
+    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
+
 
     @Autowired
     public MyPageController(MyPageService myPageService, PasswordEncoder passwordEncoder) {
@@ -34,6 +41,21 @@ public class MyPageController {
         this.passwordEncoder = passwordEncoder;
 
     }
+
+
+        @ModelAttribute("userInfo")
+        public MyPageDTO addUserInfoToModel() {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+                AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+                int userNo = userDetails.getUserNo();
+                return myPageService.findUserInfo(userNo);
+            }
+            return new MyPageDTO();  // 인증되지 않은 경우 빈 DTO 반환
+        }
+
+
 
     @GetMapping("/userinfo")
     public String findUserInfo(Model model) {
@@ -54,6 +76,11 @@ public class MyPageController {
 
             MyPageDTO myPageDTO3 = myPageService.findId(userNo);
             model.addAttribute("myPageDTO3", myPageDTO3);
+
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+
+            model.addAttribute("userInfo", userInfo);
+
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트
@@ -131,9 +158,8 @@ public class MyPageController {
             model.addAttribute("myPageDTO", myPageDTO);
 
 
-
-
-
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
 
             Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
             model.addAttribute("mbtiInfo", mbtiInfo);
@@ -226,7 +252,95 @@ public class MyPageController {
     }
 
 
+//    -------------------------image-------------------------------
 
+    @PostMapping("/uploadProfilePhoto")
+    public ResponseEntity<Map<String, Object>> uploadProfilePhoto(@RequestParam("profilePhoto") MultipartFile file) {
+        Map<String, Object> response = new HashMap<>();
+        if (file.isEmpty()) {
+            response.put("success", false);
+            response.put("error", "파일이 선택되지 않았습니다.");
+            System.out.println("파일이 선택되지 않았습니다.");
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+                AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+                int userNo = userDetails.getUserNo();
+                String userName = userDetails.getUsername();
+
+                System.out.println("업로드 시작: userNo = " + userNo + ", userName = " + userName);
+
+                // 파일 확장자 확인 및 저장
+                String fileExtension = getFileExtension(file.getOriginalFilename());
+                String fileName = userNo + "_" + userName + "." + fileExtension;
+                Path filePath = Paths.get(UPLOAD_DIR + "profile/" + fileName);
+                Files.createDirectories(filePath.getParent());
+                Files.write(filePath, file.getBytes());
+
+                System.out.println("파일 저장 완료: filePath = " + filePath);
+
+                String fileUrl = "/uploads/profile/" + fileName;
+                response.put("success", true);
+                response.put("filePath", fileUrl);
+
+                // 사용자 프로필 이미지 업데이트
+                myPageService.updateProfileImage(userNo, fileUrl);
+                System.out.println("프로필 이미지 업데이트: fileUrl = " + fileUrl);
+
+                // 사용자 세션 업데이트
+                userDetails.getLoginUserDTO().setUserImage(fileUrl);
+                SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, null, authentication.getAuthorities()));
+                System.out.println("세션 정보 업데이트 완료");
+
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("success", false);
+                response.put("error", "인증되지 않은 사용자입니다.");
+                System.out.println("인증되지 않은 사용자입니다.");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("error", "파일 업로드 중 오류가 발생했습니다.");
+            System.out.println("파일 업로드 중 오류가 발생했습니다: " + e.getMessage());
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+
+    private String getFileExtension(String fileName) {
+        if (fileName == null || fileName.lastIndexOf('.') == -1) {
+            return "";
+        }
+        return fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+    }
+
+
+    // 파일 업로드를 처리하는 핸들러 메소드
+    private Map<String, String> handleFileUpload(MultipartFile file, int userNo, String userName) {
+        Map<String, String> response = new HashMap<>();
+        if (file.isEmpty()) {
+            response.put("error", "파일이 선택되지 않았습니다.");
+            return response;
+        }
+
+        String fileExtension = getFileExtension(file.getOriginalFilename());
+        String fileName = userNo + "_" + userName + "." + fileExtension;
+        Path filePath = Paths.get(UPLOAD_DIR + "profile/" + fileName);
+        try {
+            Files.createDirectories(filePath.getParent());
+            Files.write(filePath, file.getBytes());
+            String fileUrl = "/uploads/profile/" + fileName;
+            response.put("filePath", fileUrl);
+        } catch (IOException e) {
+            e.printStackTrace();
+            response.put("error", "파일 업로드 실패: " + e.getMessage());
+        }
+        return response;
+    }
 
 
 
