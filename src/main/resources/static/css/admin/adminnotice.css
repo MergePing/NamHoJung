@@ -567,3 +567,9 @@ main .pageNum img:nth-of-type(2){
     font-weight: bold;
     color: white;
 }
+
+.notice span:nth-child(2) {
+    margin-left: 20px; /* 카테고리와 다른 텍스트 사이 여백 */
+    font-size: 18px; /* 폰트 크기 */
+    color: gray; /* 카테고리 색상 */
+}

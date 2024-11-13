@@ -28,6 +28,10 @@ public interface AdminNoticeMapper {
     // 공지사항 추가
     int insertNotice(AdminNoticeDTO noticeDTO);
 
-    // 공지사항 검색
-    List<AdminNoticeDTO> searchNoticesByTitle(@Param("keyword") String keyword);
+    // 검색 결과 페이징 처리
+    List<AdminNoticeDTO> searchNoticesByTitle(@Param("keyword") String keyword, @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    // 검색 결과 개수 조회
+    int countNoticesByKeyword(@Param("keyword") String keyword);
+
 }

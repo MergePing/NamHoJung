@@ -51,14 +51,15 @@ public class AdminNoticeController {
         int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("noticeList", notices);
-        response.put("currentPage", page);
-        response.put("totalPages", totalPages);
-        response.put("startPage", Math.max(1, page - 2));
-        response.put("endPage", Math.min(totalPages, page + 2));
+        response.put("noticeList", notices);          // 공지사항 리스트
+        response.put("currentPage", page);            // 현재 페이지
+        response.put("totalPages", totalPages);       // 전체 페이지 수
+        response.put("startPage", Math.max(1, page - 2)); // 페이지네이션 시작
+        response.put("endPage", Math.min(totalPages, page + 2)); // 페이지네이션 끝
 
-        return response; // 페이지네이션 데이터 JSON 반환
+        return response; // JSON 형태로 반환
     }
+
 
     // 공지사항 상세 조회
     @GetMapping("/admin/notice/detail/{noticeNo}")
@@ -107,13 +108,23 @@ public class AdminNoticeController {
     }
 
     // 검색 요청 처리
+
     @GetMapping("/admin/notice/search")
     @ResponseBody
-    public Map<String, Object> searchNotices(@RequestParam("keyword") String keyword) {
-        List<AdminNoticeDTO> notices = adminNoticeService.searchNoticesByTitle(keyword);
+    public Map<String, Object> searchNotices(@RequestParam("keyword") String keyword,
+                                             @RequestParam(defaultValue = "1") int page,
+                                             @RequestParam(defaultValue = "7") int pageSize) {
+        List<AdminNoticeDTO> notices = adminNoticeService.searchNoticesByTitle(keyword, page, pageSize);
+        int totalNotices = adminNoticeService.countNoticesByKeyword(keyword); // 검색 결과 개수
+        int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("noticeList", notices);
-        return response;
+        response.put("noticeList", notices);          // 검색 결과 리스트
+        response.put("currentPage", page);            // 현재 페이지
+        response.put("totalPages", totalPages);       // 전체 페이지 수
+        response.put("startPage", Math.max(1, page - 2)); // 페이지네이션 시작
+        response.put("endPage", Math.min(totalPages, page + 2)); // 페이지네이션 끝
+
+        return response; // JSON 형태로 반환
     }
 }

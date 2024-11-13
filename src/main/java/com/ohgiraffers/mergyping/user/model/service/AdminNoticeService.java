@@ -45,14 +45,18 @@ public class AdminNoticeService {
 
     // 공지사항 추가 기능
     public boolean addNotice(AdminNoticeDTO noticeDTO) {
-        int rowsAffected = adminNoticeMapper.insertNotice(noticeDTO);
-        return rowsAffected > 0; // 추가 성공 여부 반환
+        return adminNoticeMapper.insertNotice(noticeDTO) > 0;
     }
+
 
 
     // 공지사항 검색 기능
-    public List<AdminNoticeDTO> searchNoticesByTitle(String keyword) {
-        return adminNoticeMapper.searchNoticesByTitle("%" + keyword + "%");
+    public List<AdminNoticeDTO> searchNoticesByTitle(String keyword, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        return adminNoticeMapper.searchNoticesByTitle(keyword, offset, pageSize);
     }
 
+    public int countNoticesByKeyword(String keyword) {
+        return adminNoticeMapper.countNoticesByKeyword(keyword);
+    }
 }
