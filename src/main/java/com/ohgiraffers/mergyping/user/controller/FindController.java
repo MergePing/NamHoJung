@@ -1,9 +1,9 @@
 package com.ohgiraffers.mergyping.user.controller;
 
-import com.ohgiraffers.mergyping.user.model.dto.FIndUserDTO;
-import com.ohgiraffers.mergyping.user.model.dto.UserDTO;
+import com.ohgiraffers.mergyping.user.model.dto.FindUserDTO;
 import com.ohgiraffers.mergyping.user.model.service.FindService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,15 +33,18 @@ public class FindController {
         return "/user/searchuser/searchId";
     }
 
-/*    @GetMapping("/checkemail")
+    @GetMapping("/findid")
     public ResponseEntity<Map<String, Object>> findId(@RequestParam String userEmail) {
         Map<String, Object> response = new HashMap<>();
-        Optional<FIndUserDTO>findUserDTO = findService.findId;
-
+        Optional<FindUserDTO> findUserDTO = findService.findId(userEmail);
         if (findUserDTO.isPresent()) {
-
-
+            response.put("success", true);
+            response.put("id", findUserDTO.get().getId());
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            response.put("message", "아이디를 찾을 수 없습니다.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
-        return findUserDTO.ok(response);
-    }*/
+    }
 }
