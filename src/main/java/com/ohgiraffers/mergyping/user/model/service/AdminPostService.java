@@ -52,4 +52,6 @@ public class AdminPostService {
     public AdminPostDTO getPostDetail(int postNo) {
         return adminPostMapper.selectPostDetail(postNo);
     }
+
+
 }

@@ -3,12 +3,10 @@ package com.ohgiraffers.mergyping.user.controller;
 import com.ohgiraffers.mergyping.user.model.dto.AdminPostDTO;
 import com.ohgiraffers.mergyping.user.model.service.AdminPostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -80,5 +78,21 @@ public class AdminPostController {
         AdminPostDTO postDetail = adminPostService.getPostDetail(postNo); // 게시물 정보 가져오기
         model.addAttribute("postDetail", postDetail); // 모델에 게시물 추가
         return "user/admin/adminpostdetail"; // 상세 페이지 뷰 반환
+    }
+
+    @DeleteMapping("/admin/post/delete/{postNo}")
+    @ResponseBody
+    public ResponseEntity<String> deletePost(@PathVariable("postNo") int postNo) {
+        try {
+            boolean isDeleted = adminPostService.deletePost(postNo); // 서비스 호출
+            if (isDeleted) {
+                return ResponseEntity.ok("게시물이 성공적으로 삭제되었습니다.");
+            } else {
+                return ResponseEntity.status(500).body("게시물 삭제에 실패했습니다.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("서버 오류로 인해 게시물을 삭제할 수 없습니다.");
+        }
     }
 }
