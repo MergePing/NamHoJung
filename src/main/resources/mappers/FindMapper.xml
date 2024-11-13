@@ -5,10 +5,10 @@
 
 <mapper namespace="com.ohgiraffers.mergyping.user.model.dao.FindMapper">
 
-    <select id="findIdByEmail" parameterType="string" resultType="com.ohgiraffers.mergyping.user.model.dto.FIndUserDTO">
+    <select id="findIdByEmail" parameterType="string" resultType="com.ohgiraffers.mergyping.user.model.dto.FindUserDTO">
         SELECT
-        USER_ID,
-        EMAIL
+        USER_ID
+        , EMAIL
         FROM TBL_USER
         WHERE EMAIL = #{userEmail}
     </select>

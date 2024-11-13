@@ -1,15 +1,15 @@
 package com.ohgiraffers.mergyping.user.model.dto;
 
-public class FIndUserDTO {
+public class FindUserDTO {
     private String id;
     private String password;
     private String email;
     private String name;
     private String role;
 
-    public FIndUserDTO() {}
+    public FindUserDTO() {}
 
-    public FIndUserDTO(String id, String password, String email, String name, String role) {
+    public FindUserDTO(String id, String password, String email, String name, String role) {
         this.id = id;
         this.password = password;
         this.email = email;

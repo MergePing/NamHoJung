@@ -1,6 +1,5 @@
 package com.ohgiraffers.mergyping.user.model.dao;
 
-import com.ohgiraffers.mergyping.user.model.dto.FIndUserDTO;
 import com.ohgiraffers.mergyping.user.model.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
