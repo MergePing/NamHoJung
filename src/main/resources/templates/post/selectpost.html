@@ -94,8 +94,10 @@
             </script>
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
-            <span> <img th:src="@{/images/post/selectpost/reportbtn.png}"> </span>
-            <span>신고</span>
+            <div th:if="${userInfo.userName} != ${post.postWriterName}">
+                <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                <span>신고</span>
+            </div>
         </div>
         <div class="line"></div>
         <div id="content">
@@ -206,8 +208,11 @@
                         <span th:text="${comment.commentDate}"></span>
                         <img th:src="@{/images/post/selectpost/like-btn-before.png}">
                         <span>좋아요</span>
-                        <img th:src="@{/images/post/selectpost/reportbtn.png}">
-                        <span>신고</span>
+
+                        <div th:if="${userInfo.userName} != ${post.postWriterName}">
+                            <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                            <span>신고</span>
+                        </div>
 
                     </div>
                 </div>
@@ -219,6 +224,11 @@
         </div>
     </div>
     <div class="bg"></div>
+
+    <div th:if="${userInfo.userName} == ${post.postWriterName}">
+        <button type="button" onclick="editPost()" id="editBtn">수정</button>
+        <button type="button" onclick="deletePost()" id="deleteBtn">삭제</button>
+    </div>
 </main>
 <footer>
     <div class="footer">
@@ -227,24 +237,123 @@
 </footer>
 
 <script>
-    function fetchProfileImage(element) {
-        const userId = document.body.getAttribute('data-user-id');
-        const writerId = element.getAttribute('data-writer-id');
+    function editPost(postNo) {
+        // 게시글 수정 모달 창 열기
+        // 여기에 모달 창을 여는 코드를 추가합니다.
+        const modal = document.getElementById('editPostModal');
+        modal.style.display = 'block';
 
-        fetch(`/getUserProfileImage?userId=${writerId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (writerId === userId) {
-                    element.src = data.profileImage;
-                } else {
-                    element.src = data.profileImage;
-                }
+        // 필요한 경우, 기존 게시글 내용을 모달 폼에 채워줍니다.
+        // 예: document.getElementById('modalPostTitle').value = 기존 게시글 제목;
+    }
+
+    function closeModal() {
+        // 모달 창 닫기
+        const modal = document.getElementById('editPostModal');
+        modal.style.display = 'none';
+    }
+
+    function deletePost(postNo) {
+        if (confirm("정말 삭제하시겠습니까?")) {
+            fetch(`/deletepost/${postNo}`, {
+                method: 'DELETE'
             })
-            .catch(error => {
-                console.error('Error fetching profile image:', error);
-            });
+                .then(response => {
+                    if (response.ok) {
+                        alert("게시글이 삭제되었습니다.");
+                        window.location.href = '/posts'; // 게시글 목록 페이지로 이동
+                    } else {
+                        alert("삭제에 실패했습니다.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting post:', error);
+                    alert("삭제에 실패했습니다.");
+                });
+        }
     }
 </script>
+
+
+
+
+<!--&lt;!&ndash; 모달 창 &ndash;&gt;-->
+<!--<div id="editModal" class="modal">-->
+<!--    <div class="modal-content">-->
+<!--        <span class="close" onclick="closeEditModal()">&times;</span>-->
+<!--        <h2>게시글 수정</h2>-->
+<!--        <form id="editForm">-->
+<!--            <input type="hidden" id="editPostNo" name="postNo">-->
+<!--            <label for="editPostTitle">제목</label>-->
+<!--            <input type="text" id="editPostTitle" name="postTitle" required>-->
+<!--            <label for="editPostContent">내용</label>-->
+<!--            <textarea id="editPostContent" name="postContent" required></textarea>-->
+<!--            <button type="submit">수정</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    function showEditModal(postNo) {-->
+<!--        document.getElementById('editPostNo').value = postNo;-->
+<!--        // 모달 창 열기-->
+<!--        document.getElementById('editModal').style.display = 'block';-->
+<!--    }-->
+
+<!--    function closeEditModal() {-->
+<!--        // 모달 창 닫기-->
+<!--        document.getElementById('editModal').style.display = 'none';-->
+<!--    }-->
+
+<!--    function deletePost(postNo) {-->
+<!--        if (confirm("정말 삭제하시겠습니까?")) {-->
+<!--            fetch(`/deletepost/${postNo}`, {-->
+<!--                method: 'DELETE'-->
+<!--            })-->
+<!--                .then(response => {-->
+<!--                    if (response.ok) {-->
+<!--                        alert("게시글이 삭제되었습니다.");-->
+<!--                        window.location.href = '/posts'; // 게시글 목록 페이지로 이동-->
+<!--                    } else {-->
+<!--                        alert("삭제에 실패했습니다.");-->
+<!--                    }-->
+<!--                })-->
+<!--                .catch(error => {-->
+<!--                    console.error('Error deleting post:', error);-->
+<!--                    alert("삭제에 실패했습니다.");-->
+<!--                });-->
+<!--        }-->
+<!--    }-->
+
+<!--    // 수정 폼 제출-->
+<!--    document.getElementById('editForm').addEventListener('submit', function(event) {-->
+<!--        event.preventDefault();-->
+<!--        const postNo = document.getElementById('editPostNo').value;-->
+<!--        const postTitle = document.getElementById('editPostTitle').value;-->
+<!--        const postContent = document.getElementById('editPostContent').value;-->
+
+<!--        fetch(`/editpost/${postNo}`, {-->
+<!--            method: 'POST',-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json'-->
+<!--            },-->
+<!--            body: JSON.stringify({postTitle: postTitle, postContent: postContent})-->
+<!--        })-->
+<!--            .then(response => {-->
+<!--                if (response.ok) {-->
+<!--                    alert("게시글이 수정되었습니다.");-->
+<!--                    closeEditModal();-->
+<!--                    window.location.reload(); // 페이지 새로고침-->
+<!--                } else {-->
+<!--                    alert("수정에 실패했습니다.");-->
+<!--                }-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Error editing post:', error);-->
+<!--                alert("수정에 실패했습니다.");-->
+<!--            });-->
+<!--    });-->
+<!--</script>-->
 
 
 

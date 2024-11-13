@@ -632,6 +632,27 @@ public class PostController {
         return response; // JSON 형식으로 응답을 반환
     }
 
+
+
+//--------------------수정---------------------------------
+    @PostMapping("/editpost/{postNo}")
+    public ResponseEntity<String> editPost(@PathVariable("postNo") int postNo, @RequestBody Map<String, String> payload) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            SelectPostDTO selected = postService.selectById(postNo);
+
+            if (selected != null && selected.getPostWriter() == userNo) {
+                postService.editPost(postNo, payload.get("postTitle"), payload.get("postContent"));
+                return ResponseEntity.ok("게시글이 수정되었습니다.");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("수정 권한이 없습니다.");
+    }
+
+
 }
 
 
