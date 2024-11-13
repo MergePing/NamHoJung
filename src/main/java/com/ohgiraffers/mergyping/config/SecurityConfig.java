@@ -37,11 +37,10 @@ public class SecurityConfig  {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers( "/auth/**",
-                    "/", "/main", "/css/**", "/img/**", "/error/**",
-                    "/userinfo/**", "/useractive/**", "/intro", "/notice", "/selectnotice", "/selectpost","/writepost", "/find/**",
-                    "/checknickname/**", "/admin/**", "/toggleFavorite", "/post/**","selectpost/**","/toggleScary/**","/toggleNotScary/**").permitAll();
-            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
-            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
+                    "/css/**", "/img/**", "/error/**", "/find/**","selectpost/**","/toggleScary/**","/toggleNotScary/**").permitAll();
+            auth.requestMatchers("/admin/**").hasAnyAuthority(UserRole.ADMIN.getRole());
+            auth.requestMatchers("/user/**", "/", "/main", "/userinfo/**", "/useractive/**", "/intro/**", "/notice/**"
+            , "/selectnotice/**", "/selectpost/**", "/writepost", "/checknickname/**", "/toggleFavorite", "/post/**", "selectpost/**").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();
 
         }).formLogin( login -> {
