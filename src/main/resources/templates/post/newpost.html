@@ -116,7 +116,7 @@
 
       <div id="box">
         <div id="Writer">
-          <img th:src="@{/images/post/selectpost/profile-img.png}">
+          <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
 <!--          <span th:text="${userLevel}"></span>-->
           <span id="level">최고의 정원사</span>
           <div class="wrapper">
@@ -154,7 +154,7 @@
 
 <script> // 서버에서 유저 정보를 받아오는 함수
 function fetchUserInfo() {
-  fetch('/auth/user-info')
+  fetch('/user-info')
           .then(response => response.json())
           .then(data => {
             // 받아온 데이터에서 유저 이름과 레벨을 설정

@@ -143,7 +143,7 @@
 
         <div id="box">
             <div id="writer">
-                <img th:src="@{/images/post/selectpost/profile-img.png}">
+                <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
                 <span th:text="${post.postWriterName}"></span>
                 <span th:text="${post.postWriterName}"></span>
                 <span> <img th:src="@{/images/post/selectpost/badge.png}">
