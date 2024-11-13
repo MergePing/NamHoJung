@@ -18,4 +18,6 @@ public interface AdminPostMapper {
     int countPostsByKeyword(String keyword);
 
     AdminPostDTO selectPostDetail(int postNo);
+
+    int deletePost(int postNo);
 }
