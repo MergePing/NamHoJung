@@ -17,7 +17,7 @@
         <result property="postTitle" column="POST_TITLE"/>
         <result property="postContent" column="POST_CONTENTS"/>
         <result property="postCategory" column="POST_CATEGORY"/>
-        <result property="postWriter" column="POST_WRITER"/>
+        <result property="postWriterName" column="POST_WRITER"/>
         <result property="postDate" column="POST_DATE"/>
         <result property="scaryNumber" column="SCARY_NUMBER"/>
         <result property="notScaryNumber" column="NOT_SCARY_NUMBER"/>
@@ -116,35 +116,36 @@
 
     <select id="getPostsByPageSelect" resultMap="selectPost">
         SELECT
-        POST_NO,
-        POST_TITLE,
-        POST_CATEGORY,
-        POST_DATE,
-        SCARY_NUMBER,
-        COMMENTS_NUMBER,
-        POST_FAVORITE
+            POST_NO,
+            POST_TITLE,
+            POST_CATEGORY,
+            POST_DATE,
+            SCARY_NUMBER,
+            COMMENTS_NUMBER,
+            POST_FAVORITE
         FROM TBL_POST
         ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize};
     </select>
 
     <select id="selectById" resultMap="selectPost">
         SELECT
-        POST_NO,
-        POST_TITLE,
-        POST_CONTENTS,
-        POST_CATEGORY,
-        POST_WRITER,
-        POST_DATE,
-        SCARY_NUMBER,
-        NOT_SCARY_NUMBER,
-        COMMENTS_NUMBER,
-        POST_REPORT,
-        POST_IMAGE_FIRST,
-        POST_IMAGE_SECOND,
-        POST_FAVORITE,
-        SCARY,
-        NOT_SCARY
-        FROM TBL_POST
+        A.POST_NO,
+        A.POST_TITLE,
+        A.POST_CONTENTS,
+        A.POST_CATEGORY,
+        B.USER_NAME AS POST_WRITER,
+        A.POST_DATE,
+        A.SCARY_NUMBER,
+        A.NOT_SCARY_NUMBER,
+        A.COMMENTS_NUMBER,
+        A.POST_REPORT,
+        A.POST_IMAGE_FIRST,
+        A.POST_IMAGE_SECOND,
+        A.POST_FAVORITE,
+        A.SCARY,
+        A.NOT_SCARY
+        FROM TBL_POST A
+        JOIN TBL_USER B ON A.POST_WRITER = B.USER_NO
         WHERE POST_NO = #{postNo};
     </select>
 
@@ -199,7 +200,7 @@
         WHERE POST_NO = #{postNo}
     </select>
 
-    <insert id="insertPost" parameterType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+    <insert id="insertPost" parameterType="com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO">
         INSERT INTO TBL_POST (
         POST_TITLE,
         POST_CONTENTS,
