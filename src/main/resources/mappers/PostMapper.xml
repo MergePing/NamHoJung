@@ -212,7 +212,7 @@
         #{postTitle},
         #{postContent},
         #{postCategory},
-        1, <!-- 임시로 0을 사용하여 외래 키 제약을 피합니다. -->
+        #{postWriter},
         #{postImageFirst},
         #{postImageSecond}
         );
