@@ -58,7 +58,7 @@ public class SecurityConfig  {
 
         }).sessionManagement( session -> {
             session.maximumSessions(1);
-            session.invalidSessionUrl("/");
+            session.invalidSessionUrl("/auth/login");
 
         }).csrf( csrf -> csrf.disable());
 

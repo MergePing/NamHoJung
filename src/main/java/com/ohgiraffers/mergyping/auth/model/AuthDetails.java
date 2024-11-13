@@ -55,24 +55,29 @@ public class AuthDetails implements UserDetails {
     }
 
 
+    // 전부 DB에 컬럼 있어야 사용 가능 -> 현재 탈퇴 날짜가 있어 사용가능함
+    // 계정 만료용? 탈퇴하고 ? 넣으면 될듯함 -> 만료된 계정 false
     @Override
     public boolean isAccountNonExpired() {
 //        return UserDetails.super.isAccountNonExpired();
         return true;
     }
 
+    // 계정 잠금 확인용 -> 잠금 : false , 열림 true
     @Override
     public boolean isAccountNonLocked() {
 //        return UserDetails.super.isAccountNonLocked();
         return true;
     }
 
+    // 비밀번호 만료 -> false 반환 만료 -> 보안을 위해 비밀번호 만료날짜?
     @Override
     public boolean isCredentialsNonExpired() {
 //        return UserDetails.super.isCredentialsNonExpired();
         return true;
     }
 
+    // 계정 활성화 확인용 -> true 활성화, false 비활성화
     @Override
     public boolean isEnabled() {
 //        return UserDetails.super.isEnabled();
