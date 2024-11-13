@@ -27,8 +27,7 @@ public class SelectPostDTO {
 
     public SelectPostDTO() {}
 
-
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension, String profileImage) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, int postWriter, String postWriterName, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension, String profileImage) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
