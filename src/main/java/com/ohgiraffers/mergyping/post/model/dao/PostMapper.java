@@ -1,6 +1,7 @@
 package com.ohgiraffers.mergyping.post.model.dao;
 
 import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
+import com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
@@ -47,7 +48,7 @@ public interface PostMapper {
     int getNotScaryNumber(@RequestParam("postNo") int postNo);
 
     // 새로만든 selectPostDTO를 통해 새로운 게시물 생성
-    void insertPost(SelectPostDTO selectPostDTO);
+    void insertPost(InsertPostDTO insertPostDTO);
 
     //  전체 게시물의 개수 조회
     int getPostCount();

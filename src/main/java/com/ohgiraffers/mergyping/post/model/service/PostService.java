@@ -2,6 +2,7 @@ package com.ohgiraffers.mergyping.post.model.service;
 
 import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
 import com.ohgiraffers.mergyping.post.model.dao.PostMapper;
+import com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,10 +132,10 @@ public class PostService {
 
 
         // 새로운 게시물 생성
-        public void createPost(SelectPostDTO selectPostDTO) {
+        public void createPost(InsertPostDTO insertPostDTO) {
 
             // 컨트롤러에서 만들어 놓은 selectPostDTO 를 매퍼를 통해 삽입
-            postMapper.insertPost(selectPostDTO);
+            postMapper.insertPost(insertPostDTO);
         }
 
 
