@@ -2,6 +2,7 @@ package com.ohgiraffers.mergyping.post.controller;
 
 import com.ohgiraffers.mergyping.auth.model.AuthDetails;
 import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
+import com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
@@ -435,7 +436,7 @@ public class PostController {
             @RequestParam("postTitle") String postTitle,
             @RequestParam("postContent") String postContent,
             @RequestParam("postCategory") String postCategory,
-            @RequestParam("postWriter") String postWriter,
+            @RequestParam("postWriter") int postWriter,
             @RequestParam("postNo") int postNo,
 
             // required = flase로 매개변수가 필수가 아님을 표시
@@ -448,12 +449,12 @@ public class PostController {
         Map<String, String> response = new HashMap<>();
         try {
             // 새로 생성된 게시물의 데이터들을 저장할 새로운 selectPostDTO 생성, setter로 값 주입
-            SelectPostDTO selectPostDTO = new SelectPostDTO();
-            selectPostDTO.setPostTitle(postTitle);
-            selectPostDTO.setPostContent(postContent);
-            selectPostDTO.setPostCategory(postCategory);
-            selectPostDTO.setPostWriter(postWriter);
-            selectPostDTO.setPostNo(postNo);
+            InsertPostDTO insertPostDTO = new InsertPostDTO();
+            insertPostDTO.setPostTitle(postTitle);
+            insertPostDTO.setPostContent(postContent);
+            insertPostDTO.setPostCategory(postCategory);
+            insertPostDTO.setPostWriter(postWriter);
+            insertPostDTO.setPostNo(postNo);
 
             // 첫번째 파일이 null이 아니고 비어있지 않은 경우 파일, 게시글 번호, 이미지번호를 저장
             if (fileFirst != null && !fileFirst.isEmpty()) {
@@ -461,11 +462,11 @@ public class PostController {
 
                 // 첫번째 이미지의 확장자 주입
                 String firstFileExtension = getFileExtension(fileFirst.getOriginalFilename());
-                selectPostDTO.setPostImageFirstExtension(firstFileExtension);
+                insertPostDTO.setPostImageFirstExtension(firstFileExtension);
                 System.out.println("firstFileExtension = " + firstFileExtension);
 
                 // 첫번째 파일에 클라이언트가 접근할수있는 경로 주입
-                selectPostDTO.setPostImageFirst("/uploads/"+firstImagePath);
+                insertPostDTO.setPostImageFirst("/uploads/"+firstImagePath);
             }else {
                 System.out.println("fileFirst is null or empty");
             }
@@ -475,17 +476,17 @@ public class PostController {
                 String secondImagePath = saveFile(fileSecond, postNo, 2);
 
                 String secondFileExtension = getFileExtension(fileSecond.getOriginalFilename());
-                selectPostDTO.setPostImageSecondExtension(secondFileExtension);
+                insertPostDTO.setPostImageSecondExtension(secondFileExtension);
                 System.out.println("secondFileExtension = " + secondFileExtension);
 
                 // 두번째 파일에 클라이언트가 접근할수있는 경로 주입
-                selectPostDTO.setPostImageSecond("/uploads/"+secondImagePath);
+                insertPostDTO.setPostImageSecond("/uploads/"+secondImagePath);
             }else {
                 System.out.println("fileSecond is null or empty");
             }
 
             //게시물을 생성하는서비스 메소드 호출
-            postService.createPost(selectPostDTO);
+            postService.createPost(insertPostDTO);
 
             //--여기는 잘 모르겠음--
             // 대충 아까 만들어둔 응답 맵에 성공적인 상태라고 저장하는거 같음

@@ -1,15 +1,15 @@
 package com.ohgiraffers.mergyping.post.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 
-public class SelectPostDTO {
+public class InsertPostDTO {
     private int postNo;
     private String postTitle;
     private String postCategory;
     private int postWriter;
-    private String postWriterName;
     private String postContent;
     private LocalDate postDate;
     private int scaryNumber;
@@ -23,17 +23,14 @@ public class SelectPostDTO {
     private boolean notScary;
     private String postImageFirstExtension;
     private String postImageSecondExtension;
-    private String profileImage;
 
-    public SelectPostDTO() {}
+    public InsertPostDTO() {}
 
-
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, String postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension, String profileImage) {
+    public InsertPostDTO(int postNo, String postTitle, String postCategory, int postWriter, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
         this.postWriter = postWriter;
-        this.postWriterName = postWriterName;
         this.postContent = postContent;
         this.postDate = postDate;
         this.scaryNumber = scaryNumber;
@@ -47,7 +44,6 @@ public class SelectPostDTO {
         this.notScary = notScary;
         this.postImageFirstExtension = postImageFirstExtension;
         this.postImageSecondExtension = postImageSecondExtension;
-        this.profileImage = profileImage;
     }
 
     public int getPostNo() {
@@ -80,14 +76,6 @@ public class SelectPostDTO {
 
     public void setPostWriter(int postWriter) {
         this.postWriter = postWriter;
-    }
-
-    public String getPostWriterName() {
-        return postWriterName;
-    }
-
-    public void setPostWriterName(String postWriterName) {
-        this.postWriterName = postWriterName;
     }
 
     public String getPostContent() {
@@ -194,22 +182,13 @@ public class SelectPostDTO {
         this.postImageSecondExtension = postImageSecondExtension;
     }
 
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
-    }
-
     @Override
     public String toString() {
-        return "SelectPostDTO{" +
+        return "InsertPostDTO{" +
                 "postNo=" + postNo +
                 ", postTitle='" + postTitle + '\'' +
                 ", postCategory='" + postCategory + '\'' +
                 ", postWriter=" + postWriter +
-                ", postWriterName='" + postWriterName + '\'' +
                 ", postContent='" + postContent + '\'' +
                 ", postDate=" + postDate +
                 ", scaryNumber=" + scaryNumber +
@@ -223,7 +202,6 @@ public class SelectPostDTO {
                 ", notScary=" + notScary +
                 ", postImageFirstExtension='" + postImageFirstExtension + '\'' +
                 ", postImageSecondExtension='" + postImageSecondExtension + '\'' +
-                ", profileImage='" + profileImage + '\'' +
                 '}';
     }
 }
