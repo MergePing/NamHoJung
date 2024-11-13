@@ -203,6 +203,7 @@
       const emailPrefix = document.getElementById('email').value;
       const emailDomain = document.getElementById('domain-txt').value;
       const userEmail = emailPrefix + '@' + emailDomain;
+      // console.log(userEmail) 일단 이건 제대로 넘어가고 있음
       fetch(`/find/findid?userEmail=${encodeURIComponent(userEmail)}`)
               .then(response => response.json())
               .then(data => {
