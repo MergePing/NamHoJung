@@ -80,11 +80,11 @@ public class AdminPostController {
         return "user/admin/adminpostdetail"; // 상세 페이지 뷰 반환
     }
 
-    @DeleteMapping("/admin/post/delete/{postNo}")
+    @DeleteMapping("/admin/post/detail/{postNo}/delete")
     @ResponseBody
-    public ResponseEntity<String> deletePost(@PathVariable("postNo") int postNo) {
+    public ResponseEntity<String> deletePost(@PathVariable("postNo") String postNo) {
         try {
-            boolean isDeleted = adminPostService.deletePost(postNo); // 서비스 호출
+            boolean isDeleted = adminPostService.deletePost(Integer.parseInt(postNo));
             if (isDeleted) {
                 return ResponseEntity.ok("게시물이 성공적으로 삭제되었습니다.");
             } else {

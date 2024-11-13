@@ -54,4 +54,8 @@ public class AdminPostService {
     }
 
 
+    public boolean deletePost(int postNo) {
+        int rowsAffected = adminPostMapper.deletePost(postNo);
+        return rowsAffected > 0; // 삭제 성공 여부 반환
+    }
 }
