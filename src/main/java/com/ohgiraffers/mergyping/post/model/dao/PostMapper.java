@@ -65,5 +65,9 @@ public interface PostMapper {
     int insertComment(CommentDTO commentDTO);
 
     void incrementCommentCount(int postNo);
+
+//    CommentDTO getCommentByNo(int commentNo);
+//
+//    int updateComment(CommentDTO comment);
 }
 

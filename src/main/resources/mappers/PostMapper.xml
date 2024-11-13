@@ -315,5 +315,20 @@
         WHERE POST_NO = #{postNo}
     </update>
 
+<!--    &lt;!&ndash; 댓글 수정 쿼리 &ndash;&gt;-->
+<!--    <update id="updateComment" parameterType="com.ohgiraffers.mergyping.comment.model.dto.CommentDTO">-->
+<!--        UPDATE TBL_COMMENT-->
+<!--        SET COMMENT_CONTENT = #{commentContent}-->
+<!--        WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash; 댓글 조회 쿼리 &ndash;&gt;-->
+<!--    <select id="getCommentByNo" resultType="com.ohgiraffers.mergyping.comment.model.dto.CommentDTO">-->
+<!--        SELECT COMMENT_NO, COMMENT_CONTENT, USER_NO-->
+<!--        FROM TBL_COMMENT-->
+<!--        WHERE COMMENT_NO = #{commentNo}-->
+<!--    </select>-->
+
+
 
 </mapper>

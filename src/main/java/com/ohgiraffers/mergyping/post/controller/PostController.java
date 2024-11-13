@@ -205,6 +205,35 @@ public class PostController {
 
     }
 
+//    @PostMapping("/updateComment/{commentNo}")
+//    @ResponseBody
+//    public Map<String, Object> updateComment(@PathVariable int commentNo, @RequestParam String commentContent) {
+//        Map<String, Object> response = new HashMap<>();
+//
+//        // 현재 인증된 사용자 정보 가져오기
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//
+//        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+//            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+//            int userNo = userDetails.getUserNo();  // 로그인한 유저의 userNo 가져오기
+//
+//            // 댓글 수정 처리 (댓글이 해당 사용자의 것인지 확인 후 수정)
+//            boolean success = postService.updateComment(commentNo, userNo, commentContent);
+//
+//            if (success) {
+//                response.put("success", true);
+//            } else {
+//                response.put("success", false);
+//                response.put("error", "댓글 수정에 실패했습니다.");
+//            }
+//        } else {
+//            response.put("success", false);
+//            response.put("error", "로그인 정보가 유효하지 않습니다.");
+//        }
+//
+//        return response;
+//    }
+
 
 
 
