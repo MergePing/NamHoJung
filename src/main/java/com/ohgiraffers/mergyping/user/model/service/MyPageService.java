@@ -167,5 +167,27 @@ public class MyPageService {
     public void deleteUserAccount(int userNo) {
         myPageMapper.deleteUser(userNo);
     }
+
+
+
+//    -----------------------------img-----------------------------------
+
+    public void updateProfileImage(int userNo, String fileUrl) {
+        myPageMapper.updateProfileImage(userNo, fileUrl);
+    }
+
+    public MyPageDTO findUserInfo(int userNo) {
+        MyPageDTO userInfo = myPageMapper.findUserInfo(userNo);
+
+        // 추가된 디버그 메시지
+        if (userInfo == null) {
+            System.out.println("사용자 정보를 찾을 수 없습니다: userNo = " + userNo);
+        } else {
+            System.out.println("사용자 정보 불러오기 - 프로필 이미지 경로: " + userInfo.getProfileImage());
+        }
+
+        return userInfo;
+    }
+
 }
 

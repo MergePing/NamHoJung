@@ -81,6 +81,9 @@ public class MainController {
             Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
             model.addAttribute("mbtiInfo", mbtiInfo);
 
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
+
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트
             return "redirect:/login";

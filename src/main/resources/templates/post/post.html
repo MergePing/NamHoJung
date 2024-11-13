@@ -104,9 +104,9 @@
     </div>
 
     <div class="pageNum">
-        <img th:src="@{/images/notice/pre-btn.png}" id="img1" alt="Previous">
+<!--        <img th:src="@{/images/notice/pre-btn.png}" id="img1" alt="Previous">-->
         <div class="tab" id="tabContainer"></div>
-        <img th:src="@{/images/notice/next-btn.png}" id="img2" alt="Next">
+<!--        <img th:src="@{/images/notice/next-btn.png}" id="img2" alt="Next">-->
     </div>
 
 </main>
@@ -217,18 +217,142 @@
         const New = document.getElementById("modalNew");
         const favorite = document.getElementById("modalFavorite");
 
-        function updatePosts(orderBy, category) {
-            let url = `/post/sort?orderBy=${encodeURIComponent(orderBy)}`;
+        let currentPage = 1;
+        const pageSize = 7;
+        let totalPageCount = 3;
+        const maxVisibleTabs = 5;
+        let currentOrderBy = "POST_NO";
+        let currentCategory = null;
+
+        function updatePosts(orderBy, category, page = 1) {
+            let url = `/post/sort?orderBy=${encodeURIComponent(orderBy)}&page=${page}&pageSize=${pageSize}`;
             if (category) {
                 url += `&category=${encodeURIComponent(category)}`;
             }
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Fetched data:', data); // 데이터 확인을 위한 콘솔 로그
-                    renderPosts(data.postList);
+                    renderPosts(data);
+                    updateTabButtons(orderBy, category);
                 })
                 .catch(error => console.error('Error fetching posts:', error));
+        }
+
+        function renderPosts(posts) {
+            const postContainer = document.getElementById('postContainer');
+            postContainer.innerHTML = '';
+            posts.forEach((post, index) => {
+                if (post !== null) {
+                    addNewPost(post, index);
+                }
+            });
+
+            function addNewPost(post, index) {
+                const postContainer = document.getElementById('postContainer');
+                const newPost = document.createElement('div');
+                newPost.classList.add('post');
+                newPost.setAttribute('style', `top: ${index * 80}px`);
+                newPost.innerHTML = `
+                <span>${post.postNo}</span>
+                <span>
+                    <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
+                         data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+                </span>
+                <a href="/selectpost/${post.postNo}">
+                    <span>${post.postTitle}</span>
+                </a>
+                <div><span>${post.postCategory}</span></div>
+                <span>${post.postDate}</span>
+                <span>${post.scaryNumber}</span>
+                <span>${post.commentNumber}</span>
+            `;
+                postContainer.appendChild(newPost);
+            }
+        }
+
+        function updateTabButtons(orderBy, category) {
+            const tabContainer = document.getElementById('tabContainer');
+            tabContainer.innerHTML = '';
+
+            fetch(`/post/count?category=${encodeURIComponent(category)}`)
+                .then(response => response.json())
+                .then(postCount => {
+                    const totalPostCount = postCount;
+                    totalPageCount = Math.ceil(totalPostCount / pageSize);
+
+                    let start = Math.max(1, currentPage - Math.floor(maxVisibleTabs / 2));
+                    let end = Math.min(totalPageCount, start + maxVisibleTabs - 1);
+
+                    if (end - start + 1 < maxVisibleTabs) {
+                        start = Math.max(1, end - maxVisibleTabs + 1);
+                    }
+
+                    if (start < 1) start = 1;
+                    if (end > totalPageCount) end = totalPageCount;
+
+                    for (let i = start; i <= end; i++) {
+                        const tab = document.createElement('p');
+                        tab.id = `tab${i}`;
+                        tab.textContent = `${i}`;
+                        tab.addEventListener('click', () => {
+                            currentPage = i;
+                            updatePosts(orderBy, category, i);
+                        });
+                        tab.style.color = i === currentPage ? '#fff' : '#BEBEBE';
+                        tab.classList.add('pageNum');
+                        tabContainer.appendChild(tab);
+                    }
+                    updateVisibility();
+                });
+        }
+        function prevBtnClickHandler(){
+            if (currentPage>1){
+                currentPage-=1;
+                updatePosts(currentOrderBy,currentCategory,currentPage)
+                updateVisibility(currentOrderBy,currentCategory,currentPage)
+            }
+        }
+
+        function nextBtnClickHandler(){
+            if (currentPage>1){
+                currentPage-=1;
+                updatePosts(currentOrderBy,currentCategory,currentPage);
+                updateVisibility(currentOrderBy,currentCategory,currentPage)
+            }
+        }
+
+
+        function updateVisibility() {
+            let start = Math.max(1, currentPage - Math.floor(maxVisibleTabs / 2));
+            let end = Math.min(totalPageCount, start + maxVisibleTabs - 1);
+
+            const prevBtn = document.getElementById('img1');
+            const nextBtn = document.getElementById('img2');
+
+            prevBtn.style.opacity = currentPage > 1 ? '1' : '0.5';
+            nextBtn.style.opacity = currentPage < totalPageCount ? '1' : '0.5';
+
+            prevBtn.removeEventListener('click', prevBtnClickHandler);
+            nextBtn.removeEventListener('click', nextBtnClickHandler);
+            prevBtn.addEventListener('click', prevBtnClickHandler);
+            nextBtn.addEventListener('click', nextBtnClickHandler);
+
+
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage -= 1;
+                    updatePosts(currentOrderBy,currentCategory, currentPage);
+                }
+
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPageCount) {
+                    currentPage += 1;
+                    updatePosts(currentOrderBy, currentCategory, currentPage);
+                }
+
+            });
         }
 
         modalBtn.addEventListener('click', () => {
@@ -246,9 +370,7 @@
             select.addEventListener('click',()=>{
                 select.innerText="분류";
                 toggleCategoryButtons()
-                categoryBox.classList.toggle("dn")
-
-            })
+                categoryBox.classList.toggle("dn")})
         });
 
         function toggleCategoryButtons() {
@@ -310,154 +432,12 @@
         ghost.addEventListener('click', () => {
             modal.classList.toggle("dn");
             modalBtn.innerText = "괴담";
-
             updatePosts("POST_NO", "괴담");
         });
 
-        function renderPosts(posts) {
-            const postContainer = document.getElementById('postContainer');
-            postContainer.innerHTML = '';
-            posts.forEach((post, index) => addNewPost(post, index));
-
-            function addNewPost(post, index) {
-                const postContainer = document.getElementById('postContainer');
-                const newPost = document.createElement('div');
-                newPost.classList.add('post');
-                newPost.setAttribute('style', `top: ${index * 80}px`);
-                newPost.innerHTML = `
-            <span>${post.postNo}</span>
-            <span>
-                <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
-                     data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
-            </span>
-            <a href="/selectpost/${post.postNo}">
-                <span>${post.postTitle}</span>
-            </a>
-            <div><span>${post.postCategory}</span></div>
-            <span>${post.postDate}</span>
-            <span>${post.scaryNumber}</span>
-            <span>${post.commentNumber}</span>
-        `;
-                postContainer.appendChild(newPost);
-            }
-        }
-        // 초기 데이터 렌더링
-        updatePosts("POST_NO", null)
+// 초기 데이터 렌더링
+        updatePosts(currentOrderBy, currentCategory);
     });
-</script>
-
-<!--페이징-->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let currentPage = 1;
-        const pageSize = 7;
-        let totalPostCount = 0;
-        let totalPageCount = 0;
-        const maxVisibleTabs = 5;
-
-        function loadPosts(page) {
-            if (page < 1 || (totalPageCount > 0 && page > totalPageCount)) return;
-            currentPage = page;
-            fetch(`/post/page?page=${page}&pageSize=${pageSize}`)
-                .then(response => response.json())
-                .then(posts => {
-                    const postContainer = document.getElementById('postContainer');
-                    postContainer.innerHTML = '';
-                    posts.forEach((post, index) => {
-                        if (post !== null) { // Check if post is not null
-                            addNewPost(post, index);
-                        } else {
-                            console.warn('Null post object detected:', post);
-                        }
-                    });
-                    updateTabButtons();
-                })
-                .catch(error => {
-                    console.error('Error fetching posts:', error);
-                });
-        }
-
-        function addNewPost(post, index) {
-            const postContainer = document.getElementById('postContainer');
-            const newPost = document.createElement('div');
-            newPost.classList.add('post');
-            newPost.style.top = `${index * 80}px`;
-            newPost.innerHTML = `
-        <span>${post.postNo}</span>
-        <span>
-            <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
-                 data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
-        </span>
-        <a href="/selectpost/${post.postNo}">
-            <span>${post.postTitle}</span>
-        </a>
-        <div><span>${post.postCategory}</span></div>
-        <span>${post.postDate}</span>
-        <span>${post.scaryNumber}</span>
-        <span>${post.commentNumber}</span>
-    `;
-            postContainer.appendChild(newPost);
-        }
-
-        function updateTabButtons() {
-            const tabContainer = document.getElementById('tabContainer');
-            tabContainer.innerHTML = '';
-
-            fetch(`/post/count`)
-                .then(response => response.json())
-                .then(postCount => {
-                    totalPostCount = postCount;
-                    totalPageCount = Math.ceil(totalPostCount / pageSize);
-
-                    let start = Math.max(1, currentPage - Math.floor(maxVisibleTabs / 2));
-                    let end = Math.min(totalPageCount, currentPage + Math.floor(maxVisibleTabs / 2));
-
-                    if (end - start + 1 < maxVisibleTabs) {
-                        start = Math.max(1, end - maxVisibleTabs + 1);
-                    }
-
-                    // Ensure we don't exceed totalPageCount
-                    if (start < 1) start = 1;
-                    if (end > totalPageCount) end = totalPageCount;
-
-                    for (let i = start; i <= end; i++) {
-                        const tab = document.createElement('p');
-                        tab.id = `tab${i}`;
-                        tab.textContent = `${i}`;
-                        tab.addEventListener('click', () => loadPosts(i));
-                        tab.style.color = i === currentPage ? '#fff' : '#BEBEBE';
-                        tab.classList.add('pageNum');
-                        tabContainer.appendChild(tab);
-                    }
-                    updateVisibility();
-                });
-        }
-
-        function updateVisibility() {
-            const prevBtn = document.getElementById('img1');
-            const nextBtn = document.getElementById('img2');
-
-            prevBtn.style.opacity = currentPage > 1 ? '1' : '0.5';
-            nextBtn.style.opacity = currentPage < totalPageCount ? '1' : '0.5';
-        }
-
-        document.getElementById('img1').addEventListener('click', () => {
-            if (currentPage > 1) {
-                loadPosts(currentPage - 1);
-            }
-        });
-
-        document.getElementById('img2').addEventListener('click', () => {
-            if (currentPage < totalPageCount) {
-                loadPosts(currentPage + 1);
-            }
-        });
-
-        // 초기 데이터 로드
-        loadPosts(1);
-        updateTabButtons();
-    });
-
 </script>
 
 

@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.auth.model;
 
+import com.ohgiraffers.mergyping.common.UserRole;
 import com.ohgiraffers.mergyping.user.model.dto.LoginUserDTO;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,6 +48,10 @@ public class AuthDetails implements UserDetails {
 
     public int getUserNo(){
         return loginUserDTO.getUserNo();
+    }
+
+    public UserRole getUserRole(){
+        return loginUserDTO.getUserRole();
     }
 
 

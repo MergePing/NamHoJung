@@ -2,19 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>게시판</title>
+  <title>게시판전체조회</title>
   <link rel="stylesheet" th:href="@{/css/reset.css}">
-  <link rel="stylesheet" th:href="@{/css/post/post.css}">
-  <style>
-    .post {
-      position: relative;
-    }
-  </style>
+  <link rel="stylesheet" th:href="@{/css/admin/adminpost.css}">
 </head>
 <body>
 <header>
   <nav>
-    <!--네비바-->
     <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
     <span onclick="location.href='/notice'">공지사항</span>
@@ -27,57 +21,109 @@
 </header>
 
 <main>
-
-
   <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
-
-
 
   <div class="select">
     <p>분류</p>
   </div>
-
-  <input type="search" value="&nbsp; &nbsp; &nbsp;검색어를 입력하세요">
-  <label><img th:src="@{/images/post/Search-dark.png}"></label>
-
-
+  <input id="searchInput" type="search" placeholder="검색어를 입력하세요">
+  <label>
+    <img id="searchButton" th:src="@{/images/post/Search-dark.png}" alt="검색 버튼">
+  </label>
   <div class="sell">
-    <span>번호</span>
-    <span></span>
-    <span>게시물 제목</span>
-    <span>카테고리</span>
-    <span>등록날짜</span>
-    <span>무서워요</span>
-    <span>댓글</span>
-  </div>
-  <div class="post1" id="postContainer">
-    <div class="post" th:each="post, iterStat : ${postList}" th:attr="style=${'top: ' + (iterStat.index * 80) + 'px;'}">
-      <span th:text="${post.postNo}"></span>
-      <a th:src="@{/selectpost/{postNo}(postNo=${post.postNo})}">
-        <span th:text="${post.postTitle}"></span>
-      </a>
-      <div><span th:text="${post.postCategory}"></span></div>
-      <span th:text="${post.postDate}"></span>
-      <span th:text="${post.scaryNumber}"></span>
-      <span th:text="${post.commentNumber}"></span>
-    </div>
+    <span class="sell-item">번호</span>
+    <span class="sell-item">게시물 제목</span>
+    <span class="sell-item">카테고리</span>
+    <span class="sell-item">등록날짜</span>
+    <span class="sell-item">무서워요</span>
+    <span class="sell-item">댓글</span>
   </div>
 
+  <div id="postContainer" class="post1">
 
+  </div>
 
+  <div id="pagination" class="pagination">
+
+  </div>
 </main>
 
+<script>
+  const pageSize = 7; // 한 페이지에 표시할 게시물 수
+  let currentPage = 1; // 현재 페이지
 
+  // 게시물 데이터를 가져와 화면에 렌더링
+  function loadPosts(page) {
+    fetch(`/admin/post/data?page=${page}&pageSize=${pageSize}`)
+            .then(response => response.json())
+            .then(data => {
+              renderPosts(data.postList); // 게시물 렌더링
+              renderPagination(data.currentPage, data.totalPages); // 페이지네이션 렌더링
+            })
+            .catch(error => console.error('Error:', error));
+  }
+
+  // 게시물 리스트 렌더링
+  function renderPosts(postList) {
+    const postContainer = document.getElementById('postContainer');
+    postContainer.innerHTML = ''; // 기존 게시물 초기화
+
+    postList.forEach(post => {
+      const postDiv = document.createElement('div');
+      postDiv.classList.add('post');
+
+
+      const formattedDate = new Date(post.postDate).toISOString().split('T')[0];
+
+      postDiv.innerHTML = `
+          <span class="post-item">${post.postNo}</span>
+          <span class="post-item">
+          <a href="/admin/post/detail/${post.postNo}" class="post-link">${post.postTitle}</a>
+          </span>
+          <span class="post-item">${post.postCategory}</span>
+          <span class="post-item">${formattedDate}</span>
+          <span class="post-item">${post.scaryNumber}</span>
+          <span class="post-item">${post.commentNumber}</span>
+        `;
+      postContainer.appendChild(postDiv);
+    });
+  }
+
+  // 페이지네이션 렌더링
+  function renderPagination(currentPage, totalPages) {
+    const paginationContainer = document.getElementById('pagination');
+    paginationContainer.innerHTML = ''; // 기존 페이지네이션 초기화
+
+    // 페이지 번호 생성
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.classList.add('pagination-btn');
+      if (i === currentPage) pageButton.classList.add('active'); // 현재 페이지 강조
+      pageButton.addEventListener('click', () => loadPosts(i));
+      paginationContainer.appendChild(pageButton);
+    }
+  }
+
+  // 초기 로드
+  loadPosts(currentPage);
+
+  // 검색 이벤트
+  document.getElementById('searchButton').addEventListener('click', () => {
+    const searchInput = document.getElementById('searchInput').value; // 입력된 검색어 가져오기
+    searchPosts(searchInput, currentPage); // 검색 요청 실행
+  });
+
+  // 검색 요청 함수
+  function searchPosts(keyword, page) {
+    fetch(`/admin/post/search?keyword=${encodeURIComponent(keyword)}&page=${page}&pageSize=${pageSize}`)
+            .then(response => response.json())
+            .then(data => {
+              renderPosts(data.postList); // 검색 결과 게시물 렌더링
+              renderPagination(data.currentPage, data.totalPages); // 검색 결과에 따른 페이지네이션 렌더링
+            })
+            .catch(error => console.error('Error:', error));
+  }
+</script>
 </body>
-
-<script>
-
-</script>
-
-
-<script>
-
-
-
-</script>
 </html>

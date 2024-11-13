@@ -116,17 +116,17 @@
 
       <div id="box">
         <div id="Writer">
-          <img th:src="@{/images/post/selectpost/profile-img.png}">
-          <span th:text="${userLevel}"></span>
-<!--          <span id="level">최고의 정원사</span>-->
+          <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+<!--          <span th:text="${userLevel}"></span>-->
+          <span id="level">최고의 정원사</span>
           <div class="wrapper">
-            <p class="username"><span th:text="${myPageDTO.userName}"></span></p>
-<!--            <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>-->
-          <span id="level" th:text="${writer.level}"></span>
-          <div class="wrapper">
-            <input type="text" id="postWriter" name="postWriter" readonly th:value="${writer.userName}"/>
-            <img th:src="@{/images/post/selectpost/badge.png}">
-          </div>
+<!--            <p class="username"><span th:text="${myPageDTO.userName}"></span></p>-->
+            <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>
+<!--          <span id="level" th:text="${writer.level}"></span>-->
+<!--          <div class="wrapper">-->
+<!--            <input type="text" id="postWriter" name="postWriter" readonly th:value="${writer.userName}"/>-->
+<!--            <img th:src="@{/images/post/selectpost/badge.png}">-->
+<!--          </div>-->
         </div>
 
         <div class="line2"></div>

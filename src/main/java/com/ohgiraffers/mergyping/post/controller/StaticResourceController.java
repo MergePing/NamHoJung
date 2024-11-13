@@ -1,11 +1,13 @@
-package com.ohgiraffers.mergyping.post.controller;
-
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.net.URLConnection;
 
 @Controller
 public class StaticResourceController {
@@ -22,10 +24,21 @@ public class StaticResourceController {
             @PathVariable String postNo,
             @PathVariable String fileName) {
 
-        // 요청된 파일 경로에 따라 리소스를 로드
         Resource resource = resourceLoader.getResource("file:src/main/resources/static/uploads/" + date + "/" + postNo + "/" + fileName);
 
-        // 로드 된 리소스 응답 반환
-        return ResponseEntity.ok(resource);
+        if (!resource.exists()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        MediaType mediaType = getMediaTypeForFileName(fileName);
+
+        return ResponseEntity.ok()
+                .contentType(mediaType)
+                .body(resource);
+    }
+
+    private MediaType getMediaTypeForFileName(String fileName) {
+        String mimeType = URLConnection.guessContentTypeFromName(fileName);
+        return mimeType != null ? MediaType.parseMediaType(mimeType) : MediaType.APPLICATION_OCTET_STREAM;
     }
 }

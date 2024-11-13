@@ -1,5 +1,7 @@
 package com.ohgiraffers.mergyping.post.model.dao;
 
+import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
+import com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
@@ -16,7 +18,7 @@ public interface PostMapper {
     List<PostDTO> postList();
 
     // 게시글 정렬
-    List<PostDTO> postListSort(@RequestParam("params") Map<String, Object> params);
+    List<PostDTO> postListSort(Map<String, Object> params);
 
     // 게시글 번호와 즐겨찾기 여부로 즐겨 찾기 상태 업데이트
     void updateFavoriteStatus(@RequestParam("postNo") int postNo, @RequestParam("isFavorite") boolean isFavorite);
@@ -46,7 +48,7 @@ public interface PostMapper {
     int getNotScaryNumber(@RequestParam("postNo") int postNo);
 
     // 새로만든 selectPostDTO를 통해 새로운 게시물 생성
-    void insertPost(SelectPostDTO selectPostDTO);
+    void insertPost(InsertPostDTO insertPostDTO);
 
     //  전체 게시물의 개수 조회
     int getPostCount();
@@ -54,14 +56,18 @@ public interface PostMapper {
     // 현재 게시물 번호의 최대값 조회
     int getMaxPostNo();
 
-    MyPageDTO findNickName(int userNo);
-
-    Integer getUserAttendanceCount(int userNo);
-
-    void updateUserLevel(Map<String, Object> params);
-
-    String getLevelName(int levelNo);
-
     List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
+
+
+    List<CommentDTO> selectCommentsByPostNo(int postNo);
+
+
+    int insertComment(CommentDTO commentDTO);
+
+    void incrementCommentCount(int postNo);
+
+//    CommentDTO getCommentByNo(int commentNo);
+//
+//    int updateComment(CommentDTO comment);
 }
 
