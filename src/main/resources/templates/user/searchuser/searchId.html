@@ -203,7 +203,7 @@
                 if (data.success) {
                   idModal();
                   document.querySelector('.idModal').innerText = `${data.id}`;
-                  document.querySelector('.authImg').disabled = true;
+                  document.querySelector('.authImg').style.display = "none";
                 } else {
                   alert("아이디를 찾지 못했습니다.");
                 }
