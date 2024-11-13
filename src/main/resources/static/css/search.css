@@ -700,15 +700,20 @@ option{
 }
 
 .idModal {
-    display:none;
     position:absolute;
     z-index:99;
-    width:100px;
-    height:100px;
+    width:1000px;
+    height:200px;
+    top: 500px;
+    left: 725px;
     font-family: 'SUIT';
     font-style: normal;
     font-weight: 900;
-    font-size: 20px;
+    font-size: 100px;
     background: #3e8e41;
+    line-height: 200px;
+    text-align: center;
+    border: white solid 10px;
+    border-radius: 99px;
     color:white;
 }
