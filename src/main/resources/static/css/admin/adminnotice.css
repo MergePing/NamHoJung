@@ -556,16 +556,10 @@ main .pageNum img:nth-of-type(2){
     font-size: 30px;
 }
 
-.pagination a {
-    margin: 0 5px;
-    text-decoration: none;
-    color: #0E2913;
-    padding: 5px 10px;
-}
-
-.pagination a.active {
-    font-weight: bold;
+.pagination-btn.active {
+    background-color: #007bff;
     color: white;
+    font-weight: bold;
 }
 
 .notice span:nth-child(2) {

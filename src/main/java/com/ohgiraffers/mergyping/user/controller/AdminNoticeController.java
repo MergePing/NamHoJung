@@ -122,8 +122,6 @@ public class AdminNoticeController {
         response.put("noticeList", notices);          // 검색 결과 리스트
         response.put("currentPage", page);            // 현재 페이지
         response.put("totalPages", totalPages);       // 전체 페이지 수
-        response.put("startPage", Math.max(1, page - 2)); // 페이지네이션 시작
-        response.put("endPage", Math.min(totalPages, page + 2)); // 페이지네이션 끝
 
         return response; // JSON 형태로 반환
     }

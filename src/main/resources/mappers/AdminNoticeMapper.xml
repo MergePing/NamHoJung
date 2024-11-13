@@ -7,7 +7,8 @@
 
     <!-- 공지사항 페이징 처리 -->
     <select id="selectNoticesByPage" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
-        SELECT NOTICE_NO AS noticeNo,
+        SELECT
+        NOTICE_NO AS noticeNo,
         NOTICE_TITLE AS title,
         NOTICE_CATEGORY AS category,
         NOTICE_DATE AS date
@@ -24,7 +25,8 @@
 
 
     <select id="selectNoticeDetail" parameterType="String" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO">
-        SELECT NOTICE_NO AS noticeNo,
+        SELECT
+        NOTICE_NO AS noticeNo,
         NOTICE_TITLE AS title,
         NOTICE_CONTENT AS content,
         NOTICE_CATEGORY AS category,
@@ -59,13 +61,13 @@
 
     <!-- 검색 결과 페이징 처리 -->
     <select id="searchNoticesByTitle" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
-        SELECT NOTICE_NO AS noticeNo,
+        SELECT
+        NOTICE_NO AS noticeNo,
         NOTICE_TITLE AS title,
         NOTICE_CATEGORY AS category,
         NOTICE_DATE AS date
         FROM TBL_NOTICE
         WHERE NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
-        ORDER BY NOTICE_NO DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 

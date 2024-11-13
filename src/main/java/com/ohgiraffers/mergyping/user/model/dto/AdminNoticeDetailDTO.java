@@ -12,6 +12,9 @@ public class AdminNoticeDetailDTO {
         private LocalDate date;
         private String userType;
 
+
+        public AdminNoticeDetailDTO() {}
+
         // 생성자
         public AdminNoticeDetailDTO(int noticeNo, String title, String content, String category, LocalDate date, String userType) {
             this.noticeNo = noticeNo;
