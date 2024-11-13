@@ -100,15 +100,20 @@
 
       noticeDiv.innerHTML = `
             <span class="notice-item">${notice.noticeNo}</span>
-            <span class="notice-item">${notice.title}</span>
+            <span class="notice-item notice-title" data-id="${notice.noticeNo}">${notice.title}</span>
             <span class="notice-item">${notice.category}</span>
             <span class="notice-item">${formattedDate}</span>
         `;
+
+      const titleElement = noticeDiv.querySelector('.notice-title');
+      titleElement.addEventListener('click', () => {
+        window.location.href = `/admin/notice/detail/${notice.noticeNo}`;
+      });
+
       noticeContainer.appendChild(noticeDiv);
     });
   }
 
-  // 페이지네이션 렌더링
   function renderPagination(currentPage, totalPages) {
     const paginationContainer = document.getElementById('pagination');
     paginationContainer.innerHTML = ''; // 기존 페이지네이션 초기화
@@ -117,14 +122,25 @@
       const pageButton = document.createElement('button');
       pageButton.textContent = i;
       pageButton.classList.add('pagination-btn');
-      if (i === currentPage) pageButton.classList.add('active'); // 현재 페이지 강조
-      pageButton.addEventListener('click', () => loadPosts(i));
+      if (i === currentPage) {
+        pageButton.classList.add('active'); // 현재 페이지 강조
+      }
+
+      pageButton.addEventListener('click', () => {
+        if (i !== currentPage) {
+          loadNotices(i); // 선택된 페이지 번호로 데이터 로드
+
+          // 버튼 상태 업데이트
+          document.querySelectorAll('.pagination-btn').forEach(btn => btn.classList.remove('active'));
+          pageButton.classList.add('active');
+        }
+      });
+
       paginationContainer.appendChild(pageButton);
     }
 
 
   }
-
 
 
   // 초기 로드
