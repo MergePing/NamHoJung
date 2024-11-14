@@ -44,6 +44,19 @@
         <!-- 데이터가 JavaScript로 동적으로 렌더링 -->
     </div>
 
+    <!-- 신고 상세정보 모달 -->
+    <div id="reportModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>신고 상세정보</h2>
+            <p><strong>피신고인:</strong> <span id="modalReportedUser"></span></p>
+            <p><strong>사유:</strong> <span id="modalReportReason"></span></p>
+            <div class="modal-buttons">
+                <button id="restrictButton">일시적 활동제한</button>
+                <button id="deleteButton">신고 삭제</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 페이지네이션 -->
     <div id="pagination" class="pagination">
         <!-- 페이지 버튼이 JavaScript로 동적으로 생성 -->
@@ -53,83 +66,53 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const reportContainer = document.getElementById('reportContainer');
-        const pagination = document.getElementById('pagination');
-        const searchButton = document.getElementById('searchButton');
-        const searchInput = document.getElementById('searchInput');
-        let currentPage = 1;
-        const pageSize = 7;
+        const modal = document.getElementById('reportModal');
+        const modalReportedUser = document.getElementById('modalReportedUser');
+        const modalReportReason = document.getElementById('modalReportReason');
 
-        // AJAX 요청으로 신고 목록 가져오기
-        const fetchReports = (page = 1, keyword = '') => {
-            fetch(`/admin/report/data?page=${page}&pageSize=${pageSize}&keyword=${keyword}`)
-                .then(response => response.json())
-                .then(data => {
-                    renderReports(data.reportList);
-                    renderPagination(data.currentPage, data.totalPages);
-                })
-                .catch(error => console.error('Error fetching reports:', error));
+        // 모달 열기
+        const openModal = (report) => {
+            modalReportedUser.textContent = report.reportedUserId;
+            modalReportReason.textContent = report.reportReason;
+            modal.classList.remove('hidden');
         };
 
-        // 신고 목록 렌더링
+        // 모달 닫기
+        const closeModal = () => {
+            modal.classList.add('hidden');
+        };
+
+        // 신고 리스트 렌더링
         const renderReports = (reports) => {
-            const reportContainer = document.getElementById('reportContainer');
             reportContainer.innerHTML = ''; // 기존 데이터 초기화
 
             reports.forEach((report) => {
                 const reportDiv = document.createElement('div');
                 reportDiv.classList.add('report');
                 reportDiv.innerHTML = `
-            <span>${report.reportNo}</span>
-            <span>${report.reportedUserId}</span>
-            <span>${report.reportReason}</span>
-            <span>${new Date(report.reportDate).toLocaleDateString()}</span>
-        `;
+                <span>${report.reportNo}</span>
+                <span>${report.reportedUserId}</span>
+                <span>${report.reportReason}</span>
+                <span>${new Date(report.reportDate).toLocaleDateString()}</span>
+            `;
+                reportDiv.addEventListener('click', () => openModal(report)); // 클릭 시 모달 열기
                 reportContainer.appendChild(reportDiv);
             });
         };
 
-        // 페이지네이션 렌더링
-        const renderPagination = (currentPage, totalPages) => {
-            pagination.innerHTML = ''; // 기존 페이지네이션 초기화
-
-            // 이전 페이지 버튼
-            if (currentPage > 1) {
-                const prevButton = document.createElement('button');
-                prevButton.textContent = '이전';
-                prevButton.addEventListener('click', () => fetchReports(currentPage - 1));
-                pagination.appendChild(prevButton);
+        // 모달 바깥 클릭 시 닫기
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal();
             }
-
-            // 페이지 번호 버튼
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createElement('button');
-                pageButton.textContent = i;
-                if (i === currentPage) {
-                    pageButton.classList.add('active');
-                }
-                pageButton.addEventListener('click', () => fetchReports(i));
-                pagination.appendChild(pageButton);
-            }
-
-            // 다음 페이지 버튼
-            if (currentPage < totalPages) {
-                const nextButton = document.createElement('button');
-                nextButton.textContent = '다음';
-                nextButton.addEventListener('click', () => fetchReports(currentPage + 1));
-                pagination.appendChild(nextButton);
-            }
-        };
-
-        // 검색 버튼 클릭 이벤트
-        searchButton.addEventListener('click', () => {
-            const keyword = searchInput.value.trim();
-            fetchReports(1, keyword); // 검색어로 데이터 가져오기
         });
 
         // 초기 데이터 로드
-        fetchReports();
+        fetch('/admin/report/data?page=1&pageSize=7')
+            .then(response => response.json())
+            .then(data => renderReports(data.reportList))
+            .catch(error => console.error('Error fetching reports:', error));
     });
 </script>
-
 </body>
 </html>

@@ -579,6 +579,7 @@ main .report {
     margin-bottom: 44px;
     font-family: Cafe24SsurroundAir;
     font-size: 25px;
+    cursor: pointer;
 }
 
 main .report span:nth-of-type(1) {
@@ -635,4 +636,51 @@ main .report span:nth-of-type(4) {
 
 .pagination-btn:hover {
     background-color: #ddd;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #fff;
+    padding:  20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 669px;
+    height: 590px;
+}
+
+.modal-buttons {
+    margin-top: 500px;
+}
+.modal-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#restrictButton {
+    background-color: #f39c12;
+    color: #fff;
+}
+
+#deleteButton {
+    background-color: #e74c3c;
+    color: #fff;
 }
