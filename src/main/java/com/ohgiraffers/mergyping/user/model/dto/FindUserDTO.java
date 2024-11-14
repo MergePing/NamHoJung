@@ -3,15 +3,17 @@ package com.ohgiraffers.mergyping.user.model.dto;
 public class FindUserDTO {
     private String id;
     private String password;
+    private String newPassword;
     private String email;
     private String name;
     private String role;
 
     public FindUserDTO() {}
 
-    public FindUserDTO(String id, String password, String email, String name, String role) {
+    public FindUserDTO(String id, String password, String newPassword, String email, String name, String role) {
         this.id = id;
         this.password = password;
+        this.newPassword = newPassword;
         this.email = email;
         this.name = name;
         this.role = role;
@@ -31,6 +33,14 @@ public class FindUserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getEmail() {
@@ -59,9 +69,10 @@ public class FindUserDTO {
 
     @Override
     public String toString() {
-        return "FIndUserDTO{" +
+        return "FindUserDTO{" +
                 "id='" + id + '\'' +
                 ", password='" + password + '\'' +
+                ", newPassword='" + newPassword + '\'' +
                 ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", role='" + role + '\'' +

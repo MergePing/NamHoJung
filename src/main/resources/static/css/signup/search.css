@@ -66,6 +66,20 @@
     top: 332px;
 }
 
+#findPwd {
+    left:810px;
+    top:332px;
+}
+
+#findPwdConfirm {
+    left:760px;
+}
+
+#findPwdText {
+    left: 825px;
+    top: 332px;
+}
+
 #authText {
     left: 760px;
     top: 414px;
@@ -105,7 +119,7 @@
     position: absolute;
     width: 676px;
     height: 450px;
-    left: 635px;
+    left: 645px;
     top: 430px;
 }
 
@@ -725,7 +739,222 @@ option{
     border: white solid 10px;
     border-radius: 99px;
     color:white;
+    box-sizing:border-box;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.pwdModal {
+    display: none;
+    position:absolute;
+    z-index:99;
+    width:1250px;
+    height:470px;
+    top: 387px;
+    left: 325px;
+    font-family: 'SUIT';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 100px;
+    background: #3e8e41;
+    border: white solid 10px;
+    border-radius: 99px;
+    color:white;
     line-height: 270px;
     box-sizing:border-box;
     padding-left: 340px;
+}
+
+#modalTitle {
+    margin-top: 50px;
+    margin-left: 80px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 70px;
+    line-height: 39px;
+    text-decoration-line: underline;
+    text-underline-offset: 20px;
+
+}
+
+.pwdLabel{
+    position: absolute;
+    width: 380px;
+    height: 39px;
+    top: 173px;
+    left:148px;
+    text-align: center;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 50px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
+
+.pwdInput{
+    position: absolute;
+    width: 615px;
+    height: 59px;
+    left: 550px;
+    top: 160px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+    color: #3F3F3F;
+    border:2px solid black;
+}
+
+.pwdInput:focus{
+    background: #D9D9D9;
+}
+
+.pwdInput::placeholder {
+    color: transparent;
+}
+
+.pwdInput:focus::placeholder {
+    color: #3F3F3F;
+}
+
+.pwdConfirmLabel{
+    position: absolute;
+    width: 490px;
+    height: 39px;
+    left: 40px;
+    top: 290px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 50px;
+    line-height: 39px;
+
+    color: #FFFFFF;
+}
+
+.pwdConfirmInput{
+    position: absolute;
+    width: 615px;
+    height: 59px;
+    left: 550px;
+    top: 275px;
+
+    background: #A4A4A4;
+    border-radius: 50px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+    color: #3F3F3F;
+    border:2px solid black;
+}
+
+.pwdConfirmInput:focus{
+    background: #D9D9D9;
+}
+
+.pwdConfirmInput::placeholder {
+    color: transparent;
+}
+
+.pwdConfirmInput:focus::placeholder {
+    color: #3F3F3F;
+}
+
+#change{
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    left: 1030px;
+    top: 380px;
+
+    background: #0E2913;
+    border-radius: 50px;
+    border:white 2px solid;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 48px;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+#change:disabled {
+    background:grey;
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: red;
+    color:black;
+}
+
+#change:active{
+    margin-top: 1px;
+    margin-left: 1px;
+    box-shadow: 1px 1px 1px black;
+}
+
+.toggle-eye {
+    position: absolute;
+    scale:-10%;
+    rotate: 180deg;
+    left: 900px;
+    z-index: 2;
+}
+
+#togglePassword {
+    top: -107px;
+}
+
+#togglePasswordConfirm {
+    top: 7px;
+}
+
+#pwdCheckMessage{
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 587px;
+    top: 225px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #6EBA4A;
+}
+
+#pwdConfirmMessage{
+    position: absolute;
+    width: 550px;
+    height: 35px;
+    left: 587px;
+    top: 340px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 39px;
+
+    color: #6EBA4A;
 }

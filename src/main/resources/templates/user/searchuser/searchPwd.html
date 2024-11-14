@@ -22,8 +22,8 @@
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
   <div class="searchUiBox"></div>
-  <p class="searchGuide">비밀번호 찾기</p>
-  <p class="searchGuide2">본인 확인 인증이 필요합니다.</p>
+  <p class="searchGuide" id="findPwd">비밀번호 찾기</p>
+  <p class="searchGuide2" id="findPwdConfirm">본인 확인 인증이 필요합니다.</p>
   <img class="authImg" th:src="@{/images/search/auth.png}">
 
   <!-- 인증 모달 -->
@@ -50,12 +50,15 @@
     </div>
   </div>
 
-  <div class="idModal">th:text={}</div>
+  <div class="pwdModal">
+    <h1 id="modalTitle">비밀번호 변경</h1>
+    <label for="password" class="pwdLabel">변경할 비밀번호 : </label><input type="password" id="password" class="pwdInput" name="userPass" placeholder="영문, 숫자, 특수문자 조합 8 ~ 15자로 입력해주세요." maxlength="15" minlength="8" required><p id="pwdCheckMessage" ></p><span id="togglePassword" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 보기" id="togglePasswordIcon"></span>
+    <label for="passwordConfirm" class="pwdConfirmLabel">변경할 비밀번호 확인 : </label><input type="password" id="passwordConfirm" class="pwdConfirmInput" name="passwordConfirm" placeholder="비밀번호와 동일하게 입력해주세요." maxlength="15" minlength="1" required><p id="pwdConfirmMessage"></p><span id="togglePasswordConfirm" class="toggle-eye"><img src="/images/icon/closeEye.png" alt="비밀번호 확인 보기" id="togglePasswordConfirmIcon"></span>
+    <button id="change">비밀번호 변경</button>
+  </div>
 
 </div>
 <script>
-  const emailInput = document.getElementById('email');
-  const emailDomainInput = document.getElementById('domain-txt');
   const emailSelectInput = document.getElementById('domain-list');
   const nextButton = document.getElementById('next');
   const modal = document.querySelector('.modalBlur');
@@ -64,6 +67,14 @@
   const closeModalButton = document.getElementById('exitButton');
   const authNumberInput = document.getElementById('authNumber');
   const authButton = document.getElementById('authEmail');
+  const confirmInput = document.querySelector('.pwdConfirmInput');
+  const changeButton = document.getElementById('change');
+  changeButton.disabled = true;
+
+  function pwdModal() {
+    const pwdModal = document.querySelector('.pwdModal');
+    pwdModal.style.display="flex";
+  }
 
   authButton.addEventListener('click', () => {
     onAndOff();
@@ -129,7 +140,6 @@
             .then(response => response.json())
             .then(data => {
               if (data.success) {
-                openAuthModal();
                 authNumberInput.disabled = false;
               } else {
                 alert("인증 번호 전송에 실패했습니다.");
@@ -139,6 +149,7 @@
               console.error('Error:', error);
               alert("서버와의 통신에 실패했습니다.");
             });
+  }
 
     function checkAuthCode() {
       const authCodeInput = document.getElementById('authNumber').value;
@@ -163,6 +174,8 @@
                   if (data.success) {  // 성공 시 실행할 부분
                     closeAuthModal();
                     enableConfirmButton();
+                    pwdModal();
+                    btnOpenModal.style.display="none";
                   } else {
                     document.getElementById('emailCheckMessage').innerText = "인증 번호가 잘못되었습니다.";
                   }
@@ -172,14 +185,9 @@
                   alert("서버와의 통신에 실패했습니다.");
                 });
       }
-
       console.log(authCodeInput);
     }
-
-    function openAuthModal() {
-      const modal = document.querySelector('.modalBlur');
-      modal.style.display = 'flex';
-    }
+    document.getElementById('authNumber').addEventListener('input', checkAuthCode);
 
     function closeAuthModal() {
       const modal = document.querySelector('.modalBlur');
@@ -188,127 +196,200 @@
 
     function enableConfirmButton() {
       authConfirmButton.style.display = "block";
-      document.getElementById('email').readOnly = true;
-      document.getElementById('domain-txt').readOnly = true;
-      document.getElementById('domain-list').readOnly = true;
-
-      // 이메일 아이디 찾기 로직 추가
-      const emailPrefix = document.getElementById('email').value;
-      const emailDomain = document.getElementById('domain-txt').value || document.getElementById('domain-list').value;
-      const userEmail = emailPrefix + '@' + emailDomain;
-
-      fetch(`/auth/searchIdByEmail?userEmail=${encodeURIComponent(userEmail)}`)
-              .then(response => response.json())
-              .then(data => {
-                if (data.success) {
-                  // 아이디 정보를 모달에 표시
-                  document.querySelector('.idModal').innerText = `아이디: ${data.userId}`;
-                } else {
-                  alert("아이디를 찾지 못했습니다.");
-                }
-              })
-              .catch(error => {
-                console.error('Error:', error);
-                alert("서버와의 통신에 실패했습니다.");
-              });
     }
 
-    document.getElementById('authNumber').addEventListener('input', checkAuthCode);
-
-    function notEnter() {
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-          event.preventDefault();
-        }
-      });
-    }
-
-    // 이메일 부분 로직
-    notEnter();
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function (event) {
-      const emailInput = document.querySelector('#email');
-      const domainInput = document.querySelector('#domain-txt');
-      const domainSelect = document.querySelector('#domain-list');
-
-      const frontEmail = emailInput.value.split('@')[0];
-      emailInput.value = frontEmail;
-
-      const hiddenEmailField = document.getElementById('hidden-email');
-      hiddenEmailField.value = emailInput.value;
-
-      if (domainSelect.value !== "type") {
-        hiddenEmailField.value += "@" + domainSelect.value;
-      } else {
-        hiddenEmailField.value += "@" + domainInput.value;
-      }
-    });
-
-    const domainListEl = document.querySelector('#domain-list')
-    const domainInputEl = document.querySelector('#domain-txt')
-    domainListEl.addEventListener('change', (event) => {
-      if (event.target.value !== "type") {
-        domainInputEl.value = event.target.value
-        domainInputEl.disabled = true
-      } else {
-        domainInputEl.value = ""
-        domainInputEl.disabled = false
-      }
-    });
-  }
-
-  // 이메일 중복일 경우 아이디 알려주기
-  document.getElementById('email').addEventListener('input', updateEmail);
-  document.getElementById('domain-txt').addEventListener('input', updateEmail);
-  document.getElementById('domain-list').addEventListener('change', updateEmail);
-  document.getElementById('duplicate-hidden-email').addEventListener('change', updateEmail);
-
-  function updateEmail() {
+  // 이메일 부분 로직
+  authButton.addEventListener('click', function (event) {
     const emailInput = document.querySelector('#email');
     const domainInput = document.querySelector('#domain-txt');
     const domainSelect = document.querySelector('#domain-list');
 
-    const frontEmail = emailInput.value + '@' + domainInput.value;
-    const hiddenEmailField = document.getElementById('duplicate-hidden-email');
-
-    let domain = '';
+    const hiddenEmailField = document.getElementById('hidden-email');
+    hiddenEmailField.value = emailInput.value;
 
     if (domainSelect.value !== "type") {
-      domain = domainSelect.value;
+      hiddenEmailField.value += "@" + domainSelect.value;
     } else {
-      domain = domainInput.value;
+      hiddenEmailField.value += "@" + domainInput.value;
+    }
+  })
+
+  const domainListEl = document.querySelector('#domain-list')
+  const domainInputEl = document.querySelector('#domain-txt')
+  domainListEl.addEventListener('change', (event) => {
+    if (event.target.value !== "type") {
+      domainInputEl.value = event.target.value
+      domainInputEl.disabled = true
+    } else {
+      domainInputEl.value = ""
+      domainInputEl.disabled = false
+    }
+  });
+
+  // 비밀번호 체크
+  document.getElementById('password').addEventListener('input', function () {
+    const userPwd = this.value;
+    const messageElement = document.getElementById('pwdCheckMessage');
+    const passwordConfirmInput = document.getElementById('passwordConfirm');
+    const rule = /[^a-zA-Z0-9-_!@#$%^&*()+|{};':.,/?<>]/.test(userPwd);
+    const kor = /[ㄱ-ㅎ가-힣]/.test(userPwd)
+
+    if (rule || kor) {
+      messageElement.textContent = "사용할 수 없는 단어가 포함 돼 있습니다.";
+      messageElement.style.color = "#FD3C3C";
+      passwordConfirmInput.disabled = true;
+      return;
+    } else {
+      messageElement.textContent = "";
     }
 
-    if (domain) {
-      hiddenEmailField.value = frontEmail;
+    if (userPwd.length < 8 && userPwd.length > 0) {
+      messageElement.textContent = "비밀번호는 최소 8자리 이상이어야 합니다.";
+      messageElement.style.color = "#FD3C3C";
+      passwordConfirmInput.disabled = true;
+      changeButton.disabled = true;
+      return;
+    } else {
+      messageElement.textContent = "";
+    }
 
-      const emailInput = document.querySelector('#email');
-      const domainInput = document.querySelector('#domain-txt');
-      const userEmail = frontEmail;
-      const messageElement = document.getElementById('duplicateEmailCheck');
-      if (userEmail.length > 0) {
-        fetch(`/auth/searchemail?userEmail=${encodeURIComponent(userEmail)}`)
-                .then(response => response.json())
-                .then(isAvailable => {
-                  if (isAvailable) {
+    if (userPwd.length > 7) {
+      fetch(`/auth/checkPassword?userPwd=${encodeURIComponent(userPwd)}`) // 오른쪽이 GetMapping에서 RequestParam으로 불러올 공간
+              .then(response => response.json())
+              .then(isAvailable => {
+                if (isAvailable) {
+                  messageElement.textContent = "사용 가능한 비밀번호입니다.";
+                  messageElement.style.color = "#6EBA4A";
+                  passwordConfirmInput.disabled = false;
+                } else {
+                  messageElement.textContent = "사용 불가한 비밀번호입니다.";
+                  messageElement.style.color = "#FD3C3C";
+                  passwordConfirmInput.disabled = true;
+                  changeButton.disabled = true;
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                messageElement.textContent = "사용 불가한 비밀번호입니다.";
+                messageElement.style.color = "#FD3C3C";
+                passwordConfirmInput.disabled = true;
+                changeButton.disabled = true;
+              });
+    } else {
+      messageElement.textContent = "";
+    }
+  });
 
-                  } else {
-                    alert("회원 인증이 알맞지 않습니다. 다시 시도해주세요.")
-                  }
-                })
-                .catch(error => {
-                  console.error('Error:', error);
-                  alert("회원 인증에 오류가 있습니다. 다시 시도해주세요.")
-                });
+  // 비밀번호 확인 체크
+  document.getElementById('passwordConfirm').addEventListener('input', function () {
+    const userConfirmPwd = this.value;
+    const userPwd = document.getElementById('password').value;
+    const passwordInput = document.getElementById('password');
+    const messageElement = document.getElementById('pwdConfirmMessage');
+    const changeButton = document.getElementById('change');
+    if (userPwd.length === 0) {
+      messageElement.textContent = "비밀번호를 먼저 입력하세요.";
+      messageElement.style.color = "#FD3C3C";
+      changeButton.disabled = true;
+      return;
+    }
+
+    if (userPwd.length > 7) {
+      fetch(`/auth/passwordConfirm?userPwd=${encodeURIComponent(userPwd)}&confirmPwd=${encodeURIComponent(userConfirmPwd)}`)
+              .then(response => response.json())
+              .then(isAvailable => {
+                if (isAvailable) {
+                  messageElement.textContent = "동일한 비밀번호입니다.";
+                  messageElement.style.color = "#6EBA4A";
+                  changeButton.disabled = false;
+
+                } else {
+                  messageElement.textContent = "동일하지 않은 비밀번호입니다.";
+                  messageElement.style.color = "#FD3C3C";
+                  changeButton.disabled = true;
+
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                messageElement.textContent = "동일하지 않은 비밀번호입니다.";
+                messageElement.style.color = "#FD3C3C";
+                changeButton.disabled = true;
+              });
+    } else {
+      messageElement.textContent = "";
+      changeButton.disabled = true;
+    }
+  });
+
+  // 비밀번호 변경
+  document.getElementById('change').addEventListener('click', function () {
+    const userPwd = document.getElementById('password').value;
+    const userEmail = document.getElementById('hidden-email').value;
+    console.log(userPwd);
+    console.log(userEmail);
+
+    fetch('/find/changepwd', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: userEmail,
+        newPassword: userPwd
+      }),
+    })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                alert("비밀번호가 성공적으로 변경되었습니다.");
+                document.getElementById('password').value = '';
+                document.getElementById('passwordConfirm').value = '';
+                location.href='/auth/login'
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert("서버와의 통신에 실패했습니다.");
+            });
+  });
+
+
+    // 비밀번호 눈모양
+    function togglePasswordVisibility(id) {
+      const passwordField = document.getElementById(id);
+      const icon = document.getElementById('toggle' + id.charAt(0).toUpperCase() + id.slice(1) + 'Icon');
+
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        icon.src = '/images/icon/openEye.png';
       } else {
-        messageElement.textContent = "";
-        authButton.disabled = true;
+        passwordField.type = 'password';
+        icon.src = '/images/icon/closeEye.png';
       }
-    } else {
-      hiddenEmailField.value = '';
-      authButton.disabled = true;
     }
+
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      togglePasswordVisibility('password');
+    });
+
+    document.getElementById('togglePasswordConfirm').addEventListener('click', function () {
+      togglePasswordVisibility('passwordConfirm');
+    });
+
+  // 마지막 submit 버튼 제출시 막기용
+  function stopSubmit(event) {
+    const changeButton = document.getElementById('change');
+    setTimeout(function() {
+      changeButton.disabled = true;  // 버튼 비활성화
+      passwordInput.disabled=false;
+    }, 0);
   }
+
+  // submit 순차 적용
+  document.getElementById('change').addEventListener('submit', stopSubmit);
 </script>
 </body>
 </html>
