@@ -328,6 +328,16 @@
     </select>
 
 
+    <update id="editPost">
+        UPDATE TBL_POST
+        SET POST_TITLE = #{postTitle},
+        POST_CONTENT = #{postContent}
+        WHERE POST_NO = #{postNo}
+    </update>
+
+
+
+
 
 
 <!--    &lt;!&ndash; 댓글 수정 쿼리 &ndash;&gt;-->
