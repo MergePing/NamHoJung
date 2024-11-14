@@ -13,5 +13,20 @@
         FROM TBL_USER
         WHERE EMAIL = #{userEmail}
     </select>
+    <select id="findPwdByEmail" resultType="com.ohgiraffers.mergyping.user.model.dto.FindUserDTO">
+        SELECT
+        USER_ID AS id
+        , USER_PWD AS password
+        , EMAIL AS email
+        , USER_NAME AS name
+        , USER_TYPE AS role
+        FROM TBL_USER
+        WHERE EMAIL = #{email}
+    </select>
 
+    <update id="savePwd">
+        UPDATE TBL_USER
+        SET USER_PWD = #{password}
+        WHERE EMAIL = #{email}
+    </update>
 </mapper>
