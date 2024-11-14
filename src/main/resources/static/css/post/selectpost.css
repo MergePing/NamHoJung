@@ -14,6 +14,14 @@ body{
 .tr{
     transition: all 0.7s;
 }
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
 
 /*---------------nav------------------*/
 nav{

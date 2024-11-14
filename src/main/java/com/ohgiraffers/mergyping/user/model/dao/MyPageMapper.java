@@ -63,4 +63,6 @@ public interface MyPageMapper {
 
     MyPageDTO findUserInfo(@RequestParam("userNo") int userNo);
 
+    String getUserLevelName(@RequestParam("userNo") int userNo);
+
 }

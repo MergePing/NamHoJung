@@ -117,51 +117,59 @@ public class PostController {
 
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        int userNo=-1;
+        int userNo = -1;
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             userNo = userDetails.getUserNo();
         }
 
-
         // 서비스를 통해 게시글 번호로 게시물 조회
         SelectPostDTO selected = postService.selectById(postNo);
 
-        // 게시물을 찾지 목한 경우 404 에러 반환
-        //HttpStatus.NOT_FOUND - 404 에러
+        // 게시물을 찾지 못한 경우 404 에러 반환
         if (selected == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
         }
 
         // 이미지의 null 여부 확인 후 이미지 경로 설정
         if (selected.getPostImageFirst() != null) {
-
-            // PostImageFirst의 현재 값을 다시 PostImageFirst 필드에 추가
             selected.setPostImageFirst(selected.getPostImageFirst());
         }
 
         if (selected.getPostImageSecond() != null) {
-
-            // PostImageSecond의 현재 값을 다시 PostImageSecond 필드에 추가
             selected.setPostImageSecond(selected.getPostImageSecond());
         }
-        System.out.println("selected11111111111111111 = " + selected);
 
         // 모델에 post라는 이름으로 선택한 게시글 추가
         model.addAttribute("post", selected);
 
+        // 댓글 목록 및 사용자 정보 추가
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
         MyPageDTO userInfo = myPageService.findUserInfo(userNo);
         model.addAttribute("userInfo", userInfo);
-
         model.addAttribute("comments", comments);
         model.addAttribute("userNo", userNo);
 
-        // 뷰 반환
+
+        // 프로필 이미지 추가
+        String profileImage = null;
+        if (selected.getPostWriter() == userNo) {
+            profileImage = myPageService.getProfileImageByUserNo(userNo);
+        }
+        model.addAttribute("profileImage", profileImage);
+
+        // 작성자의 등급 및 이름 설정
+        MyPageDTO level = myPageService.findUserInfo(userNo);
+        model.addAttribute("level", level);
+
+        MyPageDTO userName = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userName);
+
+
         return "post/selectpost";
     }
+
 
     @PostMapping("/selectpost/{postNo}/comment")
     @ResponseBody
