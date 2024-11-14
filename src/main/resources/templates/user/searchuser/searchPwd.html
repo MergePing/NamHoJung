@@ -22,8 +22,8 @@
     <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
   <div class="searchUiBox"></div>
-  <p class="searchGuide">비밀번호 찾기</p>
-  <p class="searchGuide2">본인 확인 인증이 필요합니다.</p>
+  <p class="searchGuide" id="findPwdText">비밀번호 찾기</p>
+  <p class="searchGuide2" id="authText">본인 확인 인증이 필요합니다.</p>
   <img class="authImg" th:src="@{/images/search/auth.png}">
 
   <!-- 인증 모달 -->
@@ -54,8 +54,6 @@
 
 </div>
 <script>
-  const emailInput = document.getElementById('email');
-  const emailDomainInput = document.getElementById('domain-txt');
   const emailSelectInput = document.getElementById('domain-list');
   const nextButton = document.getElementById('next');
   const modal = document.querySelector('.modalBlur');
