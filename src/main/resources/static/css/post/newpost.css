@@ -386,6 +386,19 @@ main .bg{
     background: #4A7236;
 
 }
+#postWriterName{
+    color: #fff;
+    font-family: SUIT;
+    font-weight: 800;
+    font-size: 50px;
+    position: absolute;
+    left:154px;
+    top:74px;
+    background: none;
+    border: none;
+    outline: none;
+}
+
 
 #Writer {
     display: flex;
@@ -401,7 +414,7 @@ main .bg{
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    margin-top: -107px;
+    margin-top: -96px;
     margin-left: 157px;
 }
 
@@ -464,7 +477,7 @@ main .bg{
 
 #category{
     position: relative;
-    top: 175px;
+    top: 77px;
     left: -91px;
 }
 #category>span{
