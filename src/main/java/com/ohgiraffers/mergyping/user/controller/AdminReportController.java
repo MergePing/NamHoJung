@@ -15,7 +15,10 @@ public class AdminReportController {
 
     @Autowired
     public AdminReportController(AdminReportService adminReportService) {
-
-
+        this.adminReportService = adminReportService;
     }
+
+
+    @GetMapping
+    public String
 }
