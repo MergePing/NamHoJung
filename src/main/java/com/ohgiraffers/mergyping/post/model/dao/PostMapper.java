@@ -56,7 +56,13 @@ public interface PostMapper {
     // 현재 게시물 번호의 최대값 조회
     int getMaxPostNo();
 
-    List<PostDTO> searchPost(@RequestParam("keyword")String keyword);
+    void editPost(@RequestParam("postNo") int postNo, @RequestParam("postTitle") String postTitle, @RequestParam("postContent") String postContent);
+
+    void updatePost(InsertPostDTO postDTO);
+
+    void deletePost(int postNo);
+
+    List<PostDTO> searchPost(@RequestParam("keyword") String keyword);
 
 
     List<CommentDTO> selectCommentsByPostNo(int postNo);
@@ -65,17 +71,11 @@ public interface PostMapper {
     int insertComment(CommentDTO commentDTO);
 
     void incrementCommentCount(int postNo);
-  
+
     int deleteComment(int commentNo);
 
     void decreaseCommentCount(int postNo);
 
     int updateComment(Map<String, Object> params);
 
-    void editPost(@RequestParam("postNo") int postNo, @RequestParam("postTitle") String postTitle, @RequestParam("postContent") String postContent);
-
-//    CommentDTO getCommentByNo(int commentNo);
-//
-//    int updateComment(CommentDTO comment);
 }
-
