@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>신고 관리</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/admin/adminreport.css}">
@@ -11,7 +12,7 @@
     <nav>
         <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
-        <span onclick="location.reload()">공지사항</span>
+        <span onclick="location.href='/admin/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
         <span>MBTI 검사</span>
         <span>마이페이지</span>
@@ -27,13 +28,108 @@
     <span>신고날짜</span>
 </div>
 
-<input id="searchInput" type="search" placeholder="검색어를 입력하세요">
-<label>
-    <img id="searchButton" th:src="@{/images/post/Search-dark.png}" alt="검색 버튼">
-</label>
+<!-- 검색 -->
+<div class="search-bar">
+    <input id="searchInput" type="search" placeholder="검색어를 입력하세요">
+    <label>
+        <img id="searchButton" th:src="@{/images/post/Search-dark.png}" alt="검색 버튼">
+    </label>
+</div>
 
 <main id="mainContent">
     <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
+
+    <!-- 신고 리스트 -->
+    <div id="reportContainer" class="report-list">
+        <!-- 데이터가 JavaScript로 동적으로 렌더링 -->
+    </div>
+
+    <!-- 페이지네이션 -->
+    <div id="pagination" class="pagination">
+        <!-- 페이지 버튼이 JavaScript로 동적으로 생성 -->
+    </div>
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const reportContainer = document.getElementById('reportContainer');
+        const pagination = document.getElementById('pagination');
+        const searchButton = document.getElementById('searchButton');
+        const searchInput = document.getElementById('searchInput');
+        let currentPage = 1;
+        const pageSize = 7;
+
+        // AJAX 요청으로 신고 목록 가져오기
+        const fetchReports = (page = 1, keyword = '') => {
+            fetch(`/admin/report/data?page=${page}&pageSize=${pageSize}&keyword=${keyword}`)
+                .then(response => response.json())
+                .then(data => {
+                    renderReports(data.reportList);
+                    renderPagination(data.currentPage, data.totalPages);
+                })
+                .catch(error => console.error('Error fetching reports:', error));
+        };
+
+        // 신고 목록 렌더링
+        const renderReports = (reports) => {
+            const reportContainer = document.getElementById('reportContainer');
+            reportContainer.innerHTML = ''; // 기존 데이터 초기화
+
+            reports.forEach((report) => {
+                const reportDiv = document.createElement('div');
+                reportDiv.classList.add('report');
+                reportDiv.innerHTML = `
+            <span>${report.reportNo}</span>
+            <span>${report.reportedUserId}</span>
+            <span>${report.reportReason}</span>
+            <span>${new Date(report.reportDate).toLocaleDateString()}</span>
+        `;
+                reportContainer.appendChild(reportDiv);
+            });
+        };
+
+        // 페이지네이션 렌더링
+        const renderPagination = (currentPage, totalPages) => {
+            pagination.innerHTML = ''; // 기존 페이지네이션 초기화
+
+            // 이전 페이지 버튼
+            if (currentPage > 1) {
+                const prevButton = document.createElement('button');
+                prevButton.textContent = '이전';
+                prevButton.addEventListener('click', () => fetchReports(currentPage - 1));
+                pagination.appendChild(prevButton);
+            }
+
+            // 페이지 번호 버튼
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                pageButton.addEventListener('click', () => fetchReports(i));
+                pagination.appendChild(pageButton);
+            }
+
+            // 다음 페이지 버튼
+            if (currentPage < totalPages) {
+                const nextButton = document.createElement('button');
+                nextButton.textContent = '다음';
+                nextButton.addEventListener('click', () => fetchReports(currentPage + 1));
+                pagination.appendChild(nextButton);
+            }
+        };
+
+        // 검색 버튼 클릭 이벤트
+        searchButton.addEventListener('click', () => {
+            const keyword = searchInput.value.trim();
+            fetchReports(1, keyword); // 검색어로 데이터 가져오기
+        });
+
+        // 초기 데이터 로드
+        fetchReports();
+    });
+</script>
+
 </body>
 </html>

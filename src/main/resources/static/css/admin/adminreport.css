@@ -263,79 +263,6 @@ main .tab p:nth-of-type(2){
 }
 
 
-main .notice span:nth-of-type(1){
-    position: absolute;
-    top: 275px;
-    font-family: 'BMJUA';
-    font-weight: 400;
-    font-size: 30px;
-    color: #FFFFFF;
-    left: 257px;
-}
-
-
-main .notice div{
-    position: absolute;
-    width: 80px;
-    height: 39px;
-    left: 338px;
-    top: 325px;
-    background: #0E2913;
-    border: 2px solid #FFFFFF;
-    border-radius: 50px;
-
-
-}
-
-
-main .notice div span:first-child{
-    position: absolute;
-    width: 50px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 300;
-    font-size: 25px;
-    line-height: 30px;
-    letter-spacing: 0.05em;
-    top:6px;
-    color: #FFFFFF;
-    left: 17px;
-}
-
-
-main .notice span:nth-of-type(2){
-    position: absolute;
-    left: 489px;
-    top: 285px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 500;
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    width: 550px;
-}
-
-
-main .notice span:nth-of-type(3){
-    position: absolute;
-    top: 285px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 500;
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    left: 350px;
-}
-
-main .notice span:nth-of-type(4){
-    position: absolute;
-    top: 285px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 500;
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    left: 1350px;
-}
 
 
 main .notice img{
@@ -559,25 +486,7 @@ main .pageNum img:nth-of-type(2){
 }
 
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed; /* 페이지 위치 고정 */
-    left: 960px;
-    top: 850px;
-    z-index: 100; /* 다른 요소 위로 보이게 설정 */
-}
 
-.pagination-btn {
-    margin: 0 5px; /* 버튼 간 간격 추가 */
-    padding: 10px 15px; /* 버튼 크기 조정 */
-    cursor: pointer;
-}
-
-.pagination-btn:hover {
-    background-color: #ddd;
-}
 
 .notice-title {
     cursor: pointer;
@@ -656,6 +565,74 @@ main .pageNum img:nth-of-type(2){
     left: 1620px;
     top: 190px;
 
+}
 
 
+
+main .report {
+    position: relative;
+    width: 90%;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 44px;
+    font-family: Cafe24SsurroundAir;
+    font-size: 25px;
+}
+
+main .report span:nth-of-type(1) {
+    position: absolute;
+    top: 355px; /* 첫 번째 항목의 위치 */
+    font-weight: 400;
+    color: #FFFFFF;
+    left: 355px;
+    font-family: 'BMJUA';
+    font-size: 30px;
+}
+
+main .report span:nth-of-type(2) {
+    position: absolute;
+    top: 350px; /* 두 번째 항목의 위치 */
+    font-weight: 400;
+    color: #FFFFFF;
+    left: 540px;
+}
+
+main .report span:nth-of-type(3) {
+    position: absolute;
+    top: 350px; /* 세 번째 항목의 위치 */
+    font-weight: 400;
+    color: #FFFFFF;
+    left: 750px;
+}
+
+main .report span:nth-of-type(4) {
+    position: absolute;
+    top: 350px; /* 네 번째 항목의 위치 */
+    font-weight: 400;
+    color: #FFFFFF;
+    left: 1460px;
+    white-space: nowrap;
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* 페이지 위치 고정 */
+    left: 960px;
+    top: 950px;
+    z-index: 100; /* 다른 요소 위로 보이게 설정 */
+}
+
+.pagination-btn {
+    margin: 0 5px; /* 버튼 간 간격 추가 */
+    padding: 10px 15px; /* 버튼 크기 조정 */
+    cursor: pointer;
+}
+
+.pagination-btn:hover {
+    background-color: #ddd;
 }
