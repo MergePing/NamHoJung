@@ -119,10 +119,10 @@ public class PostController {
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+            int userNo=-1;
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
-            int userNo = userDetails.getUserNo();
+            userNo = userDetails.getUserNo();
 
             List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
 
