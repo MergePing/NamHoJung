@@ -49,6 +49,7 @@
         <result property="commentDate" column="COMMENT_DATE"/>
         <result property="username" column="USER_NAME"/>
         <result property="userLevel" column="LEVEL"/>
+        <result property="userNo" column="USER_NO"/>
     </resultMap>
 
 
@@ -122,7 +123,7 @@
             POST_DATE,
             SCARY_NUMBER,
             COMMENTS_NUMBER,
-            POST_FAVORITE
+            POST_FAVORITE,
         FROM TBL_POST
         ORDER BY POST_DATE DESC LIMIT #{offset}, #{pageSize};
     </select>
@@ -298,7 +299,8 @@
         C.COMMENT_CONTENT,
         C.COMMENT_DATE,
         U.USER_NAME AS USER_NAME,
-        L.LEVEL AS LEVEL
+        L.LEVEL AS LEVEL,
+        C.USER_NO
         FROM
         TBL_COMMENT C
         JOIN TBL_USER U ON C.USER_NO = U.USER_NO
@@ -312,6 +314,25 @@
     <update id="incrementCommentCount">
         UPDATE TBL_POST
         SET COMMENTS_NUMBER = COMMENTS_NUMBER + 1
+        WHERE POST_NO = #{postNo}
+    </update>
+
+    <!-- 댓글 삭제 쿼리 -->
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM TBL_COMMENT
+        WHERE COMMENT_NO = #{commentNo}
+    </delete>
+
+    <!-- 댓글 수정 SQL -->
+    <update id="updateComment" parameterType="map">
+        UPDATE TBL_COMMENT
+        SET COMMENT_CONTENT = #{commentContent}, COMMENT_DATE = NOW()
+        WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
+    </update>
+
+    <update id="decreaseCommentCount">
+        UPDATE TBL_POST
+        SET COMMENTS_NUMBER = COMMENTS_NUMBER - 1
         WHERE POST_NO = #{postNo}
     </update>
 
@@ -337,9 +358,6 @@
 
 
 
-
-
-
 <!--    &lt;!&ndash; 댓글 수정 쿼리 &ndash;&gt;-->
 <!--    <update id="updateComment" parameterType="com.ohgiraffers.mergyping.comment.model.dto.CommentDTO">-->
 <!--        UPDATE TBL_COMMENT-->
@@ -353,7 +371,6 @@
 <!--        FROM TBL_COMMENT-->
 <!--        WHERE COMMENT_NO = #{commentNo}-->
 <!--    </select>-->
-
 
 
 </mapper>

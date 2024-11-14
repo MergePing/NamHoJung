@@ -214,6 +214,20 @@
                             <span>신고</span>
                         </div>
 
+                        <!-- 삭제 버튼: 로그인한 유저와 댓글 작성자가 같을 때만 보이도록 설정 -->
+                        <button class="delete-comment-btn"
+                                th:data-comment-no="${comment.commentNo}"
+                                th:if="${comment.userNo == userNo}">
+                            삭제
+                        </button>
+
+                        <!-- 수정 버튼: 로그인한 유저와 댓글 작성자가 같을 때만 보이도록 설정 -->
+                        <button class="edit-comment-btn"
+                                th:data-comment-no="${comment.commentNo}"
+                                th:if="${comment.userNo == userNo}">
+                            수정
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -367,60 +381,19 @@
             return;
         }
 
-        // 게시물 번호 가져오기 (예: favorite-icon의 data-postNo 속성)
-        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");/* 게시물 번호 */;
+        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
-        function addCommentToDOM(comments) {
-            const commentsList = document.getElementById("comments-list");
-
-            // 기존 댓글 목록을 제거하고 새로운 댓글 목록을 추가
-            commentsList.innerHTML = "";
-
-            // comments가 배열인 경우만 처리
-            if (Array.isArray(comments)) {
-                comments.forEach((comment,index) => {
-                    const commentDiv = document.createElement("div");
-                    commentDiv.classList.add("comment");
-
-                    // 각 댓글의 위치를 동적으로 설정
-                    commentDiv.style.position = "relative";
-                    commentDiv.style.top = `${index * 150}px`;  // 댓글 간 간격 조절
-
-
-                    // 댓글 내용 추가 (사용자 이름, 레벨, 댓글 날짜 등 포함)
-                    commentDiv.innerHTML = `
-                        <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
-                        <span>${comment.username}</span>
-                        <span>${comment.userLevel}</span>
-                        <span>${comment.commentContent}</span>
-                        <span>${comment.commentDate}</span>
-                        <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
-                        <span>좋아요</span>
-                        <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
-                        <span>신고</span>
-            `;
-
-                    commentsList.appendChild(commentDiv);
-                });
-            } else {
-                console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
-            }
-        }
 
         fetch(`/selectpost/${postNo}/comment`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
             body: new URLSearchParams({
-                commentContent: commentContent
+                commentContent: commentContent,
+
             })
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
-                    // 댓글 추가 후 서버에서 최신 댓글 목록을 받아옴
                     if (Array.isArray(data.comments)) {
                         addCommentToDOM(data.comments);  // 댓글 목록을 DOM에 추가
                     } else {
@@ -433,6 +406,150 @@
             })
             .catch(error => console.error("Error:", error));
     }
+
+    function deleteComment(commentNo) {
+        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
+
+        if (confirm("댓글을 삭제하시겠습니까?")) {
+            fetch(`/selectpost/${postNo}/comment/${commentNo}/delete`, {
+                method: "DELETE"
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("네트워크 응답이 실패했습니다.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        if (Array.isArray(data.comments)) {
+                            addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
+                        } else {
+                            console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+                        }
+                    } else {
+                        alert(data.error || "댓글 삭제에 실패했습니다.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    }
+    // 댓글 수정 함수
+    function editComment(commentNo) {
+        // 수정할 댓글의 내용을 가져옴
+        const commentDiv = document.querySelector(`.comment [data-comment-no="${commentNo}"]`).parentElement;
+        const currentContent = commentDiv.querySelector("span:nth-child(4)").textContent;
+
+        // 댓글 수정 창을 띄우기 위해 prompt를 사용
+        const newContent = prompt("댓글을 수정하세요:", currentContent);
+
+        if (newContent && newContent !== currentContent) {
+            const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
+
+            // 서버에 수정된 댓글 전송
+            fetch(`/selectpost/${postNo}/comment/${commentNo}/edit`, {
+                method: "PUT",
+                body: new URLSearchParams({
+                    commentContent: newContent,
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (Array.isArray(data.comments)) {
+                            addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
+                        } else {
+                            console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+                        }
+                    } else {
+                        alert(data.error || "댓글 수정에 실패했습니다.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    }
+    // 이벤트 위임을 통해 삭제 버튼의 클릭 이벤트 처리
+    document.getElementById("comments-list").addEventListener("click", function (event) {
+        if (event.target.classList.contains("delete-comment-btn")) {
+            const commentNo = event.target.getAttribute("data-comment-no");
+            deleteComment(commentNo);
+        } else if (event.target.classList.contains("edit-comment-btn")) {
+            const commentNo = event.target.getAttribute("data-comment-no");
+            editComment(commentNo);
+        }
+    });
+    // userNo를 JavaScript 변수에 할당
+    const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+    console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
+    // addCommentToDOM을 외부로 이동
+    function addCommentToDOM(comments) {
+        const commentsList = document.getElementById("comments-list");
+        commentsList.innerHTML = ""; // 기존 댓글 목록을 제거하고 새로운 목록을 추가
+
+        // comments가 배열인 경우만 처리
+        if (Array.isArray(comments)) {
+            comments.forEach((comment,index) => {
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment")
+
+                commentDiv.style.position = "relative";
+                commentDiv.style.top = `${index * 150}px`;  // 댓글 간 간격 조절
+
+
+
+                 // 댓글 간 간격 조절
+
+                // 댓글 내용 추가
+                commentDiv.innerHTML = `
+                <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
+                <span>${comment.username}</span>
+                <span>${comment.userLevel}</span>
+                <span>${comment.commentContent}</span>
+                <span>${comment.commentDate}</span>
+                <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
+                <span>좋아요</span>
+                <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
+                <span>신고</span>
+
+
+            `;
+
+
+                // 콘솔에 userNo와 비교 결과 출력
+                console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
+                console.log("loggedInUserNo:", loggedInUserNo);  // 로그인 사용자 userNo 확인
+                console.log("Comparison result:", Number(comment.userNo) === Number(loggedInUserNo));  // 비교 결과 확인
+
+
+                // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제 버튼을 보이게 함
+                if (Number(comment.userNo) === Number(loggedInUserNo)) {
+                    const deleteButton = document.createElement("button");
+                    deleteButton.classList.add("delete-comment-btn");
+                    deleteButton.textContent = "삭제";
+                    deleteButton.setAttribute("data-comment-no", comment.commentNo);
+                    commentDiv.appendChild(deleteButton); // 삭제 버튼을 댓글에 추가
+
+                    const editButton = document.createElement("button");
+                    editButton.classList.add("edit-comment-btn");
+                    editButton.textContent = "수정";
+                    editButton.setAttribute("data-comment-no", comment.commentNo);
+                    commentDiv.appendChild(editButton); // 수정 버튼을 댓글에 추가
+                }
+
+
+
+                commentsList.appendChild(commentDiv);
+            });
+
+        } else {
+            console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
+        }
+    }
+
+
+
+
+
 
 
 </script>

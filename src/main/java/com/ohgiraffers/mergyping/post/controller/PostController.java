@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -118,10 +119,22 @@ public class PostController {
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        int userNo = -1;
+
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
-            userNo = userDetails.getUserNo();
+            int userNo = userDetails.getUserNo();
+
+            List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+
+            model.addAttribute("comments", comments);
+            model.addAttribute("userNo", userNo);
+            System.out.println("comments = " + comments);
+            System.out.println("userNo = " + userNo);
+
+//            for (int i = 0; i < comments.size(); i++) {
+//                // 각 댓글에 top 값을 설정 (150px * 인덱스 값)
+//                comments.get(i).setTop(i * 300);  // top 값은 인덱스를 기준으로 계산
+//            }
         }
 
         // 서비스를 통해 게시글 번호로 게시물 조회
@@ -143,14 +156,6 @@ public class PostController {
 
         // 모델에 post라는 이름으로 선택한 게시글 추가
         model.addAttribute("post", selected);
-
-        // 댓글 목록 및 사용자 정보 추가
-        List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
-        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
-        model.addAttribute("userInfo", userInfo);
-        model.addAttribute("comments", comments);
-        model.addAttribute("userNo", userNo);
-
 
         // 프로필 이미지 추가
         String profileImage = null;
@@ -174,7 +179,8 @@ public class PostController {
     @PostMapping("/selectpost/{postNo}/comment")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
-                                                          @RequestParam("commentContent") String commentContent) {
+                                                          @RequestParam("commentContent") String commentContent)
+                                                          {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
@@ -190,6 +196,13 @@ public class PostController {
         commentDTO.setUserNo(userNo);
         commentDTO.setPostNo(postNo);
 
+        List<CommentDTO> existingComments = postService.getCommentsByPostNo(postNo);
+        int index = existingComments.size();
+
+        commentDTO.setTop(index * 150);
+
+
+
         // 댓글 추가 후 응답 설정
         boolean isAdded = postService.addComment(commentDTO);
         System.out.println("isAdded = " + isAdded);
@@ -202,6 +215,10 @@ public class PostController {
             if (isCommentCountUpdated) {
                 // 댓글 수 증가에 성공한 경우 최신 댓글 목록을 가져옴
                 List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+                // 댓글에 index 값을 추가
+                for (int i = 0; i < comments.size(); i++) {
+                    comments.get(i).setIndex(i); // index 값 추가
+                }
                 response.put("success", true);
                 response.put("comments", comments); // 생성된 댓글 정보 반환
             } else {
@@ -217,6 +234,113 @@ public class PostController {
         return ResponseEntity.ok(response);
 
     }
+
+    @DeleteMapping("/selectpost/{postNo}/comment/{commentNo}/delete")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> deleteComment(@PathVariable int postNo, @PathVariable int commentNo) {
+        boolean isDeleted = postService.deleteComment(commentNo);
+
+        Map<String, Object> response = new HashMap<>();
+        if (isDeleted) {
+            postService.decreaseCommentCount(postNo);
+            response.put("success", true);
+            response.put("message", "댓글이 삭제되었습니다.");
+
+            // 최신 댓글 목록을 가져와서 포함
+            List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+            response.put("comments", comments);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            response.put("error", "댓글 삭제에 실패했습니다.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @PutMapping("/selectpost/{postNo}/comment/{commentNo}/edit")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> editComment(
+            @PathVariable("postNo") int postNo,
+            @PathVariable("commentNo") int commentNo,
+            @RequestParam("commentContent") String commentContent,
+            @AuthenticationPrincipal AuthDetails authDetails) {
+
+        Map<String, Object> response = new HashMap<>();
+        int userNo = authDetails.getUserNo();
+
+        boolean success = postService.updateComment(commentNo, commentContent,userNo);
+        if (success) {
+            List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+            response.put("success", true);
+            response.put("comments", comments);
+        } else {
+            response.put("success", false);
+            response.put("error", "댓글 수정에 실패했습니다.");
+        }
+        return ResponseEntity.ok(response);
+    }
+
+//    @DeleteMapping("/selectpost/{postNo}/comment/{commentNo}/delete")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> deleteComment(@PathVariable("postNo") int postNo,
+//                                                             @PathVariable("commentNo") int commentNo) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                    .body(Map.of("error", "로그인 후 댓글을 삭제할 수 있습니다."));
+//        }
+//
+//        AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+//        int userNo = userDetails.getUserNo();
+//
+//        // 댓글 삭제
+//        boolean isDeleted = postService.deleteComment(commentNo, userNo);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        if (isDeleted) {
+//            List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+//            response.put("success", true);
+//            response.put("comments", comments);  // 최신 댓글 목록 반환
+//        } else {
+//            response.put("success", false);
+//            response.put("error", "댓글 삭제에 실패했습니다.");
+//        }
+//
+//        return ResponseEntity.ok(response);
+//    }
+
+
+////     댓글 삭제 요청 처리
+//    @DeleteMapping("/selectpost/{postNo}/comment/{commentNo}")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> deleteComment(
+//            @PathVariable("postNo") int postNo,
+//            @PathVariable("commentNo") int commentNo,
+//            Authentication authentication) {
+//
+//        Map<String, Object> response = new HashMap<>();
+//
+//        // 현재 인증된 사용자 정보 가져오기
+//        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+//            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+//            int userNo = userDetails.getUserNo();  // 로그인한 유저의 userNo 가져오기
+//
+//            // 서비스에서 댓글 삭제 처리
+//            boolean isDeleted = postService.deleteComment(postNo, commentNo, userNo);
+//
+//            if (isDeleted) {
+//                response.put("success", true);
+//            } else {
+//                response.put("success", false);
+//                response.put("error", "댓글 삭제에 실패했습니다.");
+//            }
+//        } else {
+//            response.put("success", false);
+//            response.put("error", "로그인 상태가 아닙니다.");
+//        }
+//
+//        return ResponseEntity.ok(response);
+//    }
 
 //    @PostMapping("/updateComment/{commentNo}")
 //    @ResponseBody

@@ -7,6 +7,7 @@ import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -186,6 +187,33 @@ public class PostService {
                 return false;
             }
         }
+    @Transactional
+    public boolean deleteComment(int commentNo) {
+        try {
+            int result = postMapper.deleteComment(commentNo);
+            return result > 0;  // 삭제된 행이 있으면 true 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;  // 삭제 실패 시 false 반환
+        }
+
+    }
+
+    public void decreaseCommentCount(int postNo) {
+            postMapper.decreaseCommentCount(postNo);
+    }
+
+    @Transactional
+    public boolean updateComment(int commentNo, String commentContent, int userNo) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("commentNo", commentNo);
+        params.put("commentContent", commentContent);
+        params.put("userNo", userNo);
+
+        int updatedRows = postMapper.updateComment(params);
+        return updatedRows > 0;
+    }
+
 
     public void editPost(int postNo, String postTitle, String postContent) {
         postMapper.editPost(postNo, postTitle, postContent);
