@@ -1,0 +1,661 @@
+@charset "UTF-8";
+body{
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+.dn{
+    display: none;
+}
+
+.tr{
+    transition: all 0.7s;
+}
+
+/*---------------nav------------------*/
+nav{
+    position: fixed;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+    background: #0E2913;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+
+nav img{
+    /* 남호정 */
+    position: absolute;
+    width: 82px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+
+}
+
+nav span:nth-child(2) {
+    /* 소개 */
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #A3DA87;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #C9E6CA;
+    transition: all 1s;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
+}
+
+
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}
+
+
+
+/*---------------main------------------*/
+
+
+main{
+    transition: all 1s;
+}
+
+
+main #box{
+    position: absolute;
+    width: 1707px;
+    top: 200px;
+    z-index: -1;
+}
+
+
+main #bg{
+    position: absolute;
+    width: 1920px;
+    top: 39px;
+    z-index: -5;
+}
+
+
+main input{
+    position: absolute;
+    width: 1119px;
+    height: 53px;
+    background: #0A1611;
+    border-radius: 40px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: lighter;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    top: 225px;
+    border: none;
+    left: 450px;
+}
+
+
+main label img{
+    position: absolute;
+    width: 39px;
+    height: 39px;
+    left: 1599px;
+    top: 230px;
+}
+
+
+main .tab p:nth-of-type(1){
+    position: absolute;
+    width: 49px;
+    height: 31px;
+    top: 235px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 250px;
+    border-bottom: white 3px solid ;
+}
+
+
+main .notice{
+    position: relative;
+    width: 90%;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 44px;
+}
+
+main .notice.active{
+    display: block;
+}
+
+
+main .tab p:nth-of-type(2){
+    position: absolute;
+    width: 49px;
+    height: 31px;
+    top: 235px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #BEBEBE;
+    left: 350px;
+}
+
+
+main .notice span:nth-of-type(1){
+    position: absolute;
+    top: 275px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #FFFFFF;
+    left: 257px;
+}
+
+
+main .notice div{
+    position: absolute;
+    width: 80px;
+    height: 39px;
+    left: 338px;
+    top: 325px;
+    background: #0E2913;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+
+
+}
+
+
+main .notice div span:first-child{
+    position: absolute;
+    width: 50px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    top:6px;
+    color: #FFFFFF;
+    left: 17px;
+}
+
+
+main .notice span:nth-of-type(2){
+    position: absolute;
+    left: 489px;
+    top: 285px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 500;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    width: 550px;
+}
+
+
+main .notice span:nth-of-type(3){
+    position: absolute;
+    top: 285px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 500;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 350px;
+}
+
+main .notice span:nth-of-type(4){
+    position: absolute;
+    top: 285px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 500;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 1350px;
+}
+
+
+main .notice img{
+    position: absolute;
+    left: 1595px;
+    top: 325px;
+}
+
+
+main #notice2{
+    position: absolute;
+    top: 80px;
+}
+
+
+main #notice3{
+    position: absolute;
+    top: 160px;
+}
+
+
+main #notice4{
+    position: absolute;
+    top: 240px;
+}
+
+
+main .box{
+    transition: all 1s;
+}
+
+
+
+
+
+
+
+main .pageNum img:nth-of-type(1){
+    position: absolute;
+    left: 926px;
+    top: 913px;
+}
+
+
+main .pageNum p{
+    position: absolute;
+    left: 960px;
+    top: 910px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+main .pageNum img:nth-of-type(2){
+    position: absolute;
+    left: 995px;
+    top: 913px;
+}
+
+.main .notices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.pageNum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pageNum p {
+    margin: 0 15px;
+    font-family: 'BMJUA';
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.notice img {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.notice img:hover {
+    transform: scale(1.1);
+}
+
+.notice img:active {
+    transform: scale(0.95);
+
+}
+
+
+#addNoticeButton {
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+
+
+
+#noticeTitle {
+
+
+
+    position: absolute;
+    width: 450px;
+    height: 40px;
+    left: 796px;
+    top: 235px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+
+}
+
+
+#noticeContent {
+
+
+    position: absolute;
+    width: 900px;
+    height: 350px;
+    top: 380px;
+    left: 354px;
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+
+    background-color: transparent;
+    border: 1px solid #000000;
+    color: #ffffff;
+}
+
+
+
+#cancelButton {
+    position: absolute;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: 'BMJUA';
+    color: #FFFFFF;
+    background-color: #A41F1F;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 118px;
+    height: 48px;
+    top:139px;
+    left: 1450px;
+}
+
+#cancelButton:hover {
+    background-color: #8e1a1a;
+}
+.hidden {
+    display: none;
+}
+
+#submitNoticeButton{
+    position: absolute;
+    width: 118px;
+    height: 48px;
+    left: 1575px;
+    top: 139px;
+    background: #4BA41F;
+    border-radius: 50px;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+
+.pageNum {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* 각 페이지 번호 간의 간격 */
+    margin-top: 20px;
+}
+
+.pageNum span {
+    font-family: 'BMJUA', sans-serif;
+    font-size: 20px; /* 페이지 번호 크기 */
+    padding: 10px 15px; /* 여백을 추가하여 버튼처럼 보이게 함 */
+    cursor: pointer;
+    color: #FFFFFF;
+    background-color: #4BA41F; /* 버튼 배경색 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    transition: background-color 0.3s;
+}
+
+.pageNum span.active {
+    background-color: #A3DA87; /* 현재 페이지의 배경색 */
+    font-weight: bold; /* 현재 페이지 텍스트 두껍게 */
+}
+
+.pageNum span:hover {
+    background-color: #3B572D; /* 호버 시 배경색 */
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* 페이지 위치 고정 */
+    left: 960px;
+    top: 850px;
+    z-index: 100; /* 다른 요소 위로 보이게 설정 */
+}
+
+.pagination-btn {
+    margin: 0 5px; /* 버튼 간 간격 추가 */
+    padding: 10px 15px; /* 버튼 크기 조정 */
+    cursor: pointer;
+}
+
+.pagination-btn:hover {
+    background-color: #ddd;
+}
+
+.notice-title {
+    cursor: pointer;
+}
+
+.top-nav{
+    position: absolute;
+    top: 275px;
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    color: #FFFFFF;
+    white-space: nowrap;
+}
+
+.top-nav span {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.top-nav span:nth-child(1){
+    position: absolute;
+    left: 288px;
+}
+
+.top-nav span:nth-child(2){
+    position: absolute;
+    left: 523px;
+}
+
+.top-nav span:nth-child(3){
+    position: absolute;
+    left: 950px;
+}
+
+.top-nav span:nth-child(4){
+    position: absolute;
+    left: 1479px;
+}
+
+#searchInput{
+
+
+
+    position: absolute;
+    width: 668px;
+    height: 53px;
+    left: 940px;
+    top: 200px;
+
+    background: #0E2913;
+    border-radius: 40px;
+
+
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+    color: #FFFFFF;
+
+
+}
+
+#searchButton{
+    /* Search */
+
+    position: absolute;
+    width: 66px;
+    height: 66px;
+    left: 1620px;
+    top: 190px;
+
+
+
+}

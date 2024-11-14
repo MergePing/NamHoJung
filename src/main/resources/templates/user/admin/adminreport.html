@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>신고 관리</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminreport.css}">
+</head>
+<body>
+<header>
+    <nav>
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <span onclick="location.href='/intro'">소개</span>
+        <span onclick="location.reload()">공지사항</span>
+        <span onclick="location.href='/post'">게시판</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
+    </nav>
+</header>
+
+<div class="top-nav">
+    <span>신고번호</span>
+    <span>피신고인</span>
+    <span>사유</span>
+    <span>신고날짜</span>
+</div>
+
+<input id="searchInput" type="search" placeholder="검색어를 입력하세요">
+<label>
+    <img id="searchButton" th:src="@{/images/post/Search-dark.png}" alt="검색 버튼">
+</label>
+
+<main id="mainContent">
+    <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
+</main>
+</body>
+</html>
