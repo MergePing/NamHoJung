@@ -116,17 +116,13 @@
 
       <div id="box">
         <div id="Writer">
-          <img th:src="@{/images/post/selectpost/profile-img.png}">
-<!--          <span th:text="${userLevel}"></span>-->
-          <span id="level">최고의 정원사</span>
+          <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+
+          <span id="level" th:text="${userInfo.level}"></span>
           <div class="wrapper">
-<!--            <p class="username"><span th:text="${myPageDTO.userName}"></span></p>-->
-            <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>
-<!--          <span id="level" th:text="${writer.level}"></span>-->
-<!--          <div class="wrapper">-->
-<!--            <input type="text" id="postWriter" name="postWriter" readonly th:value="${writer.userName}"/>-->
-<!--            <img th:src="@{/images/post/selectpost/badge.png}">-->
-<!--          </div>-->
+          <span id="postWriterName"  th:text="${userInfo.userName}"></span>
+            <input type="hidden" id="postWriter" name="postWriter" th:value="${userInfo.userNo}" />
+            <img th:src="@{/images/post/selectpost/badge.png}">
         </div>
 
         <div class="line2"></div>
@@ -154,7 +150,7 @@
 
 <script> // 서버에서 유저 정보를 받아오는 함수
 function fetchUserInfo() {
-  fetch('/auth/user-info')
+  fetch('/user-info')
           .then(response => response.json())
           .then(data => {
             // 받아온 데이터에서 유저 이름과 레벨을 설정

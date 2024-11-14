@@ -62,4 +62,7 @@ public interface MyPageMapper {
     void updateProfileImage(@RequestParam("userNo") int userNo, @RequestParam("fileUrl") String fileUrl);
 
     MyPageDTO findUserInfo(@RequestParam("userNo") int userNo);
+
+    String getUserLevelName(@RequestParam("userNo") int userNo);
+
 }

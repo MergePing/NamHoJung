@@ -1,3 +1,4 @@
+/*
 package com.ohgiraffers.mergyping.user.controller;
 
 import org.springframework.security.access.AccessDeniedException;
@@ -25,3 +26,4 @@ public class ExceptionController {
         return "/user/error/server";
     }
 }
+*/

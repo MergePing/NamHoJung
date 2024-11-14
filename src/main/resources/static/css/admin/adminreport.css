@@ -579,33 +579,83 @@ main .pageNum img:nth-of-type(2){
     background-color: #ddd;
 }
 
-
-
-#categoryButtons {
-    display: flex; /* 버튼을 가로로 나란히 배치 */
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    gap: 10px; /* 버튼 간 간격 */
-    position: absolute;
-    left: 300px;
-    top: 900px;
-}
-
-.category-btn {
-    margin: 0; /* 버튼 간 외부 여백 제거 (flex와 gap 사용) */
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.category-btn.selected {
-    background-color: #4caf50;
-    color: white;
-    border-color: #4caf50;
-}
-
 .notice-title {
     cursor: pointer;
+}
+
+.top-nav{
+    position: absolute;
+    top: 275px;
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    color: #FFFFFF;
+    white-space: nowrap;
+}
+
+.top-nav span {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.top-nav span:nth-child(1){
+    position: absolute;
+    left: 288px;
+}
+
+.top-nav span:nth-child(2){
+    position: absolute;
+    left: 523px;
+}
+
+.top-nav span:nth-child(3){
+    position: absolute;
+    left: 950px;
+}
+
+.top-nav span:nth-child(4){
+    position: absolute;
+    left: 1479px;
+}
+
+#searchInput{
+
+
+
+    position: absolute;
+    width: 668px;
+    height: 53px;
+    left: 940px;
+    top: 200px;
+
+    background: #0E2913;
+    border-radius: 40px;
+
+
+
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.05em;
+
+    color: #FFFFFF;
+
+
+}
+
+#searchButton{
+    /* Search */
+
+    position: absolute;
+    width: 66px;
+    height: 66px;
+    left: 1620px;
+    top: 190px;
+
+
+
 }

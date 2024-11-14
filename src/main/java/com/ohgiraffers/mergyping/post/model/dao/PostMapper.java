@@ -65,13 +65,14 @@ public interface PostMapper {
     int insertComment(CommentDTO commentDTO);
 
     void incrementCommentCount(int postNo);
-
+  
     int deleteComment(int commentNo);
 
     void decreaseCommentCount(int postNo);
 
     int updateComment(Map<String, Object> params);
 
+    void editPost(@RequestParam("postNo") int postNo, @RequestParam("postTitle") String postTitle, @RequestParam("postContent") String postContent);
 
 //    CommentDTO getCommentByNo(int commentNo);
 //

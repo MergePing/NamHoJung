@@ -215,6 +215,11 @@ public class PostService {
     }
 
 
+    public void editPost(int postNo, String postTitle, String postContent) {
+        postMapper.editPost(postNo, postTitle, postContent);
+    }
+
+
 //    public boolean updateComment(int commentNo, int userNo, String commentContent) {
 //        // 해당 댓글의 작성자가 현재 로그인한 사용자인지 확인
 //        CommentDTO comment = postMapper.getCommentByNo(commentNo);

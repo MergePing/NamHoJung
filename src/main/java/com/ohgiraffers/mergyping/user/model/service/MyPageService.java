@@ -176,18 +176,32 @@ public class MyPageService {
         myPageMapper.updateProfileImage(userNo, fileUrl);
     }
 
+
     public MyPageDTO findUserInfo(int userNo) {
         MyPageDTO userInfo = myPageMapper.findUserInfo(userNo);
-
-        // 추가된 디버그 메시지
         if (userInfo == null) {
             System.out.println("사용자 정보를 찾을 수 없습니다: userNo = " + userNo);
         } else {
             System.out.println("사용자 정보 불러오기 - 프로필 이미지 경로: " + userInfo.getProfileImage());
+            System.out.println("사용자 정보 불러오기 - 사용자 이름: " + userInfo.getUserName());
+            System.out.println("사용자 정보 불러오기 - 사용자 등급: " + userInfo.getLevel());
+            System.out.println("사용자 정보 불러오기 - 사용자 번호: " + userInfo.getUserNo());
         }
-
         return userInfo;
     }
 
+
+
+
+    public String getProfileImageByUserNo(int userNo) {
+        MyPageDTO user = findUserInfo(userNo);
+        if (user != null && user.getProfileImage() != null) {
+            return user.getProfileImage();
+        }
+        return "/images/default-profile.png";
+    }
+    public String getUserLevelName(int userNo) {
+        return myPageMapper.getUserLevelName(userNo);
+    }
 }
 

@@ -4,6 +4,8 @@ import com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO;
 import com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO;
 import com.ohgiraffers.mergyping.user.model.service.AdminNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,14 +53,15 @@ public class AdminNoticeController {
         int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("noticeList", notices);
-        response.put("currentPage", page);
-        response.put("totalPages", totalPages);
-        response.put("startPage", Math.max(1, page - 2));
-        response.put("endPage", Math.min(totalPages, page + 2));
+        response.put("noticeList", notices);          // 공지사항 리스트
+        response.put("currentPage", page);            // 현재 페이지
+        response.put("totalPages", totalPages);       // 전체 페이지 수
+        response.put("startPage", Math.max(1, page - 2)); // 페이지네이션 시작
+        response.put("endPage", Math.min(totalPages, page + 2)); // 페이지네이션 끝
 
-        return response; // 페이지네이션 데이터 JSON 반환
+        return response; // JSON 형태로 반환
     }
+
 
     // 공지사항 상세 조회
     @GetMapping("/admin/notice/detail/{noticeNo}")
@@ -71,15 +74,24 @@ public class AdminNoticeController {
     // 공지사항 수정 요청을 처리하는 메서드
     @PostMapping("/admin/notice/detail/edit/{noticeNo}")
     @ResponseBody
-    public Map<String, Object> updateNotice(@PathVariable("noticeNo") String noticeNo,
-                                            @RequestBody AdminNoticeDetailDTO noticeDetailDTO) {
-        noticeDetailDTO.setNoticeNo(Integer.parseInt(noticeNo)); // noticeNo 설정
-        boolean updateSuccess = adminNoticeService.updateNotice(noticeDetailDTO);
+    public ResponseEntity<Map<String, Object>> updateNotice(
+            @PathVariable("noticeNo") String noticeNo,
+            @RequestBody AdminNoticeDetailDTO noticeDetailDTO) {
+        System.out.println("UpdateNotice called with noticeNo: " + noticeNo);
+        System.out.println("Request Body: " + noticeDetailDTO);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", updateSuccess);
-        response.put("message", updateSuccess ? "공지사항이 수정되었습니다." : "공지사항 수정에 실패했습니다.");
-        return response;
+        try {
+            noticeDetailDTO.setNoticeNo(Integer.parseInt(noticeNo));
+            boolean updateSuccess = adminNoticeService.updateNotice(noticeDetailDTO);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", updateSuccess);
+            response.put("message", updateSuccess ? "공지사항이 수정되었습니다." : "공지사항 수정에 실패했습니다.");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     // 공지사항 삭제 요청을 처리하는 메서드
@@ -107,13 +119,21 @@ public class AdminNoticeController {
     }
 
     // 검색 요청 처리
+
     @GetMapping("/admin/notice/search")
     @ResponseBody
-    public Map<String, Object> searchNotices(@RequestParam("keyword") String keyword) {
-        List<AdminNoticeDTO> notices = adminNoticeService.searchNoticesByTitle(keyword);
+    public Map<String, Object> searchNotices(@RequestParam("keyword") String keyword,
+                                             @RequestParam(defaultValue = "1") int page,
+                                             @RequestParam(defaultValue = "7") int pageSize) {
+        List<AdminNoticeDTO> notices = adminNoticeService.searchNoticesByTitle(keyword, page, pageSize);
+        int totalNotices = adminNoticeService.countNoticesByKeyword(keyword); // 검색 결과 개수
+        int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
 
         Map<String, Object> response = new HashMap<>();
-        response.put("noticeList", notices);
-        return response;
+        response.put("noticeList", notices);          // 검색 결과 리스트
+        response.put("currentPage", page);            // 현재 페이지
+        response.put("totalPages", totalPages);       // 전체 페이지 수
+
+        return response; // JSON 형태로 반환
     }
 }
