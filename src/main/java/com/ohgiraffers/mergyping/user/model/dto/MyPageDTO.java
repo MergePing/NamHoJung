@@ -8,10 +8,14 @@ public class MyPageDTO {
     private String userPwd;
     private String profileImage;
     private String level;
+    private String content;
+    private String title;
+    private String imgFirst;
+    private String imgSecond;
 
     public MyPageDTO(){}
 
-    public MyPageDTO(String userName, String email, int userNo, String userId, String userPwd, String profileImage, String level) {
+    public MyPageDTO(String userName, String email, int userNo, String userId, String userPwd, String profileImage, String level, String content, String title, String imgFirst, String imgSecond) {
         this.userName = userName;
         this.email = email;
         this.userNo = userNo;
@@ -19,6 +23,10 @@ public class MyPageDTO {
         this.userPwd = userPwd;
         this.profileImage = profileImage;
         this.level = level;
+        this.content = content;
+        this.title = title;
+        this.imgFirst = imgFirst;
+        this.imgSecond = imgSecond;
     }
 
     public String getUserName() {
@@ -77,6 +85,38 @@ public class MyPageDTO {
         this.level = level;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImgFirst() {
+        return imgFirst;
+    }
+
+    public void setImgFirst(String imgFirst) {
+        this.imgFirst = imgFirst;
+    }
+
+    public String getImgSecond() {
+        return imgSecond;
+    }
+
+    public void setImgSecond(String imgSecond) {
+        this.imgSecond = imgSecond;
+    }
+
     @Override
     public String toString() {
         return "MyPageDTO{" +
@@ -87,6 +127,10 @@ public class MyPageDTO {
                 ", userPwd='" + userPwd + '\'' +
                 ", profileImage='" + profileImage + '\'' +
                 ", level='" + level + '\'' +
+                ", content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", imgFirst='" + imgFirst + '\'' +
+                ", imgSecond='" + imgSecond + '\'' +
                 '}';
     }
 }

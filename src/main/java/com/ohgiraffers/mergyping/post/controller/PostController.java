@@ -339,6 +339,70 @@ public class PostController {
         return response;
     }
 
+        // 게시물 수정 페이지 이동
+        @GetMapping("/edit/{postNo}")
+        public String editPostPage(@PathVariable int postNo, Model model) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+                AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+                int userNo = userDetails.getUserNo();
+                System.out.println("userNo = " + userNo);
+
+                MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+                model.addAttribute("userInfo", userInfo);
+
+                SelectPostDTO post = postService.selectById(postNo);
+                model.addAttribute("post", post);
+            } else {
+                return "redirect:/login";
+            }
+
+            return "post/edit";
+        }
+
+        // 게시물 수정 처리
+        @PostMapping("/edit")
+        public ResponseEntity<Map<String, String>> editPost(
+                @RequestParam("postTitle") String postTitle,
+                @RequestParam("postContent") String postContent,
+                @RequestParam("postCategory") String postCategory,
+                @RequestParam("postWriter") int postWriter,
+                @RequestParam("postNo") int postNo,
+                @RequestParam(value = "fileFirst", required = false) MultipartFile fileFirst,
+                @RequestParam(value = "fileSecond", required = false) MultipartFile fileSecond) {
+
+            Map<String, String> response = new HashMap<>();
+            try {
+                InsertPostDTO insertPostDTO = new InsertPostDTO();
+                insertPostDTO.setPostTitle(postTitle);
+                insertPostDTO.setPostContent(postContent);
+                insertPostDTO.setPostCategory(postCategory);
+                insertPostDTO.setPostWriter(postWriter);
+                insertPostDTO.setPostNo(postNo);
+
+                if (fileFirst != null && !fileFirst.isEmpty()) {
+                    String firstImagePath = saveFile(fileFirst, postNo, 1);
+                    insertPostDTO.setPostImageFirst("/uploads/" + firstImagePath);
+                }
+
+                if (fileSecond != null && !fileSecond.isEmpty()) {
+                    String secondImagePath = saveFile(fileSecond, postNo, 2);
+                    insertPostDTO.setPostImageSecond("/uploads/" + secondImagePath);
+                }
+
+                postService.updatePost(insertPostDTO);
+                response.put("status", "success");
+                return ResponseEntity.ok(response);
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.put("status", "error");
+                response.put("message", e.getMessage());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            }
+        }
+
+
 
     @GetMapping("/newpost")
     public String newPostPage(Model model,WriterNameDTO writer) {
@@ -638,24 +702,22 @@ public class PostController {
 
 
 //--------------------수정---------------------------------
-    @PostMapping("/editpost/{postNo}")
-    public ResponseEntity<String> editPost(@PathVariable("postNo") int postNo, @RequestBody Map<String, String> payload) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
-            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
-            int userNo = userDetails.getUserNo();
 
-            SelectPostDTO selected = postService.selectById(postNo);
 
-            if (selected != null && selected.getPostWriter() == userNo) {
-                postService.editPost(postNo, payload.get("postTitle"), payload.get("postContent"));
-                return ResponseEntity.ok("게시글이 수정되었습니다.");
-            }
+    // 게시물 삭제 API
+    @DeleteMapping("/delete/{postNo}")
+    public ResponseEntity<String> deletePost(@PathVariable int postNo) {
+        try {
+            postService.deletePost(postNo);
+            return ResponseEntity.ok("게시물이 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시물 삭제 중 오류가 발생했습니다.");
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("수정 권한이 없습니다.");
     }
-
-
 }
+
+
+
+
 
 

@@ -318,22 +318,41 @@
 
     <select id="findUserInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
         SELECT
-        USER_NO AS writerNo,
-        USER_NAME AS userName,
-        EMAIL,
-        USER_ID,
-        USER_IMAGE AS profileImage
-        FROM TBL_USER
+        U.USER_NO AS writerNo,
+        U.USER_NAME AS userName,
+        U.EMAIL,
+        U.USER_ID,
+        U.USER_IMAGE AS profileImage
+        FROM TBL_USER U
         WHERE USER_NO = #{userNo}
     </select>
 
 
-    <update id="editPost">
+    <select id="findPostInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+        SELECT
+        POST_TITLE,
+        POST_CONTENT,
+        POST_CATEGORY,
+        POST_IMAGE_FIRST,
+        POST_IMAGE_SECOND
+        FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </select>
+
+    <update id="updatePost" parameterType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
         UPDATE TBL_POST
         SET POST_TITLE = #{postTitle},
-        POST_CONTENT = #{postContent}
+        POST_CONTENT = #{postContent},
+        POST_CATEGORY =#{postCategory},
+        POST_IMAGE_FIRST = #{postImageFirst},
+        POST_IMAGE_SECOND = #{postImageSecond},
         WHERE POST_NO = #{postNo}
     </update>
+
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </delete>
 
 
 

@@ -78,7 +78,6 @@ public class MyPageController {
             model.addAttribute("myPageDTO3", myPageDTO3);
 
             MyPageDTO userInfo = myPageService.findUserInfo(userNo);
-
             model.addAttribute("userInfo", userInfo);
 
             MyPageDTO level = myPageService.findUserInfo(userNo);

@@ -811,7 +811,7 @@ div #editBtn{
 
     font-family: 'BM JUA_OTF';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 25px;
     line-height: 26px;
     text-align: center;
@@ -834,7 +834,7 @@ div #deleteBtn{
     background: #66934F;
     font-family: 'BM JUA_OTF';
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 25px;
     line-height: 26px;
     text-align: center;
@@ -842,9 +842,85 @@ div #deleteBtn{
     border-radius: 50px;
     border: none;
     outline: none;
+    z-index: 66666666666666;
 
 
 }
+
+.modifyModal .modify .modal-bg {
+    position: absolute;
+    width: 1106px;
+    height: 326px;
+    top: 490px;
+    background: #1C6C2B;
+    box-shadow: 0px 7px 24.4px 7px rgba(0, 0, 0, 0.25);
+    border-radius: 70px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    color: #FFFFFF;
+    left: 370px;
+}
+
+.modifyModal .modify .modal-bg p{
+    position: relative;
+    text-align: center;
+    top: 80px;
+    left: 0px;
+    font-family: 'Cafe24Ssurroundair';
+}
+
+.modifyModal .modify .modal-bg button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #3F781A;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 630px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+
+
+.modifyModal .modify .modal-bg button:nth-of-type(2){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #9CC787;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 340px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

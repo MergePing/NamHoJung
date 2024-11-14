@@ -5,6 +5,7 @@ import com.ohgiraffers.mergyping.post.model.dao.PostMapper;
 import com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
+import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -190,6 +191,17 @@ public class PostService {
     public void editPost(int postNo, String postTitle, String postContent) {
         postMapper.editPost(postNo, postTitle, postContent);
     }
+
+    public void updatePost(InsertPostDTO postDTO) {
+            postMapper.updatePost(postDTO);
+    }
+
+    public void deletePost(int postNo) {
+            postMapper.deletePost(postNo);
+    }
+
+
+
 
 
 //    public boolean updateComment(int commentNo, int userNo, String commentContent) {
