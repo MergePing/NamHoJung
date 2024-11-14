@@ -70,6 +70,8 @@ public class PostService {
     }
 
 
+
+
     // 게시글 번호로 세부 게시글 조회
     public SelectPostDTO selectById(int postNo) {
 
@@ -88,49 +90,46 @@ public class PostService {
 
     //무서워요 상태 업데이트
     public void updateScaryStatus(int postNo, boolean isScary) {
-
-        // 무서워요 상태가 true인 경우 무서워요 수 증가
         if (isScary) {
             postMapper.incrementScaryCount(postNo, true);
-        }
-
-        // 무서워요 상태가 false인 경우 무서워요 수 감소
-        else {
+        } else {
             postMapper.decrementScaryCount(postNo, false);
         }
     }
 
-
-    // 안무서워요 상태 업데이트
     public void updateNotScaryStatus(int postNo, boolean isNotScary) {
-
-        // 안무서워요 상태가 true인 경우 안무서워요 수 증가
         if (isNotScary) {
             postMapper.incrementNotScaryCount(postNo, true);
-        }
-
-        // 안무서워요 상태가 false인 경우 안무서워요 수 감소
-        else {
+        } else {
             postMapper.decrementNotScaryCount(postNo, false);
         }
     }
 
-
-    // 무서워요 숫자 조회
+    // 무서워요 숫자
     public int getScaryNumber(int postNo) {
-
-        // 게시물 번호를 통해 매퍼로 특정 게시물의 무서워요 수 조회 후 반환
         return postMapper.getScaryNumber(postNo);
     }
 
-
-    // 안무서워요 숫자 조회
     public int getNotScaryNumber(int postNo) {
-
-        // 게시물 번호를 통해 매퍼로 특정 게시물의 안무서워요 수 조회 후 반환
-
         return postMapper.getNotScaryNumber(postNo);
     }
+    public void updateLikeStatus(int commentNo, boolean isLike) {
+
+        if (isLike) {
+            postMapper.incrementLikeCount(commentNo, true);
+        } else {
+            postMapper.decrementLikeCount(commentNo, false);
+        }
+    }
+
+    public int getLikeNumber(int commentNo){
+        return postMapper.getLikeNumber(commentNo);
+    }
+
+
+
+
+
 
 
     // 새로운 게시물 생성

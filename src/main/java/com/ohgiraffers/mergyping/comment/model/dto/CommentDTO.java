@@ -12,10 +12,12 @@ public class CommentDTO {
     private int postNo;
     private int top;
     private int index;
+    private int likeNumber;
+    private boolean like;
 
     public CommentDTO() {}
 
-    public CommentDTO(int commentNo, String commentContent, int userNo, LocalDate commentDate, String username, String userLevel, int postNo, int top, int index) {
+    public CommentDTO(int commentNo, String commentContent, int userNo, LocalDate commentDate, String username, String userLevel, int postNo, int top, int index, int likeNumber, boolean like) {
         this.commentNo = commentNo;
         this.commentContent = commentContent;
         this.userNo = userNo;
@@ -25,6 +27,8 @@ public class CommentDTO {
         this.postNo = postNo;
         this.top = top;
         this.index = index;
+        this.likeNumber = likeNumber;
+        this.like = like;
     }
 
     public int getCommentNo() {
@@ -99,6 +103,22 @@ public class CommentDTO {
         this.index = index;
     }
 
+    public int getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
+    public boolean isLike() {
+        return like;
+    }
+
+    public void setLike(boolean like) {
+        this.like = like;
+    }
+
     @Override
     public String toString() {
         return "CommentDTO{" +
@@ -111,6 +131,8 @@ public class CommentDTO {
                 ", postNo=" + postNo +
                 ", top=" + top +
                 ", index=" + index +
+                ", likeNumber=" + likeNumber +
+                ", like=" + like +
                 '}';
     }
 }

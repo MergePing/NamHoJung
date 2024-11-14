@@ -212,31 +212,37 @@
                         <span th:text="${comment.userLevel}"></span>
                         <span th:text="${comment.commentContent}"></span>
                         <span th:text="${comment.commentDate}"></span>
-                        <img th:src="@{/images/post/selectpost/like-btn-before.png}">
-                        <span>좋아요</span>
+
+                        <div id="like">
+                            <img th:src="@{/images/post/selectpost/like-btn-before.png}" th:if="${!comment.isLike}"
+                                 th:attr="data-commentNo=${comment.commentNo}"
+                                 class="likeImg" onclick="toggleLike(this)">
+                            <img th:src="@{/images/post/selectpost/like-btn-after.png}" th:if="${comment.isLike}"
+                                 th:attr="data-commentNo=${comment.commentNo}"
+                                 class="likeImg" onclick="toggleLike(this)">
+                            <span class="like-count" th:text="${comment.likeNumber}"></span>
+                        </div>
 
                         <div th:if="${comment.userNo} != ${userNo}">
                             <img th:src="@{/images/post/selectpost/reportbtn.png}">
                             <span>신고</span>
                         </div>
 
-                        <!-- 삭제 버튼: 로그인한 유저와 댓글 작성자가 같을 때만 보이도록 설정 -->
                         <button class="delete-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                            삭제
+
                         </button>
 
-                        <!-- 수정 버튼: 로그인한 유저와 댓글 작성자가 같을 때만 보이도록 설정 -->
                         <button class="edit-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                            수정
-                        </button>
 
+                        </button>
                     </div>
                 </div>
             </div>
+
 
             <!-- 댓글 더보기 버튼 -->
             <div class="show-more-comments">
@@ -283,40 +289,40 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
-        <script>
-            const editBtn = document.getElementById("editBtn");
-            const modify = document.querySelector(".modify");
-            const deleteBtn = document.getElementById("deleteBtn");
-            const delete1 = document.querySelector(".delete1");
+<script>
+    const editBtn = document.getElementById("editBtn");
+    const modify = document.querySelector(".modify");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const delete1 = document.querySelector(".delete1");
 
-            function showEditModal() {
-                console.log("showEditModal called");
-                closeDeleteModal(); // 다른 모달창 닫기
-                modify.classList.remove("dn");
-                console.log("modify.classList:", modify.classList);
-            }
+    function showEditModal() {
+        console.log("showEditModal called");
+        closeDeleteModal(); // 다른 모달창 닫기
+        modify.classList.remove("dn");
+        console.log("modify.classList:", modify.classList);
+    }
 
-            function closeEditModal() {
-                console.log("closeEditModal called");
-                modify.classList.add("dn");
-                console.log("modify.classList:", modify.classList);
-            }
+    function closeEditModal() {
+        console.log("closeEditModal called");
+        modify.classList.add("dn");
+        console.log("modify.classList:", modify.classList);
+    }
 
-            function showDeleteModal() {
-                console.log("showDeleteModal called");
-                closeEditModal(); // 다른 모달창 닫기
-                delete1.classList.remove("dn");
-                console.log("delete1.classList:", delete1.classList);
-            }
+    function showDeleteModal() {
+        console.log("showDeleteModal called");
+        closeEditModal(); // 다른 모달창 닫기
+        delete1.classList.remove("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
 
-            function closeDeleteModal() {
-                console.log("closeDeleteModal called");
-                delete1.classList.add("dn");
-                console.log("delete1.classList:", delete1.classList);
-            }
+    function closeDeleteModal() {
+        console.log("closeDeleteModal called");
+        delete1.classList.add("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
 
 
-        </script>
+</script>
 
 
 <script>
@@ -452,8 +458,8 @@
     }
 
     // userNo를 JavaScript 변수에 할당
-    // const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
-    // console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
+  const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
     function addCommentToDOM(comments) {
         const commentsList = document.getElementById("comments-list");
@@ -470,7 +476,7 @@
 
 
 
-                 // 댓글 간 간격 조절
+                // 댓글 간 간격 조절
 
                 // 댓글 내용 추가
                 commentDiv.innerHTML = `
@@ -479,7 +485,7 @@
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
                 <span>${comment.commentDate}</span>
-                <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
+                 <img src="/images/post/selectpost/like-btn-after.png">
                 <span>좋아요</span>
 
 
@@ -530,19 +536,43 @@
 
 
 
+<script>
+    function toggleLike(element) {
+        const commentNo = parseInt(element.getAttribute('data-commentNo'));
+        const isLike = element.getAttribute('src').includes('like-btn-after.png');
+
+        fetch(`/toggleLike`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+                    element.closest('.comment').querySelector('.like-count').textContent = data.likeNumber;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 
 
-    <script>
-        function toggleFavorite(element) {
+</script>
+
+<script>
+    function toggleFavorite(element) {
         const postNo = element.getAttribute('data-postNo');
         const isFavorite = element.getAttribute('src').includes('best-dark.png');
         fetch(`/togglefavorite`, {
-        method: 'POST', headers: {
-        'Content-Type': 'application/json'
-    }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
-        .then(response => response.json()) .then(data => { if (data.success) {
-        element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
-    } }) }
+            method: 'POST', headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
+            .then(response => response.json()) .then(data => { if (data.success) {
+            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
+            document.querySelector('#like>span').textContent = data.scaryNumber;
+        } }) }
 </script>
 
 
@@ -551,7 +581,7 @@
         const postNo = element.getAttribute('data-postNo');
         const isScary = element.getAttribute('src').includes('scary-btn-after.png');
 
-        fetch(`/togglescary`, {
+        fetch(`/toggleScary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postNo: postNo, isScary: !isScary })
@@ -569,7 +599,7 @@
         const postNo = element.getAttribute('data-postNo');
         const isNotScary = element.getAttribute('src').includes('not-scary-btn-after.png');
 
-        fetch(`/togglenotscary`, {
+        fetch(`/toggleNotScary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postNo: postNo, isNotScary: !isNotScary })
@@ -582,9 +612,7 @@
                 }
             })
     }
-
 </script>
-
 <script>
     window.addEventListener('load', () => {
         const box = document.getElementById('box');
@@ -617,10 +645,10 @@
         // 콘텐츠 바텀과 이미지 바텀을 비교하여 box 위치 설정
         if (contentBottom < imgBottom) {
             box.style.top = `${minTop}px`;
-        } else {
+        }
+        else {
             box.style.top = `${contentTop}px`;
         }
-
         // 박스와 푸터의 위치 설정
         setTimeout(() => {
             const boxTop = box.getBoundingClientRect().top + window.scrollY;
