@@ -202,7 +202,7 @@
 
     <select id="findUserInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
         SELECT
-        U.USER_NO,
+        U.USER_NO AS userNo,
         U.USER_NAME as userName,
         U.EMAIL,
         U.USER_ID,

@@ -120,7 +120,8 @@
 
           <span id="level" th:text="${userInfo.level}"></span>
           <div class="wrapper">
-            <input type="text" id="postWriter" name="postWriter" th:value="${userInfo.userName}" />
+          <span id="postWriterName"  th:text="${userInfo.userName}"></span>
+            <input type="hidden" id="postWriter" name="postWriter" th:value="${userInfo.userNo}" />
             <img th:src="@{/images/post/selectpost/badge.png}">
         </div>
 

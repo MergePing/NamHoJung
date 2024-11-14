@@ -353,6 +353,9 @@ public class PostController {
             MyPageDTO userInfo = myPageService.findUserInfo(userNo);
             model.addAttribute("userInfo", userInfo);
 
+            MyPageDTO writerNo = myPageService.findUserInfo(userNo);
+            model.addAttribute("writerNo", writerNo);
+
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트

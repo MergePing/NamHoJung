@@ -185,6 +185,7 @@ public class MyPageService {
             System.out.println("사용자 정보 불러오기 - 프로필 이미지 경로: " + userInfo.getProfileImage());
             System.out.println("사용자 정보 불러오기 - 사용자 이름: " + userInfo.getUserName());
             System.out.println("사용자 정보 불러오기 - 사용자 등급: " + userInfo.getLevel());
+            System.out.println("사용자 정보 불러오기 - 사용자 번호: " + userInfo.getUserNo());
         }
         return userInfo;
     }
