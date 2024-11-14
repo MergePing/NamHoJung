@@ -1,5 +1,7 @@
 package com.ohgiraffers.mergyping.user.controller;
 
+import com.ohgiraffers.mergyping.user.model.dto.FindUserDTO;
+import com.ohgiraffers.mergyping.user.model.service.FindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

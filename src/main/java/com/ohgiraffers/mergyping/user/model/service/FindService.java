@@ -38,7 +38,6 @@ public class FindService {
                 FindUserDTO findUser = findUserDTO.get();
 
                 String encodedPassword = passwordEncoder.encode(newPassword);
-                System.out.println(encodedPassword);
                 findUser.setPassword(encodedPassword);
                 findMapper.savePwd(findUser);
                 return true;
