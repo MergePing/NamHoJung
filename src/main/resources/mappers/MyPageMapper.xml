@@ -28,6 +28,7 @@
         <result property="userNo" column="USER_NO"/>
         <result property="commentDate" column="COMMENT_DATE"/>
         <result property="postNo" column="POST_NO"/>
+        <result property="likeNumber" column="LIKE_NUMBER"/>
     </resultMap>
 
     <select id="findWrittenPost" resultMap="mypagePostResultMap">
@@ -48,7 +49,8 @@
         SELECT
         POST_NO,
         COMMENT_CONTENT,
-        COMMENT_DATE
+        COMMENT_DATE,
+        LIKE_NUMBER
         FROM TBL_COMMENT
         WHERE USER_NO = #{userNo}
     </select>

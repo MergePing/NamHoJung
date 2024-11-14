@@ -192,6 +192,7 @@ public class MyPageController {
             int userNo = userDetails.getUserNo();
 
             List<MyPagePostDTO> writtenPostList = myPageService.findWrittenPost(userNo);
+            System.out.println("writtenPostList = " + writtenPostList);
             return ResponseEntity.ok(writtenPostList); // JSON 형식으로 반환
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환
@@ -207,6 +208,7 @@ public class MyPageController {
             int userNo = userDetails.getUserNo();
 
             List<MypageCommentDTO> writtenCommentList = myPageService.findWrittenComment(userNo);
+            System.out.println("writtenCommentList = " + writtenCommentList);
             return ResponseEntity.ok(writtenCommentList); // JSON 형식으로 반환
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환

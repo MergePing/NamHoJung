@@ -274,7 +274,7 @@
             postContainer.style.position = 'relative';
 
             newPost.classList.add('post');
-            newPost.setAttribute('style', `position: absolute; margin-top: ${index * 80}px`);
+            newPost.setAttribute('style', `top: ${index * 80}px`);
             newPost.innerHTML = `
                 <span>${post.postNo}</span>
                 <span>
@@ -287,7 +287,7 @@
                 <div><span>${post.postCategory}</span></div>
                 <span>${post.postDate}</span>
                 <span>${post.scaryNumber}</span>
-                <span>${post.commentNumber}</span>
+                <span>${post.commentsNumber}</span>
     `;
             postContainer.appendChild(newPost);
         }
@@ -302,7 +302,7 @@
                 <span>${comment.postNo}</span>
                 <span>${comment.commentContent}</span>
                 <span>${comment.commentDate}</span>
-                <span>${comment.likes}</span>
+                <span>${comment.likeNumber}</span>
     `;
             commentContainer.appendChild(newComment);
         }
@@ -325,7 +325,7 @@
         <div><span>${post.postCategory}</span></div>
         <span>${post.postDate}</span>
         <span>${post.scaryNumber}</span>
-        <span>${post.commentNumber}</span>
+        <span>${post.commentsNumber}</span>
     `;
             favoriteContainer.appendChild(newFavorite);
         }
