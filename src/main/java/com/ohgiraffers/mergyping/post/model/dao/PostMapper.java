@@ -66,6 +66,13 @@ public interface PostMapper {
 
     void incrementCommentCount(int postNo);
 
+    int deleteComment(int commentNo);
+
+    void decreaseCommentCount(int postNo);
+
+    int updateComment(Map<String, Object> params);
+
+
 //    CommentDTO getCommentByNo(int commentNo);
 //
 //    int updateComment(CommentDTO comment);

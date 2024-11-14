@@ -177,6 +177,8 @@
         WHERE USER_NO = #{userNo}
     </delete>
 
+
+
     <!--    &lt;!&ndash; 다음 등급에 도달하기 위한 출석 횟수 조회 SQL &ndash;&gt;-->
     <!--    <select id="getNextLevelRequiredAttendance" parameterType="map" resultType="int">-->
     <!--        SELECT MIN(CHECK_ALL_NO)-->
