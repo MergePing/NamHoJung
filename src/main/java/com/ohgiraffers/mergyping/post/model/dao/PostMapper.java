@@ -60,7 +60,7 @@ public interface PostMapper {
 
     void updatePost(InsertPostDTO postDTO);
 
-    void deletePost(int postNo);
+    void deletePost(@RequestParam("postNo") int postNo);
 
     List<PostDTO> searchPost(@RequestParam("keyword") String keyword);
 

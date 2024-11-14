@@ -247,29 +247,33 @@
     <div class="bg"></div>
 
     <div th:if="${userInfo.userName} == ${post.postWriterName}">
-            <div class="modifyModal">
-                <button type="button" onclick="showEditModal()" id="editBtn">수정</button>
-                <div class="modify dn">
-                    <div class="modal-bg">
-                        <p>게시물을 수정 하시겠습니까?</p>
-                        <a th:href="@{/edit/{postNo}(postNo=${post.postNo})}">
-                            <button class="yes" id="yesEdit">확인</button>
-                        </a>
-                        <button class="return" onclick="closeEditModal()">취소</button>
-                    </div>
-                </div>
-            </div>
-            <div class="deleteModal">
-                <button type="button" id="deleteBtn" onclick="showDeleteModal()">삭제</button>
-                <div class="delete1 dn">
-                    <div class="modal-bg">
-                        <p>게시물을 삭제 하시겠습니까?</p>
-                        <button class="yes" id="yesDelete">확인</button>
-                        <button class="return" onclick="closeDeleteModal()">취소</button>
-                    </div>
+        <div class="modifyModal">
+            <button type="button" onclick="showEditModal()" id="editBtn">수정</button>
+            <div class="modify dn">
+                <div class="modal-bg">
+                    <p>게시물을 수정 하시겠습니까?</p>
+                    <a th:href="@{/edit/{postNo}(postNo=${post.postNo})}">
+                        <button class="yes" id="yesEdit">확인</button>
+                    </a>
+                    <button class="return" onclick="closeEditModal()">취소</button>
                 </div>
             </div>
         </div>
+        <div class="deleteModal">
+            <button type="button" id="deleteBtn" onclick="showDeleteModal()">삭제</button>
+            <div class="delete1 dn">
+                <div class="modal-bg">
+                    <p>게시물을 삭제 하시겠습니까?</p>
+                    <form th:action="@{/delete/{postNo}(postNo=${post.postNo})}" method="post">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="yes" id="yesDelete">확인</button>
+                    </form>
+                    <button class="return" onclick="closeDeleteModal()">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 
@@ -311,24 +315,9 @@
                 console.log("delete1.classList:", delete1.classList);
             }
 
-            function confirmDeletePost(postNo) {
-                fetch(`/deletepost/${postNo}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("게시글이 삭제되었습니다.");
-                            window.location.href = '/posts'; // 게시글 목록 페이지로 이동
-                        } else {
-                            alert("삭제에 실패했습니다.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error deleting post:', error);
-                        alert("삭제에 실패했습니다.");
-                    });
-            }
+
         </script>
+
 
 <script>
     function submitComment() {

@@ -316,6 +316,11 @@
         WHERE POST_NO = #{postNo}
     </delete>
 
+
+
+
+
+
     <!-- 댓글 저장 -->
     <insert id="insertComment">
         INSERT INTO TBL_COMMENT

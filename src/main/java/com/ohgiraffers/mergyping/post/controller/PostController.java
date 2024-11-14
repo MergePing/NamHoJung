@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -757,20 +758,36 @@ public class PostController {
 
 
 
-//--------------------수정---------------------------------
+        @GetMapping("/delete/{postNo}")
+        public String getDeletePostPage(@PathVariable("postNo") int postNo, Model model) {
+            model.addAttribute("postNo", postNo);
+            return "deletePost"; // deletePost.html 페이지를 반환합니다.
+        }
 
+        @PostMapping("/delete/{postNo}")
+        public String deletePost(@PathVariable("postNo") int postNo, RedirectAttributes redirectAttributes) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+                AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+                int userNo = userDetails.getUserNo();
 
-    // 게시물 삭제 API
-    @DeleteMapping("/delete/{postNo}")
-    public ResponseEntity<String> deletePost(@PathVariable int postNo) {
-        try {
-            postService.deletePost(postNo);
-            return ResponseEntity.ok("게시물이 삭제되었습니다.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시물 삭제 중 오류가 발생했습니다.");
+                SelectPostDTO selected = postService.selectById(postNo);
+
+                if (selected != null && selected.getPostWriter() == userNo) {
+                    postService.deletePost(postNo);
+                    redirectAttributes.addFlashAttribute("message", "게시글이 삭제되었습니다.");
+                    return "redirect:/post";
+                }
+            }
+            redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
+            return "redirect:/post";
         }
     }
-}
+
+
+
+
+
 
 
 
