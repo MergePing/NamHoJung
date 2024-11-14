@@ -198,7 +198,7 @@
             </div>
 
             <!-- 댓글 목록 -->
-            <div id="comments-list">
+            <div id="comments-list" style="display: none;">
                 <div th:each="comment : ${comments}">
                     <div class="comment">
                         <img th:src="@{/images/post/selectpost/profile-img.png}">
@@ -209,7 +209,7 @@
                         <img th:src="@{/images/post/selectpost/like-btn-before.png}">
                         <span>좋아요</span>
 
-                        <div th:if="${userInfo.userName} != ${post.postWriterName}">
+                        <div th:if="${comment.userNo} != ${userNo}">
                             <img th:src="@{/images/post/selectpost/reportbtn.png}">
                             <span>신고</span>
                         </div>
@@ -232,8 +232,9 @@
                 </div>
             </div>
 
-            <div class="hidden">
-                <span>댓글 더보기</span>
+            <!-- 댓글 더보기 버튼 -->
+            <div class="show-more-comments">
+                <span onclick="loadComments()">댓글 보기</span>
             </div>
         </div>
     </div>
@@ -478,6 +479,31 @@
             editComment(commentNo);
         }
     });
+
+    // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
+    function loadComments() {
+        const commentsList = document.getElementById("comments-list");
+        const showMoreButton = document.querySelector(".show-more-comments span");
+
+        // 댓글 목록이 보이지 않으면 댓글을 로드하고, 보이면 숨깁니다.
+        if (commentsList.style.display === "none") {
+            commentsList.style.display = "block";  // 댓글 목록을 보이게 함
+            showMoreButton.textContent = "댓글 숨기기";  // 버튼 텍스트 변경
+
+            // 댓글들을 순차적으로 처리
+            const commentDivs = commentsList.querySelectorAll(".comment");
+            commentDivs.forEach((commentDiv, index) => {
+                // 댓글의 위치를 조정
+                commentDiv.style.position = "relative";
+                commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격을 150px로 설정
+            });
+
+        } else {
+            commentsList.style.display = "none";  // 댓글 목록을 숨김
+            showMoreButton.textContent = "댓글 보기";  // 버튼 텍스트 변경
+        }
+    }
+
     // userNo를 JavaScript 변수에 할당
     const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
     console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
@@ -493,7 +519,7 @@
                 commentDiv.classList.add("comment")
 
                 commentDiv.style.position = "relative";
-                commentDiv.style.top = `${index * 150}px`;  // 댓글 간 간격 조절
+                commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
 
 
 
@@ -508,8 +534,7 @@
                 <span>${comment.commentDate}</span>
                 <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
                 <span>좋아요</span>
-                <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
-                <span>신고</span>
+
 
 
             `;
@@ -534,9 +559,17 @@
                     editButton.textContent = "수정";
                     editButton.setAttribute("data-comment-no", comment.commentNo);
                     commentDiv.appendChild(editButton); // 수정 버튼을 댓글에 추가
+                }else {
+                    // 로그인한 사용자와 댓글 작성자가 다를 때 신고 버튼 추가
+                    const reportDiv = document.createElement("div");
+
+                    reportDiv.innerHTML = `
+                    <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
+                    <span>신고</span>
+                `;
+
+                    commentDiv.appendChild(reportDiv);
                 }
-
-
 
                 commentsList.appendChild(commentDiv);
             });
