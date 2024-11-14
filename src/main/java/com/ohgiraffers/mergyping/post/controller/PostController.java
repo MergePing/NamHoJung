@@ -8,6 +8,7 @@ import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
+import com.ohgiraffers.mergyping.user.model.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ public class PostController {
     // 필드 정의
     // 서비스 주입받는 필드
     private final PostService postService;
+    private final MyPageService myPageService;
 
     // 이미지가 저장될 경로
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
@@ -45,8 +47,9 @@ public class PostController {
 
     // 서비스 생성자
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService,MyPageService myPageService) {
         this.postService = postService;
+        this.myPageService=myPageService;
     }
 
 
@@ -150,6 +153,8 @@ public class PostController {
         model.addAttribute("post", selected);
 
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo);
 
         model.addAttribute("comments", comments);
         model.addAttribute("userNo", userNo);
@@ -335,29 +340,10 @@ public class PostController {
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
+            System.out.println("userNo = " + userNo);
 
-/*
-            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
-            MyPageDTO myPageDTO = postService.findNickName(userNo);
-            model.addAttribute("myPageDTO", myPageDTO);
-
-            // 누적된 출석 수 가져오기
-            Integer attendanceCount = postService.getUserAttendanceCount(userNo);
-            model.addAttribute("attendanceCount", attendanceCount);
-
-            // 등급 기준 정해주기
-            int levelNo = postService.calculateLevel(attendanceCount);
-            System.out.println("levelNo = " + levelNo);
-*/
-
-//    public String newPostPage(Model model,WriterNameDTO writer) {
-
-/*            // 등급 기준과 출석수 기반으로 등급 업데이트하기
-            postService.updateUserLevel(userNo, levelNo);
-
-            // 유저의 등급 가져오기
-            String levelName = postService.getLevelName(levelNo);
-            model.addAttribute("userLevel", levelName);*/
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
 
 
         } else {
@@ -637,6 +623,7 @@ public class PostController {
         }
         return response; // JSON 형식으로 응답을 반환
     }
+
 }
 
 
