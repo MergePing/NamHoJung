@@ -17,4 +17,6 @@ public interface SignupMapper {
     int checkNick(String userNick);
 
     Boolean checkEmail(String userEmail);
+
+    LoginUserDTO login(String userId);
 }

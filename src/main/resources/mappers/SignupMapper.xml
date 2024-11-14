@@ -83,4 +83,23 @@
         WHERE EMAIL = #{ userEmail }
     </select>
 
+
+    <resultMap id="login" type="com.ohgiraffers.mergyping.user.model.dto.LoginDTO">
+        <result property="userNo" column="USER_NO"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userPass" column="USER_PWD"/>
+        <result property="userRole" column="USER_TYPE"/>
+        <result property="userName" column="USER_NAME"/>
+    </resultMap>
+    <select id="login" resultMap="login">
+        SELECT
+        USER_NO
+        ,  USER_ID
+        , USER_PWD
+        , USER_TYPE
+        , USER_NAME
+        FROM TBL_USER
+        WHERE USER_ID = #{ userId }
+    </select>
+
 </mapper>

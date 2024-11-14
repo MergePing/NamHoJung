@@ -1,8 +1,11 @@
 package com.ohgiraffers.mergyping.user.controller;
 
+import com.ohgiraffers.mergyping.user.model.dto.LoginDTO;
+import com.ohgiraffers.mergyping.user.model.dto.LoginUserDTO;
 import com.ohgiraffers.mergyping.user.model.dto.SignupDTO;
 import com.ohgiraffers.mergyping.user.model.service.SignupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +32,6 @@ public class SignupController {
 
         return "user/signup/signup";
     }
-
 
     @PostMapping("/signup")
     public ModelAndView signup(ModelAndView mv, @ModelAttribute SignupDTO signupDTO) {
@@ -95,6 +97,22 @@ public class SignupController {
         response.put("isAvailable", isAvailable);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/sign")
+    public ResponseEntity<?> login(@RequestBody LoginUserDTO loginUserDTO) {
+        boolean isLoginSuccess = signupService.login(loginUserDTO.getUserId(), loginUserDTO.getUserPass());
+
+        LoginDTO loginDTO = new LoginDTO();
+        loginDTO.setSuccess(isLoginSuccess);  // 성공 여부 설정
+
+        if (isLoginSuccess) {
+            return ResponseEntity.ok(loginDTO);  // 로그인 성공 시
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginDTO);  // 로그인 실패 시
+        }
+    }
+
+
 }
 
 

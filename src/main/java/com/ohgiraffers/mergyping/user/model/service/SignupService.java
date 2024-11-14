@@ -1,6 +1,7 @@
 package com.ohgiraffers.mergyping.user.model.service;
 
 import com.ohgiraffers.mergyping.user.model.dao.SignupMapper;
+import com.ohgiraffers.mergyping.user.model.dto.LoginDTO;
 import com.ohgiraffers.mergyping.user.model.dto.LoginUserDTO;
 import com.ohgiraffers.mergyping.user.model.dto.SignupDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,4 +66,17 @@ public class SignupService {
     public Boolean checkEmailAvailability(String userEmail) {
         return signupMapper.checkEmail(userEmail) == null;
     }
+
+
+    public boolean login(String userId, String userPass) {
+        LoginUserDTO login = signupMapper.login(userId);
+
+        // 사용자가 존재하고, 비밀번호가 일치하면 로그인 성공
+        if (login != null && passwordEncoder.matches(userPass, login.getUserPass())) {
+            return true;  // 로그인 성공
+        } else {
+            return false;  // 로그인 실패
+        }
+    }
+
 }
