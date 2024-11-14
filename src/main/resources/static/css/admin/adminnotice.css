@@ -265,7 +265,7 @@ main .tab p:nth-of-type(2){
 
 main .notice span:nth-of-type(1){
     position: absolute;
-    top: 330px;
+    top: 275px;
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 30px;
@@ -305,7 +305,7 @@ main .notice div span:first-child{
 main .notice span:nth-of-type(2){
     position: absolute;
     left: 489px;
-    top: 335px;
+    top: 285px;
     font-family: 'Cafe24Ssurroundair';
     font-weight: 500;
     font-size: 25px;
@@ -317,7 +317,7 @@ main .notice span:nth-of-type(2){
 
 main .notice span:nth-of-type(3){
     position: absolute;
-    top: 335px;
+    top: 285px;
     font-family: 'Cafe24Ssurroundair';
     font-weight: 500;
     font-size: 25px;
@@ -328,7 +328,7 @@ main .notice span:nth-of-type(3){
 
 main .notice span:nth-of-type(4){
     position: absolute;
-    top: 335px;
+    top: 285px;
     font-family: 'Cafe24Ssurroundair';
     font-weight: 500;
     font-size: 25px;
@@ -565,7 +565,7 @@ main .pageNum img:nth-of-type(2){
     align-items: center;
     position: fixed; /* 페이지 위치 고정 */
     left: 960px;
-    top: 921px;
+    top: 850px;
     z-index: 100; /* 다른 요소 위로 보이게 설정 */
 }
 
@@ -579,8 +579,33 @@ main .pageNum img:nth-of-type(2){
     background-color: #ddd;
 }
 
-.notice span:nth-child(2) {
-    margin-left: 20px; /* 카테고리와 다른 텍스트 사이 여백 */
-    font-size: 18px; /* 폰트 크기 */
-    color: gray; /* 카테고리 색상 */
+
+
+#categoryButtons {
+    display: flex; /* 버튼을 가로로 나란히 배치 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    gap: 10px; /* 버튼 간 간격 */
+    position: absolute;
+    left: 300px;
+    top: 900px;
+}
+
+.category-btn {
+    margin: 0; /* 버튼 간 외부 여백 제거 (flex와 gap 사용) */
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.category-btn.selected {
+    background-color: #4caf50;
+    color: white;
+    border-color: #4caf50;
+}
+
+.notice-title {
+    cursor: pointer;
 }

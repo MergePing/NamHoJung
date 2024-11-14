@@ -22,7 +22,8 @@
 </header>
 
 <main id="mainContent">
-  <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
+  <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
+  <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
   <!-- 검색 및 필터 -->
   <div class="select">
@@ -62,10 +63,11 @@
 <div id="addForm" style="display: none;">
   <input type="text" id="noticeTitle" placeholder="제목을 입력해주세요">
   <textarea id="noticeContent" placeholder="내용을 입력해주세요"></textarea>
-  <select id="noticeCategory">
-    <option value="공지">공지</option>
-    <option value="긴급">알림</option>
-  </select>
+  <div id="categoryButtons">
+    <button type="button" class="category-btn" data-category="공지">공지</button>
+    <button type="button" class="category-btn" data-category="알림">알림</button>
+  </div>
+  <input type="hidden" id="noticeCategory" value="공지">
   <button id="submitNoticeButton">제출</button>
 </div>
 
@@ -206,6 +208,19 @@
     this.style.display = 'none';
   });
 
+  document.querySelectorAll('.category-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      // 모든 버튼에서 selected 클래스 제거
+      document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
+
+      // 클릭된 버튼에 selected 클래스 추가
+      this.classList.add('selected');
+
+      // 선택된 카테고리 값을 hidden input에 저장
+      document.getElementById('noticeCategory').value = this.getAttribute('data-category');
+    });
+  });
+
   // 제출 버튼 클릭 시 서버로 데이터 전송
   document.getElementById('submitNoticeButton').addEventListener('click', function() {
     const title = document.getElementById('noticeTitle').value;
@@ -235,6 +250,8 @@
             })
             .catch(error => console.error('Error:', error));
   });
+
+
 </script>
 
 </body>

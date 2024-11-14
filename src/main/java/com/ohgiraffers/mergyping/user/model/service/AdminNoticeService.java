@@ -34,8 +34,14 @@ public class AdminNoticeService {
 
     // 공지사항 수정 기능
     public boolean updateNotice(AdminNoticeDetailDTO noticeDetailDTO) {
-        int rowsAffected = adminNoticeMapper.updateNotice(noticeDetailDTO);
-        return rowsAffected > 0; // 업데이트 성공 여부 반환
+
+        if (noticeDetailDTO.getTitle() == null || noticeDetailDTO.getContent() == null || noticeDetailDTO.getCategory() == null) {
+            throw new IllegalArgumentException("필수 입력값이 누락되었습니다.");
+        }
+
+
+        int rowsUpdated = adminNoticeMapper.updateNotice(noticeDetailDTO);
+        return rowsUpdated > 0;
     }
 
     // 공지사항 삭제 기능
