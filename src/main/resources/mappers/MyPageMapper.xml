@@ -202,17 +202,27 @@
 
     <select id="findUserInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
         SELECT
-        USER_NO,
-        USER_NAME,
-        EMAIL,
-        USER_ID,
-        USER_IMAGE AS profileImage
-        FROM TBL_USER
-        WHERE USER_NO = #{userNo}
+        U.USER_NO AS userNo,
+        U.USER_NAME as userName,
+        U.EMAIL,
+        U.USER_ID,
+        U.USER_IMAGE AS profileImage,
+        L.LEVEL AS level
+        FROM TBL_USER U
+        JOIN TBL_LEVEL L ON U.LEVEL_NO = L.LEVEL_NO
+        WHERE U.USER_NO = #{userNo}
     </select>
 
 
 
+    <select id="getUserLevelName" parameterType="int" resultType="string">
+        SELECT
+        L.LEVEL
+        U.USER_NAME
+        FROM TBL_USER U
+        JOIN TBL_LEVEL L ON U.LEVEL_NO = L.LEVEL_NO
+        WHERE U.USER_NO = #{userNo}
+    </select>
 
 
 </mapper>

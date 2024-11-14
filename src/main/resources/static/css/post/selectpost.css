@@ -14,6 +14,14 @@ body{
 .tr{
     transition: all 0.7s;
 }
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
 
 /*---------------nav------------------*/
 nav{
@@ -316,15 +324,21 @@ main .bg{
     top: -25px;
 }
 
-#header span:nth-of-type(7){
+#header div span:nth-of-type(1){
     position: absolute;
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 25px;
     text-align: center;
     color: #FFFFFF;
-    left: 1535px;
+    left: 1515px;
     top: 50px;
+}
+
+#header div img{
+    position: absolute;
+    left: 1507px;
+    top: -26px;
 }
 
 .post .line{
@@ -788,6 +802,49 @@ main .hidden{
 }
 
 
+div #editBtn{
+    position: absolute;
+    width: 120px;
+    height: 48px;
+    left: 1587px;
+    top: 193px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    border-radius: 50px;
+border: none;
+    outline: none;
+    background: #C8F2B3;
+
+}
+
+
+
+div #deleteBtn{
+    position: absolute;
+    width: 120px;
+    height: 48px;
+    left: 1427px;
+    top: 193px;
+    background: #66934F;
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+
+
+}
 
 
 

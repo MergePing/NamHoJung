@@ -81,6 +81,16 @@ public class MyPageController {
 
             model.addAttribute("userInfo", userInfo);
 
+            MyPageDTO level = myPageService.findUserInfo(userNo);
+            model.addAttribute("level", level);
+
+            MyPageDTO userName = myPageService.findUserInfo(userNo);
+            model.addAttribute("userName", userName);
+
+            MyPageDTO writerNo = myPageService.findUserInfo(userNo);
+            model.addAttribute("writerNo", writerNo);
+
+
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트

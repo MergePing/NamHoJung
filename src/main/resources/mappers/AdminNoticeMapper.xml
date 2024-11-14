@@ -5,10 +5,12 @@
 
 <mapper namespace="com.ohgiraffers.mergyping.user.model.dao.AdminNoticeMapper">
 
-    <!-- 공지사항 목록 페이징-->
+    <!-- 공지사항 페이징 처리 -->
     <select id="selectNoticesByPage" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
-        SELECT NOTICE_NO AS noticeNo,
+        SELECT
+        NOTICE_NO AS noticeNo,
         NOTICE_TITLE AS title,
+        NOTICE_CATEGORY AS category,
         NOTICE_DATE AS date
         FROM TBL_NOTICE
         ORDER BY NOTICE_NO DESC
@@ -17,49 +19,63 @@
 
     <!-- 전체 공지사항 개수 조회 -->
     <select id="countNotices" resultType="int">
-        SELECT COUNT(*) FROM TBL_NOTICE
+        SELECT COUNT(*)
+        FROM TBL_NOTICE
     </select>
 
-    <!-- 공지사항 상세 조회 -->
-    <resultMap id="noticeDetailResultMap" type="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO">
-        <result property="noticeNo" column="NOTICE_NO" />
-        <result property="title" column="NOTICE_TITLE" />
-        <result property="content" column="NOTICE_CONTENT" />
-        <result property="date" column="NOTICE_DATE" />
-    </resultMap>
 
-    <select id="selectNoticeDetail" parameterType="String" resultMap="noticeDetailResultMap">
-        SELECT NOTICE_NO,
-        NOTICE_TITLE,
-        NOTICE_CONTENT,
-        NOTICE_DATE
+    <select id="selectNoticeDetail" parameterType="String" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO">
+        SELECT
+        NOTICE_NO AS noticeNo,
+        NOTICE_TITLE AS title,
+        NOTICE_CONTENT AS content,
+        NOTICE_CATEGORY AS category,
+        NOTICE_DATE AS date
         FROM TBL_NOTICE
         WHERE NOTICE_NO = #{noticeNo}
     </select>
 
+    <!-- 공지사항 수정 -->
     <update id="updateNotice" parameterType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDetailDTO">
         UPDATE TBL_NOTICE
         SET
         NOTICE_TITLE = #{title},
-        NOTICE_CONTENT = #{content}
+        NOTICE_CONTENT = #{content},
+        NOTICE_CATEGORY = #{category}
         WHERE
         NOTICE_NO = #{noticeNo}
     </update>
 
+    <!-- 공지사항 삭제 -->
     <delete id="deleteNotice" parameterType="String">
-        DELETE FROM TBL_NOTICE
+        DELETE
+        FROM TBL_NOTICE
         WHERE NOTICE_NO = #{noticeNo}
     </delete>
 
-
+    <!-- 공지사항 추가 -->
     <insert id="insertNotice" parameterType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
-        INSERT INTO TBL_NOTICE (NOTICE_TITLE, NOTICE_CONTENT, NOTICE_DATE, USER_TYPE)
-        VALUES (#{title}, #{content}, NOW(), COALESCE(#{userType}, '관리자'))
+        INSERT INTO TBL_NOTICE (NOTICE_TITLE, NOTICE_CONTENT, NOTICE_CATEGORY, NOTICE_DATE, USER_TYPE)
+        VALUES (#{title}, #{content}, #{category}, NOW(), COALESCE(#{userType}, 'ADMIN'))
     </insert>
 
+    <!-- 검색 결과 페이징 처리 -->
     <select id="searchNoticesByTitle" resultType="com.ohgiraffers.mergyping.user.model.dto.AdminNoticeDTO">
-        SELECT NOTICE_NO AS noticeNo, NOTICE_TITLE AS title, NOTICE_DATE AS date
+        SELECT
+        NOTICE_NO AS noticeNo,
+        NOTICE_TITLE AS title,
+        NOTICE_CATEGORY AS category,
+        NOTICE_DATE AS date
         FROM TBL_NOTICE
-        WHERE NOTICE_TITLE LIKE #{keyword}
+        WHERE NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
+        LIMIT #{offset}, #{pageSize}
     </select>
+
+    <!-- 검색 결과 개수 조회 -->
+    <select id="countNoticesByKeyword" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_NOTICE
+        WHERE NOTICE_TITLE LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
 </mapper>

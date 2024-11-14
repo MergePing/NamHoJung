@@ -24,10 +24,11 @@ public class SelectPostDTO {
     private String postImageFirstExtension;
     private String postImageSecondExtension;
     private String profileImage;
+    private String userProfileImage;
 
     public SelectPostDTO() {}
 
-    public SelectPostDTO(int postNo, String postTitle, String postCategory, int postWriter, String postWriterName, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension, String profileImage) {
+    public SelectPostDTO(int postNo, String postTitle, String postCategory, int postWriter, String postWriterName, String postContent, LocalDate postDate, int scaryNumber, int notScaryNumber, int commentNumber, int postReport, String postImageFirst, String postImageSecond, boolean postFavorite, boolean scary, boolean notScary, String postImageFirstExtension, String postImageSecondExtension, String profileImage, String userProfileImage) {
         this.postNo = postNo;
         this.postTitle = postTitle;
         this.postCategory = postCategory;
@@ -47,6 +48,15 @@ public class SelectPostDTO {
         this.postImageFirstExtension = postImageFirstExtension;
         this.postImageSecondExtension = postImageSecondExtension;
         this.profileImage = profileImage;
+        this.userProfileImage = userProfileImage;
+    }
+
+    public String getUserProfileImage() {
+        return userProfileImage;
+    }
+
+    public void setUserProfileImage(String userProfileImage) {
+        this.userProfileImage = userProfileImage;
     }
 
     public int getPostNo() {
@@ -223,6 +233,7 @@ public class SelectPostDTO {
                 ", postImageFirstExtension='" + postImageFirstExtension + '\'' +
                 ", postImageSecondExtension='" + postImageSecondExtension + '\'' +
                 ", profileImage='" + profileImage + '\'' +
+                ", userProfileImage='" + userProfileImage + '\'' +
                 '}';
     }
 }

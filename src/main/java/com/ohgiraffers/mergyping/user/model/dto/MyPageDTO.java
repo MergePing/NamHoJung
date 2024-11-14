@@ -7,16 +7,18 @@ public class MyPageDTO {
     private String userId;
     private String userPwd;
     private String profileImage;
+    private String level;
 
     public MyPageDTO(){}
 
-    public MyPageDTO(String userName, String email, int userNo, String userId, String userPwd, String profileImage) {
+    public MyPageDTO(String userName, String email, int userNo, String userId, String userPwd, String profileImage, String level) {
         this.userName = userName;
         this.email = email;
         this.userNo = userNo;
         this.userId = userId;
         this.userPwd = userPwd;
         this.profileImage = profileImage;
+        this.level = level;
     }
 
     public String getUserName() {
@@ -67,6 +69,14 @@ public class MyPageDTO {
         this.profileImage = profileImage;
     }
 
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     @Override
     public String toString() {
         return "MyPageDTO{" +
@@ -76,6 +86,7 @@ public class MyPageDTO {
                 ", userId='" + userId + '\'' +
                 ", userPwd='" + userPwd + '\'' +
                 ", profileImage='" + profileImage + '\'' +
+                ", level='" + level + '\'' +
                 '}';
     }
 }

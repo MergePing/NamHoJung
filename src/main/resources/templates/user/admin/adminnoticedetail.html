@@ -42,8 +42,13 @@
 
         <!-- 수정 입력 폼 -->
         <div id="editForm" style="display: none; position: absolute; top: 0; left: 0;">
-            <input type="text" id="editTitle">
-            <textarea id="editContent"></textarea>
+            <input type="text" id="editTitle" placeholder="제목">
+            <textarea id="editContent" placeholder="내용"></textarea>
+            <input type="hidden" id="noticeCategory" name="category">
+            <div id="categoryButtons">
+                <button type="button" class="category-btn" data-category="공지">공지</button>
+                <button type="button" class="category-btn" data-category="알림">알림</button>
+            </div>
             <button id="saveButton">저장</button>
         </div>
     </section>
@@ -81,28 +86,60 @@
         document.getElementById('editContent').value = document.getElementById('contentText').innerText;
     });
 
-    document.getElementById('saveButton').addEventListener('click', function() {
+
+
+    // 카테고리 버튼 클릭 이벤트
+    document.querySelectorAll('.category-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
+            this.classList.add('selected');
+            document.getElementById('noticeCategory').value = this.getAttribute('data-category');
+        });
+    });
+
+
+    // 저장 버튼 클릭 이벤트
+    document.getElementById('saveButton').addEventListener('click', function () {
+        const updatedTitle = document.getElementById('editTitle').value.trim();
+        const updatedContent = document.getElementById('editContent').value.trim();
+        const selectedCategory = document.getElementById('noticeCategory').value;
+
+        if (!updatedTitle || !updatedContent) {
+            alert('제목과 내용을 입력해주세요.');
+            return;
+        }
+
+        if (!selectedCategory) {
+            alert('카테고리를 선택해주세요.');
+            return;
+        }
+
         const noticeNo = document.getElementById('noticeNo').innerText;
-        const title = document.getElementById('editTitle').value;
-        const content = document.getElementById('editContent').value;
 
         fetch(`/admin/notice/detail/edit/${noticeNo}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title, content })
+            body: JSON.stringify({
+                title: updatedTitle,
+                content: updatedContent,
+                category: selectedCategory,
+            }),
         })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     alert('공지사항이 수정되었습니다.');
-                    location.reload();  // 페이지 새로고침하여 변경사항 반영
+                    window.location.href = '/admin/notice';
                 } else {
                     alert('수정 실패');
                 }
-            });
+            })
+            .catch(error => console.error('Error:', error));
     });
+
+
 
     document.getElementById('delete-button').addEventListener('click', function() {
         document.getElementById('deleteModal').style.display = 'block';
@@ -130,6 +167,19 @@
             .catch(error => console.error('Error:', error));
 
         document.getElementById('deleteModal').style.display = 'none';
+    });
+
+    document.querySelectorAll('.category-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // 모든 버튼에서 selected 클래스 제거
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
+
+            // 클릭된 버튼에 selected 클래스 추가
+            this.classList.add('selected');
+
+            // 선택된 카테고리 값을 hidden input에 저장
+            document.getElementById('noticeCategory').value = this.getAttribute('data-category');
+        });
     });
 </script>
 

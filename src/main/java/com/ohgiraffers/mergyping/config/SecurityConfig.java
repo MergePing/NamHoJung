@@ -37,11 +37,9 @@ public class SecurityConfig  {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers( "/auth/**",
-                    "/", "/main", "/css/**", "/img/**", "/error/**",
-                    "/userinfo/**", "/useractive/**", "/intro", "/notice", "/selectnotice", "/selectpost","/writepost", "/find/**",
-                    "/checknickname/**", "/admin/**", "/toggleFavorite", "/post/**","selectpost/**","/toggleScary/**","/toggleNotScary/**").permitAll();
-            auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
-            auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
+                    "/css/**", "/img/**", "/error/**", "/find/**","selectpost/**","/toggleScary/**","/toggleNotScary/**", "/toggleFavorite").permitAll();
+            auth.requestMatchers("/admin/**", "/user/**", "/", "/main", "/userinfo/**", "/useractive/**", "/intro/**", "/notice/**" , "/selectnotice/**", "/selectpost/**",  "/writepost", "/checknickname/**", "/post/**", "selectpost/**").hasAnyAuthority(UserRole.ADMIN.getRole());
+            auth.requestMatchers("/user/**", "/", "/main", "/userinfo/**", "/useractive/**", "/intro/**", "/notice/**" , "/selectnotice/**", "/selectpost/**",  "/writepost", "/checknickname/**", "/post/**", "selectpost/**").hasAnyAuthority(UserRole.USER.getRole());
             auth.anyRequest().authenticated();
 
         }).formLogin( login -> {
@@ -59,7 +57,7 @@ public class SecurityConfig  {
 
         }).sessionManagement( session -> {
             session.maximumSessions(1);
-            session.invalidSessionUrl("/");
+            session.invalidSessionUrl("/auth/login");
 
         }).csrf( csrf -> csrf.disable());
 

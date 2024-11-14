@@ -8,6 +8,7 @@ import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
+import com.ohgiraffers.mergyping.user.model.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,7 @@ public class PostController {
     // 필드 정의
     // 서비스 주입받는 필드
     private final PostService postService;
+    private final MyPageService myPageService;
 
     // 이미지가 저장될 경로
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
@@ -45,8 +47,9 @@ public class PostController {
 
     // 서비스 생성자
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService,MyPageService myPageService) {
         this.postService = postService;
+        this.myPageService=myPageService;
     }
 
 
@@ -114,49 +117,59 @@ public class PostController {
 
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        int userNo=-1;
+        int userNo = -1;
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             userNo = userDetails.getUserNo();
         }
 
-
         // 서비스를 통해 게시글 번호로 게시물 조회
         SelectPostDTO selected = postService.selectById(postNo);
 
-        // 게시물을 찾지 목한 경우 404 에러 반환
-        //HttpStatus.NOT_FOUND - 404 에러
+        // 게시물을 찾지 못한 경우 404 에러 반환
         if (selected == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
         }
 
         // 이미지의 null 여부 확인 후 이미지 경로 설정
         if (selected.getPostImageFirst() != null) {
-
-            // PostImageFirst의 현재 값을 다시 PostImageFirst 필드에 추가
             selected.setPostImageFirst(selected.getPostImageFirst());
         }
 
         if (selected.getPostImageSecond() != null) {
-
-            // PostImageSecond의 현재 값을 다시 PostImageSecond 필드에 추가
             selected.setPostImageSecond(selected.getPostImageSecond());
         }
-        System.out.println("selected11111111111111111 = " + selected);
 
         // 모델에 post라는 이름으로 선택한 게시글 추가
         model.addAttribute("post", selected);
 
+        // 댓글 목록 및 사용자 정보 추가
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
-
+        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo);
         model.addAttribute("comments", comments);
         model.addAttribute("userNo", userNo);
 
-        // 뷰 반환
+
+        // 프로필 이미지 추가
+        String profileImage = null;
+        if (selected.getPostWriter() == userNo) {
+            profileImage = myPageService.getProfileImageByUserNo(userNo);
+        }
+        model.addAttribute("profileImage", profileImage);
+
+        // 작성자의 등급 및 이름 설정
+        MyPageDTO level = myPageService.findUserInfo(userNo);
+        model.addAttribute("level", level);
+
+        MyPageDTO userName = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userName);
+
+
         return "post/selectpost";
     }
+
 
     @PostMapping("/selectpost/{postNo}/comment")
     @ResponseBody
@@ -335,29 +348,13 @@ public class PostController {
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
+            System.out.println("userNo = " + userNo);
 
-/*
-            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
-            MyPageDTO myPageDTO = postService.findNickName(userNo);
-            model.addAttribute("myPageDTO", myPageDTO);
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
 
-            // 누적된 출석 수 가져오기
-            Integer attendanceCount = postService.getUserAttendanceCount(userNo);
-            model.addAttribute("attendanceCount", attendanceCount);
-
-            // 등급 기준 정해주기
-            int levelNo = postService.calculateLevel(attendanceCount);
-            System.out.println("levelNo = " + levelNo);
-*/
-
-//    public String newPostPage(Model model,WriterNameDTO writer) {
-
-/*            // 등급 기준과 출석수 기반으로 등급 업데이트하기
-            postService.updateUserLevel(userNo, levelNo);
-
-            // 유저의 등급 가져오기
-            String levelName = postService.getLevelName(levelNo);
-            model.addAttribute("userLevel", levelName);*/
+            MyPageDTO writerNo = myPageService.findUserInfo(userNo);
+            model.addAttribute("writerNo", writerNo);
 
 
         } else {
@@ -637,6 +634,28 @@ public class PostController {
         }
         return response; // JSON 형식으로 응답을 반환
     }
+
+
+
+//--------------------수정---------------------------------
+    @PostMapping("/editpost/{postNo}")
+    public ResponseEntity<String> editPost(@PathVariable("postNo") int postNo, @RequestBody Map<String, String> payload) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            SelectPostDTO selected = postService.selectById(postNo);
+
+            if (selected != null && selected.getPostWriter() == userNo) {
+                postService.editPost(postNo, payload.get("postTitle"), payload.get("postContent"));
+                return ResponseEntity.ok("게시글이 수정되었습니다.");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("수정 권한이 없습니다.");
+    }
+
+
 }
 
 
