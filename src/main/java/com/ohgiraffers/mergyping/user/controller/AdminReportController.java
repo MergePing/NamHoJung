@@ -1,15 +1,21 @@
 package com.ohgiraffers.mergyping.user.controller;
 
+import com.ohgiraffers.mergyping.user.model.service.AdminReportService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/report")
 public class AdminReportController {
 
-    @GetMapping("/report")
-    public String showReportPage() {
-        return "user/admin/adminreport";
+
+    private final AdminReportService adminReportService;
+
+    @Autowired
+    public AdminReportController(AdminReportService adminReportService) {
+
+
     }
 }
