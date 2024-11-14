@@ -341,25 +341,63 @@ public class PostController {
 
         // 게시물 수정 페이지 이동
         @GetMapping("/edit/{postNo}")
-        public String editPostPage(@PathVariable int postNo, Model model) {
+        public String editPostPage(@PathVariable("postNo") int postNo, Model model) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+            int userNo = -1;
             if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
                 AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
-                int userNo = userDetails.getUserNo();
-                System.out.println("userNo = " + userNo);
-
-                MyPageDTO userInfo = myPageService.findUserInfo(userNo);
-                model.addAttribute("userInfo", userInfo);
-
-                SelectPostDTO post = postService.selectById(postNo);
-                model.addAttribute("post", post);
-            } else {
-                return "redirect:/login";
+                userNo = userDetails.getUserNo();
             }
 
+            // 서비스를 통해 게시글 번호로 게시물 조회
+            SelectPostDTO selected = postService.selectById(postNo);
+
+            // 게시물을 찾지 못한 경우 404 에러 반환
+            if (selected == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+            }
+
+            // 이미지의 null 여부 확인 후 이미지 경로 설정
+            if (selected.getPostImageFirst() != null) {
+                selected.setPostImageFirst(selected.getPostImageFirst());
+            }
+
+            if (selected.getPostImageSecond() != null) {
+                selected.setPostImageSecond(selected.getPostImageSecond());
+            }
+
+            // 모델에 post라는 이름으로 선택한 게시글 추가
+            model.addAttribute("post", selected);
+
+
+
+            // 댓글 목록 및 사용자 정보 추가
+            List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
+            model.addAttribute("userInfo", userInfo);
+            model.addAttribute("comments", comments);
+            model.addAttribute("userNo", userNo);
+
+
+            // 프로필 이미지 추가
+            String profileImage = null;
+            if (selected.getPostWriter() == userNo) {
+                profileImage = myPageService.getProfileImageByUserNo(userNo);
+            }
+            model.addAttribute("profileImage", profileImage);
+
+            // 작성자의 등급 및 이름 설정
+            MyPageDTO level = myPageService.findUserInfo(userNo);
+            model.addAttribute("level", level);
+
+            MyPageDTO userName = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userName);
+
             return "post/edit";
+
         }
+
 
         // 게시물 수정 처리
         @PostMapping("/edit")
@@ -417,26 +455,18 @@ public class PostController {
             MyPageDTO userInfo = myPageService.findUserInfo(userNo);
             model.addAttribute("userInfo", userInfo);
 
-            MyPageDTO writerNo = myPageService.findUserInfo(userNo);
-            model.addAttribute("writerNo", writerNo);
+//            MyPageDTO writerNo = myPageService.findUserInfo(userNo);
+//            model.addAttribute("writerNo", writerNo);
+
+            SelectPostDTO newPost = new SelectPostDTO();
+            newPost.setPostNo(generateNewPostNo());
+            model.addAttribute("post", newPost);
 
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트
             return "redirect:/login";
         }
-
-        // 새로운 데이터를 저장할 DTO 생성
-        SelectPostDTO newPost = new SelectPostDTO();
-
-        // 새로운 게시물 번호를 generateNewPostNo에서 가져와서 새로만든 DTO에 주입
-        newPost.setPostNo(generateNewPostNo());
-
-        // 모델에 post라는 키 값으로 newPost라는 DTO값을 추가
-        // 뷰 파일에서 post 객체를 쓰기 위해서
-        model.addAttribute("post", newPost);
-        model.addAttribute("writer", writer);
-
         return "post/newpost";
     }
 

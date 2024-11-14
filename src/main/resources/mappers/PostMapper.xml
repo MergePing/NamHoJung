@@ -339,13 +339,13 @@
         WHERE POST_NO = #{postNo}
     </select>
 
-    <update id="updatePost" parameterType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+    <update id="updatePost" parameterType="com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO">
         UPDATE TBL_POST
         SET POST_TITLE = #{postTitle},
         POST_CONTENT = #{postContent},
         POST_CATEGORY =#{postCategory},
         POST_IMAGE_FIRST = #{postImageFirst},
-        POST_IMAGE_SECOND = #{postImageSecond},
+        POST_IMAGE_SECOND = #{postImageSecond}
         WHERE POST_NO = #{postNo}
     </update>
 

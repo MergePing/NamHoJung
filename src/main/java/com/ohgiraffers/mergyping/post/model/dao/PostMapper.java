@@ -71,7 +71,7 @@ public interface PostMapper {
     void updatePost(InsertPostDTO postDTO);
 
     void deletePost(int postNo);
-    SelectPostDTO findPostInfo(@RequestParam("postNo") int postNo);
+
 
 //    CommentDTO getCommentByNo(int commentNo);
 //

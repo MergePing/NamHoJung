@@ -200,8 +200,6 @@ public class MyPageService {
         }
         return "/images/default-profile.png";
     }
-    public String getUserLevelName(int userNo) {
-        return myPageMapper.getUserLevelName(userNo);
-    }
+
 }
 

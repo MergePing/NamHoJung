@@ -93,7 +93,6 @@
                     checkTitleWidth();
                     window.addEventListener('resize', checkTitleWidth);
                 });
-
             </script>
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
@@ -150,7 +149,7 @@
             <div id="writer" class="post-user">
 
                 <div th:if="${userInfo.userName} == ${post.postWriterName}">
-                    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}"
+                    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : post.profileImage}}"
                          alt="프로필 사진" class="profile-photo" id="profilePhoto">
                 </div>
                 <div th:if="${userInfo.userName} != ${post.postWriterName}">
@@ -234,17 +233,18 @@
             <div class="modify">
                 <div class="modal-bg">
                     <p>게시물을 수정 하시겠습니까?</p>
-                    <button class="yes" onclick="location.href='/edit'">확인</button>
-                    <button class="return">취소</button>
+                    <a th:href="@{/edit/{postNo}(postNo=${post.postNo})}">
+                        <button class="yes" id="yes" onclick="location.href='/edit/{postNo}'">확인</button> </a>
+                    <button class="return" onclick="location.href=`/post`">취소</button>
                 </div>
             </div>
         </div>
-        <div class="deleteModal">
+        <div class="deleteModal dn">
             <p>게시물을 삭제 하시겠습니까?</p>
             <button class="yes">확인</button>
             <button class="return">취소</button>
         </div>
-        </div>
+
         <div class="deleteModal">
         <button type="button" onclick="deletePost()" id="deleteBtn">삭제</button>
         </div>
@@ -255,6 +255,7 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
+
 
 <script>
     function submitComment() {

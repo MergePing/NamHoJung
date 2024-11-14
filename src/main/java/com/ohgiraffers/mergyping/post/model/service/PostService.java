@@ -188,9 +188,6 @@ public class PostService {
             }
         }
 
-    public void editPost(int postNo, String postTitle, String postContent) {
-        postMapper.editPost(postNo, postTitle, postContent);
-    }
 
     public void updatePost(InsertPostDTO postDTO) {
             postMapper.updatePost(postDTO);
