@@ -656,7 +656,7 @@ main .report span:nth-of-type(4) {
 }
 
 .modal-content {
-    background: #fff;
+    background: #3B572D;
     padding:  20px;
     border-radius: 10px;
     text-align: center;
@@ -683,4 +683,47 @@ main .report span:nth-of-type(4) {
 #deleteButton {
     background-color: #e74c3c;
     color: #fff;
+}
+
+.report-detail{
+    /* 신고 정보 */
+
+    position: absolute;
+    width: 104px;
+    height: 31px;
+    left: 825px;
+    top: 325px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+    white-space: nowrap;
+
+
+}
+
+.modalReportedUser{
+    /* 피신고인 : */
+
+    position: absolute;
+    width: 93px;
+    height: 26px;
+    left: 676px;
+    top: 403px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+
+
 }
