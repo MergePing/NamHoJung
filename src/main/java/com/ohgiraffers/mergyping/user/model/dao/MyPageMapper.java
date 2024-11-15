@@ -21,16 +21,16 @@ public interface MyPageMapper {
 
     void modifyUserName(MyPageDTO myPageDTO);
 
-    List<MyPagePostDTO> findWrittenPost(int userNo);
+    
 
     void updatePassword(Map<String,Object> params);
 
 
     MyPageDTO findId(int userNo);
 
-    List<MypageCommentDTO> findWrittenComment(int userNo);
+    
 
-    List<MyPagePostDTO> findWrittenFavorite(int userNo);
+  
 
     Map<String, Object> findUserMBTIInfo(int userNo);
 
@@ -65,4 +65,15 @@ public interface MyPageMapper {
 
     String getUserLevelName(@RequestParam("userNo") int userNo);
 
+    List<MyPagePostDTO> findWrittenPost(int userNo, int offset, int size);
+
+    int countUserPosts(int userNo);
+
+    List<MypageCommentDTO> findWrittenComment(int userNo, int offset, int size);
+
+    int countUserComment(int userNo);
+
+    List<MyPagePostDTO> findWrittenFavorite(int userNo, int offset, int size);
+
+    int countUserFavorite(int userNo);
 }

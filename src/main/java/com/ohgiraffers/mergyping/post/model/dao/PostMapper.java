@@ -73,5 +73,13 @@ public interface PostMapper {
     int updateComment(Map<String, Object> params);
 
 
+    int deletePost(int postNo);
 
+    SelectPostDTO selectPostWriter(int postNo);
+
+
+//    CommentDTO getCommentByNo(int commentNo);
+//
+//    int updateComment(CommentDTO comment);
+}
 }

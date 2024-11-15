@@ -201,6 +201,22 @@ main .myp span:nth-of-type(5){
     left: 1560px;
     text-align: center;
 }
+
+.postPagination{
+    position: absolute;
+    top:950px;
+    left:900px;
+}
+.commentPagination{
+    position: absolute;
+    top:950px;
+    left:900px;
+}
+.favoritePagination{
+    position: absolute;
+    top:950px;
+    left:900px;
+}
 /*main .myp span:nth-of-type(6){*/
 /*    position: absolute;*/
 /*    top: 380px;*/

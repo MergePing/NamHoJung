@@ -53,6 +53,10 @@
         <result property="like" column="LIKED"/>
     </resultMap>
 
+    <resultMap id="selectPost2" type="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+        <result property="postWriter" column="POST_WRITER"/>
+    </resultMap>
+
 
     <select id="postList" resultMap="postList">
         SELECT
@@ -149,6 +153,13 @@
         FROM TBL_POST A
         JOIN TBL_USER B ON A.POST_WRITER = B.USER_NO
         WHERE POST_NO = #{postNo};
+    </select>
+
+    <select id="selectPostWriter" resultMap="selectPost2">
+        SELECT
+                POST_WRITER
+            FROM TBL_POST
+            WHERE POST_NO=#{postNo};
     </select>
 
 
@@ -397,6 +408,12 @@
         LIKE_NUMBER = LIKE_NUMBER - 1
         WHERE COMMENT_NO = #{commentNo};
     </update>
+
+    <!-- 게시글 삭제 쿼리 -->
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </delete>
 
 
     <select id="getLikeNumber" parameterType="int" resultType="int">

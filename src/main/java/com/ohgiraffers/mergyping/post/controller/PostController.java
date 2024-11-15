@@ -69,6 +69,41 @@ public class PostController {
         return "/post/post";
     }
 
+    // 게시글 삭제 요청 처리
+    @DeleteMapping("/post/{postNo}/delete")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> deletePost(@PathVariable int postNo, Authentication authentication) {
+        // 로그인된 유저와 게시글 작성자가 일치하는지 확인
+        AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+        int userNo = userDetails.getUserNo();
+
+        SelectPostDTO post = postService.selectPostWriter(postNo);
+        System.out.println("post.getPostWriter() = " + post.getPostWriter());
+        System.out.println("post = " + post);
+        System.out.println("userNo = " + userNo);
+
+        Map<String, Object> response = new HashMap<>();
+        if (post != null && post.getPostWriter() == userNo) {
+
+            // 게시글 삭제 수행
+            boolean isDeleted = postService.deletePost(postNo);
+            if (isDeleted) {
+                response.put("success", true);
+                response.put("message", "게시글이 삭제되었습니다.");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("success", false);
+                response.put("error", "게시글 삭제에 실패했습니다.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            }
+        } else {
+            response.put("success", false);
+            response.put("error", "삭제 권한이 없습니다.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+    }
+
+
 
     // 게시글 정렬
     @GetMapping("/post/sort")

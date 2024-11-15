@@ -42,7 +42,12 @@
         COMMENTS_NUMBER
         FROM TBL_POST
         WHERE POST_WRITER = #{userNo}
+        LIMIT #{offset}, #{size}
 
+    </select>
+
+    <select id="countUserPosts" resultType="int">
+        SELECT COUNT(*) FROM TBL_POST WHERE POST_WRITER = #{userNo}
     </select>
 
     <select id="findWrittenComment" resultMap="mypageCommentResultMap">
@@ -53,6 +58,11 @@
         LIKE_NUMBER
         FROM TBL_COMMENT
         WHERE USER_NO = #{userNo}
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="countUserComment" resultType="int">
+        SELECT COUNT(*) FROM TBL_COMMENT WHERE USER_NO = #{userNo}
     </select>
 
     <select id="findWrittenFavorite" resultMap="mypagePostResultMap">
@@ -67,6 +77,11 @@
         FROM TBL_POST
         WHERE POST_WRITER = #{userNo}
         AND POST_FAVORITE = true
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="countUserFavorite" resultType="int">
+        SELECT COUNT(*) FROM TBL_POST WHERE POST_WRITER = #{userNo} AND POST_FAVORITE = true
     </select>
 
 
