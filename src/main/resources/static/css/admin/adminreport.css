@@ -691,7 +691,7 @@ main .report span:nth-of-type(4) {
     position: absolute;
     width: 104px;
     height: 31px;
-    left: 825px;
+    left: 950px;
     top: 325px;
 
     font-family: 'BM JUA_OTF';
@@ -707,23 +707,15 @@ main .report span:nth-of-type(4) {
 
 }
 
-.modalReportedUser{
-    /* 피신고인 : */
-
+.modal-info p {
     position: absolute;
-    width: 93px;
-    height: 26px;
-    left: 676px;
-    top: 403px;
-
-    font-family: 'BM JUA_OTF';
-    font-style: normal;
-    font-weight: 400;
+    top : 400px;
+    left: 700px;
+    line-height: 1.6; /* 줄 간격 */
+    color: #333; /* 텍스트 색상 */
+    margin: 20px 0; /* 전체 문단 간격 */
+    font-family: Cafe24SsurroundAir;
     font-size: 25px;
-    line-height: 26px;
-    /* identical to box height */
-
     color: #FFFFFF;
-
-
 }
+

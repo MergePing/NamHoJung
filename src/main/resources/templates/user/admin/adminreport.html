@@ -48,8 +48,12 @@
     <div id="reportModal" class="modal hidden">
         <div class="modal-content">
             <h2 class="report-detail">신고 상세정보</h2>
-            <p><strong>피신고인:</strong> <span id="modalReportedUser"></span></p>
-            <p><strong>사유:</strong> <span id="modalReportReason"></span></p>
+            <div class="modal-info">
+                <p>
+                    피신고인: <span id="modalReportedUser">홍길동</span><br>
+                    사유: <span id="modalReportReason">비속어 사용</span>
+                </p>
+            </div>
             <div class="modal-buttons">
                 <button id="restrictButton">일시적 활동제한</button>
                 <button id="deleteButton">신고 삭제</button>
