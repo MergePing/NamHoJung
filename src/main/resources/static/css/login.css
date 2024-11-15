@@ -229,7 +229,17 @@ nav span:hover{
 .loginBox:active{
     margin-left: 5px;
     margin-top: 5px;
-    box-shadow: 3px 3px 3px black;
+}
+
+
+#loginButton2{
+    display: none;
+    position: absolute;
+    z-index: 999;
+    width: 253px;
+    height: 201px;
+    left: 1050px;
+    top: 577px;
 }
 
 .search{
@@ -274,6 +284,7 @@ nav span:hover{
     height: 26px;
     left: 829px;
     top: 747px;
+    color:white;
 
     font-family: 'BM JUA_TTF';
     font-style: normal;
@@ -670,4 +681,17 @@ nav span:hover{
     rotate: 180deg;
     left: 850px;
     top: 440px;
+}
+
+#findButton {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    left: 1150px;
+    top: 570px;
+}
+
+#findButton:active {
+    margin-top: 1px;
+    margin-left: 1px;
 }
