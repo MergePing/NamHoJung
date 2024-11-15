@@ -49,6 +49,8 @@
         <result property="commentDate" column="COMMENT_DATE"/>
         <result property="username" column="USER_NAME"/>
         <result property="userLevel" column="LEVEL"/>
+        <result property="likeNumber" column="LIKE_NUMBER"/>
+        <result property="like" column="LIKED"/>
     </resultMap>
 
 
@@ -152,7 +154,6 @@
 
 
 
-
     <update id="updateFavoriteStatus">
         UPDATE TBL_POST
         SET POST_FAVORITE = #{isFavorite}
@@ -199,6 +200,7 @@
         FROM TBL_POST
         WHERE POST_NO = #{postNo}
     </select>
+
 
     <insert id="insertPost" parameterType="com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO">
         INSERT INTO TBL_POST (
@@ -343,6 +345,8 @@
         C.COMMENT_DATE,
         U.USER_NAME AS USER_NAME,
         L.LEVEL AS LEVEL,
+        C.LIKE_NUMBER,
+        C.LIKED,
         C.USER_NO
         FROM
         TBL_COMMENT C
@@ -378,6 +382,28 @@
         SET COMMENTS_NUMBER = COMMENTS_NUMBER - 1
         WHERE POST_NO = #{postNo}
     </update>
+
+
+    <update id="incrementLikeCount">
+        UPDATE TBL_COMMENT
+        SET LIKED = #{isLike},
+        LIKE_NUMBER = LIKE_NUMBER + 1
+        WHERE COMMENT_NO = #{commentNo};
+    </update>
+
+    <update id="decrementLikeCount">
+        UPDATE TBL_COMMENT
+        SET LIKED = #{isLike},
+        LIKE_NUMBER = LIKE_NUMBER - 1
+        WHERE COMMENT_NO = #{commentNo};
+    </update>
+
+
+    <select id="getLikeNumber" parameterType="int" resultType="int">
+        SELECT LIKE_NUMBER
+        FROM TBL_COMMENT
+        WHERE COMMENT_NO = #{commentNo}
+    </select>
 
 
 

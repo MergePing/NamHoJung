@@ -313,58 +313,69 @@ public class PostController {
     }
 
 
+
+    // 무서워요 토글
     @PostMapping("/toggleScary")
     @ResponseBody
     public Map<String, Object> toggleScary(@RequestBody Map<String, Object> payload) {
-
-        // 요청 본문에서 게시물 번호를 가져와서 정수형으로 형변환
         int postNo = Integer.parseInt((String) payload.get("postNo"));
-
-        // 요청 본문에서 무서워요 여부를 불리언 값으로 가져옴
         boolean isScary = (Boolean) payload.get("isScary");
 
-        // 서비스를 통해 게시물 번호와 무서워요 여부로 무서워요 상태 업데이트
         postService.updateScaryStatus(postNo, isScary);
 
-        // 응답 데이터를 담을 새로운 맵 생성
         Map<String, Object> response = new HashMap<>();
-
-        // 응답 맵에 성공 상태 추가
         response.put("success", true);
-
-        // scaryNumber라는 이름으로 응답 맵에 서비스를 통해 게시글의 무서워요 수 추가
         response.put("scaryNumber", postService.getScaryNumber(postNo));
-
-        // 응답 반환
         return response;
     }
-
 
     @PostMapping("/toggleNotScary")
     @ResponseBody
     public Map<String, Object> toggleNotScary(@RequestBody Map<String, Object> payload) {
-
-        // 요청 본문에서 게시물 번호를 가져와서 정수형으로 형변환
         int postNo = Integer.parseInt((String) payload.get("postNo"));
-
-        // 요청 본문에서 안무서워요 여부를 불리언 값으로 가져옴
         boolean isNotScary = (Boolean) payload.get("isNotScary");
 
-        // 서비스를 통해 게시물 번호와 안무서워요 여부로 무서워요 상태 업데이트
         postService.updateNotScaryStatus(postNo, isNotScary);
 
-        // 응답 데이터를 담을 새로운 맵 생성
         Map<String, Object> response = new HashMap<>();
-
-        // 응답 맵에 성공 상태 추가
         response.put("success", true);
-
-        // notScaryNumber라는 이름으로 응답 맵에 서비스를 통해 게시글의  안무서워요 수 추가
         response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
-
-        // 응답 맵 반환
         return response;
     }
+
+
+        @PostMapping("/toggleLike")
+    @ResponseBody
+    public Map<String, Object> toggleLike(@RequestBody Map<String, Object> payload) {
+        Object commentNoObj = payload.get("commentNo");
+        int commentNo;
+
+        if (commentNoObj instanceof Integer) {
+            commentNo = (Integer) commentNoObj;
+            System.out.println("commentNo 111111111= " + commentNo);
+        } else if (commentNoObj instanceof String) {
+            commentNo = Integer.parseInt((String) commentNoObj);
+            System.out.println("commentN22222222222o = " + commentNo);
+        } else {
+            throw new IllegalArgumentException("Invalid type for commentNo");
+        }
+
+        boolean isLike = (Boolean) payload.get("isLike");
+        postService.updateLikeStatus(commentNo, isLike);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("likeNumber", postService.getLikeNumber(commentNo));
+        return response;
+    }
+
+
+
+
+
+
+
+
 
     // 게시물 수정 페이지 이동
     @GetMapping("/edit/{postNo}")
