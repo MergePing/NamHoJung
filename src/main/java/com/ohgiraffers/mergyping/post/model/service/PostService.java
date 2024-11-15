@@ -219,6 +219,21 @@ public class PostService {
         postMapper.editPost(postNo, postTitle, postContent);
     }
 
+    @Transactional
+    public boolean deletePost(int postNo) {
+        try {
+            int result = postMapper.deletePost(postNo);
+            return result > 0;  // 삭제된 행이 있으면 true 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;  // 삭제 실패 시 false 반환
+        }
+    }
+
+    public SelectPostDTO selectPostWriter(int postNo) {
+            return postMapper.selectPostWriter(postNo);
+    }
+
 
 //    public boolean updateComment(int commentNo, int userNo, String commentContent) {
 //        // 해당 댓글의 작성자가 현재 로그인한 사용자인지 확인

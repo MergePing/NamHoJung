@@ -74,6 +74,11 @@ public interface PostMapper {
 
     void editPost(@RequestParam("postNo") int postNo, @RequestParam("postTitle") String postTitle, @RequestParam("postContent") String postContent);
 
+    int deletePost(int postNo);
+
+    SelectPostDTO selectPostWriter(int postNo);
+
+
 //    CommentDTO getCommentByNo(int commentNo);
 //
 //    int updateComment(CommentDTO comment);

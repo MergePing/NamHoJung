@@ -242,7 +242,7 @@
 
     <div th:if="${userInfo.userName} == ${post.postWriterName}">
         <button type="button" onclick="editPost()" id="editBtn">수정</button>
-        <button type="button" onclick="deletePost()" id="deleteBtn">삭제</button>
+        <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>
     </div>
 </main>
 <footer>
@@ -269,24 +269,36 @@
     }
 
     function deletePost(postNo) {
-        if (confirm("정말 삭제하시겠습니까?")) {
-            fetch(`/deletepost/${postNo}`, {
-                method: 'DELETE'
+        if (confirm("정말 이 게시물을 삭제하시겠습니까?")) {
+            fetch(`/post/${postNo}/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
                 .then(response => {
-                    if (response.ok) {
-                        alert("게시글이 삭제되었습니다.");
-                        window.location.href = '/posts'; // 게시글 목록 페이지로 이동
+                    if (!response.ok) {
+                        throw new Error("네트워크 응답이 실패했습니다.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message || "게시물이 삭제되었습니다.");
+                        window.location.href = "/post"; // 게시물 목록 페이지로 이동
                     } else {
-                        alert("삭제에 실패했습니다.");
+                        alert(data.error || "게시물 삭제에 실패했습니다.");
                     }
                 })
-                .catch(error => {
-                    console.error('Error deleting post:', error);
-                    alert("삭제에 실패했습니다.");
-                });
+                .catch(error => console.error("Error:", error));
         }
     }
+
+    // 삭제 버튼 클릭 이벤트 설정
+    document.getElementById("deleteBtn").addEventListener("click", function () {
+        const postNo = document.getElementById("deleteBtn").getAttribute("data-post-no");
+        deletePost(postNo);
+    });
 </script>
 
 

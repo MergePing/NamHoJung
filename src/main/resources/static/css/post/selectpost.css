@@ -889,6 +889,8 @@ div #deleteBtn{
     border-radius: 50px;
     border: none;
     outline: none;
+    z-index: 30;
+
 
 
 }
