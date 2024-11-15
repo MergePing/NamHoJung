@@ -317,7 +317,7 @@
     <update id="updatePost" parameterType="com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO">
         UPDATE TBL_POST
         SET POST_TITLE = #{postTitle},
-        POST_CONTENT = #{postContent},
+        POST_CONTENTS = #{postContent},
         POST_CATEGORY =#{postCategory},
         POST_IMAGE_FIRST = #{postImageFirst},
         POST_IMAGE_SECOND = #{postImageSecond}
@@ -358,7 +358,7 @@
         L.LEVEL AS LEVEL,
         C.LIKE_NUMBER,
         C.LIKED,
-        C.USER_NO
+        C.USER_NO AS userNo
         FROM
         TBL_COMMENT C
         JOIN TBL_USER U ON C.USER_NO = U.USER_NO

@@ -44,14 +44,14 @@ public class PostController {
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
 
     // 이미지 파일만 받기 위한 허용되는 확장자 목록
-    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png","gif","webp");
+    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png", "gif", "webp");
 
 
     // 서비스 생성자
     @Autowired
-    public PostController(PostService postService,MyPageService myPageService) {
+    public PostController(PostService postService, MyPageService myPageService) {
         this.postService = postService;
-        this.myPageService=myPageService;
+        this.myPageService = myPageService;
     }
 
 
@@ -104,7 +104,6 @@ public class PostController {
     }
 
 
-
     // 게시글 정렬
     @GetMapping("/post/sort")
     public ResponseEntity<List<PostDTO>> postListSort(
@@ -115,7 +114,7 @@ public class PostController {
     ) {
 
         // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
-        List<PostDTO> posts = postService.postListSort(orderBy,category,page,pagSize);
+        List<PostDTO> posts = postService.postListSort(orderBy, category, page, pagSize);
 
         //뷰 반환
         return ResponseEntity.ok(posts);
@@ -149,7 +148,6 @@ public class PostController {
         List<PostDTO> posts = postService.postListSort1(orderBy, category, page, pageSize);
         return ResponseEntity.ok(posts);
     }
-
 
 
     @GetMapping("/selectpost/{postNo}")
@@ -186,10 +184,8 @@ public class PostController {
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
         model.addAttribute("comments", comments);
         model.addAttribute("userNo", userNo);
-
         MyPageDTO userInfo = myPageService.findUserInfo(userNo);
         model.addAttribute("userInfo", userInfo);
-
 
 
         // 프로필 이미지 추가
@@ -214,8 +210,7 @@ public class PostController {
     @PostMapping("/selectpost/{postNo}/comment")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
-                                                          @RequestParam("commentContent") String commentContent)
-    {
+                                                          @RequestParam("commentContent") String commentContent) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
@@ -235,7 +230,6 @@ public class PostController {
         int index = existingComments.size();
 
         commentDTO.setTop(index * 150);
-
 
 
         // 댓글 추가 후 응답 설정
@@ -351,7 +345,7 @@ public class PostController {
     }
 
 
-
+    // 무서워요 토글
     // 무서워요 토글
     @PostMapping("/toggleScary")
     @ResponseBody
@@ -382,7 +376,7 @@ public class PostController {
     }
 
 
-        @PostMapping("/toggleLike")
+    @PostMapping("/toggleLike")
     @ResponseBody
     public Map<String, Object> toggleLike(@RequestBody Map<String, Object> payload) {
         Object commentNoObj = payload.get("commentNo");
@@ -406,13 +400,6 @@ public class PostController {
         response.put("likeNumber", postService.getLikeNumber(commentNo));
         return response;
     }
-
-
-
-
-
-
-
 
 
     // 게시물 수정 페이지 이동
@@ -446,7 +433,6 @@ public class PostController {
         model.addAttribute("post", selected);
 
 
-
         // 댓글 목록 및 사용자 정보 추가
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
         MyPageDTO userInfo = myPageService.findUserInfo(userNo);
@@ -476,17 +462,17 @@ public class PostController {
 
 
     // 게시물 수정 처리
-    @PostMapping("/edit")
-    public ResponseEntity<Map<String, String>> editPost(
-            @RequestParam("postTitle") String postTitle,
-            @RequestParam("postContent") String postContent,
-            @RequestParam("postCategory") String postCategory,
-            @RequestParam("postWriter") int postWriter,
-            @RequestParam("postNo") int postNo,
-            @RequestParam(value = "fileFirst", required = false) MultipartFile fileFirst,
-            @RequestParam(value = "fileSecond", required = false) MultipartFile fileSecond) {
+    @PostMapping("/edit/{postNo}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> editPost(@PathVariable("postNo") int postNo,
+                                                        @RequestParam("postTitle") String postTitle,
+                                                        @RequestParam("postContent") String postContent,
+                                                        @RequestParam("postCategory") String postCategory,
+                                                        @RequestParam("postWriter") int postWriter,
+                                                        @RequestParam(value = "fileFirst", required = false) MultipartFile fileFirst,
+                                                        @RequestParam(value = "fileSecond", required = false) MultipartFile fileSecond) {
 
-        Map<String, String> response = new HashMap<>();
+        Map<String, Object> response = new HashMap<>();
         try {
             InsertPostDTO insertPostDTO = new InsertPostDTO();
             insertPostDTO.setPostTitle(postTitle);
@@ -495,18 +481,31 @@ public class PostController {
             insertPostDTO.setPostWriter(postWriter);
             insertPostDTO.setPostNo(postNo);
 
+            SelectPostDTO selected = postService.selectById(postNo);
+            if (selected == null) {
+                response.put("status", "error");
+                response.put("message", "Post not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+
             if (fileFirst != null && !fileFirst.isEmpty()) {
                 String firstImagePath = saveFile(fileFirst, postNo, 1);
                 insertPostDTO.setPostImageFirst("/uploads/" + firstImagePath);
+            } else {
+                insertPostDTO.setPostImageFirst(selected.getPostImageFirst());
             }
 
             if (fileSecond != null && !fileSecond.isEmpty()) {
                 String secondImagePath = saveFile(fileSecond, postNo, 2);
                 insertPostDTO.setPostImageSecond("/uploads/" + secondImagePath);
+            } else {
+                insertPostDTO.setPostImageSecond(selected.getPostImageSecond());
             }
 
             postService.updatePost(insertPostDTO);
+
             response.put("status", "success");
+            response.put("updatedPost", insertPostDTO);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -517,9 +516,8 @@ public class PostController {
     }
 
 
-
     @GetMapping("/newpost")
-    public String newPostPage(Model model,WriterNameDTO writer) {
+    public String newPostPage(Model model, WriterNameDTO writer) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -547,7 +545,6 @@ public class PostController {
     }
 
 
-
     // 새 게시물 번호를 생성하는 메서드 예시
     private int generateNewPostNo() {
 
@@ -560,7 +557,7 @@ public class PostController {
 
 
     //파일 업로드를 처리하는 핸들러 메소드
-    private Map<String, String> handleFileUpload(MultipartFile file,int postNo, int imageNo) {
+    private Map<String, String> handleFileUpload(MultipartFile file, int postNo, int imageNo) {
 
         // 응답할 데이터를 저장할 새로운 맵 생성
         Map<String, String> response = new HashMap<>();
@@ -578,8 +575,8 @@ public class PostController {
 
         // 허용된 확장자를 가져와서 소문자로 바꿈 PNG -> png
         // 만약 허용되어 있지 않은 확장자라면 에러 메세지 출력
-        if (!ALLOWED_EXTENSIONS.contains(fileExtension.toLowerCase())){
-            response.put("error","이미지 파일만 업로드 가능합니다");
+        if (!ALLOWED_EXTENSIONS.contains(fileExtension.toLowerCase())) {
+            response.put("error", "이미지 파일만 업로드 가능합니다");
 
             return response;
         }
@@ -587,15 +584,13 @@ public class PostController {
         try {
 
             //파일 저장 및 경로 저장
-            String filePath = saveFile(file,postNo,imageNo);
+            String filePath = saveFile(file, postNo, imageNo);
 
             // 파일경로를 응답 맵에 추가및 출렫
-            response.put("filPath",filePath);
+            response.put("filPath", filePath);
 
             return response;
-        }
-
-        catch (IOException e){
+        } catch (IOException e) {
 
             // 예외 발생 시 에러 메세지를 응답에 추가 및 출력
             e.printStackTrace();
@@ -608,21 +603,20 @@ public class PostController {
     // 첫 번째 이미지 업로드
     @PostMapping("/uploadFirstImage")
     @ResponseBody
-    public Map<String, String> uploadFirstImage(@RequestParam("file") MultipartFile file,int postNo) {
+    public Map<String, String> uploadFirstImage(@RequestParam("file") MultipartFile file, int postNo) {
 
         // 파일이라는 매개변수를 받아서 첫번째 이미지를 업로드 하는 핸들러메소드 호출
-        return handleFileUpload(file, postNo,1);
+        return handleFileUpload(file, postNo, 1);
     }
 
     // 두 번째 이미지 업로드
     @PostMapping("/uploadSecondImage")
     @ResponseBody
-    public Map<String, String> uploadSecondImage(@RequestParam("file") MultipartFile file ,int postNo) {
+    public Map<String, String> uploadSecondImage(@RequestParam("file") MultipartFile file, int postNo) {
 
         // 파일이라는 매개변수를 받아서 두번째 이미지를 업로드 하는 핸들러메소드 호출
-        return handleFileUpload(file, postNo,2);
+        return handleFileUpload(file, postNo, 2);
     }
-
 
 
     //새 게시물 생성
@@ -662,8 +656,8 @@ public class PostController {
                 System.out.println("firstFileExtension = " + firstFileExtension);
 
                 // 첫번째 파일에 클라이언트가 접근할수있는 경로 주입
-                insertPostDTO.setPostImageFirst("/uploads/"+firstImagePath);
-            }else {
+                insertPostDTO.setPostImageFirst("/uploads/" + firstImagePath);
+            } else {
                 System.out.println("fileFirst is null or empty");
             }
 
@@ -676,8 +670,8 @@ public class PostController {
                 System.out.println("secondFileExtension = " + secondFileExtension);
 
                 // 두번째 파일에 클라이언트가 접근할수있는 경로 주입
-                insertPostDTO.setPostImageSecond("/uploads/"+secondImagePath);
-            }else {
+                insertPostDTO.setPostImageSecond("/uploads/" + secondImagePath);
+            } else {
                 System.out.println("fileSecond is null or empty");
             }
 
@@ -704,7 +698,6 @@ public class PostController {
     }
 
 
-
     //파일의 이름을 날짜/게시글 번호/이미지 번호로 바꾸고 업로드 폴더에 리턴
     private String saveFile(MultipartFile file, int postNo, int imageNo) throws IOException {
         // 오늘 날짜를 yyyy-mm-dd 형식으로 포맷
@@ -713,7 +706,7 @@ public class PostController {
         // 파일 확장자 추출 아래 getFileExtension 메소드 참고
         //file.getOriginalFilename()는 img1.png 반환, getFileExtension(img1.png)는 png 반환
         String fileExtension = getFileExtension(file.getOriginalFilename());
-        System.out.println("111111111111111"+fileExtension);
+        System.out.println("111111111111111" + fileExtension);
 
         // 파일 이름을 위에서 설정한 날짜, 게시글 번호, 이미지 번호. 추출한 확장자로 바꿈 ex) 2024-11-08_13_1.jpg
         String fileName = date + "_" + postNo + "_" + imageNo + "." + fileExtension;
@@ -726,7 +719,7 @@ public class PostController {
 
         //이미지 서버 경로 설정 ex) src/main/resources/static/uploads/2024-11-08/2024-11-08_13_1.jpg
         // 서버경로 - 서버에 있는 내 파일에 저장되는 경로
-        Path path = Paths.get(UPLOAD_DIR +imagePath);
+        Path path = Paths.get(UPLOAD_DIR + imagePath);
 
         // 파일을 저장할 디렉토리 생성, 이미 있는경우 생성하지 않음
         // 이미지 1번을 저장할때는 2024-11-08/ 디렉토리 생성, 2번은 그냥 그 하위로 들어감
@@ -743,10 +736,9 @@ public class PostController {
 
         // 클라이언트가 이미지를 볼수있게 이미지 경로 반환
 
-        System.out.println("222222222222"+imagePath);
+        System.out.println("222222222222" + imagePath);
         return imagePath;
     }
-
 
 
     // 파일 확장자 추출 .이 있으면 .뒤에 오는 확장자(png,jpg)를 추출하고 없는 경우 빈 문자열 반환
@@ -754,7 +746,7 @@ public class PostController {
 
         // 파일에서 마지막.의 인덱스를 찾음
         // 인덱스에 .이 없는 경우 -1 을 반환함(인데스는 0번부터 시적하기 때문에 -1 반환) -1일 경우 빈 문자열 반환
-        if (fileName==null||fileName.lastIndexOf('.') == -1) {
+        if (fileName == null || fileName.lastIndexOf('.') == -1) {
             return "";
         }
 
@@ -790,9 +782,7 @@ public class PostController {
             // 검색 결과를 맵에 담기
             response.put("posts", posts);
             System.out.println("response = " + response);
-        }
-
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // 키워드가 없을 경우 에러 처리
             response.put("error", e.getMessage());
             return response;
@@ -804,41 +794,4 @@ public class PostController {
         }
         return response; // JSON 형식으로 응답을 반환
     }
-
-
-
-        @GetMapping("/delete/{postNo}")
-        public String getDeletePostPage(@PathVariable("postNo") int postNo, Model model) {
-            model.addAttribute("postNo", postNo);
-            return "deletePost"; // deletePost.html 페이지를 반환합니다.
-        }
-
-        @PostMapping("/delete/{postNo}")
-        public String deletePost(@PathVariable("postNo") int postNo, RedirectAttributes redirectAttributes) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
-                AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
-                int userNo = userDetails.getUserNo();
-
-                SelectPostDTO selected = postService.selectById(postNo);
-
-                if (selected != null && selected.getPostWriter() == userNo) {
-                    postService.deletePost(postNo);
-                    redirectAttributes.addFlashAttribute("message", "게시글이 삭제되었습니다.");
-                    return "redirect:/post";
-                }
-            }
-            redirectAttributes.addFlashAttribute("errorMessage", "삭제 권한이 없습니다.");
-            return "redirect:/post";
-        }
-    }
-
-
-
-
-
-
-
-
-
-
+}

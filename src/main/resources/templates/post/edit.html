@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="post">
-    <form id="postForm" th:action="@{/newpost}" method="post" enctype="multipart/form-data">
+    <form id="postForm" th:action="@{/edit/{postNo}(postNo=${post.postNo})}" method="post" enctype="multipart/form-data">
       <div id="header">
         <span id="title">
           <input type="text" id="postTitle" name="postTitle" th:value="${post.postTitle}">
@@ -234,56 +234,56 @@
     }
   });
 
-// 페이지 로드 시 박스 위치 조정
-window.addEventListener('load', () => {
-  const box = document.getElementById('box');
-  const footer = document.querySelector('footer .footer');
+  // 페이지 로드 시 박스 위치 조정
+  window.addEventListener('load', () => {
+    const box = document.getElementById('box');
+    const footer = document.querySelector('footer .footer');
 
-  const img = document.getElementById('img2');
-  const imgBottom = img.getBoundingClientRect().bottom;
-  const minTop = imgBottom + 10;
-  const defaultTop2 = 120;
-  box.style.top = `${Math.min(minTop, defaultTop2)}px`;
+    const img = document.getElementById('img2');
+    const imgBottom = img.getBoundingClientRect().bottom;
+    const minTop = imgBottom + 10;
+    const defaultTop2 = 120;
+    box.style.top = `${Math.min(minTop, defaultTop2)}px`;
 
-  setTimeout(() => {
-    const boxTop = box.getBoundingClientRect().top + window.scrollY;
-    const footerTop = boxTop + box.scrollHeight + 80;
-    footer.style.position = 'absolute';
-    footer.style.top = `${footerTop}px`;
-  }, 100);
-});
-
-// 플로팅 버튼 클릭 시 퀵메뉴 표시
-const floatBtn1 = document.getElementById("light");
-const floatBtn2 = document.getElementById("dark");
-const qickMenu1 = document.getElementById("top");
-const qickMenu2 = document.getElementById("mode");
-const qickMenu3 = document.getElementById("test");
-
-floatBtn1.addEventListener('click', function () {
-  floatBtn1.classList.toggle('dn');
-  floatBtn2.classList.toggle('dn');
-  qickMenu1.classList.toggle('dn');
-  qickMenu2.classList.toggle('dn');
-  qickMenu3.classList.toggle('dn');
-});
-
-floatBtn2.addEventListener('click', function () {
-  floatBtn1.classList.toggle('dn');
-  floatBtn2.classList.toggle('dn');
-  qickMenu1.classList.toggle('dn');
-  qickMenu2.classList.toggle('dn');
-  qickMenu3.classList.toggle('dn');
-});
-
-setTimeout(function() {
-  qickMenu1.addEventListener('click', function() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    setTimeout(() => {
+      const boxTop = box.getBoundingClientRect().top + window.scrollY;
+      const footerTop = boxTop + box.scrollHeight + 80;
+      footer.style.position = 'absolute';
+      footer.style.top = `${footerTop}px`;
+    }, 100);
   });
-}, 3000);
+
+  // 플로팅 버튼 클릭 시 퀵메뉴 표시
+  const floatBtn1 = document.getElementById("light");
+  const floatBtn2 = document.getElementById("dark");
+  const qickMenu1 = document.getElementById("top");
+  const qickMenu2 = document.getElementById("mode");
+  const qickMenu3 = document.getElementById("test");
+
+  floatBtn1.addEventListener('click', function () {
+    floatBtn1.classList.toggle('dn');
+    floatBtn2.classList.toggle('dn');
+    qickMenu1.classList.toggle('dn');
+    qickMenu2.classList.toggle('dn');
+    qickMenu3.classList.toggle('dn');
+  });
+
+  floatBtn2.addEventListener('click', function () {
+    floatBtn1.classList.toggle('dn');
+    floatBtn2.classList.toggle('dn');
+    qickMenu1.classList.toggle('dn');
+    qickMenu2.classList.toggle('dn');
+    qickMenu3.classList.toggle('dn');
+  });
+
+  setTimeout(function() {
+    qickMenu1.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }, 3000);
 
 </script>
 </body>
