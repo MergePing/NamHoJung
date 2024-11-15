@@ -16,6 +16,10 @@ button:hover {
     cursor:pointer;
 }
 
+input[type="radio"] {
+    cursor: pointer;
+}
+
 /*---------------nav------------------*/
 nav{
     position: fixed;
