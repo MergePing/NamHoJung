@@ -14,4 +14,7 @@ public interface AdminReportMapper {
 
     // 전체 신고 개수 조회
     int countReports();
+
+    // 신고 삭제 메서드
+    int deleteReport(int reportNo);
 }

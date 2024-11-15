@@ -33,4 +33,9 @@ public class AdminReportService {
     public int countReports() {
         return adminReportMapper.countReports(); // Mapper 호출
     }
+
+    public boolean deleteReport(int reportNo) {
+        int rowsAffected = adminReportMapper.deleteReport(reportNo);
+        return rowsAffected > 0;
+    }
 }

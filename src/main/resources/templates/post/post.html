@@ -93,7 +93,7 @@
             <img th:src="@{/images/post/best-none-dark.png}" th:unless="${post.postFavorite}"
                  th:attr="data-postNo=${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
-            <a th:src="@{/selectpost/{postNo}(postNo=${post.postNo})}">
+            <a th:href="@{/selectpost/{postNo}(postNo=${post.postNo})}">
                 <span th:text="${post.postTitle}"></span>
             </a>
             <div><span th:text="${post.postCategory}"></span></div>
@@ -104,12 +104,15 @@
     </div>
 
     <div class="pageNum">
-<!--        <img th:src="@{/images/notice/pre-btn.png}" id="img1" alt="Previous">-->
+        <!--        <img th:src="@{/images/notice/pre-btn.png}" id="img1" alt="Previous">-->
         <div class="tab" id="tabContainer"></div>
-<!--        <img th:src="@{/images/notice/next-btn.png}" id="img2" alt="Next">-->
+        <!--        <img th:src="@{/images/notice/next-btn.png}" id="img2" alt="Next">-->
     </div>
 
 </main>
+
+
+
 
 <footer>
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
@@ -195,6 +198,7 @@
             postContainer.appendChild(newPost);
         }
     });
+
 
 
 </script>

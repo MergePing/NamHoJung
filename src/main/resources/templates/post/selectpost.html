@@ -41,6 +41,12 @@
         .blur{
             filter: blur(7.5px);
         }
+        .dn{
+            display: none;
+        }
+        .db{
+            display: block;
+        }
     </style>
 </head>
 <body data-user-id="${user.id}">
@@ -90,7 +96,6 @@
                     checkTitleWidth();
                     window.addEventListener('resize', checkTitleWidth);
                 });
-
             </script>
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
@@ -116,10 +121,14 @@
 
                 if (img1 && img1.dataset.src) {
                     img1.src = img1.dataset.src + `?t=${new Date().getTime()}`;
+                }else {
+                    img1.style.display='none';
                 }
 
                 if (img2 && img2.dataset.src) {
                     img2.src = img2.dataset.src + `?t=${new Date().getTime()}`;
+                }else {
+                    img2.style.display='none';
                 }
             });
         </script>
@@ -147,7 +156,7 @@
             <div id="writer" class="post-user">
 
                 <div th:if="${userInfo.userName} == ${post.postWriterName}">
-                    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}"
+                    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : post.profileImage}}"
                          alt="프로필 사진" class="profile-photo" id="profilePhoto">
                 </div>
                 <div th:if="${userInfo.userName} != ${post.postWriterName}">
@@ -163,10 +172,10 @@
             </div>
             <div id="scary">
                 <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                     data-postNo=${post.postNo}
                      class="scary-icon" onclick="toggleScary(this)">
                 <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                     data-postNo=${post.postNo}
                      class="scary-icon" onclick="toggleScary(this)">
                 <div>
                     <span>무서워요</span>
@@ -206,31 +215,43 @@
                         <span th:text="${comment.userLevel}"></span>
                         <span th:text="${comment.commentContent}"></span>
                         <span th:text="${comment.commentDate}"></span>
-                        <img th:src="@{/images/post/selectpost/like-btn-before.png}">
-                        <span>좋아요</span>
+
+                        <div id="like">
+                            <img th:src="@{/images/post/selectpost/like-btn-before.png}" th:if="${!comment.like}"
+                                 th:attr="data-comment-no=${comment.commentNo}"
+                                 class="likeImg" onclick="toggleLike(this)">
+                            <img th:src="@{/images/post/selectpost/like-btn-after.png}" th:if="${comment.like}"
+                                 th:attr="data-comment-no=${comment.commentNo}"
+                                 class="likeImg" onclick="toggleLike(this)">
+                            <div class="like-count" th:if="${comment.likeNumber > 0}">
+                                <span th:text="${comment.likeNumber}"></span>
+                            </div>
+                            <div class="like-text" th:if="${comment.likeNumber == 0}">
+                                <span>좋아요</span>
+                            </div>
+                        </div>
+
 
                         <div th:if="${comment.userNo} != ${userNo}">
                             <img th:src="@{/images/post/selectpost/reportbtn.png}">
                             <span>신고</span>
                         </div>
 
-                        <!-- 삭제 버튼: 로그인한 유저와 댓글 작성자가 같을 때만 보이도록 설정 -->
                         <button class="delete-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                            삭제
+
                         </button>
 
-                        <!-- 수정 버튼: 로그인한 유저와 댓글 작성자가 같을 때만 보이도록 설정 -->
                         <button class="edit-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                            수정
-                        </button>
 
+                        </button>
                     </div>
                 </div>
             </div>
+
 
             <!-- 댓글 더보기 버튼 -->
             <div class="show-more-comments">
@@ -243,29 +264,59 @@
     <div th:if="${userInfo.userName} == ${post.postWriterName}">
         <button type="button" onclick="editPost()" id="editBtn">수정</button>
         <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>
+        <div class="modifyModal">
+            <button type="button" onclick="showEditModal()" id="editBtn">수정</button>
+            <div class="modify dn">
+                <div class="modal-bg">
+                    <p>게시물을 수정 하시겠습니까?</p>
+                    <a th:href="@{/edit/{postNo}(postNo=${post.postNo})}">
+                        <button class="yes" id="yesEdit">확인</button>
+                    </a>
+                    <button class="return" onclick="closeEditModal()">취소</button>
+                </div>
+            </div>
+        </div>
+        <div class="deleteModal">
+            <button type="button" id="deleteBtn" onclick="showDeleteModal()">삭제</button>
+            <div class="delete1 dn">
+                <div class="modal-bg">
+                    <p>게시물을 삭제 하시겠습니까?</p>
+                    <form th:action="@{/delete/{postNo}(postNo=${post.postNo})}" method="post">
+                        <input type="hidden" name="_method" value="delete" />
+                        <button type="submit" class="yes" id="yesDelete">확인</button>
+                    </form>
+                    <button class="return" onclick="closeDeleteModal()">취소</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+
 </main>
 <footer>
     <div class="footer">
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
-
 <script>
-    function editPost(postNo) {
-        // 게시글 수정 모달 창 열기
-        // 여기에 모달 창을 여는 코드를 추가합니다.
-        const modal = document.getElementById('editPostModal');
-        modal.style.display = 'block';
+    const editBtn = document.getElementById("editBtn");
+    const modify = document.querySelector(".modify");
+    const deleteBtn = document.getElementById("deleteBtn");
+    const delete1 = document.querySelector(".delete1");
 
-        // 필요한 경우, 기존 게시글 내용을 모달 폼에 채워줍니다.
-        // 예: document.getElementById('modalPostTitle').value = 기존 게시글 제목;
+    function showEditModal() {
+        console.log("showEditModal called");
+        closeDeleteModal(); // 다른 모달창 닫기
+        modify.classList.remove("dn");
+        console.log("modify.classList:", modify.classList);
     }
 
-    function closeModal() {
-        // 모달 창 닫기
-        const modal = document.getElementById('editPostModal');
-        modal.style.display = 'none';
+    function closeEditModal() {
+        console.log("closeEditModal called");
+        modify.classList.add("dn");
+        console.log("modify.classList:", modify.classList);
     }
 
     function deletePost(postNo) {
@@ -302,86 +353,21 @@
 </script>
 
 
+    function showDeleteModal() {
+        console.log("showDeleteModal called");
+        closeEditModal(); // 다른 모달창 닫기
+        delete1.classList.remove("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
+
+    function closeDeleteModal() {
+        console.log("closeDeleteModal called");
+        delete1.classList.add("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
 
 
-<!--&lt;!&ndash; 모달 창 &ndash;&gt;-->
-<!--<div id="editModal" class="modal">-->
-<!--    <div class="modal-content">-->
-<!--        <span class="close" onclick="closeEditModal()">&times;</span>-->
-<!--        <h2>게시글 수정</h2>-->
-<!--        <form id="editForm">-->
-<!--            <input type="hidden" id="editPostNo" name="postNo">-->
-<!--            <label for="editPostTitle">제목</label>-->
-<!--            <input type="text" id="editPostTitle" name="postTitle" required>-->
-<!--            <label for="editPostContent">내용</label>-->
-<!--            <textarea id="editPostContent" name="postContent" required></textarea>-->
-<!--            <button type="submit">수정</button>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--<script>-->
-<!--    function showEditModal(postNo) {-->
-<!--        document.getElementById('editPostNo').value = postNo;-->
-<!--        // 모달 창 열기-->
-<!--        document.getElementById('editModal').style.display = 'block';-->
-<!--    }-->
-
-<!--    function closeEditModal() {-->
-<!--        // 모달 창 닫기-->
-<!--        document.getElementById('editModal').style.display = 'none';-->
-<!--    }-->
-
-<!--    function deletePost(postNo) {-->
-<!--        if (confirm("정말 삭제하시겠습니까?")) {-->
-<!--            fetch(`/deletepost/${postNo}`, {-->
-<!--                method: 'DELETE'-->
-<!--            })-->
-<!--                .then(response => {-->
-<!--                    if (response.ok) {-->
-<!--                        alert("게시글이 삭제되었습니다.");-->
-<!--                        window.location.href = '/posts'; // 게시글 목록 페이지로 이동-->
-<!--                    } else {-->
-<!--                        alert("삭제에 실패했습니다.");-->
-<!--                    }-->
-<!--                })-->
-<!--                .catch(error => {-->
-<!--                    console.error('Error deleting post:', error);-->
-<!--                    alert("삭제에 실패했습니다.");-->
-<!--                });-->
-<!--        }-->
-<!--    }-->
-
-<!--    // 수정 폼 제출-->
-<!--    document.getElementById('editForm').addEventListener('submit', function(event) {-->
-<!--        event.preventDefault();-->
-<!--        const postNo = document.getElementById('editPostNo').value;-->
-<!--        const postTitle = document.getElementById('editPostTitle').value;-->
-<!--        const postContent = document.getElementById('editPostContent').value;-->
-
-<!--        fetch(`/editpost/${postNo}`, {-->
-<!--            method: 'POST',-->
-<!--            headers: {-->
-<!--                'Content-Type': 'application/json'-->
-<!--            },-->
-<!--            body: JSON.stringify({postTitle: postTitle, postContent: postContent})-->
-<!--        })-->
-<!--            .then(response => {-->
-<!--                if (response.ok) {-->
-<!--                    alert("게시글이 수정되었습니다.");-->
-<!--                    closeEditModal();-->
-<!--                    window.location.reload(); // 페이지 새로고침-->
-<!--                } else {-->
-<!--                    alert("수정에 실패했습니다.");-->
-<!--                }-->
-<!--            })-->
-<!--            .catch(error => {-->
-<!--                console.error('Error editing post:', error);-->
-<!--                alert("수정에 실패했습니다.");-->
-<!--            });-->
-<!--    });-->
-<!--</script>-->
-
+</script>
 
 
 <script>
@@ -517,8 +503,8 @@
     }
 
     // userNo를 JavaScript 변수에 할당
-    const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
-    console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
+  const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
     function addCommentToDOM(comments) {
         const commentsList = document.getElementById("comments-list");
@@ -535,7 +521,7 @@
 
 
 
-                 // 댓글 간 간격 조절
+                // 댓글 간 간격 조절
 
                 // 댓글 내용 추가
                 commentDiv.innerHTML = `
@@ -544,7 +530,7 @@
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
                 <span>${comment.commentDate}</span>
-                <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
+                 <img src="/images/post/selectpost/like-btn-after.png">
                 <span>좋아요</span>
 
 
@@ -591,33 +577,86 @@
         }
     }
 
-
-
-
-
-
-
 </script>
+
+
 <script>
     function toggleFavorite(element) {
         const postNo = element.getAttribute('data-postNo');
         const isFavorite = element.getAttribute('src').includes('best-dark.png');
-        fetch(`/togglefavorite`, {
+        fetch(`/toggleFavorite`, {
             method: 'POST', headers: {
                 'Content-Type': 'application/json'
             }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
             .then(response => response.json()) .then(data => { if (data.success) {
             element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
-        } }) }
+        } }) .catch(error => console.error('Error:', error)); }
 </script>
 
+<script>
+    function toggleLike(element) {
+        const commentNo = element.getAttribute('data-comment-no');
+        if (!commentNo) {
+            console.error('commentNo is null or undefined');
+            return;
+        }
+
+        const isLike = element.getAttribute('src').includes('like-btn-after.png');
+
+        fetch(`/toggleLike`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+                    const likeCountContainer = element.closest('#like').querySelector('div');
+                    if (data.likeNumber > 0) {
+                        likeCountContainer.textContent = data.likeNumber;
+                        likeCountContainer.style.left="1577px"
+                    } else {
+                        likeCountContainer.textContent = '좋아요';
+                        likeCountContainer.style.left="1560px"
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // function toggleLike(element) {
+    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
+    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
+    //
+    //     fetch(`/toggleLike`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }
+
+
+</script>
 
 <script>
     function toggleScary(element) {
         const postNo = element.getAttribute('data-postNo');
         const isScary = element.getAttribute('src').includes('scary-btn-after.png');
 
-        fetch(`/togglescary`, {
+        fetch(`/toggleScary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postNo: postNo, isScary: !isScary })
@@ -635,7 +674,7 @@
         const postNo = element.getAttribute('data-postNo');
         const isNotScary = element.getAttribute('src').includes('not-scary-btn-after.png');
 
-        fetch(`/togglenotscary`, {
+        fetch(`/toggleNotScary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postNo: postNo, isNotScary: !isNotScary })
@@ -648,33 +687,44 @@
                 }
             })
     }
-
 </script>
-
 <script>
     window.addEventListener('load', () => {
         const box = document.getElementById('box');
         const footer = document.querySelector('footer .footer');
 
-        const boxHeight = box.offsetHeight;
-        const boxTop = box.offsetTop;
-        const footerTop = boxTop + boxHeight + 50; // 박스와의 간격을 50px로 설정
+        const img1 = document.getElementById('img1');
+        const img2 = document.getElementById('img2');
+        const content = document.getElementById('content');
 
-        const img = document.getElementById('img2');
-        const imgBottom = img.getBoundingClientRect().bottom;
+        let imgBottom;
+        // 이미지가 두 개 다 있는 경우
+        if (img1 && img1.src && img2 && img2.src) {
+            imgBottom = Math.max(img1.getBoundingClientRect().bottom, img2.getBoundingClientRect().bottom);
+        } else if (img1 && img1.src) {
+            // 이미지가 한 개만 있는 경우
+            imgBottom = img1.getBoundingClientRect().bottom;
+        } else if (img2 && img2.src) {
+            // 이미지가 한 개만 있는 경우
+            imgBottom = img2.getBoundingClientRect().bottom;
+        } else {
+            // 이미지가 없는 경우
+            imgBottom = 0;
+        }
+
         const contentBottom = content.getBoundingClientRect().bottom;
-        const minTop = imgBottom + 10;
-        const defaultTop1 = 250;
-        const defaultTop2 = 150;
-        if (contentBottom<1480){
-            box.style.top = `${Math.max(minTop, defaultTop1)}px`;
 
+        const minTop = imgBottom + 10; // 이미지 바텀 기준 값
+        const contentTop = contentBottom + 10; // 콘텐츠 바텀 기준 값
+
+        // 콘텐츠 바텀과 이미지 바텀을 비교하여 box 위치 설정
+        if (contentBottom < imgBottom) {
+            box.style.top = `${minTop}px`;
         }
-
-        if (contentBottom>1480){
-            box.style.top = `${Math.min(minTop, defaultTop2)}px`;
+        else {
+            box.style.top = `${contentTop}px`;
         }
-
+        // 박스와 푸터의 위치 설정
         setTimeout(() => {
             const boxTop = box.getBoundingClientRect().top + window.scrollY;
             const footerTop = boxTop + box.scrollHeight + 10;
@@ -682,7 +732,6 @@
             footer.style.top = `${footerTop}px`;
         }, 100);
     });
-
 
 
 </script>

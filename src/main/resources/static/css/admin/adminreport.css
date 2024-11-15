@@ -579,6 +579,7 @@ main .report {
     margin-bottom: 44px;
     font-family: Cafe24SsurroundAir;
     font-size: 25px;
+    cursor: pointer;
 }
 
 main .report span:nth-of-type(1) {
@@ -636,3 +637,85 @@ main .report span:nth-of-type(4) {
 .pagination-btn:hover {
     background-color: #ddd;
 }
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #3B572D;
+    padding:  20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 669px;
+    height: 590px;
+}
+
+.modal-buttons {
+    margin-top: 500px;
+}
+.modal-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#restrictButton {
+    background-color: #f39c12;
+    color: #fff;
+}
+
+#deleteButton {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.report-detail{
+    /* 신고 정보 */
+
+    position: absolute;
+    width: 104px;
+    height: 31px;
+    left: 950px;
+    top: 325px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+    white-space: nowrap;
+
+
+}
+
+.modal-info p {
+    position: absolute;
+    top : 400px;
+    left: 700px;
+    line-height: 1.6; /* 줄 간격 */
+    color: #333; /* 텍스트 색상 */
+    margin: 20px 0; /* 전체 문단 간격 */
+    font-family: Cafe24SsurroundAir;
+    font-size: 25px;
+    color: #FFFFFF;
+}
+
