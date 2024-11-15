@@ -23,6 +23,10 @@ body{
     animation: hide 0.5s forwards;
 }
 
+button {
+    cursor: pointer;
+}
+
 @keyframes show {
     from {
         opacity: 0;
@@ -64,7 +68,7 @@ nav img{
     height: 45px;
     left: 48px;
     top: 18px;
-
+    cursor: pointer;
 }
 
 nav span:nth-child(2) {
@@ -80,6 +84,7 @@ nav span:nth-child(2) {
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -96,6 +101,7 @@ nav span:nth-child(3){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -113,6 +119,7 @@ nav span:nth-child(4){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -130,6 +137,7 @@ nav span:nth-child(5){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -147,6 +155,7 @@ nav span:nth-child(6){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
 }
 
 /*nav span:nth-child(7){
@@ -162,6 +171,7 @@ nav span:nth-child(6){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
 }*/
 
 #logoutNav{
@@ -180,6 +190,7 @@ nav span:nth-child(6){
     background: none;
     border:none;
     text-align: center;
+    cursor: pointer;
 }
 
 #logoutNav:hover{
@@ -201,21 +212,13 @@ nav span:nth-child(8){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
 nav span:hover{
     color: #A3DA87;
     scale: 130%;
-}
-
-
-.logo img{
-    position: absolute;
-    width: 451px;
-    height: 250px;
-    left: 169px;
-    top: 231px;
 }
 
 /*---------------main1------------------*/
@@ -324,8 +327,19 @@ main .main1 .qickBtn{
     z-index: 9999;
 }
 
+.logo img{
+    position: absolute;
+    width: 451px;
+    height: 250px;
+    left: 169px;
+    top: 231px;
+}
 
 /*---------------main2------------------*/
+
+#black{
+    width:700px;
+}
 
 main .main2 h2{
     /* 베스트 정원 */
