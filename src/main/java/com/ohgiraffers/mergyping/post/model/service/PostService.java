@@ -175,9 +175,9 @@ public class PostService {
         postMapper.updatePost(postDTO);
     }
 
-    public void deletePost(int postNo) {
-        postMapper.deletePost(postNo);
-    }
+//    public void deletePost(int postNo) {
+//        postMapper.deletePost(postNo);
+//    }
 
 
     public boolean addComment(CommentDTO commentDTO) {

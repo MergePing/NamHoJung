@@ -324,10 +324,10 @@
         WHERE POST_NO = #{postNo}
     </update>
 
-    <delete id="deletePost" parameterType="int">
-        DELETE FROM TBL_POST
-        WHERE POST_NO = #{postNo}
-    </delete>
+<!--    <delete id="deletePost" parameterType="int">-->
+<!--        DELETE FROM TBL_POST-->
+<!--        WHERE POST_NO = #{postNo}-->
+<!--    </delete>-->
 
 
 

@@ -159,6 +159,7 @@ public class PostController {
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             userNo = userDetails.getUserNo();
+
         }
 
         // 서비스를 통해 게시글 번호로 게시물 조회
@@ -183,10 +184,12 @@ public class PostController {
 
         // 댓글 목록 및 사용자 정보 추가
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
-        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
-        model.addAttribute("userInfo", userInfo);
         model.addAttribute("comments", comments);
         model.addAttribute("userNo", userNo);
+
+        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo);
+
 
 
         // 프로필 이미지 추가

@@ -240,13 +240,13 @@
                         <button class="delete-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-
+                                삭제
                         </button>
 
                         <button class="edit-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-
+                                수정
                         </button>
                     </div>
                 </div>
@@ -261,9 +261,10 @@
     </div>
     <div class="bg"></div>
 
+<!--    <button type="button" onclick="editPost()" id="editBtn">수정</button>-->
+<!--    <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>-->
+
     <div th:if="${userInfo.userName} == ${post.postWriterName}">
-        <button type="button" onclick="editPost()" id="editBtn">수정</button>
-        <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>
         <div class="modifyModal">
             <button type="button" onclick="showEditModal()" id="editBtn">수정</button>
             <div class="modify dn">
@@ -352,7 +353,7 @@
     });
 </script>
 
-
+<script>
     function showDeleteModal() {
         console.log("showDeleteModal called");
         closeEditModal(); // 다른 모달창 닫기
@@ -503,8 +504,8 @@
     }
 
     // userNo를 JavaScript 변수에 할당
-  const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
-console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
+    const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+    console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
     function addCommentToDOM(comments) {
         const commentsList = document.getElementById("comments-list");

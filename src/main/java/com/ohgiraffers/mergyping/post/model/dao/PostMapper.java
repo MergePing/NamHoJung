@@ -54,7 +54,7 @@ public interface PostMapper {
 
     void updatePost(InsertPostDTO postDTO);
 
-    void deletePost(@RequestParam("postNo") int postNo);
+//    void deletePost(@RequestParam("postNo") int postNo);
 
     List<PostDTO> searchPost(@RequestParam("keyword") String keyword);
 
@@ -73,13 +73,15 @@ public interface PostMapper {
     int updateComment(Map<String, Object> params);
 
 
-    int deletePost(int postNo);
+
 
     SelectPostDTO selectPostWriter(int postNo);
+
+    int deletePost(int postNo);
 
 
 //    CommentDTO getCommentByNo(int commentNo);
 //
 //    int updateComment(CommentDTO comment);
-}
+
 }
