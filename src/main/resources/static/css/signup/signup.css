@@ -12,6 +12,10 @@
     height: 1107px;
 }
 
+button:hover {
+    cursor:pointer;
+}
+
 /*---------------nav------------------*/
 nav{
     position: fixed;
@@ -22,7 +26,6 @@ nav{
     background: #0E2913;
     box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
     z-index: 999;
-    cursor : pointer;
 }
 
 

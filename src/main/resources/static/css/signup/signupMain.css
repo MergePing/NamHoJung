@@ -6,6 +6,10 @@
     background: #FFFFFF;
 }
 
+button:hover {
+    cursor:pointer;
+}
+
 .signupInfoText{
 
     position: absolute;
@@ -1038,6 +1042,7 @@ button:disabled {
     rotate: 180deg;
     left: 875px;
     z-index: 2;
+    cursor : pointer;
 }
 
 #togglePassword {
