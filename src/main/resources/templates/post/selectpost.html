@@ -44,6 +44,9 @@
         .dn{
             display: none;
         }
+        .db{
+            display: block;
+        }
     </style>
 </head>
 <body data-user-id="${user.id}">
@@ -169,10 +172,10 @@
             </div>
             <div id="scary">
                 <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                     data-postNo=${post.postNo}
                      class="scary-icon" onclick="toggleScary(this)">
                 <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                     data-postNo=${post.postNo}
                      class="scary-icon" onclick="toggleScary(this)">
                 <div>
                     <span>무서워요</span>
@@ -214,14 +217,20 @@
                         <span th:text="${comment.commentDate}"></span>
 
                         <div id="like">
-                            <img th:src="@{/images/post/selectpost/like-btn-before.png}" th:if="${!comment.isLike}"
-                                 th:attr="data-commentNo=${comment.commentNo}"
+                            <img th:src="@{/images/post/selectpost/like-btn-before.png}" th:if="${!comment.like}"
+                                 th:attr="data-comment-no=${comment.commentNo}"
                                  class="likeImg" onclick="toggleLike(this)">
-                            <img th:src="@{/images/post/selectpost/like-btn-after.png}" th:if="${comment.isLike}"
-                                 th:attr="data-commentNo=${comment.commentNo}"
+                            <img th:src="@{/images/post/selectpost/like-btn-after.png}" th:if="${comment.like}"
+                                 th:attr="data-comment-no=${comment.commentNo}"
                                  class="likeImg" onclick="toggleLike(this)">
-                            <span class="like-count" th:text="${comment.likeNumber}"></span>
+                            <div class="like-count" th:if="${comment.likeNumber > 0}">
+                                <span th:text="${comment.likeNumber}"></span>
+                            </div>
+                            <div class="like-text" th:if="${comment.likeNumber == 0}">
+                                <span>좋아요</span>
+                            </div>
                         </div>
+
 
                         <div th:if="${comment.userNo} != ${userNo}">
                             <img th:src="@{/images/post/selectpost/reportbtn.png}">
@@ -535,22 +544,46 @@ console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 
 </script>
 
 
+<script>
+    function toggleFavorite(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isFavorite = element.getAttribute('src').includes('best-dark.png');
+        fetch(`/toggleFavorite`, {
+            method: 'POST', headers: {
+                'Content-Type': 'application/json'
+            }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
+            .then(response => response.json()) .then(data => { if (data.success) {
+            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
+        } }) .catch(error => console.error('Error:', error)); }
+</script>
 
 <script>
     function toggleLike(element) {
-        const commentNo = parseInt(element.getAttribute('data-commentNo'));
+        const commentNo = element.getAttribute('data-comment-no');
+        if (!commentNo) {
+            console.error('commentNo is null or undefined');
+            return;
+        }
+
         const isLike = element.getAttribute('src').includes('like-btn-after.png');
 
         fetch(`/toggleLike`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
+            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
         })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
                     element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-                    element.closest('.comment').querySelector('.like-count').textContent = data.likeNumber;
+                    const likeCountContainer = element.closest('#like').querySelector('div');
+                    if (data.likeNumber > 0) {
+                        likeCountContainer.textContent = data.likeNumber;
+                        likeCountContainer.style.left="1577px"
+                    } else {
+                        likeCountContainer.textContent = '좋아요';
+                        likeCountContainer.style.left="1560px"
+                    }
                 }
             })
             .catch(error => {
@@ -558,23 +591,29 @@ console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 
             });
     }
 
+    // function toggleLike(element) {
+    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
+    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
+    //
+    //     fetch(`/toggleLike`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }
+
 
 </script>
-
-<script>
-    function toggleFavorite(element) {
-        const postNo = element.getAttribute('data-postNo');
-        const isFavorite = element.getAttribute('src').includes('best-dark.png');
-        fetch(`/togglefavorite`, {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json'
-            }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
-            .then(response => response.json()) .then(data => { if (data.success) {
-            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
-            document.querySelector('#like>span').textContent = data.scaryNumber;
-        } }) }
-</script>
-
 
 <script>
     function toggleScary(element) {

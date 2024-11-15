@@ -36,9 +36,9 @@ public interface PostMapper {
     void decrementNotScaryCount(@RequestParam("postNo") int postNo,@RequestParam("isNotScary") boolean isNotScary);
     int getScaryNumber( int postNo);
     int getNotScaryNumber(int postNo);
-    int getLikeNumber(@RequestParam("commentNo") int commentNo);
-    void incrementLikeCount(@RequestParam("commentNo") int postNo,@RequestParam("isLike") boolean isLike);
-    void decrementLikeCount(@RequestParam("commentNo") int postNo,@RequestParam("isLike") boolean isLike);
+    int getLikeNumber(int commentNo);
+    void incrementLikeCount(@RequestParam("commentNo") int commentNo,@RequestParam("isLike") boolean isLike);
+    void decrementLikeCount(@RequestParam("commentNo") int commentNo,@RequestParam("isLike") boolean isLike);
 
 
     // 새로만든 selectPostDTO를 통해 새로운 게시물 생성

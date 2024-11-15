@@ -341,18 +341,26 @@ public class PostController {
         response.put("success", true);
         response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
         return response;
-
     }
 
 
-
-    @PostMapping("/toggleLike")
+        @PostMapping("/toggleLike")
     @ResponseBody
     public Map<String, Object> toggleLike(@RequestBody Map<String, Object> payload) {
         Object commentNoObj = payload.get("commentNo");
-        int commentNo = (commentNoObj instanceof Integer) ? (Integer) commentNoObj : Integer.parseInt(commentNoObj.toString());
-        boolean isLike = (Boolean) payload.get("isLike");
+        int commentNo;
 
+        if (commentNoObj instanceof Integer) {
+            commentNo = (Integer) commentNoObj;
+            System.out.println("commentNo 111111111= " + commentNo);
+        } else if (commentNoObj instanceof String) {
+            commentNo = Integer.parseInt((String) commentNoObj);
+            System.out.println("commentN22222222222o = " + commentNo);
+        } else {
+            throw new IllegalArgumentException("Invalid type for commentNo");
+        }
+
+        boolean isLike = (Boolean) payload.get("isLike");
         postService.updateLikeStatus(commentNo, isLike);
 
         Map<String, Object> response = new HashMap<>();
@@ -360,6 +368,7 @@ public class PostController {
         response.put("likeNumber", postService.getLikeNumber(commentNo));
         return response;
     }
+
 
 
 

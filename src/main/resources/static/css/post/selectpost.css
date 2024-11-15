@@ -631,7 +631,28 @@ main .bg{
     top: 375px;
     left: 1300px;
 }
-.comment #like span:nth-of-type(1){
+.comment #like .like-count{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 430px;
+    left: 1577px;
+}
+
+.comment #like .like-text span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 0;
+    left: -76px;
+    width: 200px;
+}
+
+.comment #like .like-text{
     position: absolute;
     font-family: 'SUIT';
     font-weight: 700;
@@ -639,6 +660,20 @@ main .bg{
     color: #FFFFFF;
     top: 430px;
     left: 1560px;
+    text-align: center;
+
+}
+
+.comment #like .like-count span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 0;
+    left: 6px;
+    width: 30px;
+
 }
 .comment #like span:nth-of-type(2){
     position: absolute;

@@ -50,7 +50,7 @@
         <result property="username" column="USER_NAME"/>
         <result property="userLevel" column="LEVEL"/>
         <result property="likeNumber" column="LIKE_NUMBER"/>
-        <result property="like" column="LIKE"/>
+        <result property="like" column="LIKED"/>
     </resultMap>
 
 
@@ -346,7 +346,7 @@
         U.USER_NAME AS USER_NAME,
         L.LEVEL AS LEVEL,
         C.LIKE_NUMBER,
-        C.LIKE,
+        C.LIKED,
         C.USER_NO
         FROM
         TBL_COMMENT C
@@ -386,14 +386,14 @@
 
     <update id="incrementLikeCount">
         UPDATE TBL_COMMENT
-        SET LIKE = #{isLike},
+        SET LIKED = #{isLike},
         LIKE_NUMBER = LIKE_NUMBER + 1
         WHERE COMMENT_NO = #{commentNo};
     </update>
 
     <update id="decrementLikeCount">
         UPDATE TBL_COMMENT
-        SET LIKE = #{isLike},
+        SET LIKED = #{isLike},
         LIKE_NUMBER = LIKE_NUMBER - 1
         WHERE COMMENT_NO = #{commentNo};
     </update>
