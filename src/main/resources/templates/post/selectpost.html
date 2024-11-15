@@ -460,7 +460,7 @@
 
             // comments가 배열인 경우만 처리
             if (Array.isArray(comments)) {
-                comments.forEach((comment,index) => {
+                comments.forEach((comment, index) => {
                     const commentDiv = document.createElement("div");
                     commentDiv.classList.add("comment");
 
@@ -472,16 +472,35 @@
                     // 댓글 내용 추가 (사용자 이름, 레벨, 댓글 날짜 등 포함)
                     commentDiv.innerHTML = `
                         <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
-                        <span>${comment.username}</span>
-                        <span>${comment.userLevel}</span>
-                        <span>${comment.commentContent}</span>
-                        <span>${comment.commentDate}</span>
-                        <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
-                        <span>좋아요</span>
+                <span>${comment.username}</span>
+                <span>${comment.userLevel}</span>
+                <span>${comment.commentContent}</span>
+                <span>${comment.commentDate}</span>
+                 <div id="like">
+        <img src="/images/post/selectpost/like-btn-before.png"
+             data-comment-no="${comment.commentNo}"
+             class="likeImg"
+             style="display: ${!comment.like ? 'inline' : 'none'};"
+             onclick="toggleLike(this)">
+        <img src="/images/post/selectpost/like-btn-after.png"
+             data-comment-no="${comment.commentNo}"
+             class="likeImg"
+             style="display: ${comment.like ? 'inline' : 'none'};"
+             onclick="toggleLike(this)">
+        <div class="like-count" style="display: ${comment.likeNumber > 0 ? 'block' : 'none'};">
+            <span>${comment.likeNumber}</span>
+        </div>
+        <div class="like-text" style="display: ${comment.likeNumber === 0 ? 'block' : 'none'};">
+            <span>좋아요</span>
+        </div>
+    </div>
                         <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
-                        <span>신고</span>
-                        
-        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
+                        <span>신고</span>`;
+
+                    commentsList.appendChild(commentDiv);
+                });
+            }
+            }
 
 
         fetch(`/selectpost/${postNo}/comment`, {
