@@ -101,10 +101,7 @@
             </script>
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
-            <div th:if="${userInfo.userName} != ${post.postWriterName}">
-                <img th:src="@{/images/post/selectpost/reportbtn.png}">
-                <span>신고</span>
-            </div>
+
         </div>
         <div class="line"></div>
         <div id="content">
@@ -116,6 +113,8 @@
 
 
         </div>
+
+
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const img1 = document.getElementById('img1');
@@ -450,6 +449,38 @@
             return;
         }
 
+        // 게시물 번호 가져오기 (예: favorite-icon의 data-postNo 속성)
+        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");/* 게시물 번호 */;
+
+        function addCommentToDOM(comments) {
+            const commentsList = document.getElementById("comments-list");
+
+            // 기존 댓글 목록을 제거하고 새로운 댓글 목록을 추가
+            commentsList.innerHTML = "";
+
+            // comments가 배열인 경우만 처리
+            if (Array.isArray(comments)) {
+                comments.forEach((comment,index) => {
+                    const commentDiv = document.createElement("div");
+                    commentDiv.classList.add("comment");
+
+                    // 각 댓글의 위치를 동적으로 설정
+                    commentDiv.style.position = "relative";
+                    commentDiv.style.margintop = `${index * 150}px`;  // 댓글 간 간격 조절
+
+
+                    // 댓글 내용 추가 (사용자 이름, 레벨, 댓글 날짜 등 포함)
+                    commentDiv.innerHTML = `
+                        <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
+                        <span>${comment.username}</span>
+                        <span>${comment.userLevel}</span>
+                        <span>${comment.commentContent}</span>
+                        <span>${comment.commentDate}</span>
+                        <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
+                        <span>좋아요</span>
+                        <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
+                        <span>신고</span>
+                        
         const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
 
@@ -767,6 +798,92 @@
     });
 
 
+
+</script>
+
+
+<div id="reportModal" class="modal dn">
+    <div class="modalContent">
+        <p>신고 사유를 선택해주세요</p>
+        <form id="reportForm">
+            <div>
+                <input type="radio" id="reason1" name="reason" value="성적이거나 불쾌감을 유발하는 콘텐츠 배포">
+                <label for="reason1">성적이거나 불쾌감을 유발하는 콘텐츠 배포</label>
+            </div>
+            <div>
+                <input type="radio" id="reason2" name="reason" value="폭력적 또는 심한 혐오감을 유발하는 콘텐츠">
+                <label for="reason2">폭력적 또는 심한 혐오감을 유발하는 콘텐츠</label>
+            </div>
+            <div>
+                <input type="radio" id="reason3" name="reason" value="특정 사용자를 괴롭히거나 폭력을 조장하는 콘텐츠">
+                <label for="reason3">특정 사용자를 괴롭히거나 폭력을 조장하는 콘텐츠</label>
+            </div>
+            <div>
+                <input type="radio" id="reason4" name="reason" value="스팸 또는 사기에 관련된 콘텐츠">
+                <label for="reason4">스팸 또는 사기에 관련된 콘텐츠</label>
+            </div>
+        </form>
+        <div class="modalActions">
+            <button id="cancelReport">취소</button>
+            <button id="submitReport">신고</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const reportModal = document.getElementById('reportModal');
+        const submitReportBtn = document.getElementById('submitReport');
+        const cancelReportBtn = document.getElementById('cancelReport');
+        const reportForm = document.getElementById('reportForm');
+
+        let currentPostNo = null;
+
+        // 신고 버튼 클릭 시 모달 표시
+        document.querySelectorAll('.report-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                currentPostNo = this.getAttribute('data-postNo'); // 현재 게시물 번호 저장
+                reportModal.classList.remove('dn'); // 모달 표시
+            });
+        });
+
+        // 신고 제출 버튼 클릭
+        submitReportBtn.addEventListener('click', function () {
+            const selectedReason = document.querySelector('input[name="reason"]:checked');
+
+            if (!selectedReason) {
+                alert('신고 사유를 선택해주세요.');
+                return;
+            }
+
+            // 서버로 신고 데이터 전송
+            fetch('/post/report', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    postNo: currentPostNo,
+                    reason: selectedReason.value, // 선택된 신고 사유
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('신고가 접수되었습니다.');
+                        reportModal.classList.add('dn'); // 모달 닫기
+                    } else {
+                        alert('신고 접수에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        // 신고 취소 버튼 클릭
+        cancelReportBtn.addEventListener('click', function () {
+            reportModal.classList.add('dn'); // 모달 닫기
+        });
+    });
 </script>
 </body>
 </html>
