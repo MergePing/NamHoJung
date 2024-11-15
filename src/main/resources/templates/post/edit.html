@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="post">
-    <form id="postForm" th:action="@{/newpost}" method="post" enctype="multipart/form-data">
+    <form id="postForm" th:action="@{/edit/{postNo}(postNo=${post.postNo})}" method="post" enctype="multipart/form-data">
       <div id="header">
         <span id="title">
           <input type="text" id="postTitle" name="postTitle" th:value="${post.postTitle}">
