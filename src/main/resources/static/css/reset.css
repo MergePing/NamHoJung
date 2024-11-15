@@ -97,3 +97,8 @@ table {
 button {
     cursor:pointer;
 }
+
+nav img, nav span:nth-child(2), nav span:nth-child(3), nav span:nth-child(4), nav span:nth-child(5), nav span:nth-child(6), nav span:nth-child(7), nav span:nth-child(8){
+    /* 남호정, 소개, 공지사항, 게시판, mbti, 마이페이지, 로그인  */
+    cursor : pointer;
+}

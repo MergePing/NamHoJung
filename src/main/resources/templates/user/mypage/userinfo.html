@@ -18,7 +18,9 @@
         <span onclick="location.href='/post'">게시판</span>
         <span>MBTI 검사</span>
         <span id="mypageBtn">마이페이지</span>
-        <span>로그인</span>
+        <form th:action="@{/auth/logout}" method="post">
+        <button id="logoutNav" type="submit">로그아웃</button>
+        </form>
         <span>회원가입</span>
     </nav>
 
