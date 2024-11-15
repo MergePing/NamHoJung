@@ -358,7 +358,7 @@
         L.LEVEL AS LEVEL,
         C.LIKE_NUMBER,
         C.LIKED,
-        C.USER_NO
+        C.USER_NO AS userNo
         FROM
         TBL_COMMENT C
         JOIN TBL_USER U ON C.USER_NO = U.USER_NO

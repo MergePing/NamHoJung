@@ -186,9 +186,9 @@ public class PostController {
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
         model.addAttribute("comments", comments);
         model.addAttribute("userNo", userNo);
-
         MyPageDTO userInfo = myPageService.findUserInfo(userNo);
         model.addAttribute("userInfo", userInfo);
+
 
 
 
@@ -352,6 +352,7 @@ public class PostController {
 
 
 
+    // 무서워요 토글
     // 무서워요 토글
     @PostMapping("/toggleScary")
     @ResponseBody

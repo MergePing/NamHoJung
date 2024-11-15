@@ -172,10 +172,10 @@
             </div>
             <div id="scary">
                 <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"
-                     data-postNo=${post.postNo}
+                     th:attr="data-postNo=${post.postNo}"
                      class="scary-icon" onclick="toggleScary(this)">
                 <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"
-                     data-postNo=${post.postNo}
+                     th:attr="data-postNo=${post.postNo}"
                      class="scary-icon" onclick="toggleScary(this)">
                 <div>
                     <span>무서워요</span>
@@ -195,7 +195,6 @@
                 </div>
                 <span th:text="${post.notScaryNumber}"></span>
             </div>
-
 
 
             <div class="line2"></div>
@@ -354,6 +353,64 @@
 </script>
 
 <script>
+    function toggleLike(element) {
+        const commentNo = element.getAttribute('data-comment-no');
+        if (!commentNo) {
+            console.error('commentNo is null or undefined');
+            return;
+        }
+
+        const isLike = element.getAttribute('src').includes('like-btn-after.png');
+
+        fetch(`/toggleLike`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+                    const likeCountContainer = element.closest('#like').querySelector('div');
+                    console.log(likeCountContainer);
+                    if (data.likeNumber > 0) {
+                        likeCountContainer.textContent = data.likeNumber;
+                        likeCountContainer.style.left="1577px"
+                    } else {
+                        likeCountContainer.textContent = '좋아요';
+                        likeCountContainer.style.left="1560px"
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // function toggleLike(element) {
+    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
+    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
+    //
+    //     fetch(`/toggleLike`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }
+
+
+</script>
+<script>
     function showDeleteModal() {
         console.log("showDeleteModal called");
         closeEditModal(); // 다른 모달창 닫기
@@ -438,8 +495,8 @@
     function editComment(commentNo) {
         // 수정할 댓글의 내용을 가져옴
         const commentDiv = document.querySelector(`.comment [data-comment-no="${commentNo}"]`).parentElement;
-        const currentContent = commentDiv.querySelector("span:nth-child(4)").textContent;
-
+        const currentContent = commentDiv.querySelector("span:nth-child(3)").textContent;
+        console.log("1111111111111111111"+ commentDiv)
         // 댓글 수정 창을 띄우기 위해 prompt를 사용
         const newContent = prompt("댓글을 수정하세요:", currentContent);
 
@@ -531,8 +588,18 @@
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
                 <span>${comment.commentDate}</span>
-                 <img src="/images/post/selectpost/like-btn-after.png">
-                <span>좋아요</span>
+                 <div id="like">
+                            <img src="/images/post/selectpost/like-btn-before.png"
+                                data-comment-no=${comment.commentNo}
+                                 class="likeImg" onclick="toggleLike(this)">
+
+                            <div class="like-count" style="display: ${comment.likeNumber == 0 ? 'inline' : 'none'};>
+                                <span>${comment.likeNumber}</span>
+                            </div>
+                            <div class="like-text" style="display: ${comment.likeNumber == 0 ? 'inline' : 'none'};>
+                                <span>좋아요</span>
+                            </div>
+                 </div>
 
 
 
@@ -594,63 +661,6 @@
         } }) .catch(error => console.error('Error:', error)); }
 </script>
 
-<script>
-    function toggleLike(element) {
-        const commentNo = element.getAttribute('data-comment-no');
-        if (!commentNo) {
-            console.error('commentNo is null or undefined');
-            return;
-        }
-
-        const isLike = element.getAttribute('src').includes('like-btn-after.png');
-
-        fetch(`/toggleLike`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-                    const likeCountContainer = element.closest('#like').querySelector('div');
-                    if (data.likeNumber > 0) {
-                        likeCountContainer.textContent = data.likeNumber;
-                        likeCountContainer.style.left="1577px"
-                    } else {
-                        likeCountContainer.textContent = '좋아요';
-                        likeCountContainer.style.left="1560px"
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-
-    // function toggleLike(element) {
-    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
-    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
-    //
-    //     fetch(`/toggleLike`, {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //         });
-    // }
-
-
-</script>
 
 <script>
     function toggleScary(element) {
