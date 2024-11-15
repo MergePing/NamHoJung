@@ -10,10 +10,14 @@ public class CommentDTO {
     private String username;
     private String userLevel;
     private int postNo;
+    private int top;
+    private int index;
+    private int likeNumber;
+    private boolean like;
 
     public CommentDTO() {}
 
-    public CommentDTO(int commentNo, String commentContent, int userNo, LocalDate commentDate, String username, String userLevel, int postNo) {
+    public CommentDTO(int commentNo, String commentContent, int userNo, LocalDate commentDate, String username, String userLevel, int postNo, int top, int index, int likeNumber, boolean like) {
         this.commentNo = commentNo;
         this.commentContent = commentContent;
         this.userNo = userNo;
@@ -21,6 +25,10 @@ public class CommentDTO {
         this.username = username;
         this.userLevel = userLevel;
         this.postNo = postNo;
+        this.top = top;
+        this.index = index;
+        this.likeNumber = likeNumber;
+        this.like = like;
     }
 
     public int getCommentNo() {
@@ -79,6 +87,38 @@ public class CommentDTO {
         this.postNo = postNo;
     }
 
+    public int getTop() {
+        return top;
+    }
+
+    public void setTop(int top) {
+        this.top = top;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
+    public boolean isLike() {
+        return like;
+    }
+
+    public void setLike(boolean like) {
+        this.like = like;
+    }
+
     @Override
     public String toString() {
         return "CommentDTO{" +
@@ -89,6 +129,10 @@ public class CommentDTO {
                 ", username='" + username + '\'' +
                 ", userLevel='" + userLevel + '\'' +
                 ", postNo=" + postNo +
+                ", top=" + top +
+                ", index=" + index +
+                ", likeNumber=" + likeNumber +
+                ", like=" + like +
                 '}';
     }
 }

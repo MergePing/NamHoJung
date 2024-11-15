@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ohgiraffers.mergyping.user.model.dao.FindMapper">
+
+    <select id="findIdByEmail" resultType="com.ohgiraffers.mergyping.user.model.dto.FindUserDTO">
+        SELECT
+<!--  유저 아이디만 다르므로 간단하게 AS로 매핑 -->
+        USER_ID AS id
+        , EMAIL
+        FROM TBL_USER
+        WHERE EMAIL = #{userEmail}
+    </select>
+    <select id="findPwdByEmail" resultType="com.ohgiraffers.mergyping.user.model.dto.FindUserDTO">
+        SELECT
+        USER_ID AS id
+        , USER_PWD AS password
+        , EMAIL AS email
+        , USER_NAME AS name
+        , USER_TYPE AS role
+        FROM TBL_USER
+        WHERE EMAIL = #{email}
+    </select>
+
+    <update id="savePwd">
+        UPDATE TBL_USER
+        SET USER_PWD = #{password}
+        WHERE EMAIL = #{email}
+    </update>
+</mapper>

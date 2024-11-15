@@ -17,7 +17,7 @@
         <result property="postTitle" column="POST_TITLE"/>
         <result property="postContent" column="POST_CONTENTS"/>
         <result property="postCategory" column="POST_CATEGORY"/>
-        <result property="postWriter" column="POST_WRITER"/>
+        <result property="postWriterName" column="POST_WRITER"/>
         <result property="postDate" column="POST_DATE"/>
         <result property="scaryNumber" column="SCARY_NUMBER"/>
         <result property="notScaryNumber" column="NOT_SCARY_NUMBER"/>
@@ -49,6 +49,12 @@
         <result property="commentDate" column="COMMENT_DATE"/>
         <result property="username" column="USER_NAME"/>
         <result property="userLevel" column="LEVEL"/>
+        <result property="likeNumber" column="LIKE_NUMBER"/>
+        <result property="like" column="LIKED"/>
+    </resultMap>
+
+    <resultMap id="selectPost2" type="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+        <result property="postWriter" column="POST_WRITER"/>
     </resultMap>
 
 
@@ -129,25 +135,32 @@
 
     <select id="selectById" resultMap="selectPost">
         SELECT
-        POST_NO,
-        POST_TITLE,
-        POST_CONTENTS,
-        POST_CATEGORY,
-        POST_WRITER,
-        POST_DATE,
-        SCARY_NUMBER,
-        NOT_SCARY_NUMBER,
-        COMMENTS_NUMBER,
-        POST_REPORT,
-        POST_IMAGE_FIRST,
-        POST_IMAGE_SECOND,
-        POST_FAVORITE,
-        SCARY,
-        NOT_SCARY
-        FROM TBL_POST
+        A.POST_NO,
+        A.POST_TITLE,
+        A.POST_CONTENTS,
+        A.POST_CATEGORY,
+        B.USER_NAME AS POST_WRITER,
+        A.POST_DATE,
+        A.SCARY_NUMBER,
+        A.NOT_SCARY_NUMBER,
+        A.COMMENTS_NUMBER,
+        A.POST_REPORT,
+        A.POST_IMAGE_FIRST,
+        A.POST_IMAGE_SECOND,
+        A.POST_FAVORITE,
+        A.SCARY,
+        A.NOT_SCARY
+        FROM TBL_POST A
+        JOIN TBL_USER B ON A.POST_WRITER = B.USER_NO
         WHERE POST_NO = #{postNo};
     </select>
 
+    <select id="selectPostWriter" resultMap="selectPost2">
+        SELECT
+                POST_WRITER
+            FROM TBL_POST
+            WHERE POST_NO=#{postNo};
+    </select>
 
 
 
@@ -199,7 +212,8 @@
         WHERE POST_NO = #{postNo}
     </select>
 
-    <insert id="insertPost" parameterType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">
+
+    <insert id="insertPost" parameterType="com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO">
         INSERT INTO TBL_POST (
         POST_TITLE,
         POST_CONTENTS,
@@ -276,18 +290,62 @@
         ORDER BY POST_NO;
     </select>
 
+
+    <select id="findUserInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
+        SELECT
+        U.USER_NO AS writerNo,
+        U.USER_NAME AS userName,
+        U.EMAIL,
+        U.USER_ID,
+        U.USER_IMAGE AS profileImage
+        FROM TBL_USER U
+        WHERE USER_NO = #{userNo}
+    </select>
+
+
+<!--    <select id="findPostInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO">-->
+<!--        SELECT-->
+<!--        POST_TITLE,-->
+<!--        POST_CONTENT,-->
+<!--        POST_CATEGORY,-->
+<!--        POST_IMAGE_FIRST,-->
+<!--        POST_IMAGE_SECOND-->
+<!--        FROM TBL_POST-->
+<!--        WHERE POST_NO = #{postNo}-->
+<!--    </select>-->
+
+    <update id="updatePost" parameterType="com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO">
+        UPDATE TBL_POST
+        SET POST_TITLE = #{postTitle},
+        POST_CONTENTS = #{postContent},
+        POST_CATEGORY =#{postCategory},
+        POST_IMAGE_FIRST = #{postImageFirst},
+        POST_IMAGE_SECOND = #{postImageSecond}
+        WHERE POST_NO = #{postNo}
+    </update>
+
+<!--    <delete id="deletePost" parameterType="int">-->
+<!--        DELETE FROM TBL_POST-->
+<!--        WHERE POST_NO = #{postNo}-->
+<!--    </delete>-->
+
+
+
+
+
+
     <!-- 댓글 저장 -->
     <insert id="insertComment">
         INSERT INTO TBL_COMMENT
-                (COMMENT_CONTENT,
-                USER_NO,
-                COMMENT_DATE,
-                POST_NO)
+        (COMMENT_CONTENT,
+        USER_NO,
+        COMMENT_DATE,
+        POST_NO)
         VALUES
-                (#{commentContent},
-                #{userNo},
-                NOW(),
-                #{postNo})
+        (#{commentContent},
+        #{userNo},
+        NOW(),
+        #{postNo})
     </insert>
 
     <!-- 특정 게시물의 댓글 목록 조회 -->
@@ -297,7 +355,10 @@
         C.COMMENT_CONTENT,
         C.COMMENT_DATE,
         U.USER_NAME AS USER_NAME,
-        L.LEVEL AS LEVEL
+        L.LEVEL AS LEVEL,
+        C.LIKE_NUMBER,
+        C.LIKED,
+        C.USER_NO AS userNo
         FROM
         TBL_COMMENT C
         JOIN TBL_USER U ON C.USER_NO = U.USER_NO
@@ -313,6 +374,53 @@
         SET COMMENTS_NUMBER = COMMENTS_NUMBER + 1
         WHERE POST_NO = #{postNo}
     </update>
+
+    <!-- 댓글 삭제 쿼리 -->
+    <delete id="deleteComment" parameterType="int">
+        DELETE FROM TBL_COMMENT
+        WHERE COMMENT_NO = #{commentNo}
+    </delete>
+
+    <!-- 댓글 수정 SQL -->
+    <update id="updateComment" parameterType="map">
+        UPDATE TBL_COMMENT
+        SET COMMENT_CONTENT = #{commentContent}, COMMENT_DATE = NOW()
+        WHERE COMMENT_NO = #{commentNo} AND USER_NO = #{userNo}
+    </update>
+
+    <update id="decreaseCommentCount">
+        UPDATE TBL_POST
+        SET COMMENTS_NUMBER = COMMENTS_NUMBER - 1
+        WHERE POST_NO = #{postNo}
+    </update>
+
+
+    <update id="incrementLikeCount">
+        UPDATE TBL_COMMENT
+        SET LIKED = #{isLike},
+        LIKE_NUMBER = LIKE_NUMBER + 1
+        WHERE COMMENT_NO = #{commentNo};
+    </update>
+
+    <update id="decrementLikeCount">
+        UPDATE TBL_COMMENT
+        SET LIKED = #{isLike},
+        LIKE_NUMBER = LIKE_NUMBER - 1
+        WHERE COMMENT_NO = #{commentNo};
+    </update>
+
+    <!-- 게시글 삭제 쿼리 -->
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM TBL_POST
+        WHERE POST_NO = #{postNo}
+    </delete>
+
+
+    <select id="getLikeNumber" parameterType="int" resultType="int">
+        SELECT LIKE_NUMBER
+        FROM TBL_COMMENT
+        WHERE COMMENT_NO = #{commentNo}
+    </select>
 
 
 

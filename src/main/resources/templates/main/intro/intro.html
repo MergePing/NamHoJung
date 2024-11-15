@@ -39,30 +39,19 @@
 <header>
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/intro/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
-        <span>MBTI 검사</span>
-        <span>마이페이지</span>
-        <span>로그인</span>
-        <span>회원가입</span>
+        <span onclick="location.href='/mbti'">MBTI 검사</span>
+        <span id="mypageBtn">마이페이지</span>
+        <form th:action="@{/auth/logout}" method="post">
+            <button id="logoutNav" type="submit">로그아웃</button>
+        </form>
+        <span onclick="location.href='/auth/signupterms'">회원가입</span>
     </nav>
 
 </header>
-
-<main>
-    <div class="qickBtn">
-        <!--플로팅 버튼-->
-        <img th:src="@{/images/intro/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/intro/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
-        <div class="clikbtn tr">
-            <img th:src="@{/images/intro/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-            <img th:src="@{/images/intro/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-            <img th:src="@{/images/intro/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
-        </div>
-    </div>
-    
 <img th:src="@{/images/intro/intro-dark-bg.png}" id="bg">
 <img th:src="@{/images/intro/intro-logo-dark.png}" id="mainlogo">
 
@@ -82,7 +71,6 @@
 </footer>
 
 </body>
-
 <script>
     const floatBtn1 = document.getElementById("light");
     const floatBtn2 = document.getElementById("dark");

@@ -45,10 +45,7 @@ public class MyPageService {
         myPageMapper.modifyUserName(myPageDTO);
     }
 
-    public List<MyPagePostDTO> findWrittenPost(int userNo) {
-
-        return myPageMapper.findWrittenPost(userNo);
-    }
+    
 
     @Transactional
     public void updatePassword(Map<String,Object> params) {
@@ -59,13 +56,9 @@ public class MyPageService {
         return myPageMapper.findId(userNo);
     }
 
-    public List<MypageCommentDTO> findWrittenComment(int userNo) {
-        return myPageMapper.findWrittenComment(userNo);
-    }
 
-    public List<MyPagePostDTO> findWrittenFavorite(int userNo) {
-        return myPageMapper.findWrittenFavorite(userNo);
-    }
+
+
 
     public Map<String, Object> findUserMBTIInfo(int userNo) {
         return myPageMapper.findUserMBTIInfo(userNo);
@@ -166,6 +159,70 @@ public class MyPageService {
 
     public void deleteUserAccount(int userNo) {
         myPageMapper.deleteUser(userNo);
+    }
+
+
+
+//    -----------------------------img-----------------------------------
+
+    public void updateProfileImage(int userNo, String fileUrl) {
+        myPageMapper.updateProfileImage(userNo, fileUrl);
+    }
+
+
+    public MyPageDTO findUserInfo(int userNo) {
+        MyPageDTO userInfo = myPageMapper.findUserInfo(userNo);
+        if (userInfo == null) {
+            System.out.println("사용자 정보를 찾을 수 없습니다: userNo = " + userNo);
+        } else {
+            System.out.println("사용자 정보 불러오기 - 프로필 이미지 경로: " + userInfo.getProfileImage());
+            System.out.println("사용자 정보 불러오기 - 사용자 이름: " + userInfo.getUserName());
+            System.out.println("사용자 정보 불러오기 - 사용자 등급: " + userInfo.getLevel());
+            System.out.println("사용자 정보 불러오기 - 사용자 번호: " + userInfo.getUserNo());
+        }
+        return userInfo;
+    }
+
+
+
+
+    public String getProfileImageByUserNo(int userNo) {
+        MyPageDTO user = findUserInfo(userNo);
+        if (user != null && user.getProfileImage() != null) {
+            return user.getProfileImage();
+        }
+        return "/images/default-profile.png";
+    }
+    public String getUserLevelName(int userNo) {
+        return myPageMapper.getUserLevelName(userNo);
+    }
+
+    public List<MyPagePostDTO> findWrittenPost(int userNo, int page, int size) {
+        int offset = (page - 1) * size; // SQL LIMIT 시작 위치 계산
+        return myPageMapper.findWrittenPost(userNo, offset, size);
+    }
+
+    public int countUserPosts(int userNo) {
+        return myPageMapper.countUserPosts(userNo);
+    }
+
+    public List<MypageCommentDTO> findWrittenComment(int userNo, int page, int size) {
+        int offset = (page - 1) * size; // SQL LIMIT 시작 위치 계산
+        return myPageMapper.findWrittenComment(userNo, offset, size);
+    }
+
+    public int countUserComment(int userNo) {
+        return myPageMapper.countUserComment(userNo);
+    }
+
+    public List<MyPagePostDTO> findWrittenFavorite(int userNo, int page, int size) {
+        int offset = (page - 1) * size; // SQL LIMIT 시작 위치 계산
+        return myPageMapper.findWrittenFavorite(userNo, offset, size);
+
+    }
+
+    public int countUserFavorite(int userNo) {
+        return myPageMapper.countUserFavorite(userNo);
     }
 }
 

@@ -28,29 +28,41 @@
         <result property="userNo" column="USER_NO"/>
         <result property="commentDate" column="COMMENT_DATE"/>
         <result property="postNo" column="POST_NO"/>
+        <result property="likeNumber" column="LIKE_NUMBER"/>
     </resultMap>
 
     <select id="findWrittenPost" resultMap="mypagePostResultMap">
         SELECT
-                POST_NO,
-                POST_FAVORITE,
-                POST_TITLE,
-                POST_CATEGORY,
-                POST_DATE,
-                SCARY_NUMBER,
-                COMMENTS_NUMBER
-            FROM TBL_POST
-            WHERE POST_WRITER = #{userNo}
+        POST_NO,
+        POST_FAVORITE,
+        POST_TITLE,
+        POST_CATEGORY,
+        POST_DATE,
+        SCARY_NUMBER,
+        COMMENTS_NUMBER
+        FROM TBL_POST
+        WHERE POST_WRITER = #{userNo}
+        LIMIT #{offset}, #{size}
 
+    </select>
+
+    <select id="countUserPosts" resultType="int">
+        SELECT COUNT(*) FROM TBL_POST WHERE POST_WRITER = #{userNo}
     </select>
 
     <select id="findWrittenComment" resultMap="mypageCommentResultMap">
         SELECT
-                POST_NO,
-                COMMENT_CONTENT,
-                COMMENT_DATE
+        POST_NO,
+        COMMENT_CONTENT,
+        COMMENT_DATE,
+        LIKE_NUMBER
         FROM TBL_COMMENT
         WHERE USER_NO = #{userNo}
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="countUserComment" resultType="int">
+        SELECT COUNT(*) FROM TBL_COMMENT WHERE USER_NO = #{userNo}
     </select>
 
     <select id="findWrittenFavorite" resultMap="mypagePostResultMap">
@@ -65,6 +77,11 @@
         FROM TBL_POST
         WHERE POST_WRITER = #{userNo}
         AND POST_FAVORITE = true
+        LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="countUserFavorite" resultType="int">
+        SELECT COUNT(*) FROM TBL_POST WHERE POST_WRITER = #{userNo} AND POST_FAVORITE = true
     </select>
 
 
@@ -107,11 +124,11 @@
 
     <select id="findUserMBTIInfo" parameterType="int" resultType="map">
         SELECT
-                m.MBTI_TYPE,
-                i.MBTI_INFO
-            FROM TBL_MBTI m
-            JOIN TBL_MBTI_INFO i ON m.MBTI_TYPE = i.MBTI_TYPE
-            WHERE m.USER_NO = #{userNo}
+        m.MBTI_TYPE,
+        i.MBTI_INFO
+        FROM TBL_MBTI m
+        JOIN TBL_MBTI_INFO i ON m.MBTI_TYPE = i.MBTI_TYPE
+        WHERE m.USER_NO = #{userNo}
     </select>
 
     <!-- 오늘 출석 여부 확인 -->
@@ -174,28 +191,68 @@
 
     <delete id="deleteUser" parameterType="int">
         DELETE FROM TBL_USER
-            WHERE USER_NO = #{userNo}
+        WHERE USER_NO = #{userNo}
     </delete>
 
-<!--    &lt;!&ndash; 다음 등급에 도달하기 위한 출석 횟수 조회 SQL &ndash;&gt;-->
-<!--    <select id="getNextLevelRequiredAttendance" parameterType="map" resultType="int">-->
-<!--        SELECT MIN(CHECK_ALL_NO)-->
-<!--        FROM TBL_USER-->
-<!--        WHERE CHECK_ALL_NO >-->
-<!--        (SELECT CHECK_ALL_NO-->
-<!--        FROM TBL_USER-->
-<!--        WHERE USER_NO = #{userNo})-->
-<!--        AND LEVEL_NO = #{nextLevelNo};-->
-<!--    </select>-->
+
+
+    <!--    &lt;!&ndash; 다음 등급에 도달하기 위한 출석 횟수 조회 SQL &ndash;&gt;-->
+    <!--    <select id="getNextLevelRequiredAttendance" parameterType="map" resultType="int">-->
+    <!--        SELECT MIN(CHECK_ALL_NO)-->
+    <!--        FROM TBL_USER-->
+    <!--        WHERE CHECK_ALL_NO >-->
+    <!--        (SELECT CHECK_ALL_NO-->
+    <!--        FROM TBL_USER-->
+    <!--        WHERE USER_NO = #{userNo})-->
+    <!--        AND LEVEL_NO = #{nextLevelNo};-->
+    <!--    </select>-->
+
+
+
+    <!--_________________________img__________________________-->
+
+
+    <update id="updateProfileImage">
+        UPDATE TBL_USER
+        SET USER_IMAGE = #{fileUrl}
+        WHERE USER_NO = #{userNo}
+    </update>
+
+
+    <select id="findUserInfo" parameterType="int" resultType="com.ohgiraffers.mergyping.user.model.dto.MyPageDTO">
+        SELECT
+        U.USER_NO AS userNo,
+        U.USER_NAME as userName,
+        U.EMAIL,
+        U.USER_ID,
+        U.USER_IMAGE AS profileImage,
+        L.LEVEL AS level
+        FROM TBL_USER U
+        JOIN TBL_LEVEL L ON U.LEVEL_NO = L.LEVEL_NO
+        WHERE U.USER_NO = #{userNo}
+    </select>
+
+
+
+    <select id="getUserLevelName" parameterType="int" resultType="string">
+        SELECT
+        L.LEVEL
+        U.USER_NAME
+        FROM TBL_USER U
+        JOIN TBL_LEVEL L ON U.LEVEL_NO = L.LEVEL_NO
+        WHERE U.USER_NO = #{userNo}
+    </select>
+
 
 </mapper>
 
-<!--<result property="userType" column="USER_TYPE"/>-->
-<!--<result property="userId" column="USER_ID"/>-->
-<!--<result property="userPwd" column="USER_PWD"/>-->
-<!--<result property="userName" column="USER_NAME"/>-->
-<!--<result property="email" column="EMAIL"/>-->
-<!--<result property="birthday" column="BIRTHDAY"/>-->
-<!--<result property="userImage" column="USER_IMAGE"/>-->
-<!--<result property="phone" column="PHONE"/>-->
-<!--<result property="levelNo" column="LEVEL_NO"/>-->
+        <!--<result property="userType" column="USER_TYPE"/>-->
+        <!--<result property="userId" column="USER_ID"/>-->
+        <!--<result property="userPwd" column="USER_PWD"/>-->
+        <!--<result property="userName" column="USER_NAME"/>-->
+        <!--<result property="email" column="EMAIL"/>-->
+        <!--<result property="birthday" column="BIRTHDAY"/>-->
+        <!--<result property="userImage" column="USER_IMAGE"/>-->
+        <!--<result property="phone" column="PHONE"/>-->
+        <!--<result property="levelNo" column="LEVEL_NO"/>-->
+

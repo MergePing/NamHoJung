@@ -8,6 +8,8 @@ public enum UserRole {
     //위 초기화 안해서 나는 에러 해결을 위해 초기화
     private String role;
 
+    UserRole() {}
+
     UserRole(String role) {
         this.role=role;
     }
@@ -22,5 +24,4 @@ public enum UserRole {
                 "role='" + role + '\'' +
                 '}';
     }
-
 }

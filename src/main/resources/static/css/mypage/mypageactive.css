@@ -1,3 +1,7 @@
+button{
+    cursor:pointer;
+}
+
 main .write1, main .write2, main .write3 {
     box-sizing: border-box;
     position: absolute;
@@ -172,7 +176,7 @@ main .myp a span:nth-of-type(1){
     font-size: 30px;
     color: #FFFFFF;
 
-    text-align: center;
+
 }
 main .myp span:nth-of-type(3){
     position: absolute;
@@ -200,6 +204,22 @@ main .myp span:nth-of-type(5){
     color: #FFFFFF;
     left: 1560px;
     text-align: center;
+}
+
+.postPagination{
+    position: absolute;
+    top:950px;
+    left:900px;
+}
+.commentPagination{
+    position: absolute;
+    top:950px;
+    left:900px;
+}
+.favoritePagination{
+    position: absolute;
+    top:950px;
+    left:900px;
 }
 /*main .myp span:nth-of-type(6){*/
 /*    position: absolute;*/

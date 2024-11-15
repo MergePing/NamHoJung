@@ -1,44 +1,14 @@
 <!DOCTYPE html>
-<HTML LANG="EN">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>게시글 작성</title>
+  <title>게시글 수정</title>
   <link rel="stylesheet" th:href="@{/css/reset.css}">
   <link rel="stylesheet" th:href="@{/css/post/newpost.css}">
   <style>
-    /*손전등*/
-    /*:root {*/
-    /*    --cursorX: 70vw;*/
-    /*    --cursorY: 70vh;*/
-    /*}*/
-    /*:root:before {*/
-    /*    content: '';*/
-    /*    display: block;*/
-    /*    width: 100%;*/
-    /*    height: 100%;*/
-    /*    position: fixed;*/
-    /*    pointer-events: none;*/
-    /*    z-index: 999999;*/
-    /*    background: radial-gradient(*/
-    /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
-    /*            rgba(0,0,0,0) 0%,*/
-    /*            rgba(0,0,0,.5) 80%,*/
-    /*            rgba(0,0,0,.95) 100%)*/
-    /*}*/
-
-    /** {*/
-    /*    box-sizing: border-box;*/
-    /*    text-rendering: optimizeLegibility;*/
-    /*    -webkit-font-smoothing: antialiased;*/
-    /*    -moz-osx-font-smoothing: grayscale;*/
-    /*    font-kerning: auto;*/
-    /*}*/
-
     .ellipsis {
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-
-
   </style>
 </head>
 <body>
@@ -67,16 +37,15 @@
       <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
       <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
     </div>
-
   </div>
   <div class="post">
-    <form id="postForm" th:action="@{/newpost}" method="post" enctype="multipart/form-data">
+    <form id="postForm" th:action="@{/edit/{postNo}(postNo=${post.postNo})}" method="post" enctype="multipart/form-data">
       <div id="header">
-      <span id="title">
-        <input type="text" id="postTitle" name="postTitle" placeholder="제목 : 게시글 제목을 입력해 주세요">
-      </span>
-        <button type="button" onclick="submitForm()">작성</button>
-        <button type="button" onclick="location.href='/post'">취소</button>
+        <span id="title">
+          <input type="text" id="postTitle" name="postTitle" th:value="${post.postTitle}">
+        </span>
+        <button type="button" onclick="submitForm()">완료</button>
+        <button type="button" th:onclick="/post">취소</button>
         <script>
           window.addEventListener('load', () => {
             const title = document.getElementById("title");
@@ -101,33 +70,28 @@
 
       <div class="line"></div>
       <div id="content">
-      <pre>
-        <b>* 게시글 작성 시 유의사항 안내 *</b>
-      1. 다른 사람의 개인정보(이름, 주소, 전화번호 등)를 포함한 게시글은 금지합니다. 이는 개인정보 보호법 위반에 해당되며  심각한 법적 문제를 초래할 수 있습니다.
-      2. 특정인에 대한 괴롭힘을 조장하는 내용, 욕설이나 악의적인 내용, 상업적인 홍보 등은 사이트 운영규칙 위반에 해당되어 관리자가 삭제할 수 있습니다.
-      3. 다른 사람의 창작물이나 저작권이 있는 자료를 허가 없이 사용하거나 게시하지 마세요. 이는 저작권법을 위반하는 행위로, 법적 문제를 일으킬 수 있습니다.
-      </pre>
-        <textarea  name="postContent" id="postContent" rows="1">
-   이곳에 게시글을 작성 해주세요
-      </textarea>
-
-        <input type="file" id="fileInput1" accept="image/*" name="fileFirst" style="display: none;" onchange="uploadFile(1)" alt="hhh"/>
-        <input type="file" id="fileInput2" accept="image/*" name="fileSecond" style="display: none;" onchange="uploadFile(2)" alt="jjjj"/>
+        <pre>
+          <b>* 게시글 작성 시 유의사항 안내 *</b>
+        1. 다른 사람의 개인정보(이름, 주소, 전화번호 등)를 포함한 게시글은 금지합니다. 이는 개인정보 보호법 위반에 해당되며  심각한 법적 문제를 초래할 수 있습니다.
+        2. 특정인에 대한 괴롭힘을 조장하는 내용, 욕설이나 악의적인 내용, 상업적인 홍보 등은 사이트 운영규칙 위반에 해당되어 관리자가 삭제할 수 있습니다.
+        3. 다른 사람의 창작물이나 저작권이 있는 자료를 허가 없이 사용하거나 게시하지 마세요. 이는 저작권법을 위반하는 행위로, 법적 문제를 일으킬 수 있습니다.
+        </pre>
+        <textarea name="postContent" id="postContent" rows="1" th:text="${post.postContent}"></textarea>
+        <input type="file" id="fileInput1" accept="image/*" name="fileFirst" style="display: none;" onchange="uploadFile(1)" alt="이미지 선택" />
+        <input type="file" id="fileInput2" accept="image/*" name="fileSecond" style="display: none;" onchange="uploadFile(2)" alt="이미지 선택" />
         <img id="img1" th:src="@{${post.postImageFirst != null ? post.postImageFirst : '/images/post/newpost/img-insert.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
         <img id="img2" th:src="@{${post.postImageSecond != null ? post.postImageSecond : '/images/post/newpost/img-insert.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" />
-
-
       </div>
       <input type="hidden" id="postNo" name="postNo" th:value="${post.postNo}">
-
+      <input type="hidden" id="initialImg1" name="initialImg1" th:value="${post.postImageFirst}">
+      <input type="hidden" id="initialImg2" name="initialImg2" th:value="${post.postImageSecond}">
 
       <div id="box">
         <div id="Writer">
           <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
-
           <span id="level" th:text="${userInfo.level}"></span>
           <div class="wrapper">
-            <span id="postWriterName"  th:text="${userInfo.userName}"></span>
+            <span id="postWriterName" th:text="${userInfo.userName}"></span>
             <input type="hidden" id="postWriter" name="postWriter" th:value="${userInfo.userNo}" />
             <img th:src="@{/images/post/selectpost/badge.png}">
           </div>
@@ -141,7 +105,7 @@
             <input id="thrill" type="button" value="스릴러" onclick="selectCategory(this)" />
             <input id="mystery" type="button" value="미스테리" onclick="selectCategory(this)" />
           </div>
-          <input type="hidden" id="postCategory" name="postCategory" value=""/>
+          <input type="hidden" id="postCategory" name="postCategory" th:value="${post.postCategory}"/>
         </div>
       </div>
     </form>
@@ -156,64 +120,44 @@
 </footer>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const img1 = document.getElementById('img1');
-    const img2 = document.getElementById('img2');
+  // 서버에서 유저 정보를 받아오는 함수
+  function fetchUserInfo() {
+    fetch('/user-info')
+            .then(response => response.json())
+            .then(data => {
+              // 받아온 데이터에서 유저 이름과 레벨을 설정
+              var userName = data.userName;
+              var userLevel = data.userLevel;
+              // 해당 DOM 요소들을 선택
+              var postWriterInput = document.getElementById("postWriter");
+              var levelSpan = document.getElementById("level");
+              // 받아온 데이터를 DOM 요소에 설정
+              postWriterInput.value = userName;
+              levelSpan.textContent = userLevel;
+            })
+            .catch(error => {
+              console.error('Error fetching user info:', error);
+            });
+  }
 
-    // 이미지가 없으면 기본 이미지로 설정
-    if (!img1.src || img1.src.includes('img-insert.png')) {
-      img1.src = '/images/post/newpost/img-insert.png';
-    }
-
-    if (!img2.src || img2.src.includes('img-insert.png')) {
-      img2.src = '/images/post/newpost/img-insert.png';
-    }
+  // 페이지 로드 시 유저 정보를 받아와서 설정
+  document.addEventListener("DOMContentLoaded", function() {
+    fetchUserInfo();
   });
 
-</script>
-
-<script> // 서버에서 유저 정보를 받아오는 함수
-function fetchUserInfo() {
-  fetch('/user-info')
-          .then(response => response.json())
-          .then(data => {
-            // 받아온 데이터에서 유저 이름과 레벨을 설정
-            var userName = data.userName;
-            var userLevel = data.userLevel;
-            // 해당 DOM 요소들을 선택
-            var postWriterInput = document.getElementById("postWriter");
-            var levelSpan = document.getElementById("level");
-            // 받아온 데이터를 DOM 요소에 설정
-            postWriterInput.value = userName;
-            levelSpan.textContent = userLevel;
-          })
-          .catch(error => {
-            console.error('Error fetching user info:', error);
-          });
-}
-// 페이지 로드 시 유저 정보를 받아와서 설정
-document.addEventListener("DOMContentLoaded", function() {
-  fetchUserInfo();
-});
-</script>
-
-<script>
   function selectCategory(button) {
+    // 모든 버튼의 배경색을 초기화합니다.
     document.querySelectorAll('#category input').forEach(btn => {
       btn.style.backgroundColor = ''; // 기본 배경색으로 초기화
     });
 
-    // 클릭된 버튼의 배경색을 변경
+    // 클릭된 버튼의 배경색을 변경합니다.
     button.style.backgroundColor = '#4B9D21';
 
-    // 선택된 카테고리 값을 숨겨진 입력 필드에 설정
+    // 선택된 카테고리 값을 숨겨진 입력 필드에 설정합니다.
     document.getElementById('postCategory').value = button.value;
   }
 
-</script>
-
-
-<script>
   let images = {};
 
   function uploadFile(index) {
@@ -221,6 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const file = fileInput.files[0];
 
     if (!file) {
+      // 파일이 선택되지 않으면 아무 작업도 하지 않습니다.
       return;
     }
 
@@ -245,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = document.getElementById('postForm');
     const formData = new FormData(form);
 
-    // 이미지가 수정되지 않은 경우 기존 이미지를 유지
+    // 이미지가 수정되지 않은 경우 기존 이미지를 유지합니다.
     if (!images['img1']) {
       const img1Src = document.getElementById('img1').src;
       formData.append('img1', img1Src.includes('img-insert.png') ? '' : img1Src);
@@ -292,15 +237,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-
-</script>
-
-
-<script>
+  // 페이지 로드 시 박스 위치 조정
   window.addEventListener('load', () => {
     const box = document.getElementById('box');
     const footer = document.querySelector('footer .footer');
-
 
     const img = document.getElementById('img2');
     const imgBottom = img.getBoundingClientRect().bottom;
@@ -315,18 +255,15 @@ document.addEventListener("DOMContentLoaded", function() {
       footer.style.top = `${footerTop}px`;
     }, 100);
   });
-</script>
 
-
-<script>
+  // 플로팅 버튼 클릭 시 퀵메뉴 표시
   const floatBtn1 = document.getElementById("light");
   const floatBtn2 = document.getElementById("dark");
-  const qickMenu1 =document.getElementById("top");
-  const qickMenu2 =document.getElementById("mode");
-  const qickMenu3 =document.getElementById("test");
+  const qickMenu1 = document.getElementById("top");
+  const qickMenu2 = document.getElementById("mode");
+  const qickMenu3 = document.getElementById("test");
 
-  <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
-  floatBtn1.addEventListener('click',function (){
+  floatBtn1.addEventListener('click', function () {
     floatBtn1.classList.toggle('dn');
     floatBtn2.classList.toggle('dn');
     qickMenu1.classList.toggle('dn');
@@ -334,18 +271,14 @@ document.addEventListener("DOMContentLoaded", function() {
     qickMenu3.classList.toggle('dn');
   });
 
-
-  <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
-  floatBtn2.addEventListener('click',function (){
+  floatBtn2.addEventListener('click', function () {
     floatBtn1.classList.toggle('dn');
     floatBtn2.classList.toggle('dn');
     qickMenu1.classList.toggle('dn');
     qickMenu2.classList.toggle('dn');
     qickMenu3.classList.toggle('dn');
-
   });
 
-  <!--top 버튼 클릭시 화면 상단이동-->
   setTimeout(function() {
     qickMenu1.addEventListener('click', function() {
       window.scrollTo({
