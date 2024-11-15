@@ -517,12 +517,13 @@ nav span:hover{
 
     font-family: 'Cafe24Ssurroundair';
     font-style: normal;
-    font-weight: 300;
+    font-weight: 900;
     font-size: 25px;
     line-height: 32px;
     padding-left: 20px;
     color: #3F3F3F;
     border:2px solid black;
+    color: #FFFFFF;
 }
 
 .emailInput:focus{
@@ -712,6 +713,7 @@ option{
     justify-content: center;
     color:white;
     font-size:25px;
+    cursor: pointer;
 }
 
 #emailCheckMessage{
@@ -812,12 +814,13 @@ option{
 
     font-family: 'Cafe24Ssurroundair';
     font-style: normal;
-    font-weight: 300;
     font-size: 25px;
     line-height: 32px;
     padding-left: 20px;
     color: #3F3F3F;
     border:2px solid black;
+    font-weight: 900;
+    color: #FFFFFF;
 }
 
 .pwdInput:focus{
@@ -897,6 +900,7 @@ option{
     font-size: 25px;
     line-height: 48px;
     text-align: center;
+    cursor: pointer;
 
     color: #FFFFFF;
 }
@@ -921,6 +925,7 @@ option{
     rotate: 180deg;
     left: 900px;
     z-index: 2;
+    cursor: pointer;
 }
 
 #togglePassword {
