@@ -2,142 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>공지사항 상세조회</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 상세보기</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/notice/selectnotice.css}">
-    <style>
-        /*손전등*/
-        :root {
-            --cursorX: 70vw;
-            --cursorY: 70vh;
-        }
-        :root:before {
-            content: '';
-            display: block;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 999999;
-            background: radial-gradient(
-                    circle 15vmax at var(--cursorX) var(--cursorY),
-                    rgba(0,0,0,0) 0%,
-                    rgba(0,0,0,.5) 80%,
-                    rgba(0,0,0,.95) 100%)
-        }
-
-        * {
-            box-sizing: border-box;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            font-kerning: auto;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/admin/adminnoticedetail.css}">
 </head>
 <body>
 
 <header>
-
     <nav>
-        <!--네비바-->
         <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
-        <span onclick="location.href='/notice'">공지사항</span>
+        <span onclick="location.href='/admin/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
         <span>MBTI 검사</span>
         <span>마이페이지</span>
         <span>로그인</span>
         <span>회원가입</span>
     </nav>
-
 </header>
 
 <main>
-    <div class="qickBtn">
-        <!--플로팅 버튼-->
-        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
-        <div class="clikbtn tr">
-            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
-        </div>
-    </div>
-
     <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
     <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
-    <span>01</span>
-    <div><span>공지</span></div>
-    <span>[공지] 2024년 11월 서비스 오픈 안내</span>
-    <span>2024.10.24</span>
+    <section class="top-notice">
+        <h1 id="toptitleText" class="top-title" th:text="${noticeDetail.title}"></h1>
+        <p class="date" th:text="${noticeDetail.date}"></p>
+        <p id="noticeNo" th:text="${noticeDetail.noticeNo}"></p>
+    </section>
 
 
-<div class="text">
-    <span>[공지] 2024년 11월 서비스 오픈 안내</span>
-    <span>관리자</span>
-    <span>2024.10.21</span>
-    <p>[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월
-        [공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월 서비스 오픈 안내[공지] 2024년 11월</p>
-</div>
+    <!-- 공지사항 상세 내용 -->
+    <section class="notice-detail">
+        <h1 id="titleText" class="title" th:text="${noticeDetail.title}"></h1>
+        <div id="contentText" class="content" th:utext="${noticeDetail.content}"></div>
+
+    </section>
+
+
 </main>
-<footer>
-    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
-</footer>
+
+
+
 </body>
-
-<script>
-    const floatBtn1 = document.getElementById("light");
-    const floatBtn2 = document.getElementById("dark");
-    const qickMenu1 =document.getElementById("top");
-    const qickMenu2 =document.getElementById("mode");
-    const qickMenu3 =document.getElementById("test");
-
-    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
-    floatBtn1.addEventListener('click',function (){
-        floatBtn1.classList.toggle('dn');
-        floatBtn2.classList.toggle('dn');
-        qickMenu1.classList.toggle('dn');
-        qickMenu2.classList.toggle('dn');
-        qickMenu3.classList.toggle('dn');
-    });
-
-
-    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
-    floatBtn2.addEventListener('click',function (){
-        floatBtn1.classList.toggle('dn');
-        floatBtn2.classList.toggle('dn');
-        qickMenu1.classList.toggle('dn');
-        qickMenu2.classList.toggle('dn');
-        qickMenu3.classList.toggle('dn');
-
-    });
-
-    <!--top 버튼 클릭시 화면 상단이동-->
-    setTimeout(function() {
-        qickMenu1.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }, 3000);
-
-</script>
-<script>
-    function update(e){
-        var x = e.clientX || e.touches[0].clientX
-        var y = e.clientY || e.touches[0].clientY
-
-        document.documentElement.style.setProperty('--cursorX', x + 'px')
-        document.documentElement.style.setProperty('--cursorY', y + 'px')}
-
-    document.addEventListener('mousemove',update)
-    document.addEventListener('touchmove',update)
-</script>
 </html>

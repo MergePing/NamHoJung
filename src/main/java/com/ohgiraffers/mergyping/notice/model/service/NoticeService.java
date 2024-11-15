@@ -2,11 +2,11 @@ package com.ohgiraffers.mergyping.notice.model.service;
 
 import com.ohgiraffers.mergyping.notice.model.dao.NoticeMapper;
 import com.ohgiraffers.mergyping.notice.model.dto.NoticeDTO;
+import com.ohgiraffers.mergyping.notice.model.dto.NoticeDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 @Service
 public class NoticeService {
@@ -23,7 +23,13 @@ public class NoticeService {
         return noticeMapper.selectNoticesByPage(offset, pageSize);
     }
 
+
     public int countNotices() {
         return noticeMapper.countNotices();
+    }
+
+
+    public NoticeDetailDTO getNoticeDetail(String noticeNo) {
+        return noticeMapper.selectNoticeDetail(Integer.parseInt(noticeNo));
     }
 }

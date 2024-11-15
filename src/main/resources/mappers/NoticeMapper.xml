@@ -9,9 +9,8 @@
     <select id="selectNoticesByPage" parameterType="map" resultType="com.ohgiraffers.mergyping.notice.model.dto.NoticeDTO">
         SELECT
         NOTICE_NO AS noticeNo,
-        NOTICE_CATEGORY AS category,
         NOTICE_TITLE AS title,
-        NOTICE_CONTENT AS content,
+        NOTICE_CATEGORY AS category,
         NOTICE_DATE AS noticeDate
         FROM TBL_NOTICE
         ORDER BY NOTICE_DATE DESC
@@ -22,6 +21,17 @@
     <select id="countNotices" resultType="int">
         SELECT COUNT(*)
         FROM TBL_NOTICE
+    </select>
+
+    <select id="selectNoticeDetail" parameterType="int" resultType="com.ohgiraffers.mergyping.notice.model.dto.NoticeDetailDTO">
+        SELECT
+        NOTICE_NO AS noticeNo,
+        NOTICE_TITLE AS title,
+        NOTICE_CONTENT AS content,
+        NOTICE_CATEGORY AS category,
+        NOTICE_DATE AS noticeDate
+        FROM TBL_NOTICE
+        WHERE NOTICE_NO = #{noticeNo}
     </select>
 
 </mapper>
