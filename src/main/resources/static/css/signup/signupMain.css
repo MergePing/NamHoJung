@@ -14,7 +14,7 @@
     left: calc(50% - 215px/2 - 0.5px);
     top: 125px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 60px;
@@ -29,7 +29,7 @@
     left: calc(50% - 358px/2);
     top: 202px;
 
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-style: normal;
     font-weight: 600;
     font-size: 35px;
@@ -66,7 +66,7 @@
     left: 232px;
     top: 358px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -85,7 +85,7 @@
     background: #A4A4A4;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -114,7 +114,7 @@
     left: 232px;
     top: 444px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -133,7 +133,7 @@
     background: #A4A4A4;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -162,7 +162,7 @@
     left: 232px;
     top: 530px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -181,7 +181,7 @@
     background: #A4A4A4;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -210,7 +210,7 @@
     left: 232px;
     top: 616px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -228,7 +228,7 @@
     background: #A4A4A4;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -257,7 +257,7 @@
     left: 232px;
     top: 702px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -276,7 +276,7 @@
     background: #A4A4A4;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -297,7 +297,7 @@
     left: 765px;
     top: 684px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 50px;
@@ -319,7 +319,7 @@
     border: 2px solid #FFFFFF;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -348,7 +348,7 @@
     border-radius: 50px;
 
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 1000;
     font-size: 30px;
@@ -376,7 +376,7 @@ input.box{
 
         background: #A4A4A4;
         border-radius: 50px;
-        font-family: 'Cafe24 Ssurround air';
+        font-family: 'Cafe24Ssurroundair';
         font-style: normal;
         font-weight: 900;
         font-size: 25px;
@@ -401,7 +401,7 @@ select.box{
 
     background: #A4A4A4;
     border-radius: 50px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 25px;
@@ -465,7 +465,7 @@ select.box1{
 
     background: #A4A4A4;
     border-radius: 50px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 25px;
@@ -490,7 +490,7 @@ select.box1{
     left: 264px;
     top: 804px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -513,7 +513,7 @@ select.box1{
     border-radius: 50px;
 
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -535,7 +535,7 @@ select.box1{
     left: 264px;
     top: 890px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -551,7 +551,7 @@ select.box1{
     left: 514px;
     top: 890px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -603,7 +603,7 @@ select.box1{
 
     justify-content: center;
 
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
@@ -625,7 +625,7 @@ select.box1{
 #exitButton{
     background: black;
     border-radius: 999px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-weight: 1000;
     width: 40px;
     height: 40px;
@@ -651,7 +651,7 @@ select.box1{
     position:absolute;
     left: 50px;
     top: 30px;
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
@@ -668,7 +668,7 @@ select.box1{
     top: 100px;
     text-align: center;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -698,7 +698,7 @@ select.box1{
     border-radius: 50px;
     border:white 2px solid;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;
@@ -733,7 +733,7 @@ select.box1{
     left: 515px;
     top: 379px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 100px;
@@ -746,7 +746,7 @@ select.box1{
 .button{
     width: 192px;
     height: 145px;
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 50px;
@@ -936,7 +936,7 @@ nav span:hover{
     left: 1186px;
     top: 352px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -952,7 +952,7 @@ nav span:hover{
     left: 1186px;
     top: 436px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -968,7 +968,7 @@ nav span:hover{
     left: 1186px;
     top: 522px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -984,7 +984,7 @@ nav span:hover{
     left: 1186px;
     top: 609px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -1000,7 +1000,7 @@ nav span:hover{
     left: 1186px;
     top: 751px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 30px;
@@ -1012,7 +1012,7 @@ nav span:hover{
 #emailCheckMessage{
     width: 400px;
     position: absolute;
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
