@@ -3,12 +3,11 @@ package com.ohgiraffers.mergyping.user.controller;
 import com.ohgiraffers.mergyping.user.model.dto.AdminReportDTO;
 import com.ohgiraffers.mergyping.user.model.service.AdminReportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,5 +57,16 @@ public class AdminReportController {
         response.put("currentPage", page);            // 현재 페이지
         response.put("totalPages", totalPages);       // 총 페이지 수
         return response; // JSON 형태로 반환
+    }
+
+    @DeleteMapping("/admin/report/delete/{reportNo}")
+    @ResponseBody
+    public ResponseEntity<Void> deleteReport(@PathVariable int reportNo) {
+        boolean isDeleted = adminReportService.deleteReport(reportNo);
+        if (isDeleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
