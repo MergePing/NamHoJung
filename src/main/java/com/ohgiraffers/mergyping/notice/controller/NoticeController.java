@@ -8,8 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 @Controller
 @RequestMapping("/notice")
@@ -23,25 +27,22 @@ public class NoticeController {
     }
 
     @GetMapping
-    public String showNotices(@RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "7") int pageSize,
-                              Model model) {
+    public String showNoticePage() {
+        return "notice/notice-list"; // 공지사항 리스트 HTML 파일
+    }
+
+    @GetMapping("/data")
+    @ResponseBody
+    public Map<String, Object> getNotices(@RequestParam(defaultValue = "1") int page,
+                                          @RequestParam(defaultValue = "7") int pageSize) {
         List<NoticeDTO> notices = noticeService.getNoticesByPage(page, pageSize);
         int totalNotices = noticeService.countNotices();
         int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
 
-        model.addAttribute("notices", notices);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("startPage", Math.max(1, page - 2));
-        model.addAttribute("endPage", Math.min(totalPages, page + 2));
-
-
-
-
-        return "/notice/notice";
+        Map<String, Object> response = new HashMap<>();
+        response.put("noticeList", notices);          // 공지사항 리스트
+        response.put("currentPage", page);            // 현재 페이지
+        response.put("totalPages", totalPages);       // 전체 페이지 수
+        return response; // JSON 반환
     }
-
-
-
 }

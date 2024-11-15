@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ohgiraffers.mergyping.notice.model.dao.NoticeMapper">
+
+    <!-- 페이징된 공지사항 리스트 가져오기 -->
+    <select id="selectNoticesByPage" parameterType="map" resultType="com.ohgiraffers.mergyping.notice.model.dto.NoticeDTO">
+        SELECT
+        NOTICE_NO AS noticeNo,
+        NOTICE_CATEGORY AS category,
+        NOTICE_TITLE AS title,
+        NOTICE_CONTENT AS content,
+        NOTICE_DATE AS noticeDate
+        FROM TBL_NOTICE
+        ORDER BY NOTICE_DATE DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <!-- 전체 공지사항 수 가져오기 -->
+    <select id="countNotices" resultType="int">
+        SELECT COUNT(*)
+        FROM TBL_NOTICE
+    </select>
+
+</mapper>

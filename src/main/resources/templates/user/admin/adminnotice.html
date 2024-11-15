@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>공지사항</title>
-  <link rel="stylesheet" th:href="@{/css/reset.css}">
-  <link rel="stylesheet" th:href="@{/css/admin/adminnotice.css}">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/notice/notice.css">
 </head>
 <body>
-
 <header>
   <nav>
-    <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+    <img src="/images/notice/nav-logo-dark.png" alt="상단 로고" onclick="window.location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
-    <span onclick="location.reload()">공지사항</span>
+    <span onclick="location.href='/notice'">공지사항</span>
     <span onclick="location.href='/post'">게시판</span>
     <span>MBTI 검사</span>
     <span>마이페이지</span>
@@ -21,58 +20,23 @@
   </nav>
 </header>
 
-<main id="mainContent">
-  <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
-  <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
-
-  <!-- 검색 및 필터 -->
-  <div class="select">
-    <p>분류</p>
-  </div>
-  <input id="searchInput" type="search" placeholder="검색어를 입력하세요">
-  <label>
-    <img id="searchButton" th:src="@{/images/post/Search-dark.png}" alt="검색 버튼">
-  </label>
-
-  <!-- 게시물 헤더 -->
-  <div class="sell">
-    <span class="sell-item">번호</span>
-    <span class="sell-item">공지사항 제목</span>
-    <span class="sell-item">카테고리</span>
-    <span class="sell-item">등록날짜</span>
-  </div>
-
-  <!-- 공지사항 리스트 -->
-  <div id="noticeContainer" class="notice-list">
-    <!-- 데이터가 JavaScript로 동적으로 렌더링 -->
+<main>
+  <!-- 공지사항 리스트 컨테이너 -->
+  <div id="noticeContainer" class="notice-container">
+    <!-- JavaScript에서 공지사항 리스트 동적으로 렌더링 -->
   </div>
 
   <!-- 페이지네이션 -->
   <div id="pagination" class="pagination">
-    <!-- 페이지 버튼이 JavaScript로 동적으로 생성 -->
+    <!-- JavaScript에서 페이지 버튼 동적으로 생성 -->
   </div>
 </main>
 
-<!-- 공지사항 추가 버튼 -->
-<div class="button-container">
-  <button id="addNoticeButton">공지사항 추가</button>
-  <button id="cancelButton" style="display: none;">취소</button>
-</div>
-
-<!-- 작성 폼 -->
-<div id="addForm" style="display: none;">
-  <input type="text" id="noticeTitle" placeholder="제목을 입력해주세요">
-  <textarea id="noticeContent" placeholder="내용을 입력해주세요"></textarea>
-  <div id="categoryButtons">
-    <button type="button" class="category-btn" data-category="공지">공지</button>
-    <button type="button" class="category-btn" data-category="알림">알림</button>
-  </div>
-  <input type="hidden" id="noticeCategory" value="공지">
-  <button id="submitNoticeButton">제출</button>
-</div>
+<footer>
+  <div class="footer"><p>ⓒ 2024 MergePing. All rights reserved.</p></div>
+</footer>
 
 <script>
-
   const pageSize = 7; // 한 페이지에 표시할 공지사항 수
   let currentPage = 1; // 현재 페이지
 
@@ -82,7 +46,6 @@
     fetch(`/admin/notice/data?page=${page}&pageSize=${pageSize}`)
             .then(response => response.json())
             .then(data => {
-              console.log(data); // 디버깅: 서버에서 반환된 데이터 확인
               renderNotices(data.noticeList); // 공지사항 렌더링
               renderPagination(data.currentPage, data.totalPages); // 페이지네이션 렌더링
             })
@@ -116,143 +79,28 @@
     });
   }
 
+  // 페이지네이션 렌더링
   function renderPagination(currentPage, totalPages) {
-    const paginationContainer = document.getElementById('pagination');
-    paginationContainer.innerHTML = ''; // 기존 페이지네이션 초기화
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = ''; // 기존 페이지네이션 초기화
 
+    // 페이지 번호 버튼
     for (let i = 1; i <= totalPages; i++) {
       const pageButton = document.createElement('button');
       pageButton.textContent = i;
-      pageButton.classList.add('pagination-btn');
+      pageButton.classList.add('pagination-button');
       if (i === currentPage) {
         pageButton.classList.add('active'); // 현재 페이지 강조
       }
-
-      pageButton.addEventListener('click', () => {
-        if (i !== currentPage) {
-          loadNotices(i); // 선택된 페이지 번호로 데이터 로드
-
-          // 버튼 상태 업데이트
-          document.querySelectorAll('.pagination-btn').forEach(btn => btn.classList.remove('active'));
-          pageButton.classList.add('active');
-        }
-      });
-
-      paginationContainer.appendChild(pageButton);
+      pageButton.addEventListener('click', () => loadNotices(i)); // 해당 페이지 로드
+      pagination.appendChild(pageButton);
     }
-
-
   }
 
-
-  // 초기 로드
-  loadNotices(currentPage);
-
-
-  // 검색 이벤트
-  document.getElementById('searchButton').addEventListener('click', () => {
-    const searchInput = document.getElementById('searchInput').value; // 입력된 검색어 가져오기
-    searchNotices(searchInput, currentPage); // 검색 요청 실행
+  // 초기 공지사항 로드
+  document.addEventListener('DOMContentLoaded', () => {
+    loadNotices(1);
   });
-
-
-  // 검색 요청 함수
-  function searchNotices(keyword, page) {
-    fetch(`/admin/notice/search?keyword=${encodeURIComponent(keyword)}&page=${page}&pageSize=${pageSize}`)
-            .then(response => response.json())
-            .then(data => {
-              renderNotices(data.noticeList); // 검색 결과 공지사항 렌더링
-              renderPagination(data.currentPage, data.totalPages); // 검색 결과에 따른 페이지네이션 렌더링
-            })
-            .catch(error => console.error('Error:', error));
-  }
-
-
-  document.getElementById('addNoticeButton').addEventListener('click', function() {
-    const addForm = document.getElementById('addForm');
-    const mainContent = document.getElementById('mainContent');
-    const cancelButton = document.getElementById('cancelButton');
-    const addNoticeButton = document.getElementById('addNoticeButton');
-    const submitNoticeButton = document.getElementById('submitNoticeButton');
-
-    // 이미지 외의 모든 메인 콘텐츠 요소 숨기기
-    Array.from(mainContent.children).forEach(element => {
-      if (element.tagName !== 'IMG') {
-        element.style.display = 'none';
-      }
-    });
-
-    // 작성 폼 및 취소 버튼 표시, 공지사항 추가 버튼 숨기
-    addForm.style.display = 'block';
-    submitNoticeButton.style.display = 'inline-block';
-    addNoticeButton.style.display = 'none';
-    cancelButton.style.display = 'inline-block';
-  });
-
-  // 취소 버튼 클릭 시 모든 요소를 원래대로 복구
-  document.getElementById('cancelButton').addEventListener('click', function() {
-    const addForm = document.getElementById('addForm');
-    const mainContent = document.getElementById('mainContent');
-    const addNoticeButton = document.getElementById('addNoticeButton');
-    const submitNoticeButton = document.getElementById('submitNoticeButton');
-
-    // 모든 메인 콘텐츠 요소 다시 표시
-    Array.from(mainContent.children).forEach(element => {
-      element.style.display = 'block';
-    });
-
-    // 작성 폼, 제출 버튼 및 취소 버튼 숨기기, 공지사항 추가 버튼 다시 표시
-    addForm.style.display = 'none';
-    submitNoticeButton.style.display = 'none';
-    addNoticeButton.style.display = 'inline-block';
-    this.style.display = 'none';
-  });
-
-  document.querySelectorAll('.category-btn').forEach(button => {
-    button.addEventListener('click', function() {
-      // 모든 버튼에서 selected 클래스 제거
-      document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('selected'));
-
-      // 클릭된 버튼에 selected 클래스 추가
-      this.classList.add('selected');
-
-      // 선택된 카테고리 값을 hidden input에 저장
-      document.getElementById('noticeCategory').value = this.getAttribute('data-category');
-    });
-  });
-
-  // 제출 버튼 클릭 시 서버로 데이터 전송
-  document.getElementById('submitNoticeButton').addEventListener('click', function() {
-    const title = document.getElementById('noticeTitle').value;
-    const content = document.getElementById('noticeContent').value;
-    const category = document.getElementById('noticeCategory').value;
-
-    if (!title || !content || !category) {
-      alert("제목, 내용, 카테고리를 모두 입력해주세요.");
-      return;
-    }
-
-    fetch('/admin/notice/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ title, content, category })
-    })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                alert('공지사항이 추가되었습니다.');
-                location.reload();
-              } else {
-                alert('추가 실패');
-              }
-            })
-            .catch(error => console.error('Error:', error));
-  });
-
-
 </script>
-
 </body>
 </html>

@@ -3,45 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>공지사항</title>
-    <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/notice/notice.css}">
-    <style>
-        /*!*손전등*!*/
-        /*:root {*/
-        /*    --cursorX: 70vw;*/
-        /*    --cursorY: 70vh;*/
-        /*}*/
-        /*:root:before {*/
-        /*    content: '';*/
-        /*    display: block;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    position: fixed;*/
-        /*    pointer-events: none;*/
-        /*    z-index: 999999;*/
-        /*    background: radial-gradient(*/
-        /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
-        /*            rgba(0,0,0,0) 0%,*/
-        /*            rgba(0,0,0,.5) 80%,*/
-        /*            rgba(0,0,0,.95) 100%)*/
-        /*}*/
-
-        /** {*/
-        /*    box-sizing: border-box;*/
-        /*    text-rendering: optimizeLegibility;*/
-        /*    -webkit-font-smoothing: antialiased;*/
-        /*    -moz-osx-font-smoothing: grayscale;*/
-        /*    font-kerning: auto;*/
-        /*}*/
-    </style>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/notice/notice.css">
 </head>
 <body>
-
 <header>
-
     <nav>
-        <!--네비바-->
-        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <img src="/images/notice/nav-logo-dark.png" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
@@ -50,223 +18,81 @@
         <span>로그인</span>
         <span>회원가입</span>
     </nav>
-
 </header>
 
 <main>
-
-    <div class="qickBtn">
-        <!--플로팅 버튼-->
-        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
-        <div class="clikbtn tr">
-            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
-        </div>
+    <div id="noticeContainer" class="notice-container">
+        <!-- 공지사항 리스트가 JavaScript로 렌더링됩니다 -->
     </div>
 
-    <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
-    <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
-
-    <div class="tab">
-        <p id="all">전체</p>
-        <p id="alert">알림</p>
+    <div id="pagination" class="pagination">
+        <!-- 페이지네이션이 JavaScript로 렌더링됩니다 -->
     </div>
-
-    <input type="search" value="&nbsp; &nbsp; 검색어를 입력하세요"> <label><img th:src="@{/images/notice/Search-btn.png}"></label>
-    <div class="back back1 dn">
-        <div class="box box1">
-            <div id="notice1" class="notice allContent">
-                 <span>01</span>
-                <div><span>공지</span></div>
-                <span>[공지] 2024년 11월 서비스 오픈 안내</span>
-                <span>2024.10.24</span>
-                <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
-            </div>
-        </div>
-    </div>
-
-    <div class="back back2 dn">
-        <div class="box box2">
-            <div id="notice2" class="notice allContent">
-                    <span>02</span>
-                    <div><span>공지</span></div>
-                    <span>[알림] 다크모드, 라이트 모드 변경 설정 방법</span>
-                    <span>2024.10.23</span>
-                    <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
-            </div>
-        </div>
-    </div>
-
-
-    <div class="back back3 dn">
-        <div class="box box3">
-            <div id="notice3" class="notice alertContent allContent">
-                 <span>03</span>
-                    <div><span>알림</span></div>
-                    <span>[공지] 2024년 11월 서비스 오픈 안내</span>
-                    <span>2024.10.23</span>
-                    <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
-            </div>
-        </div>
-    </div>
-
-
-    <div class="back back4 dn">
-        <div class="box box4">
-            <div id="notice4" class="notice allContent">
-                    <span>04</span>
-                    <div><span>공지</span></div>
-                    <span>[공지] 2024년 11월 서비스 오픈 안내</span>
-                    <span>2024.10.22</span>
-                    <img th:src="@{/images/notice/arrow-btn-dark.png}" onclick="location.href='/selectnotice'">
-            </div>
-        </div>
-    </div>
-
-
-    <div class="pageNum">
-        <img th:src="@{/images/notice/pre-btn.png}">
-        <p>1</p>
-        <img th:src="@{/images/notice/next-btn.png}">
-    </div>
-
 </main>
 
 <footer>
-    <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
+    <div class="footer"><p>ⓒ 2024 MergePing. All rights reserved.</p></div>
 </footer>
 
+<script>
+    const pageSize = 7; // 한 페이지에 표시할 공지사항 수
+    let currentPage = 1; // 현재 페이지
+
+    // 공지사항 데이터를 가져와 화면에 렌더링
+    function loadNotices(page) {
+        currentPage = page; // 현재 페이지 업데이트
+        fetch(`/notice/data?page=${page}&pageSize=${pageSize}`)
+            .then(response => response.json())
+            .then(data => {
+                renderNotices(data.noticeList); // 공지사항 렌더링
+                renderPagination(data.currentPage, data.totalPages); // 페이지네이션 렌더링
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 공지사항 리스트 렌더링
+    function renderNotices(noticeList) {
+        const noticeContainer = document.getElementById('noticeContainer');
+        noticeContainer.innerHTML = ''; // 기존 공지사항 초기화
+
+        noticeList.forEach(notice => {
+            const noticeDiv = document.createElement('div');
+            noticeDiv.classList.add('notice');
+
+            const formattedDate = new Date(notice.date).toISOString().split('T')[0]; // 날짜 형식 변환
+
+            noticeDiv.innerHTML = `
+            <span class="notice-item">${notice.noticeNo}</span>
+            <span class="notice-item notice-title" data-id="${notice.noticeNo}">${notice.title}</span>
+            <span class="notice-item">${notice.category}</span>
+            <span class="notice-item">${formattedDate}</span>
+        `;
+
+            noticeContainer.appendChild(noticeDiv);
+        });
+    }
+
+    // 페이지네이션 렌더링
+    function renderPagination(currentPage, totalPages) {
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = ''; // 기존 페이지네이션 초기화
+
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+            pageButton.classList.add('pagination-button');
+            if (i === currentPage) {
+                pageButton.classList.add('active'); // 현재 페이지 강조
+            }
+            pageButton.addEventListener('click', () => loadNotices(i)); // 해당 페이지 로드
+            pagination.appendChild(pageButton);
+        }
+    }
+
+    // 초기 공지사항 로드
+    document.addEventListener('DOMContentLoaded', () => {
+        loadNotices(1);
+    });
+</script>
 </body>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const notices = [
-            {notice: document.getElementById("notice1"), back: document.querySelector('.back1')},
-            {notice: document.getElementById("notice2"), back: document.querySelector('.back2')},
-            {notice: document.getElementById("notice3"), back: document.querySelector('.back3')},
-            {notice: document.getElementById("notice4"), back: document.querySelector('.back4')}
-        ];
-
-        notices.forEach(({notice, back}) => {
-            notice.addEventListener('mouseover', () => {
-                back.classList.remove("dn");
-            });
-            notice.addEventListener('mouseout', () => {
-                back.classList.add("dn");
-            });
-        });
-    });
-
-
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const all = document.getElementById("all");
-        const alert = document.getElementById("alert");
-        const allContents = document.querySelectorAll('.allContent');
-        const alertContents = document.querySelectorAll('.alertContent');
-        const container = document.querySelector('main');
-
-        alert.addEventListener('click', function() {
-            all.style.color = "#BEBEBE";
-            all.style.borderBottom = "none";
-            alert.style.color = "#fff";
-            alert.style.borderBottom = "#fff solid 3px";
-            clearNotices();
-
-            alertContents.forEach(notice => {
-                notice.classList.add("active");
-            });
-
-            reflowNotices(alertContents);
-        });
-
-        all.addEventListener('click', function() {
-            alert.style.color = "#BEBEBE";
-            alert.style.borderBottom = "none";
-            all.style.color = "#fff";
-            all.style.borderBottom = "#fff solid 3px";
-            clearNotices();
-
-            allContents.forEach(notice => {
-                notice.classList.add("active");
-                container.appendChild(notice.closest('.box'));
-            });
-
-            reflowNotices(allContents);
-        });
-
-        function clearNotices() {
-            allContents.forEach(notice => notice.classList.remove("active"));
-            alertContents.forEach(notice => notice.classList.remove("active"));
-        }
-
-        function reflowNotices(notices) {
-            notices.forEach((notice, index) => {
-                const box = notice.closest('.box');
-                box.style.position = "relative";
-                box.style.top = (index * 80) + "px"; // 예: 각 박스 사이에 80px 여백
-                container.appendChild(box);
-            });
-        }
-
-        // 초기 설정: 모든 콘텐츠 표시
-        allContents.forEach(notice => notice.classList.add("active"));
-        reflowNotices(allContents);
-    });
-
-
-</script>
-
-<script>
-    const floatBtn1 = document.getElementById("light");
-    const floatBtn2 = document.getElementById("dark");
-    const qickMenu1 =document.getElementById("top");
-    const qickMenu2 =document.getElementById("mode");
-    const qickMenu3 =document.getElementById("test");
-
-    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
-    floatBtn1.addEventListener('click',function (){
-        floatBtn1.classList.toggle('dn');
-        floatBtn2.classList.toggle('dn');
-        qickMenu1.classList.toggle('dn');
-        qickMenu2.classList.toggle('dn');
-        qickMenu3.classList.toggle('dn');
-    });
-
-
-    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
-    floatBtn2.addEventListener('click',function (){
-        floatBtn1.classList.toggle('dn');
-        floatBtn2.classList.toggle('dn');
-        qickMenu1.classList.toggle('dn');
-        qickMenu2.classList.toggle('dn');
-        qickMenu3.classList.toggle('dn');
-
-    });
-
-    <!--top 버튼 클릭시 화면 상단이동-->
-    setTimeout(function() {
-        qickMenu1.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }, 3000);
-
-</script>
-<script>
-    function update(e){
-        var x = e.clientX || e.touches[0].clientX
-        var y = e.clientY || e.touches[0].clientY
-
-        document.documentElement.style.setProperty('--cursorX', x + 'px')
-        document.documentElement.style.setProperty('--cursorY', y + 'px')}
-
-    document.addEventListener('mousemove',update)
-    document.addEventListener('touchmove',update)
-</script>
 </html>
