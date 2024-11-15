@@ -12,6 +12,14 @@
     height: 1107px;
 }
 
+button:hover {
+    cursor:pointer;
+}
+
+input[type="radio"] {
+    cursor: pointer;
+}
+
 /*---------------nav------------------*/
 nav{
     position: fixed;
@@ -32,6 +40,7 @@ nav img{
     height: 45px;
     left: 48px;
     top: 18px;
+    cursor : pointer;
 
 }
 
@@ -48,6 +57,7 @@ nav span:nth-child(2) {
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor : pointer;
 }
 
 
@@ -64,6 +74,7 @@ nav span:nth-child(3){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor : pointer;
 }
 
 
@@ -81,6 +92,7 @@ nav span:nth-child(4){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor : pointer;
 }
 
 
@@ -98,6 +110,7 @@ nav span:nth-child(5){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor : pointer;
 }
 
 
@@ -115,6 +128,7 @@ nav span:nth-child(6){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor : pointer;
 }
 
 nav span:nth-child(7){
@@ -130,6 +144,7 @@ nav span:nth-child(7){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor : pointer;
 }
 
 /*#logoutNav{
@@ -148,6 +163,7 @@ nav span:nth-child(7){
     background: none;
     border:none;
     text-align: center;
+    cursor : pointer;
 }*/
 
 nav span:nth-child(8){
@@ -162,23 +178,15 @@ nav span:nth-child(8){
     font-weight: 400;
     font-size: 20px;
     line-height: 21px;
-    color: #C9E6CA;
+    color: #A3DA87;
     transition: all 1s;
+    cursor : pointer;
 }
 
 
 nav span:hover{
     color: #A3DA87;
     scale: 130%;
-}
-
-
-.logo img{
-    position: absolute;
-    width: 451px;
-    height: 250px;
-    left: 169px;
-    top: 231px;
 }
 
 /* signup */
@@ -200,7 +208,7 @@ nav span:hover{
     left: calc(50% - 327px/2 - 0.5px);
     top: 301px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 60px;
@@ -225,7 +233,7 @@ nav span:hover{
     left: calc(50% - 453px/2 - 0.5px);
     top: 390px;
 
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-style: normal;
     font-weight: 600;
     font-size: 35px;
@@ -274,7 +282,7 @@ nav span:hover{
     background: #A4A4A4;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 30px;
@@ -305,7 +313,7 @@ nav span:hover{
     background: #A4A4A4;
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 30px;
@@ -362,7 +370,7 @@ nav span:hover{
     left: 815px;
     top: 250px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 60px;
@@ -379,7 +387,7 @@ nav span:hover{
 
     justify-content: center;
 
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-style: normal;
     font-weight: 700;
     font-size: 40px;
@@ -426,7 +434,7 @@ nav span:hover{
         border: 2px solid #FFFFFF;
         border-radius: 50px;
 
-        font-family: 'SUIT';
+        font-family: 'SUIT-Regular';
         font-style: normal;
         font-weight: 700;
         font-size: 25px;
@@ -511,7 +519,7 @@ nav span:hover{
     left: 545px;
     top: 761px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;
@@ -550,7 +558,7 @@ nav span:hover{
     background: #66934F;
     border-radius: 50px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;

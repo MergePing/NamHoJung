@@ -410,6 +410,7 @@ public class PostController {
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             userNo = userDetails.getUserNo();
+
         }
 
         // 서비스를 통해 게시글 번호로 게시물 조회

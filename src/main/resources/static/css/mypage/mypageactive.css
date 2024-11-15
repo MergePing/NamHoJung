@@ -1,3 +1,7 @@
+button{
+    cursor:pointer;
+}
+
 main .write1, main .write2, main .write3 {
     box-sizing: border-box;
     position: absolute;
