@@ -349,7 +349,7 @@ main .bg{
 #writer div span:nth-of-type(1){
     position: absolute;
     height: 30px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     text-align: center;
     letter-spacing: 0.05em;
@@ -491,7 +491,7 @@ footer .footer p{
 }
 
 .modal-content p {
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 40px;
