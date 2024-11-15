@@ -167,6 +167,7 @@ nav span:hover{
     height: 250px;
     left: 169px;
     top: 231px;
+    cursor : pointer;
 }
 
 /*---------------main1------------------*/
