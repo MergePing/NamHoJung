@@ -249,7 +249,7 @@ nav span:hover{
     left: 850px;
     top: 844px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;
@@ -286,7 +286,7 @@ nav span:hover{
     top: 747px;
     color:white;
 
-    font-family: 'BM JUA_TTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;
@@ -307,7 +307,6 @@ nav span:hover{
     border:black 2px solid;
 
     font-family: 'Cafe24SsurroundAir';
-    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff');format('woff');
     font-weight: normal;
     font-style: normal;
     font-size: 25px;
@@ -339,7 +338,6 @@ nav span:hover{
     border-radius: 50px;
 
     font-family: 'Cafe24SsurroundAir';
-    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24SsurroundAir.woff'); format('woff');
     font-weight: normal;
     font-style: normal;
     font-size: 25px;
@@ -364,7 +362,7 @@ nav span:hover{
     left: 623px;
     top: 570px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 30px;
@@ -381,7 +379,7 @@ nav span:hover{
     left: calc(50% - 146px/2);
     top: 301px;
 
-    font-family: 'BM JUA_TTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 60px;
@@ -397,7 +395,7 @@ nav span:hover{
     left: calc(50% - 754px/2 + 1px);
     top: 433px;
 
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-style: normal;
     font-weight: 600;
     font-size: 35px;
@@ -413,7 +411,7 @@ nav span:hover{
     left: 617px;
     top: 683px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 30px;
@@ -445,7 +443,7 @@ nav span:hover{
     width: 130px;
     height: 26px;
 
-    font-family: 'BM JUA_TTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;
@@ -474,7 +472,7 @@ nav span:hover{
     left: 760px;
     top: 796px;
 
-    font-family: 'BM JUA_OTF';
+    font-family: 'BMJUA';
     font-style: normal;
     font-weight: 400;
     font-size: 25px;
@@ -484,37 +482,6 @@ nav span:hover{
 
     color: #FF0000;
 }
-
-/* login 영역 폰트 이슈로 임시대체 */
-.logo{
-    position: absolute;
-    width: 82px;
-    height: 45px;
-    left: 48px;
-    top: 18px;
-
-    font-family: 'Sandoll Ggigigig';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 45px;
-    line-height: 45px;
-}
-
-/*.logo {*/
-/*    position: absolute;*/
-/*    width: 82px;*/
-/*    height: 45px;*/
-/*    left: 48px;*/
-/*    top: 18px;*/
-
-/*    font-family: 'Sandoll Ggigigig';*/
-/*    font-style: normal;*/
-/*    font-weight: 400;*/
-/*    font-size: 45px;*/
-/*    line-height: 45px;*/
-
-/*    color: #C9E6CA;*/
-/*}*/
 
 .modalGuide{
     box-sizing: border-box;
@@ -530,12 +497,11 @@ nav span:hover{
     box-shadow: 0px 4px 17.8px 2px rgba(0, 0, 0, 0.25);
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
     line-height: 175px;
-    /* or 172% */
     text-align: center;
     letter-spacing: 0.05em;
 
@@ -583,12 +549,11 @@ nav span:hover{
     box-shadow: 0px 4px 17.8px 2px rgba(0, 0, 0, 0.25);
     border-radius: 50px;
 
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 900;
     font-size: 40px;
     line-height: 285px;
-    /* or 172% */
     text-align: center;
     letter-spacing: 0.05em;
     z-index:11;
