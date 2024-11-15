@@ -335,11 +335,21 @@ main .main1 .qickBtn{
     top: 231px;
 }
 
-/*---------------main2------------------*/
-
 #black{
     width:700px;
 }
+
+#link {
+    position: absolute;
+    z-index: 999;
+    width: 1500px;
+    height: 750px;
+    left: 190px;
+    top: 1600px;
+    background: none;
+    cursor: pointer;
+}
+/*---------------main2------------------*/
 
 main .main2 h2{
     /* 베스트 정원 */

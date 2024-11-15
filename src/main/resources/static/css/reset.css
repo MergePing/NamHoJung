@@ -93,3 +93,7 @@ table {
     font-weight: 400;
     src: url("Calistoga-Regular.otf");
 }
+
+button {
+    cursor:pointer;
+}
