@@ -184,47 +184,65 @@ public class MyPageController {
 
 
     @GetMapping("/getPosts")
-    public ResponseEntity<List<MyPagePostDTO>> getPosts() {
+    public ResponseEntity<Map<String, Object>> getPosts(@RequestParam int page, @RequestParam int size) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
 
-            List<MyPagePostDTO> writtenPostList = myPageService.findWrittenPost(userNo);
+            // 페이징 적용
+            List<MyPagePostDTO> writtenPostList = myPageService.findWrittenPost(userNo, page, size);
+            int totalPostCount= myPageService.countUserPosts(userNo);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("writtenPostList", writtenPostList);
+            response.put("totalPostCount", totalPostCount);
+
             System.out.println("writtenPostList = " + writtenPostList);
-            return ResponseEntity.ok(writtenPostList); // JSON 형식으로 반환
+            return ResponseEntity.ok(response); // JSON 형식으로 반환
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환
         }
     }
 
     @GetMapping("/getComments")
-    public ResponseEntity<List<MypageCommentDTO>> getComments() {
+    public ResponseEntity<Map<String, Object>> getComments(@RequestParam int page, @RequestParam int size) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
 
-            List<MypageCommentDTO> writtenCommentList = myPageService.findWrittenComment(userNo);
+            List<MypageCommentDTO> writtenCommentList = myPageService.findWrittenComment(userNo, page, size);
+            int totalCommentCount= myPageService.countUserComment(userNo);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("writtenCommentList", writtenCommentList);
+            response.put("totalCommentCount", totalCommentCount);
             System.out.println("writtenCommentList = " + writtenCommentList);
-            return ResponseEntity.ok(writtenCommentList); // JSON 형식으로 반환
+            return ResponseEntity.ok(response); // JSON 형식으로 반환
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환
         }
     }
 
     @GetMapping("/getFavorites")
-    public ResponseEntity<List<MyPagePostDTO>> getFavorites() {
+    public ResponseEntity<Map<String, Object>>  getFavorites(@RequestParam int page, @RequestParam int size) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
 
-            List<MyPagePostDTO> writtenFavoriteList = myPageService.findWrittenFavorite(userNo);
-            return ResponseEntity.ok(writtenFavoriteList); // JSON 형식으로 반환
+            List<MyPagePostDTO> writtenFavoriteList = myPageService.findWrittenFavorite(userNo, page, size);
+
+            int totalFavoriteCount= myPageService.countUserFavorite(userNo);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("writtenFavoriteList", writtenFavoriteList);
+            response.put("totalFavoriteCount", totalFavoriteCount);
+            return ResponseEntity.ok(response); // JSON 형식으로 반환
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build(); // 인증되지 않은 경우 401 상태 코드 반환
         }
