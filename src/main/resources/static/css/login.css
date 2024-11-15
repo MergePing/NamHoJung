@@ -672,3 +672,16 @@ nav span:hover{
     left: 850px;
     top: 440px;
 }
+
+#findButton {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    left: 1150px;
+    top: 570px;
+}
+
+#findButton:active {
+    margin-top: 1px;
+    margin-left: 1px;
+}

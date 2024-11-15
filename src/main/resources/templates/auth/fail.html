@@ -22,13 +22,13 @@
         <span onclick="location.href='/auth/login'">로그인</span>
         <span onclick="location.href='/auth/signupterms'">회원가입</span>
     </nav>
-    <form th:action="@{/auth/signin}" th:method="post">
+    <form th:action="@{/auth/login}" th:method="post" id="loginForm">
         <div class="loginDiv" ></div>
         <img th:src="@{/images/login/box/login.png}" id="backLogin">
         <p class="loginText">로그인</p>
         <p class="loginGuide">회원가입 시 입력한 아이디와 비밀번호를 입력해주세요.</p>
         <button type="submit">
-            <img class="loginBox" th:src="@{/images/login/box/loginBox.png}" alt="로그인박스">
+            <img id="loginButton" class="loginBox" th:src="@{/images/login/loginBox.png}" alt="로그인박스">
         </button>
         <p class="search" onclick="location.href='/find/select'">ID / 비밀번호 찾기</p>
         <label class="id" for="inputId">아이디 : </label><input class="idDiv" type="text" id="inputId" name="userId" placeholder="아이디를 입력해주세요.">
@@ -39,7 +39,7 @@
     </form>
     <p class="warning">아이디와 비밀번호가 올바르지 않습니다.</p>
 
-    <img th:src="@{/images/login/searchButton.png}" id="findButton">
+    <img th:src="@{/images/login/searchButton.png}" id="findButton" onclick="location.href='/find/select'">
 </div>
 <script>
     // 비밀번호 눈모양
@@ -69,16 +69,50 @@
         }
     }
 
-    document.querySelector('form').onsubmit = function() {
-        const userId = document.getElementById('inputId').value;
-        const saveId = document.getElementById('saveId').checked;
 
-        if (saveId) {
-            localStorage.setItem('savedUserId', userId);
-        } else {
-            localStorage.removeItem('savedUserId');
+    // 로그인
+    const successMessage = localStorage.getItem('loginSuccess');
+    if (successMessage) {
+        resetFailCount();
+        localStorage.removeItem('loginSuccess'); // 성공 메시지 초기화
+    }
+
+
+    // 로그인 실패 횟수
+    let failCount = parseInt(localStorage.getItem('failCount')) || 0;
+
+    function updateBoxImage() {
+        const buttonImage = document.getElementById('loginButton');
+        // 이미지가 최대 7번까지 변경됨
+        if (failCount === 1) {
+            buttonImage.src = '/images/login/loginBox2.png';
+        } else if (failCount === 2) {
+            buttonImage.src = '/images/login/loginBox3.png';
+        } else if (failCount === 3) {
+            buttonImage.src = '/images/login/loginBox4.png';
+        } else if (failCount === 4) {
+            buttonImage.src = '/images/login/loginBox5.png';
+        } else if (failCount === 5) {
+            buttonImage.src = '/images/login/loginBox6.png';
+        } else if (failCount === 6) {
+            buttonImage.src = '/images/login/loginBox7.png';
+        } else if (failCount === 7 ) {
+            buttonImage.src = '/images/login/loginBoxLast.png';
+            document.getElementById('findButton').style.display="flex";
         }
-    };
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        if (failCount < 7) {
+            failCount++;
+        }
+        localStorage.setItem('failCount', failCount);
+        updateBoxImage();
+    });
+
+    localStorage.removeItem('failCount');
+    updateBoxImage();
+    console.log(failCount);
 </script>
 </body>
 </html>
