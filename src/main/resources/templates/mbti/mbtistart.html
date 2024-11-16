@@ -33,5 +33,16 @@
     <button type="button" id="yes" data-content="예" onclick="location.href='/mbti/test'">예</button>
     <button type="button" id="no" data-content="아니오" onclick="location.href='/main'">아니오</button>
 </div>
+<script>
+    function update(e){
+        var x = e.clientX || e.touches[0].clientX
+        var y = e.clientY || e.touches[0].clientY
+
+        document.documentElement.style.setProperty('--cursorX', x + 'px')
+        document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+    document.addEventListener('mousemove',update)
+    document.addEventListener('touchmove',update)
+</script>
 </body>
 </html>
