@@ -52,17 +52,15 @@
 <body data-user-id="${user.id}">
 <header>
     <nav>
-        <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <!-- 네비바 -->
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
-        <span onclick="location.href='/mbti'">MBTI 검사</span>
-        <span id="mypageBtn">마이페이지</span>
-        <form th:action="@{/auth/logout}" method="post">
-            <button id="logoutNav" type="submit">로그아웃</button>
-        </form>
-        <span onclick="location.href='/auth/signupterms'">회원가입</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
     </nav>
 </header>
 <main>
@@ -101,7 +99,10 @@
             </script>
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
-
+            <div th:if="${userInfo.userName} != ${post.postWriterName}" id="reports">
+                <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                <span>신고</span>
+            </div>
         </div>
         <div class="line"></div>
         <div id="content">
@@ -113,8 +114,6 @@
 
 
         </div>
-
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const img1 = document.getElementById('img1');
@@ -198,6 +197,7 @@
             </div>
 
 
+
             <div class="line2"></div>
 
             <!-- 댓글 작성 영역 -->
@@ -210,7 +210,15 @@
             <div id="comments-list" style="display: none;">
                 <div th:each="comment : ${comments}">
                     <div class="comment">
-                        <img th:src="@{/images/post/selectpost/profile-img.png}">
+                        <div th:if="${userInfo.userName} == ${post.postWriterName}">
+                            <img th:src="@{profileImage}"
+                                 alt="프로필 사진" class="profile-photo" id="profilePhoto2">
+                        </div>
+                        <div th:if="${userInfo.userName} != ${post.postWriterName}">
+                            <img th:src="@{profileImage}"
+                                 alt="프로필 사진" class="profile-photo" id="profilePhoto4">
+                        </div>
+
                         <span th:text="${comment.username}"></span>
                         <span th:text="${comment.userLevel}"></span>
                         <span th:text="${comment.commentContent}"></span>
@@ -232,21 +240,21 @@
                         </div>
 
 
-                        <div th:if="${comment.userNo} != ${userNo}">
-                            <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                        <div th:if="${comment.userNo} != ${userNo}" id="report">
+                            <img th:src="@{/images/post/selectpost/reportbtn.png}" >
                             <span>신고</span>
                         </div>
 
                         <button class="delete-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                                삭제
+                            삭제
                         </button>
 
                         <button class="edit-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                                수정
+                            수정
                         </button>
                     </div>
                 </div>
@@ -261,8 +269,8 @@
     </div>
     <div class="bg"></div>
 
-<!--    <button type="button" onclick="editPost()" id="editBtn">수정</button>-->
-<!--    <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>-->
+    <!--    <button type="button" onclick="editPost()" id="editBtn">수정</button>-->
+    <!--    <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>-->
 
     <div th:if="${userInfo.userName} == ${post.postWriterName}">
         <div class="modifyModal">
@@ -278,28 +286,28 @@
             </div>
         </div>
         <div class="deleteModal">
-            <!— 삭제 버튼 —>
+            <!-- 삭제 버튼 -->
             <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}" onclick="showDeleteModal()">삭제</button>
 
-            <!— 모달 —>
+            <!-- 모달 -->
             <div class="delete1 dn">
                 <div class="modal-bg">
                     <p>게시물을 삭제 하시겠습니까?</p>
 
-                    <!— 삭제 확인 버튼 —>
+                    <!-- 삭제 확인 버튼 -->
                     <button type="button" class="yes" id="yesDelete" onclick="confirmDelete()">확인</button>
 
-                    <!— 삭제 취소 버튼 —>
+                    <!-- 삭제 취소 버튼 -->
                     <button class="return" onclick="closeDeleteModal()">취소</button>
                 </div>
             </div>
         </div>
+
+
     </div>
-
-
-
-
 </main>
+
+
 <footer>
     <div class="footer">
         <p>ⓒ 2024 MergePing. All right reserved. </p>
@@ -313,7 +321,7 @@
 
     function showEditModal() {
         console.log("showEditModal called");
-        closeDeleteModal(); // 다른 모달창 닫기
+        // closeDeleteModal(); // 다른 모달창 닫기
         modify.classList.remove("dn");
         console.log("modify.classList:", modify.classList);
     }
@@ -356,6 +364,19 @@
         }
     }
 
+    function showDeleteModal() {
+        // console.log(showDeleteModal());
+        // closeEditModal(); // 다른 모달창 닫기
+        delete1.classList.remove("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
+
+    function closeDeleteModal() {
+        // console.log(closeDeleteModal());
+        delete1.classList.add("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
+
     // // 삭제 버튼 클릭 이벤트 설정
     // document.getElementById("deleteBtn").addEventListener("click", function () {
     //     const postNo = document.getElementById("deleteBtn").getAttribute("data-post-no");
@@ -364,79 +385,23 @@
 </script>
 
 <script>
-    function toggleLike(element) {
-        const commentNo = element.getAttribute('data-comment-no');
-        if (!commentNo) {
-            console.error('commentNo is null or undefined');
-            return;
-        }
+    window.onload = function() {
+        fetchComments();
+    };
 
-        const isLike = element.getAttribute('src').includes('like-btn-after.png');
-
-        fetch(`/toggleLike`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
-        })
+    function fetchComments() {
+        const postNo = [[${post.postNo}]];  // 현재 게시물의 번호를 할당합니다.
+        fetch(`/api/comments/${postNo}`)
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-                    const likeCountContainer = element.closest('#like').querySelector('div');
-                    console.log(likeCountContainer);
-                    if (data.likeNumber > 0) {
-                        likeCountContainer.textContent = data.likeNumber;
-                        likeCountContainer.style.left="1577px"
-                    } else {
-                        likeCountContainer.textContent = '좋아요';
-                        likeCountContainer.style.left="1560px"
-                    }
-                }
+                addCommentToDOM(data.comments, data.userProfileImage);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error fetching comments:', error);
             });
     }
-
-    // function toggleLike(element) {
-    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
-    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
-    //
-    //     fetch(`/toggleLike`, {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //         });
-    // }
-
-
 </script>
-<script>
-    function showDeleteModal() {
-        console.log("showDeleteModal called");
-        closeEditModal(); // 다른 모달창 닫기
-        delete1.classList.remove("dn");
-        console.log("delete1.classList:", delete1.classList);
-    }
 
-    function closeDeleteModal() {
-        console.log("closeDeleteModal called");
-        delete1.classList.add("dn");
-        console.log("delete1.classList:", delete1.classList);
-    }
-
-
-</script>
 
 
 <script>
@@ -449,38 +414,6 @@
             return;
         }
 
-        // 게시물 번호 가져오기 (예: favorite-icon의 data-postNo 속성)
-        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");/* 게시물 번호 */;
-
-        function addCommentToDOM(comments) {
-            const commentsList = document.getElementById("comments-list");
-
-            // 기존 댓글 목록을 제거하고 새로운 댓글 목록을 추가
-            commentsList.innerHTML = "";
-
-            // comments가 배열인 경우만 처리
-            if (Array.isArray(comments)) {
-                comments.forEach((comment,index) => {
-                    const commentDiv = document.createElement("div");
-                    commentDiv.classList.add("comment");
-
-                    // 각 댓글의 위치를 동적으로 설정
-                    commentDiv.style.position = "relative";
-                    commentDiv.style.margintop = `${index * 150}px`;  // 댓글 간 간격 조절
-
-
-                    // 댓글 내용 추가 (사용자 이름, 레벨, 댓글 날짜 등 포함)
-                    commentDiv.innerHTML = `
-                        <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
-                        <span>${comment.username}</span>
-                        <span>${comment.userLevel}</span>
-                        <span>${comment.commentContent}</span>
-                        <span>${comment.commentDate}</span>
-                        <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
-                        <span>좋아요</span>
-                        <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
-                        <span>신고</span>
-                        
         const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
 
@@ -495,7 +428,7 @@
             .then(data => {
                 if (data.success) {
                     if (Array.isArray(data.comments)) {
-                        addCommentToDOM(data.comments);  // 댓글 목록을 DOM에 추가
+                        addCommentToDOM(data.comments,data.userProfileImage);  // 댓글 목록을 DOM에 추가
                     } else {
                         console.error("댓글 목록이 배열이 아닙니다:", data.comments);
                     }
@@ -544,6 +477,8 @@
         const currentContent = commentDiv.querySelector("span:nth-child(4)").textContent;
 
         console.log(currentContent);
+
+
         // 댓글 수정 창을 띄우기 위해 prompt를 사용
         const newContent = prompt("댓글을 수정하세요:", currentContent);
 
@@ -611,92 +546,78 @@
     const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
     console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
-    function addCommentToDOM(comments) {
+
+
+    function addCommentToDOM(comments, userProfileImage) {
         const commentsList = document.getElementById("comments-list");
         commentsList.innerHTML = ""; // 기존 댓글 목록을 제거하고 새로운 목록을 추가
 
-        // comments가 배열인 경우만 처리
         if (Array.isArray(comments)) {
-            comments.forEach((comment,index) => {
-                const commentDiv = document.createElement("div");
-                commentDiv.classList.add("comment")
+            comments.forEach((commentWithProfile, index) => {
+                const comment = commentWithProfile.comment;
+                const profileImage = commentWithProfile.profileImage || '/images/mypageimages/profile.png';
 
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
                 commentDiv.style.position = "relative";
                 commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
 
-
-
-                // 댓글 간 간격 조절
-
-                // 댓글 내용 추가.
                 commentDiv.innerHTML = `
-                <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
+                <img src="${profileImage}" alt="Profile Image" class="profile-photo">
                 <span>${comment.username}</span>
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
                 <span>${comment.commentDate}</span>
-                 <div id="like">
-        <img src="/images/post/selectpost/like-btn-before.png"
-             data-comment-no="${comment.commentNo}"
-             class="likeImg"
-             style="display: ${!comment.like ? 'inline' : 'none'};"
-             onclick="toggleLike(this)">
-        <img src="/images/post/selectpost/like-btn-after.png"
-             data-comment-no="${comment.commentNo}"
-             class="likeImg"
-             style="display: ${comment.like ? 'inline' : 'none'};"
-             onclick="toggleLike(this)">
-        <div class="like-count" style="display: ${comment.likeNumber > 0 ? 'block' : 'none'};">
-            <span>${comment.likeNumber}</span>
-        </div>
-        <div class="like-text" style="display: ${comment.likeNumber === 0 ? 'block' : 'none'};">
-            <span>좋아요</span>
-        </div>
-    </div>
-
-
-
+                <div id="like">
+                    <img src="/images/post/selectpost/like-btn-before.png"
+                         data-comment-no="${comment.commentNo}"
+                         class="likeImg"
+                         style="display: ${!comment.like ? 'inline' : 'none'};"
+                         onclick="toggleLike(this)">
+                    <img src="/images/post/selectpost/like-btn-after.png"
+                         data-comment-no="${comment.commentNo}"
+                         class="likeImg"
+                         style="display: ${comment.like ? 'inline' : 'none'};"
+                         onclick="toggleLike(this)">
+                    <div class="like-count" style="display: ${comment.likeNumber > 0 ? 'block' : 'none'};">
+                        <span>${comment.likeNumber}</span>
+                    </div>
+                    <div class="like-text" style="display: ${comment.likeNumber === 0 ? 'block' : 'none'};">
+                        <span>좋아요</span>
+                    </div>
+                </div>
             `;
 
-
-                // 콘솔에 userNo와 비교 결과 출력
-                console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
-                console.log("loggedInUserNo:", loggedInUserNo);  // 로그인 사용자 userNo 확인
-                console.log("Comparison result:", Number(comment.userNo) === Number(loggedInUserNo));  // 비교 결과 확인
-
-
-                // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제 버튼을 보이게 함
                 if (Number(comment.userNo) === Number(loggedInUserNo)) {
                     const deleteButton = document.createElement("button");
                     deleteButton.classList.add("delete-comment-btn");
                     deleteButton.textContent = "삭제";
                     deleteButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(deleteButton); // 삭제 버튼을 댓글에 추가
+                    commentDiv.appendChild(deleteButton);
 
                     const editButton = document.createElement("button");
                     editButton.classList.add("edit-comment-btn");
                     editButton.textContent = "수정";
                     editButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(editButton); // 수정 버튼을 댓글에 추가
-                }else {
-                    // 로그인한 사용자와 댓글 작성자가 다를 때 신고 버튼 추가
+                    commentDiv.appendChild(editButton);
+                } else {
                     const reportDiv = document.createElement("div");
-
                     reportDiv.innerHTML = `
+<div id="report">
                     <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
                     <span>신고</span>
+                    </div>
                 `;
-
                     commentDiv.appendChild(reportDiv);
                 }
 
                 commentsList.appendChild(commentDiv);
             });
-
         } else {
             console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
         }
     }
+
 
 </script>
 
@@ -714,6 +635,63 @@
         } }) .catch(error => console.error('Error:', error)); }
 </script>
 
+<script>
+    function toggleLike(element) {
+        const commentNo = element.getAttribute('data-comment-no');
+        if (!commentNo) {
+            console.error('commentNo is null or undefined');
+            return;
+        }
+
+        const isLike = element.getAttribute('src').includes('like-btn-after.png');
+
+        fetch(`/toggleLike`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+                    const likeCountContainer = element.closest('#like').querySelector('div');
+                    if (data.likeNumber > 0) {
+                        likeCountContainer.textContent = data.likeNumber;
+                        likeCountContainer.style.left="1577px"
+                    } else {
+                        likeCountContainer.textContent = '좋아요';
+                        likeCountContainer.style.left="1560px"
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // function toggleLike(element) {
+    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
+    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
+    //
+    //     fetch(`/toggleLike`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }
+
+
+</script>
 
 <script>
     function toggleScary(element) {
@@ -798,92 +776,6 @@
     });
 
 
-
-</script>
-
-
-<div id="reportModal" class="modal dn">
-    <div class="modalContent">
-        <p>신고 사유를 선택해주세요</p>
-        <form id="reportForm">
-            <div>
-                <input type="radio" id="reason1" name="reason" value="성적이거나 불쾌감을 유발하는 콘텐츠 배포">
-                <label for="reason1">성적이거나 불쾌감을 유발하는 콘텐츠 배포</label>
-            </div>
-            <div>
-                <input type="radio" id="reason2" name="reason" value="폭력적 또는 심한 혐오감을 유발하는 콘텐츠">
-                <label for="reason2">폭력적 또는 심한 혐오감을 유발하는 콘텐츠</label>
-            </div>
-            <div>
-                <input type="radio" id="reason3" name="reason" value="특정 사용자를 괴롭히거나 폭력을 조장하는 콘텐츠">
-                <label for="reason3">특정 사용자를 괴롭히거나 폭력을 조장하는 콘텐츠</label>
-            </div>
-            <div>
-                <input type="radio" id="reason4" name="reason" value="스팸 또는 사기에 관련된 콘텐츠">
-                <label for="reason4">스팸 또는 사기에 관련된 콘텐츠</label>
-            </div>
-        </form>
-        <div class="modalActions">
-            <button id="cancelReport">취소</button>
-            <button id="submitReport">신고</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const reportModal = document.getElementById('reportModal');
-        const submitReportBtn = document.getElementById('submitReport');
-        const cancelReportBtn = document.getElementById('cancelReport');
-        const reportForm = document.getElementById('reportForm');
-
-        let currentPostNo = null;
-
-        // 신고 버튼 클릭 시 모달 표시
-        document.querySelectorAll('.report-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                currentPostNo = this.getAttribute('data-postNo'); // 현재 게시물 번호 저장
-                reportModal.classList.remove('dn'); // 모달 표시
-            });
-        });
-
-        // 신고 제출 버튼 클릭
-        submitReportBtn.addEventListener('click', function () {
-            const selectedReason = document.querySelector('input[name="reason"]:checked');
-
-            if (!selectedReason) {
-                alert('신고 사유를 선택해주세요.');
-                return;
-            }
-
-            // 서버로 신고 데이터 전송
-            fetch('/post/report', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    postNo: currentPostNo,
-                    reason: selectedReason.value, // 선택된 신고 사유
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('신고가 접수되었습니다.');
-                        reportModal.classList.add('dn'); // 모달 닫기
-                    } else {
-                        alert('신고 접수에 실패했습니다.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
-
-        // 신고 취소 버튼 클릭
-        cancelReportBtn.addEventListener('click', function () {
-            reportModal.classList.add('dn'); // 모달 닫기
-        });
-    });
 </script>
 </body>
 </html>
