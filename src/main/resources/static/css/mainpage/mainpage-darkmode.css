@@ -356,11 +356,11 @@ main .main2 h2{
 }
 
 
-main #gost{
-    z-index: 22;
+.ghost{
     position: absolute;
-    width: 838px;
-    height: 383px;
+    z-index:9999999999;
+    width: 77px;
+    height: 90px;
     left: 170px;
     top: 1660px;
 }
