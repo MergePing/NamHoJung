@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>남호정</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-darkmode.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
-    <!--    <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-lightmode.css}">-->
+    <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/mainpage/mainpage-lightmode.css}">
+    <link rel="stylesheet"  th:href="@{/css/mypage/mypage.css}">
+
     <style>
         /* 손전등 */
         /*:root {*/
@@ -55,7 +55,7 @@
 
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'" id="nav-logo">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
@@ -124,21 +124,21 @@
             <img th:src="@{/images/main/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
             <div class="clikbtn tr">
                 <img th:src="@{/images/main/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-                <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
+                <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
                 <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" onclick="location.href='/mbti'" alt="MBTI 테스트">
             </div>
 
         </div>
-        <div class="logo"><img th:src="@{/images/main/main-logo-dark.png}" alt="남호정 메인 로고"></div>
-        <div class="subtitle"><img th:src="@{/images/main/main-subtitle-dark.png}" alt="남이 이야기 해주는 호러정원"></div>
-        <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면">
+        <div class="logo"><img th:src="@{/images/main/main-logo-dark.png}" alt="남호정 메인 로고" id="mainLogo"></div>
+        <div class="subtitle"><img th:src="@{/images/main/main-subtitle-dark.png}" alt="남이 이야기 해주는 호러정원" id="subTitle"></div>
+        <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면" id="bg">
         <div class="mainbox tr" id="mainbox" onclick="location.href='/mbti'"><p id="black">나의 공포 MBTI는?</p></div>
     </div>
     <div id="link" onclick="location.href='/post'"></div>
 <img th:src="@{/images/main/main2-best.png}" id="gost">
     <div class="main2">
         <h2>베스트 정원</h2>
-        <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지">
+        <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지" id="bg2">
         <div class="fristbest">
             <img th:src="@{/images/main/main2-img1.png}" alt="베스트 게시물 이미지1">
             <p th:text="${bestPosts[0].postTitle}" class="ellipsis"></p>
@@ -158,7 +158,7 @@
     </div>
 
     <div class="main3">
-        <img th:src="@{/images/main/main3-gost-hand-dark.png}" style="mix-blend-mode: screen" class="gosthand">
+        <img th:src="@{/images/main/main3-gost-hand-dark.png}" style="mix-blend-mode: screen" class="gosthand" id="bg3">
         <img th:src="@{/images/main/main-dark-bg3.png}" id="calendarbg">
         <img th:src="@{/images/main/main3-hand-dark.png}" id="hand" class="dn">
         <h1 id="monthTitle"></h1>
@@ -170,6 +170,103 @@
 <footer>
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>
+<script>
+    const mainLink = document.getElementById("mainbox");
+    const black = document.getElementById("black");
+    mainLink.addEventListener('mouseover',function (){
+        mainLink.style.backgroundColor="#4A7236";
+        mainLink.style.border="1px solid white";
+        black.style.color="#fff";
+    });
+    mainLink.addEventListener('mouseout',function (){
+        mainLink.style.backgroundColor="#fff";
+        mainLink.style.border="none";
+        black.style.color="#4B9D21";
+    });
+</script>
+
+<!--...............................................라이트모드........하....................................-->
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme') || '/css/mainpage/mainpage-lightmode.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', savedTheme);
+
+        // 이미지 초기화
+        updateImages(savedTheme);
+    });
+
+    function updateImages(theme) {
+        const cacheBuster = `?v=${new Date().getTime()}`;
+
+        const navLogo = document.getElementById('nav-logo');
+        navLogo.setAttribute('src', theme.includes('darkmode') ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
+
+        const light = document.getElementById('light');
+        light.setAttribute('src', theme.includes('darkmode') ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
+
+        const dark = document.getElementById('dark');
+        dark.setAttribute('src', theme.includes('darkmode') ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+
+        const top = document.getElementById('top');
+        top.setAttribute('src', theme.includes('darkmode') ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+
+        const mode = document.getElementById('mode');
+        mode.setAttribute('src', theme.includes('darkmode') ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+
+        const test = document.getElementById('test');
+        test.setAttribute('src', theme.includes('darkmode') ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+
+        const mainLogo = document.getElementById('mainLogo');
+        mainLogo.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-logo-dark.png${cacheBuster}` : `/images/main/main-logo-light.png${cacheBuster}`);
+
+        const subTitle = document.getElementById('subTitle');
+        subTitle.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-subtitle-dark.png${cacheBuster}` : `/images/main/main-subtitle-light.png${cacheBuster}`);
+
+        const bg = document.getElementById('bg');
+        bg.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-dark-bg.png${cacheBuster}` : `/images/main/main-light-bg.png${cacheBuster}`);
+
+        const bg2 = document.getElementById('bg2');
+        bg2.setAttribute('src', theme.includes('darkmode') ? `/images/main/main2-dark-bg.png${cacheBuster}` : `/images/main/main2-lightbg.png${cacheBuster}`);
+
+        const bg3 = document.getElementById('bg3');
+        bg3.setAttribute('src', theme.includes('darkmode') ? `/images/main/main3-gost-hand-dark.png${cacheBuster}` : `/images/main/main3-gost-hand-light.png${cacheBuster}`);
+
+        const calendarbg = document.getElementById('calendarbg');
+        calendarbg.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-dark-bg3.png${cacheBuster}` : `/images/main/main-light-bg3.png${cacheBuster}`);
+    }
+
+    function toggleMode() {
+        const stylesheet = document.getElementById('theme-stylesheet');
+        const currentTheme = stylesheet.getAttribute('href');
+        let newTheme = '';
+
+        if (currentTheme.includes('lightmode')) {
+            newTheme = '/css/mainpage/mainpage-darkmode.css';
+        } else {
+            newTheme = '/css/mainpage/mainpage-lightmode.css';
+        }
+
+        stylesheet.setAttribute('href', newTheme);
+        localStorage.setItem('theme', newTheme);
+
+        // 이미지 업데이트
+        updateImages(newTheme);
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
     // JavaScript로 토글 기능 추가
     const mypageBtn = document.getElementById("mypageBtn");
@@ -423,9 +520,9 @@
                         const todayDiv = document.getElementById(`day-${today}`);
                         todayDiv.classList.add('checked');
 
-                        checkAttendanceBtn.style.backgroundColor = "#0E2813";
+                        checkAttendanceBtn.style.backgroundColor = "#C8F2B3";
                         checkAttendanceBtn.style.width = "560px";
-                        checkAttendanceBtn.style.color = "#C0CBBC";
+                        checkAttendanceBtn.style.color = "#53A22A";
                         checkAttendanceBtn.style.left = "400px";
                         checkAttendanceBtn.textContent = "출석체크를 완료 했습니다";
 

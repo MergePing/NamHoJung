@@ -87,12 +87,13 @@ table {
     font-family: 'Cafe24SsurroundAir';
 }
 
-@font-face{
+@font-face {
     font-family: 'Calistoga';
     font-style: normal;
     font-weight: 400;
-    src: url("Calistoga-Regular.otf");
+    src: url('/css/mainpage/Calistoga-Regular.otf') format('opentype');
 }
+
 
 button {
     cursor:pointer;
