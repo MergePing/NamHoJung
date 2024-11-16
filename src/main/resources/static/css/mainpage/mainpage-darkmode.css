@@ -338,17 +338,6 @@ main .main1 .qickBtn{
 #black{
     width:700px;
 }
-
-#link {
-    position: absolute;
-    z-index: 999;
-    width: 1500px;
-    height: 750px;
-    left: 190px;
-    top: 1600px;
-    background: none;
-    cursor: pointer;
-}
 /*---------------main2------------------*/
 
 main .main2 h2{
@@ -383,7 +372,7 @@ main .main2 img{
 }
 
 
-main .main2 .fristbest p{
+main .main2 .firstbest p{
     font-family: 'SUIT';
     font-weight: 800;
     font-size: 40px;
@@ -392,7 +381,7 @@ main .main2 .fristbest p{
 }
 
 
-main .main2 .fristbest span{
+main .main2 .firstbest span{
     font-family: 'Cafe24SsurroundAir';
     font-style: normal;
     font-weight: 300;
@@ -402,7 +391,7 @@ main .main2 .fristbest span{
 }
 
 
-main .main2 .fristbest img:nth-of-type(1){
+main .main2 .firstbest img:nth-of-type(1){
     position: absolute;
     width: 250px;
     left: 200px;
@@ -411,7 +400,7 @@ main .main2 .fristbest img:nth-of-type(1){
 }
 
 
-main .main2 .fristbest p:nth-of-type(1){
+main .main2 .firstbest p:nth-of-type(1){
     /* 싸이코패스 테스트 */
     position: absolute;
     width: 395px;
@@ -421,7 +410,7 @@ main .main2 .fristbest p:nth-of-type(1){
 }
 
 
-main .main2 .fristbest span:nth-of-type(1){
+main .main2 .firstbest span:nth-of-type(1){
     position: absolute;
     width: 410px;
     height: 140px;
@@ -430,7 +419,7 @@ main .main2 .fristbest span:nth-of-type(1){
 }
 
 
-main .main2 .fristbest img:nth-of-type(2){
+main .main2 .firstbest img:nth-of-type(2){
     position: absolute;
     width: 250px;
     height: 248px;
@@ -440,7 +429,7 @@ main .main2 .fristbest img:nth-of-type(2){
 }
 
 
-main .main2 .fristbest p:nth-of-type(2){
+main .main2 .firstbest p:nth-of-type(2){
     /* 싸이코패스 테스트 */
     position: absolute;
     width: 395px;
@@ -449,7 +438,7 @@ main .main2 .fristbest p:nth-of-type(2){
     top: 1730px;
 }
 
-main .main2 .fristbest span:nth-of-type(2){
+main .main2 .firstbest span:nth-of-type(2){
     position: absolute;
     width: 410px;
     height: 140px;
@@ -458,7 +447,7 @@ main .main2 .fristbest span:nth-of-type(2){
 }
 
 
-main .main2 .fristbest img:nth-of-type(3){
+main .main2 .firstbest img:nth-of-type(3){
     position: absolute;
     width: 250px;
     left: 200px;
@@ -467,7 +456,7 @@ main .main2 .fristbest img:nth-of-type(3){
 }
 
 
-main .main2 .fristbest p:nth-of-type(3){
+main .main2 .firstbest p:nth-of-type(3){
     /* 싸이코패스 테스트 */
     position: absolute;
     width: 395px;
@@ -477,7 +466,7 @@ main .main2 .fristbest p:nth-of-type(3){
 }
 
 
-main .main2 .fristbest span:nth-of-type(3){
+main .main2 .firstbest span:nth-of-type(3){
     position: absolute;
     width: 410px;
     height: 140px;
@@ -486,7 +475,7 @@ main .main2 .fristbest span:nth-of-type(3){
 }
 
 
-main .main2 .fristbest img:nth-of-type(4){
+main .main2 .firstbest img:nth-of-type(4){
     position: absolute;
     width: 250px;
     left: 960px;
@@ -495,7 +484,7 @@ main .main2 .fristbest img:nth-of-type(4){
 }
 
 
-main .main2 .fristbest p:nth-of-type(4){
+main .main2 .firstbest p:nth-of-type(4){
     /* 싸이코패스 테스트 */
     position: absolute;
     width: 395px;
@@ -505,7 +494,7 @@ main .main2 .fristbest p:nth-of-type(4){
 }
 
 
-main .main2 .fristbest span:nth-of-type(4){
+main .main2 .firstbest span:nth-of-type(4){
     position: absolute;
     width: 395px;
     height: 140px;
