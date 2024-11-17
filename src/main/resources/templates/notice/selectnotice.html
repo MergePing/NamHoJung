@@ -27,6 +27,15 @@
 </header>
 
 <main>
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/main/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/main/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/main/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
+            <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" onclick="location.href='/mbti'" alt="MBTI 테스트">
+        </div>
     <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
     <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 

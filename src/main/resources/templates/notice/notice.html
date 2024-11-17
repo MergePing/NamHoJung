@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>공지사항</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/notice/notice.css}">
+    <link rel="stylesheet" th:href="@{/css/notice/notice-light.css}">
 </head>
 <body>
 
@@ -26,6 +26,18 @@
 </header>
 
 <main id="mainContent">
+
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/main/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/main/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/main/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
+            <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" onclick="location.href='/mbti'" alt="MBTI 테스트">
+        </div>
+
+    </div>
     <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
     <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
 
@@ -53,6 +65,8 @@
         <p>ⓒ 2024 MergePing. All rights reserved.</p>
     </div>
 </footer>
+
+
 
 <script>
     const pageSize = 7; // 한 페이지에 표시할 공지사항 수

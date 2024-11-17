@@ -145,6 +145,6 @@ public class MainController {
 
 
     @GetMapping("/intro")
-    public String intro(){return "/main/intro/intro";}
+    public String intro(){return "/intro/intro";}
 
 }
