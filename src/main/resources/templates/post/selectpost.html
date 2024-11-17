@@ -4,35 +4,8 @@
     <meta charset="UTF-8">
     <title>게시판</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/post/selectpost.css}">
+    <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/post/selectpost-light.css}">
     <style>
-        /*손전등*/
-        /*:root {*/
-        /*    --cursorX: 70vw;*/
-        /*    --cursorY: 70vh;*/
-        /*}*/
-        /*:root:before {*/
-        /*    content: '';*/
-        /*    display: block;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    position: fixed;*/
-        /*    pointer-events: none;*/
-        /*    z-index: 999999;*/
-        /*    background: radial-gradient(*/
-        /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
-        /*            rgba(0,0,0,0) 0%,*/
-        /*            rgba(0,0,0,.5) 80%,*/
-        /*            rgba(0,0,0,.95) 100%)*/
-        /*}*/
-
-        /** {*/
-        /*    box-sizing: border-box;*/
-        /*    text-rendering: optimizeLegibility;*/
-        /*    -webkit-font-smoothing: antialiased;*/
-        /*    -moz-osx-font-smoothing: grayscale;*/
-        /*    font-kerning: auto;*/
-        /*}*/
 
         .ellipsis {
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -53,7 +26,7 @@
 <header>
     <nav>
         <!-- 네비바 -->
-        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <img th:src="@{/images/main/nav-logo-light.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
@@ -67,9 +40,9 @@
     <div class="post">
         <div id="header">
             <span>
-                <img th:src="@{/images/post/best-dark.png}" th:if="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/best-light.png}" th:if="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
                      class="favorite-icon" onclick="toggleFavorite(this)">
-                <img th:src="@{/images/post/best-none-dark.png}" th:unless="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/best-none-light.png}" th:unless="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
                      class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
             <span th:text="${post.postNo}" id="no"></span>
@@ -100,7 +73,7 @@
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
             <div th:if="${userInfo.userName} != ${post.postWriterName}" id="reports">
-                <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                <img th:src="@{/images/post/selectpost/reportbtn-light.png}">
                 <span>신고</span>
             </div>
         </div>
@@ -132,8 +105,6 @@
                 }
             });
         </script>
-
-
         <script>
 
             const img1 = document.getElementById("img1");
@@ -171,10 +142,10 @@
             </div>
             </div>
             <div id="scary">
-                <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"
+                <img th:src="@{/images/post/selectpost/scary-btn-before-light.png}" th:if="${!post.scary}"
                      th:attr="data-postNo=${post.postNo}"
                      class="scary-icon" onclick="toggleScary(this)">
-                <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"
+                <img th:src="@{/images/post/selectpost/scary-btn-after-light.png}" th:if="${post.scary}"
                      th:attr="data-postNo=${post.postNo}"
                      class="scary-icon" onclick="toggleScary(this)">
                 <div>
@@ -184,10 +155,10 @@
             </div>
 
             <div id="notscary">
-                <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}" th:if="${!post.notScary}"
+                <img th:src="@{/images/post/selectpost/not-scary-btn-before-light.png}" th:if="${!post.notScary}"
                      th:attr="data-postNo=${post.postNo}"
                      class="notscary-icon" onclick="toggleNotScary(this)">
-                <img th:src="@{/images/post/selectpost/not-scary-btn-after.png}" th:if="${post.notScary}"
+                <img th:src="@{/images/post/selectpost/not-scary-btn-after-light.png}" th:if="${post.notScary}"
                      th:attr="data-postNo=${post.postNo}"
                      class="notscary-icon" onclick="toggleNotScary(this)">
                 <div>
@@ -225,7 +196,7 @@
                         <span th:text="${comment.commentDate}"></span>
 
                         <div id="like">
-                            <img th:src="@{/images/post/selectpost/like-btn-before.png}" th:if="${!comment.like}"
+                            <img th:src="@{/images/post/selectpost/like-btn-before-light.png}" th:if="${!comment.like}"
                                  th:attr="data-comment-no=${comment.commentNo}"
                                  class="likeImg" onclick="toggleLike(this)">
                             <img th:src="@{/images/post/selectpost/like-btn-after.png}" th:if="${comment.like}"
@@ -241,7 +212,7 @@
 
 
                         <div th:if="${comment.userNo} != ${userNo}" id="report">
-                            <img th:src="@{/images/post/selectpost/reportbtn.png}" >
+                            <img th:src="@{/images/post/selectpost/reportbtn-light.png}" >
                             <span>신고</span>
                         </div>
 

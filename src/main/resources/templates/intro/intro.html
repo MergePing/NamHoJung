@@ -59,72 +59,73 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const savedTheme = localStorage.getItem('intro-theme') || '/css/intro/intro-light.css';
-        document.getElementById('theme-stylesheet').setAttribute('href', savedTheme);
+        const savedMode = localStorage.getItem('theme-mode') || 'light';
+        const themeStylesheet = savedMode === 'dark' ? '/css/intro/intro-dark.css' : '/css/intro/intro-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
         document.getElementById('theme-stylesheet').addEventListener('load', () => {
-            updateImages(savedTheme);
-
+            updateImages(savedMode);
         });
-
+        updateImages(savedMode);
     });
+    function updateImages(mode) {
+        const cacheBuster = `?v=${new Date().getTime()}`;
 
-        function updateImages(theme) {
-            const cacheBuster = `?v=${new Date().getTime()}`;
-
-            const navLogo = document.getElementById('nav-logo');
-            if (navLogo) {
-                navLogo.setAttribute('src', theme.includes('dark') ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
-            }
-            const light = document.getElementById('light');
-            if (light) {
-                light.setAttribute('src', theme.includes('dark') ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
-            }
-            const dark = document.getElementById('dark');
-            if (dark) {
-                dark.setAttribute('src', theme.includes('dark') ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
-            }
-            const top = document.getElementById('top');
-            if (top) {
-                top.setAttribute('src', theme.includes('dark') ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
-            }
-            const mode = document.getElementById('mode');
-            if (mode) {
-                mode.setAttribute('src', theme.includes('dark') ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
-            }
-            const test = document.getElementById('test');
-            if (test) {
-                test.setAttribute('src', theme.includes('dark') ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
-            }
-            const bg = document.getElementById('bg');
-            if (bg) {
-                bg.setAttribute('src', theme.includes('dark') ? `/images/intro/intro-dark-bg.png${cacheBuster}` : `/images/intro/intro-light-bg.png${cacheBuster}`);
-            }
-            const mainlogo = document.getElementById('mainlogo');
-            if (mainlogo) {
-                mainlogo.setAttribute('src', theme.includes('dark') ? `/images/intro/intro-logo-dark.png${cacheBuster}` : `/images/intro/intro-logo-light.png${cacheBuster}`);
-            }
+        const navLogo = document.getElementById('nav-logo');
+        if (navLogo) {
+            navLogo.setAttribute('src', mode === 'dark' ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
         }
 
-        function toggleMode() {
-            const stylesheet = document.getElementById('theme-stylesheet');
-            const currentTheme = stylesheet.getAttribute('href');
-            let newTheme = '';
-
-            // 여기서 light를 lightmode로 변경해야 합니다.
-            if (currentTheme.includes('intro-light.css')) {
-                newTheme = '/css/intro/intro-dark.css';
-            } else {
-                newTheme = '/css/intro/intro-light.css';
-            }
-
-            stylesheet.setAttribute('href', newTheme);
-            localStorage.setItem('intro-theme', newTheme);
-
-            // 이미지 업데이트
-            updateImages(newTheme);
+        const light = document.getElementById('light');
+        if (light) {
+            light.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
         }
 
+        const dark = document.getElementById('dark');
+        if (dark) {
+            dark.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+        }
+
+        const top = document.getElementById('top');
+        if (top) {
+            top.setAttribute('src', mode === 'dark' ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+        }
+
+        const modeImg = document.getElementById('mode');
+        if (modeImg) {
+            modeImg.setAttribute('src', mode === 'dark' ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+        }
+
+        const test = document.getElementById('test');
+        if (test) {
+            test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+        }
+
+        const bg = document.getElementById('bg');
+        if (bg) {
+            bg.setAttribute('src', mode === 'dark' ? `/images/intro/intro-dark-bg.png${cacheBuster}` : `/images/intro/intro-light-bg.png${cacheBuster}`);
+        }
+
+        const mainlogo = document.getElementById('mainlogo');
+        if (mainlogo) {
+            mainlogo.setAttribute('src', mode === 'dark' ? `/images/intro/intro-logo-dark.png${cacheBuster}` : `/images/intro/intro-logo-light.png${cacheBuster}`);
+        }
+    }
+
+    function toggleMode() {
+        const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        let newMode = '';
+        if (currentTheme.includes('intro-light.css')) {
+            newMode = 'dark';
+        } else {
+            newMode = 'light';
+        }
+        localStorage.setItem('theme-mode', newMode);
+        const newTheme = newMode === 'dark' ? '/css/intro/intro-dark.css' : '/css/intro/intro-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        updateImages(newMode);
+    }
 </script>
+
 <script>
     const floatBtn1 = document.getElementById("light");
     const floatBtn2 = document.getElementById("dark");

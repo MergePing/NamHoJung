@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>게시판</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/post/post.css}">
+    <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/post/post-light.css}">
     <style>
         .post {
             position: relative;
@@ -18,7 +18,7 @@
 <header>
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <img th:src="@{/images/main/nav-logo-light.png}" alt="상단 로고" onclick="location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
@@ -34,16 +34,16 @@
 <main>
     <div class="qickBtn">
         <!--플로팅 버튼-->
-        <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <img th:src="@{/images/main/folating-btn-light.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/main/folating-btn-click-light.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
         <div class="clikbtn tr">
-            <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-            <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-            <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+            <img th:src="@{/images/main/top-btn-light.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/main/light-btn-light.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
+            <img th:src="@{/images/main/test-btn-light.png}" class="dn" id="test" alt="MBTI 테스트">
         </div>
     </div>
 
-    <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
+    <img th:src="@{/images/post/post-bg-light.png}" id="bg">
 
     <div class="write" onclick="location.href='/newpost'">
         <p >게시글 작성</p>
@@ -90,10 +90,10 @@
         <div class="post" th:each="post, iterStat : ${postList}" th:attr="style=${'top: ' + (iterStat.index * 80) + 'px;'}">
             <span th:text="${post.postNo}" id="postNo"></span>
             <span>
-            <img th:src="@{/images/post/best-dark.png}" th:if="${post.postFavorite}"
-                 th:attr="data-postNo=${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
-            <img th:src="@{/images/post/best-none-dark.png}" th:unless="${post.postFavorite}"
-                 th:attr="data-postNo=${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+            <img th:src="@{/images/post/best-light.png}" th:if="${post.postFavorite}"
+                 th:attr="data-postNo=${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)" id="fav">
+            <img th:src="@{/images/post/best-none-light.png}" th:unless="${post.postFavorite}"
+                 th:attr="data-postNo=${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)" id="nofav">
             </span>
             <a th:href="@{/selectpost/{postNo}(postNo=${post.postNo})}">
                 <span th:text="${post.postTitle}"></span>
@@ -120,23 +120,134 @@
     <div class="footer"><p>ⓒ 2024 MergePing. All right reserved.  </p></div>
 </footer>
 
-</body>
 
-<!--즐겨찾기-->
 <script>
+
     function toggleFavorite(element) {
         const postNo = element.getAttribute('data-postNo');
-        const isFavorite = element.getAttribute('src').includes('best-dark.png');
-        fetch(`/toggleFavorite`, {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json'
-            }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
-            .then(response => response.json()) .then(data => { if (data.success) {
-            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
-        } }) .catch(error => console.error('Error:', error)); }
-</script>
+        const isFavorite = element.getAttribute('src').includes('best-light.png');
 
-<!--검색-->
+        fetch('/toggleFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 테마에 맞는 이미지로 변경
+                    updateFavoriteImage(element, isFavorite);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 테마 변경 시 즐겨찾기 이미지 업데이트
+    function updateFavoriteImage(element, isFavorite) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+        // 테마에 맞는 이미지 경로를 설정
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        if (mode === 'dark') {
+            element.setAttribute('src', isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png');
+        } else {
+            element.setAttribute('src', isFavorite ? '/images/post/best-none-light.png' : '/images/post/best-light.png');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMode = localStorage.getItem('theme-mode') || 'light';
+        const themeStylesheet = savedMode === 'dark' ? '/css/post/post-dark.css' : '/css/post/post-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        updateImages(savedMode);
+    });
+    function updateImages(mode) {
+        const cacheBuster = `?v=${new Date().getTime()}`;
+
+        const navLogo = document.getElementById('nav-logo');
+        if (navLogo) {
+            navLogo.setAttribute('src', mode === 'dark' ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
+        }
+
+        const light = document.getElementById('light');
+        if (light) {
+            light.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
+        }
+
+        const dark = document.getElementById('dark');
+        if (dark) {
+            dark.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+        }
+
+        const top = document.getElementById('top');
+        if (top) {
+            top.setAttribute('src', mode === 'dark' ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+        }
+
+        const modeImg = document.getElementById('mode');
+        if (modeImg) {
+            modeImg.setAttribute('src', mode === 'dark' ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+        }
+
+        const test = document.getElementById('test');
+        if (test) {
+            test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+        }
+
+        const bg = document.getElementById('bg');
+        if (bg) {
+            bg.setAttribute('src', mode === 'dark' ? `/images/post/post-bg-dark.png${cacheBuster}` : `/images/post/post-bg-light.png${cacheBuster}`);
+        }
+
+        const fav = document.getElementById('fav');
+        if (fav) {
+            fav.setAttribute('src', mode === 'dark' ? `/images/post/best-dark.png${cacheBuster}` : `/images/post/best-light.png${cacheBuster}`);
+        }
+
+        const nofav = document.getElementById('nofav');
+        if (nofav) {
+            nofav.setAttribute('src', mode === 'dark' ? `/images/post/best-none-dark.png${cacheBuster}` : `/images/post/best-none-light.png${cacheBuster}`);
+        }
+    }
+
+    function toggleMode() {
+        const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        let newMode = '';
+        if (currentTheme.includes('post-light.css')) {
+            newMode = 'dark';
+        } else {
+            newMode = 'light';
+        }
+        localStorage.setItem('theme-mode', newMode);
+        const newTheme = newMode === 'dark' ? '/css/post/post-dark.css' : '/css/post/post-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        updateImages(newMode);
+    }
+</script>
+<!--즐겨찾기-->
+<!--<script>-->
+<!--    function toggleFavorite(element) {-->
+<!--        const postNo = element.getAttribute('data-postNo');-->
+<!--        const isFavorite = element.getAttribute('src').includes('best-dark.png');-->
+<!--        fetch(`/toggleFavorite`, {-->
+<!--            method: 'POST', headers: {-->
+<!--                'Content-Type': 'application/json'-->
+<!--            }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })-->
+<!--            .then(response => response.json()) .then(data => { if (data.success) {-->
+<!--            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';-->
+<!--        } }) .catch(error => console.error('Error:', error)); }-->
+<!--</script>-->
+
+검색
+
+
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const searchBtn = document.getElementById('searchBtn');
@@ -253,16 +364,25 @@
                 }
             });
 
+
             function addNewPost(post, index) {
                 const postContainer = document.getElementById('postContainer');
                 const newPost = document.createElement('div');
                 newPost.classList.add('post');
                 newPost.setAttribute('style', `top: ${index * 80}px`);
+
+                // 현재 테마 모드를 가져옵니다.
+                const mode = localStorage.getItem('theme-mode') || 'light'; // 기본값은 'light'
+
+                // 테마에 맞는 즐겨찾기 이미지 경로 설정
+                const favoriteIcon = post.postFavorite
+                    ? mode === 'dark' ? '/images/post/best-dark.png' : '/images/post/best-light.png'
+                    : mode === 'dark' ? '/images/post/best-none-dark.png' : '/images/post/best-none-light.png';
+
                 newPost.innerHTML = `
                 <span>${post.postNo}</span>
                 <span>
-                    <img src="/images/post/best-${post.postFavorite ? 'dark' : 'none-dark'}.png"
-                         data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
+                    <img src="${favoriteIcon}" data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
                 </span>
                 <a href="/selectpost/${post.postNo}">
                     <span>${post.postTitle}</span>
@@ -272,6 +392,7 @@
                 <span>${post.scaryNumber}</span>
                 <span>${post.commentNumber}</span>
             `;
+
                 postContainer.appendChild(newPost);
             }
         }
@@ -296,6 +417,10 @@
                     if (start < 1) start = 1;
                     if (end > totalPageCount) end = totalPageCount;
 
+                    // 현재 테마 확인
+                    const currentMode = localStorage.getItem('theme-mode') || 'light';  // 기본값 'light'
+
+                    // 페이지 버튼 생성
                     for (let i = start; i <= end; i++) {
                         const tab = document.createElement('p');
                         tab.id = `tab${i}`;
@@ -304,11 +429,15 @@
                             currentPage = i;
                             updatePosts(orderBy, category, i);
                         });
-                        tab.style.color = i === currentPage ? '#fff' : '#BEBEBE';
+
+                        // 라이트 모드일 때는 '#000', 다크 모드일 때는 '#fff'로 색상 변경
+                        tab.style.color = i === currentPage ? (currentMode === 'light' ? '#000' : '#fff') : '#BEBEBE';
+
                         tab.classList.add('pageNum');
                         tabContainer.appendChild(tab);
                     }
-                    updateVisibility();
+
+                    updateVisibility();  // 페이지 업데이트 후, 화면에 요소가 보이도록 처리
                 });
         }
         function prevBtnClickHandler(){
@@ -498,4 +627,5 @@
     document.addEventListener('mousemove',update)
     document.addEventListener('touchmove',update)
 </script>
+</body>
 </html>

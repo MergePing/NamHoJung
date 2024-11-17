@@ -163,87 +163,101 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('main-theme') || '/css/mainpage/mainpage-lightmode.css';
-        document.getElementById('theme-stylesheet').setAttribute('href', savedTheme);
+        const savedMode = localStorage.getItem('theme-mode') || 'light';
+
+        const themeStylesheet = savedMode === 'dark' ? '/css/mainpage/mainpage-darkmode.css' : '/css/mainpage/mainpage-lightmode.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
         document.getElementById('theme-stylesheet').addEventListener('load', () => {
-            updateImages(savedTheme);
-
+            updateImages(savedMode);
         });
+        updateImages(savedMode);
+    });
 
- });
-
-
-    function updateImages(theme) {
+    function updateImages(mode) {
         const cacheBuster = `?v=${new Date().getTime()}`;
 
         const navLogo = document.getElementById('nav-logo');
-        if (navLogo){
-        navLogo.setAttribute('src', theme.includes('darkmode') ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
+        if (navLogo) {
+            navLogo.setAttribute('src', mode === 'dark' ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
         }
+
         const light = document.getElementById('light');
-        if (light){
-        light.setAttribute('src', theme.includes('darkmode') ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
+        if (light) {
+            light.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
         }
+
         const dark = document.getElementById('dark');
-        if (dark){
-        dark.setAttribute('src', theme.includes('darkmode') ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+        if (dark) {
+            dark.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
         }
+
         const top = document.getElementById('top');
-        if (top){
-        top.setAttribute('src', theme.includes('darkmode') ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+        if (top) {
+            top.setAttribute('src', mode === 'dark' ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
         }
-        const mode = document.getElementById('mode');
-        if (mode){
-        mode.setAttribute('src', theme.includes('darkmode') ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+
+        const modeImg = document.getElementById('mode');
+        if (modeImg) {
+            modeImg.setAttribute('src', mode === 'dark' ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
         }
+
         const test = document.getElementById('test');
-        if (test){
-        test.setAttribute('src', theme.includes('darkmode') ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+        if (test) {
+            test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
         }
+
         const mainLogo = document.getElementById('mainLogo');
-        if (mainLogo){
-        mainLogo.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-logo-dark.png${cacheBuster}` : `/images/main/main-logo-light.png${cacheBuster}`);
+        if (mainLogo) {
+            mainLogo.setAttribute('src', mode === 'dark' ? `/images/main/main-logo-dark.png${cacheBuster}` : `/images/main/main-logo-light.png${cacheBuster}`);
         }
+
         const subTitle = document.getElementById('subTitle');
-        if (subTitle){
-        subTitle.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-subtitle-dark.png${cacheBuster}` : `/images/main/main-subtitle-light.png${cacheBuster}`);
+        if (subTitle) {
+            subTitle.setAttribute('src', mode === 'dark' ? `/images/main/main-subtitle-dark.png${cacheBuster}` : `/images/main/main-subtitle-light.png${cacheBuster}`);
         }
+
         const bg = document.getElementById('bg');
-        if (bg){
-        bg.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-dark-bg.png${cacheBuster}` : `/images/main/main-light-bg.png${cacheBuster}`);
+        if (bg) {
+            bg.setAttribute('src', mode === 'dark' ? `/images/main/main-dark-bg.png${cacheBuster}` : `/images/main/main-light-bg.png${cacheBuster}`);
         }
+
         const bg2 = document.getElementById('bg2');
-        if (bg2){
-        bg2.setAttribute('src', theme.includes('darkmode') ? `/images/main/main2-dark-bg.png${cacheBuster}` : `/images/main/main2-lightbg.png${cacheBuster}`);
+        if (bg2) {
+            bg2.setAttribute('src', mode === 'dark' ? `/images/main/main2-dark-bg.png${cacheBuster}` : `/images/main/main2-lightbg.png${cacheBuster}`);
         }
+
         const bg3 = document.getElementById('bg3');
-        if (bg3){
-        bg3.setAttribute('src', theme.includes('darkmode') ? `/images/main/main3-gost-hand-dark.png${cacheBuster}` : `/images/main/main3-gost-hand-light.png${cacheBuster}`);
+        if (bg3) {
+            bg3.setAttribute('src', mode === 'dark' ? `/images/main/main3-gost-hand-dark.png${cacheBuster}` : `/images/main/main3-gost-hand-light.png${cacheBuster}`);
         }
+
         const calendarbg = document.getElementById('calendarbg');
-        if (calendarbg){
-        calendarbg.setAttribute('src', theme.includes('darkmode') ? `/images/main/main-dark-bg3.png${cacheBuster}` : `/images/main/main-light-bg3.png${cacheBuster}`);
+        if (calendarbg) {
+            calendarbg.setAttribute('src', mode === 'dark' ? `/images/main/main-dark-bg3.png${cacheBuster}` : `/images/main/main-light-bg3.png${cacheBuster}`);
         }
     }
 
     function toggleMode() {
-        const stylesheet = document.getElementById('theme-stylesheet');
-        const currentTheme = stylesheet.getAttribute('href');
-        let newTheme = '';
+        // 현재 설정된 스타일시트의 경로를 확인
+        const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
 
+        // 새 테마 모드를 결정 ('dark' 또는 'light')
+        let newMode = '';
         if (currentTheme.includes('mainpage-lightmode.css')) {
-            newTheme = '/css/mainpage/mainpage-darkmode.css';
+            newMode = 'dark';
         } else {
-            newTheme = '/css/mainpage/mainpage-lightmode.css';
+            newMode = 'light';
         }
+        // 새로운 모드를 localStorage에 저장
+        localStorage.setItem('theme-mode', newMode);
+        // 테마에 맞는 스타일시트를 로드
+        const newTheme = newMode === 'dark' ? '/css/mainpage/mainpage-darkmode.css' : '/css/mainpage/mainpage-lightmode.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
 
-        stylesheet.setAttribute('href', newTheme);
-        localStorage.setItem('main-theme', newTheme);
-
-        // 이미지 업데이트
-        updateImages(newTheme);
+        updateImages(newMode);
     }
 </script>
+
 
 
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 상세보기</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/admin/adminnoticedetail.css}">
+    <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/admin/adminnoticedetail-light.css}">
 </head>
 <body>
 
@@ -13,7 +13,7 @@
     <nav>
 
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <img th:src="@{/images/main/nav-logo-light.png}" alt="상단 로고" onclick="location.href='/'" id="nav-logo">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/admin/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
@@ -29,15 +29,16 @@
 <main>
     <div class="qickBtn">
         <!--플로팅 버튼-->
-        <img th:src="@{/images/main/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-        <img th:src="@{/images/main/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <img th:src="@{/images/main/folating-btn-light.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/main/folating-btn-click-light.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
         <div class="clikbtn tr">
-            <img th:src="@{/images/main/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-            <img th:src="@{/images/main/light-btn-dark.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
-            <img th:src="@{/images/main/test-btn-dark.png}" class="dn" id="test" onclick="location.href='/mbti'" alt="MBTI 테스트">
+            <img th:src="@{/images/main/top-btn-light.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/main/light-btn-light.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
+            <img th:src="@{/images/main/test-btn-light.png}" class="dn" id="test" onclick="location.href='/mbti'" alt="MBTI 테스트">
         </div>
-    <img th:src="@{/images/notice/notice-dark-box.png}" id="box">
-    <img th:src="@{/images/notice/notice-dark-bg.png}" id="bg">
+    </div>
+    <img th:src="@{/images/notice/notice-light-box.png}" id="box">
+    <img th:src="@{/images/notice/notice-light-bg.png}" id="bg">
 
     <section class="top-notice">
         <h1 id="toptitleText" class="top-title" th:text="${noticeDetail.title}"></h1>
@@ -55,6 +56,81 @@
 
 
 </main>
+
+<footer>
+    <div class="footer">
+        <p>ⓒ 2024 MergePing. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMode = localStorage.getItem('theme-mode') || 'light';
+        const themeStylesheet = savedMode === 'dark' ? '/css/admin/adminnoticedetail-dark.css' : '/css/admin/adminnoticedetail-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        updateImages(savedMode);
+    });
+    function updateImages(mode) {
+        const cacheBuster = `?v=${new Date().getTime()}`;
+
+        const navLogo = document.getElementById('nav-logo');
+        if (navLogo) {
+            navLogo.setAttribute('src', mode === 'dark' ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
+        }
+
+        const light = document.getElementById('light');
+        if (light) {
+            light.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
+        }
+
+        const dark = document.getElementById('dark');
+        if (dark) {
+            dark.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+        }
+
+        const top = document.getElementById('top');
+        if (top) {
+            top.setAttribute('src', mode === 'dark' ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+        }
+
+        const modeImg = document.getElementById('mode');
+        if (modeImg) {
+            modeImg.setAttribute('src', mode === 'dark' ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+        }
+
+        const test = document.getElementById('test');
+        if (test) {
+            test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+        }
+
+        const bg = document.getElementById('bg');
+        if (bg) {
+            bg.setAttribute('src', mode === 'dark' ? `/images/notice/notice-dark-bg.png${cacheBuster}` : `/images/notice/notice-light-bg.png${cacheBuster}`);
+        }
+
+        const box = document.getElementById('box');
+        if (box) {
+            box.setAttribute('src', mode === 'dark' ? `/images/notice/notice-dark-box.png${cacheBuster}` : `/images/notice/notice-light-box.png${cacheBuster}`);
+        }
+    }
+
+    function toggleMode() {
+        const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        let newMode = '';
+        if (currentTheme.includes('adminnoticedetail-light.css')) {
+            newMode = 'dark';
+        } else {
+            newMode = 'light';
+        }
+        localStorage.setItem('theme-mode', newMode);
+        const newTheme = newMode === 'dark' ? '/css/admin/adminnoticedetail-dark.css' : '/css/admin/adminnoticedetail-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        updateImages(newMode);
+    }
+</script>
 <script>
     function update(e){
         var x = e.clientX || e.touches[0].clientX
@@ -66,7 +142,44 @@
     document.addEventListener('mousemove',update)
     document.addEventListener('touchmove',update)
 </script>
+<script>
+    const floatBtn1 = document.getElementById("light");
+    const floatBtn2 = document.getElementById("dark");
+    const qickMenu1 = document.getElementById("top");
+    const qickMenu2 = document.getElementById("mode");
+    const qickMenu3 = document.getElementById("test");
 
+    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
+    floatBtn1.addEventListener('click', function () {
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+    });
+
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
+    floatBtn2.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+
+    });
+
+    <!--top 버튼 클릭시 화면 상단이동-->
+    setTimeout(function() {
+        qickMenu1.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }, 3000);
+
+</script>
 
 </body>
 </html>
