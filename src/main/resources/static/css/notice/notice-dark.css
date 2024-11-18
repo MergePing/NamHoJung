@@ -18,7 +18,32 @@ body{
 button{
     cursor: pointer;
 }
+:root {
+    --cursorX: 70vw;
+    --cursorY: 70vh;
+}
+:root:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 999999;
+    background: radial-gradient(
+            circle 20vmax at var(--cursorX) var(--cursorY),
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,.5) 80%,
+            rgba(0,0,0,.95) 100%)
+}
 
+* {
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-kerning: auto;
+}
 /*---------------nav------------------*/
 nav{
     position: fixed;
@@ -173,6 +198,65 @@ nav span:hover{
 
 /*---------------main------------------*/
 
+
+
+
+
+main .qickBtn img{
+    position: absolute;
+    width: 109px;
+    height: 109px;
+    left: 1759px;
+    top: 780px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+
+
+main .qickBtn img:first-child{
+    z-index: 55;
+    top: 780px;
+}
+
+
+main .qickBtn .clikbtn img:first-child{
+    /* Upward Arrow */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 664px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(2){
+    /* Sun */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 560px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(3){
+    /* Test Results */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 456px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn{
+    position: sticky;
+    top: -50px;
+    z-index: 9999;
+}
 
 main{
     transition: all 1s;
@@ -819,7 +903,7 @@ main input{
     line-height: 30px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    top: 150px;
+    top: 225px;
     border: none;
     left: 450px;
 }
@@ -830,8 +914,7 @@ main label img{
     width: 39px;
     height: 39px;
     left: 1599px;
-    top: 150px;
-    cursor: pointer;
+    top: 230px;
 }
 
 
