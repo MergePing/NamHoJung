@@ -53,15 +53,17 @@
 <body data-user-id="${user.id}">
 <header>
     <nav>
-        <!-- 네비바 -->
-        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <!--네비바-->
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
-        <span>MBTI 검사</span>
-        <span>마이페이지</span>
-        <span>로그인</span>
-        <span>회원가입</span>
+        <span onclick="location.href='/mbti'">MBTI 검사</span>
+        <span id="mypageBtn">마이페이지</span>
+        <form th:action="@{/auth/logout}" method="post">
+            <button id="logoutNav" type="submit">로그아웃</button>
+        </form>
+        <span onclick="location.href='/auth/signupterms'">회원가입</span>
     </nav>
 </header>
 
@@ -562,7 +564,7 @@
     };
 
     function fetchComments() {
-        const postNo = [[${post.postNo}]];  // 현재 게시물의 번호를 할당합니다.
+        const postNo = /*[[${post.postNo}]]*/ '0';  // 현재 게시물의 번호를 할당합니다.
         fetch(`/api/comments/${postNo}`)
             .then(response => response.json())
             .then(data => {
@@ -573,12 +575,6 @@
             });
     }
 </script>
-
-
-
-
-
-
 
 <script>
     function submitComment() {
@@ -770,7 +766,7 @@
 
 
     // userNo를 JavaScript 변수에 할당
-    const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+    const loggedInUserNo = /*[[${userNo}]]*/ '0';  // ${userNo} 값이 없을 경우 0으로 기본값 설정
     console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
 
