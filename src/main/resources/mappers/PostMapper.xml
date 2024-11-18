@@ -149,7 +149,8 @@
         A.POST_IMAGE_SECOND,
         A.POST_FAVORITE,
         A.SCARY,
-        A.NOT_SCARY
+        A.NOT_SCARY,
+        B.USER_IMAGE AS profileImage
         FROM TBL_POST A
         JOIN TBL_USER B ON A.POST_WRITER = B.USER_NO
         WHERE POST_NO = #{postNo};
