@@ -523,8 +523,14 @@ footer .footer p{
 
 #confirmDeleteButton {
     background-color: #d32f2f;
+    position: absolute;
+    left: 800px;
+    top: 250px;
 }
 
 #cancelDeleteButton {
     background-color: #3B572D;
+    position: absolute;
+    left: 300px;
+    top: 250px;
 }
