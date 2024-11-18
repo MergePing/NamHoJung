@@ -25,93 +25,93 @@
     </nav>
 
 </header>
-    <div>
-        <img class="infobackground" th:src="@{/images/mypageimages/background.png}" alt="다크모드 메인페이지 배경화면">
-        <div class="infopopup">
-            <p class="userfont">개인 정보</p>
-            <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
-            <button class="btn-upload" onclick="document.getElementById('fileInput').click()">사진수정</button>
-            <input type="file" id="fileInput" onchange="uploadProfilePhoto()">
-            <button class="btn-delete" id="btndelete">탈퇴</button>
+<div>
+    <img class="infobackground" th:src="@{/images/mypageimages/background.png}" alt="다크모드 메인페이지 배경화면">
+    <div class="infopopup">
+        <p class="userfont">개인 정보</p>
+        <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+        <button class="btn-upload" onclick="document.getElementById('fileInput').click()">사진수정</button>
+        <input type="file" id="fileInput" onchange="uploadProfilePhoto()">
+        <button class="btn-delete" id="btndelete">탈퇴</button>
 
-            <div class="input-group">
-                <label class="mpId">아이디</label>
-                <div class="userId" th:text="${myPageDTO3.userId}"></div>
-            </div>
-
-            <div class="input-group">
-                <label class="mpname">닉네임</label>
-                <form action="/userinfo" method="post">
-                    <input type="text" name="userName" id="nickname" th:placeholder="${myPageDTO.userName}">
-                    <input type="password" name="newPassword" id="password" placeholder="영문,숫자,특수문자 8~12자리">
-                    <button type="submit" class="btn-submit" id="btn-submit">수정</button>
-                </form>
-                <button class="btn-check" onclick="checkDuplicate()">중복확인</button>
-                <div id="duplicateMessage" class="duplicatemsg" style="color: red; display: none;"></div>
-            </div>
-
-
-            <div class="input-group">
-                <label class="mppw">비밀번호</label>
-                <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
-                <button class="mpchange" onclick="validatePassword()">확인</button>
-                <div id="passwordFeedback" class="pwdfeedback" style="color: red; display: none;"></div>
-            </div>
-
-<!--            <div id="confirmpopup">-->
-<!--                <label class="confirmno">인증번호</label>-->
-<!--                <input type="text" id="confirm-no">-->
-<!--                <button class="btn-confirm1">인증</button>-->
-<!--            </div>-->
-
-            <div class="input-group">
-                <label class="mpemail">이메일</label>
-                <div id="email" th:text="${myPageDTO2.email}"></div>
-<!--                <button class="btn-confirm" id="confirmcheck">인증</button>-->
-            </div>
-
-            <button class="btn-cancel" id="btn-cancel">취소</button>
-
-
-
+        <div class="input-group">
+            <label class="mpId">아이디</label>
+            <div class="userId" th:text="${myPageDTO3.userId}"></div>
         </div>
-        <div class="modal-background" id="modal-background">
-            <div class="modifypopup" id="modify-popup">
-                <p class="modifyfont">수정 완료되었습니다!</p>
 
-                <div class="popup-buttons">
-                    <button id="submitdBtn" class="submitBtn">확인</button>
-                </div>
-
-            </div>
+        <div class="input-group">
+            <label class="mpname">닉네임</label>
+            <form action="/userinfo" method="post">
+                <input type="text" name="userName" id="nickname" th:placeholder="${myPageDTO.userName}">
+                <input type="password" name="newPassword" id="password" placeholder="영문,숫자,특수문자 8~12자리">
+                <button type="submit" class="btn-submit" id="btn-submit">수정</button>
+            </form>
+            <button class="btn-check" onclick="checkDuplicate()">중복확인</button>
+            <div id="duplicateMessage" class="duplicatemsg" style="color: red; display: none;"></div>
         </div>
 
 
-        <div class="modal-background2" id="modal-background2">
-            <div class="deletepopup" id="deletepopup">
-                <p class="deleteuser">회원 탈퇴를 하시겠습니까?</p>
-                <p class="dangerous"></p>
-                <div>
-                    <button id="cancledBtn" class="cancleBtn">취소</button>
-                </div>
-                <div>
-                    <button id="submitdBtn2" class="submitBtn2">확인</button>
-                </div>
-
-            </div>
+        <div class="input-group">
+            <label class="mppw">비밀번호</label>
+            <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
+            <button class="mpchange" onclick="validatePassword()">확인</button>
+            <div id="passwordFeedback" class="pwdfeedback" style="color: red; display: none;"></div>
         </div>
 
-        <div class="modal-background3" id="modal-background3">
-            <div class="modifypopup" id="modify-popup2">
-                <p class="deletefont">회원 탈퇴가 완료되었습니다!</p>
+        <!--            <div id="confirmpopup">-->
+        <!--                <label class="confirmno">인증번호</label>-->
+        <!--                <input type="text" id="confirm-no">-->
+        <!--                <button class="btn-confirm1">인증</button>-->
+        <!--            </div>-->
 
-                <div class="popup-buttons">
-                    <button id="submitdBtn3" class="submitBtn">확인</button>
-                </div>
+        <div class="input-group">
+            <label class="mpemail">이메일</label>
+            <div id="email" th:text="${myPageDTO2.email}"></div>
+            <!--                <button class="btn-confirm" id="confirmcheck">인증</button>-->
+        </div>
 
+        <button class="btn-cancel" id="btn-cancel">취소</button>
+
+
+
+    </div>
+    <div class="modal-background" id="modal-background">
+        <div class="modifypopup" id="modify-popup">
+            <p class="modifyfont">수정 완료되었습니다!</p>
+
+            <div class="popup-buttons">
+                <button id="submitdBtn" class="submitBtn">확인</button>
             </div>
+
         </div>
     </div>
+
+
+    <div class="modal-background2" id="modal-background2">
+        <div class="deletepopup" id="deletepopup">
+            <p class="deleteuser">회원 탈퇴를 하시겠습니까?</p>
+            <p class="dangerous"></p>
+            <div>
+                <button id="cancledBtn" class="cancleBtn">취소</button>
+            </div>
+            <div>
+                <button id="submitdBtn2" class="submitBtn2">확인</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-background3" id="modal-background3">
+        <div class="modifypopup" id="modify-popup2">
+            <p class="deletefont">회원 탈퇴가 완료되었습니다!</p>
+
+            <div class="popup-buttons">
+                <button id="submitdBtn3" class="submitBtn">확인</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <!--__________________________img___________________________________-->
 
@@ -148,181 +148,181 @@
 
 
 
-    <script>
+<script>
 
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        const passwordIcon = document.getElementById('passwordIcon');
-        // 비밀번호 보기/숨기기 토글
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
-        });
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const passwordIcon = document.getElementById('passwordIcon');
+    // 비밀번호 보기/숨기기 토글
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
+    });
 
-        // const confirmCheck = document.getElementById('confirmcheck');
-        // const confirmNo= document.getElementById('confirmpopup');
-        //
-        // confirmCheck.addEventListener('click', () => {
-        //     confirmNo.style.display = 'block'; // 팝업 표시
-        // });
+    // const confirmCheck = document.getElementById('confirmcheck');
+    // const confirmNo= document.getElementById('confirmpopup');
+    //
+    // confirmCheck.addEventListener('click', () => {
+    //     confirmNo.style.display = 'block'; // 팝업 표시
+    // });
 
-        const btnCancle =document.getElementById('btn-cancel');
+    const btnCancle =document.getElementById('btn-cancel');
 
-        btnCancle.addEventListener('click', () => {
-            // URL을 원하는 주소로 변경하세요
-            location.href = '/main';
-        });
+    btnCancle.addEventListener('click', () => {
+        // URL을 원하는 주소로 변경하세요
+        location.href = '/main';
+    });
 
-        const btnsubmit = document.getElementById('btn-submit');
-        const modifypopup = document.getElementById('modify-popup');
-        const modal = document.querySelector('.modal-background');
-        const submitBtn= document.getElementById('submitdBtn');
-        // 수정 버튼 클릭 시 수정 완료 모달창 표시 및 스크롤 비활성화
-        btnsubmit.addEventListener('click', (event) => {
-            event.preventDefault(); // 기본 폼 제출 방지
-            // AJAX 요청으로 서버에 닉네임 수정 요청 보내기
-            fetch('/userinfo', {
-                method: 'POST',
-                body: new FormData(document.querySelector('form')) // form 데이터 전송
-            })
-                .then(response => {
-                    if (response.ok) {
-                        // 요청 성공 시, 수정 완료 팝업과 모달 표시
-                        modifypopup.style.display = 'block';
-                        modal.style.display = 'flex';
-                        document.body.style.overflow = "hidden";
-                    } else {
-                        console.error("수정 실패");
-                    }
-                })
-                .catch(error => console.error("에러 발생:", error));
-        });
-
-        // 확인 버튼 클릭 시 모달창 숨김 및 스크롤 활성화
-        submitBtn.addEventListener('click', () => {
-            // 모달 닫기 및 스크롤 활성화
-            modifypopup.style.display = 'none';
-            modal.style.display = 'none';
-            document.body.style.overflow = "auto";
-
-            // 페이지 리다이렉트 또는 다른 작업 수행 가능
-            location.href = '/main';
-        });
-
-
-        const btndelete = document.getElementById('btndelete');
-        const deletepopup = document.getElementById('deletepopup');
-        const modal2 = document.querySelector('.modal-background2');
-        const submitBtn2 = document.getElementById('submitdBtn2');
-        const cancleBtn = document.getElementById('cancledBtn');
-
-        const modifypopup2 = document.getElementById('modify-popup2');
-        const modal3 = document.querySelector('.modal-background3');
-        const submitBtn3 = document.getElementById('submitdBtn3');
-
-        // 탈퇴 확인 모달 열기
-        btndelete.addEventListener('click', () => {
-            deletepopup.style.display='block';
-            modal2.style.display = 'flex';
-            document.body.style.overflow = "hidden"; // 스크롤 비활성화
-        });
-
-        // 취소 버튼 클릭 시 모달 닫기
-        cancleBtn.addEventListener("click", () => {
-            modal2.style.display = "none";
-            deletepopup.style.display="none";
-            document.body.style.overflow = "auto"; // 스크롤 활성화
-        });
-
-        // 확인 버튼 클릭 시 회원 탈퇴 요청
-        submitBtn2.addEventListener('click', async () => {
-            try {
-                const response = await fetch('/deleteAccount', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    // 서버에서 로그인한 유저의 userNo를 처리하기 위해 request body는 비워둡니다.
-                    body: JSON.stringify({})
-                });
-
+    const btnsubmit = document.getElementById('btn-submit');
+    const modifypopup = document.getElementById('modify-popup');
+    const modal = document.querySelector('.modal-background');
+    const submitBtn= document.getElementById('submitdBtn');
+    // 수정 버튼 클릭 시 수정 완료 모달창 표시 및 스크롤 비활성화
+    btnsubmit.addEventListener('click', (event) => {
+        event.preventDefault(); // 기본 폼 제출 방지
+        // AJAX 요청으로 서버에 닉네임 수정 요청 보내기
+        fetch('/userinfo', {
+            method: 'POST',
+            body: new FormData(document.querySelector('form')) // form 데이터 전송
+        })
+            .then(response => {
                 if (response.ok) {
-                    // 탈퇴 성공 시 탈퇴 완료 모달 표시
-                    modal2.style.display = "none";
-                    modifypopup2.style.display='block';
-                    modal3.style.display = "flex";
+                    // 요청 성공 시, 수정 완료 팝업과 모달 표시
+                    modifypopup.style.display = 'block';
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = "hidden";
                 } else {
-                    alert("회원 탈퇴에 실패하였습니다. 다시 시도해주세요.");
+                    console.error("수정 실패");
                 }
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        });
+            })
+            .catch(error => console.error("에러 발생:", error));
+    });
 
-        // 탈퇴 완료 확인 버튼 클릭 시 메인 화면으로 이동
-        submitBtn3.addEventListener('click', () => {
-            modal3.style.display = "none";
-            modifypopup2.style.display="none";
-            document.body.style.overflow = "auto"; // 스크롤 다시 활성화
-            location.href = '/auth/login'; // 로그인창
-        });
+    // 확인 버튼 클릭 시 모달창 숨김 및 스크롤 활성화
+    submitBtn.addEventListener('click', () => {
+        // 모달 닫기 및 스크롤 활성화
+        modifypopup.style.display = 'none';
+        modal.style.display = 'none';
+        document.body.style.overflow = "auto";
 
-        function checkDuplicate() {
-            const nickname = document.getElementById('nickname').value;
-            const duplicateMessage = document.getElementById('duplicateMessage');
-            // const btnSubmit = document.getElementById('btn-submit'); // 여기서 btnSubmit을 먼저 선언합니다.
-
-            fetch(`/checknickname?nickname=${nickname}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.isDuplicate) {
-                        duplicateMessage.textContent = "중복된 닉네임 입니다.";
-                        duplicateMessage.style.color = "red";
-                        btnsubmit.disabled = true; // 버튼 비활성화
-                    } else {
-                        duplicateMessage.textContent = "올바른 닉네임 입니다.";
-                        duplicateMessage.style.color = "#62BA4A";
-                        btnsubmit.disabled = false; // 버튼 활성화
-                    }
-                    duplicateMessage.style.display = "block";
-                })
-                .catch(error => console.error('Error:', error));
-        }
-
-        // 중복 확인 버튼에 이벤트 리스너 추가
-        const btnCheck = document.querySelector('.btn-check');
-        if (btnCheck) {
-            btnCheck.addEventListener('click', checkDuplicate);
-        }
+        // 페이지 리다이렉트 또는 다른 작업 수행 가능
+        location.href = '/main';
+    });
 
 
+    const btndelete = document.getElementById('btndelete');
+    const deletepopup = document.getElementById('deletepopup');
+    const modal2 = document.querySelector('.modal-background2');
+    const submitBtn2 = document.getElementById('submitdBtn2');
+    const cancleBtn = document.getElementById('cancledBtn');
 
-        // 비밀번호 유효성 검사 함수
-        function validatePassword() {
-            const newPassword = document.getElementById('password').value;
-            const passwordFeedback = document.getElementById('passwordFeedback');
+    const modifypopup2 = document.getElementById('modify-popup2');
+    const modal3 = document.querySelector('.modal-background3');
+    const submitBtn3 = document.getElementById('submitdBtn3');
 
-            // 비밀번호 유효성 검사
-            const isValidPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/.test(newPassword);
+    // 탈퇴 확인 모달 열기
+    btndelete.addEventListener('click', () => {
+        deletepopup.style.display='block';
+        modal2.style.display = 'flex';
+        document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    });
 
-            if (isValidPassword) {
-                passwordFeedback.textContent = "올바른 비밀번호입니다.";
-                passwordFeedback.style.color = "#62BA4A";
-                passwordFeedback.style.display = "block";
-                btnsubmit.disabled = false; // 버튼 활성화
+    // 취소 버튼 클릭 시 모달 닫기
+    cancleBtn.addEventListener("click", () => {
+        modal2.style.display = "none";
+        deletepopup.style.display="none";
+        document.body.style.overflow = "auto"; // 스크롤 활성화
+    });
+
+    // 확인 버튼 클릭 시 회원 탈퇴 요청
+    submitBtn2.addEventListener('click', async () => {
+        try {
+            const response = await fetch('/deleteAccount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // 서버에서 로그인한 유저의 userNo를 처리하기 위해 request body는 비워둡니다.
+                body: JSON.stringify({})
+            });
+
+            if (response.ok) {
+                // 탈퇴 성공 시 탈퇴 완료 모달 표시
+                modal2.style.display = "none";
+                modifypopup2.style.display='block';
+                modal3.style.display = "flex";
             } else {
-                passwordFeedback.textContent = "올바르지 않는 비밀번호 입니다.";
-                passwordFeedback.style.color = "red";
-                passwordFeedback.style.display = "block";
-                btnsubmit.disabled = true; // 버튼 비활성화
+                alert("회원 탈퇴에 실패하였습니다. 다시 시도해주세요.");
             }
+        } catch (error) {
+            console.error("Error:", error);
         }
+    });
+
+    // 탈퇴 완료 확인 버튼 클릭 시 메인 화면으로 이동
+    submitBtn3.addEventListener('click', () => {
+        modal3.style.display = "none";
+        modifypopup2.style.display="none";
+        document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+        location.href = '/auth/login'; // 로그인창
+    });
+
+    function checkDuplicate() {
+        const nickname = document.getElementById('nickname').value;
+        const duplicateMessage = document.getElementById('duplicateMessage');
+        // const btnSubmit = document.getElementById('btn-submit'); // 여기서 btnSubmit을 먼저 선언합니다.
+
+        fetch(`/checknickname?nickname=${nickname}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.isDuplicate) {
+                    duplicateMessage.textContent = "중복된 닉네임 입니다.";
+                    duplicateMessage.style.color = "red";
+                    btnsubmit.disabled = true; // 버튼 비활성화
+                } else {
+                    duplicateMessage.textContent = "올바른 닉네임 입니다.";
+                    duplicateMessage.style.color = "#62BA4A";
+                    btnsubmit.disabled = false; // 버튼 활성화
+                }
+                duplicateMessage.style.display = "block";
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 중복 확인 버튼에 이벤트 리스너 추가
+    const btnCheck = document.querySelector('.btn-check');
+    if (btnCheck) {
+        btnCheck.addEventListener('click', checkDuplicate);
+    }
+
+
+
+    // 비밀번호 유효성 검사 함수
+    function validatePassword() {
+        const newPassword = document.getElementById('password').value;
+        const passwordFeedback = document.getElementById('passwordFeedback');
+
+        // 비밀번호 유효성 검사
+        const isValidPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/.test(newPassword);
+
+        if (isValidPassword) {
+            passwordFeedback.textContent = "올바른 비밀번호입니다.";
+            passwordFeedback.style.color = "#62BA4A";
+            passwordFeedback.style.display = "block";
+            btnsubmit.disabled = false; // 버튼 활성화
+        } else {
+            passwordFeedback.textContent = "올바르지 않는 비밀번호 입니다.";
+            passwordFeedback.style.color = "red";
+            passwordFeedback.style.display = "block";
+            btnsubmit.disabled = true; // 버튼 비활성화
+        }
+    }
 
 
 
 
-    </script>
+</script>
 
 
 
