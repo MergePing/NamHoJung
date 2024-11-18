@@ -283,11 +283,32 @@ public class PostController {
         return "post/selectpost";
     }
 
+    @GetMapping("/api/comments/{postNo}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getComments(@PathVariable("postNo") int postNo) {
+        List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+        List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+
+        for (CommentDTO comment : comments) {
+            MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+            Map<String, Object> commentWithProfile = new HashMap<>();
+            commentWithProfile.put("comment", comment);
+            commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+            commentsWithProfile.add(commentWithProfile);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("comments", commentsWithProfile);
+
+        return ResponseEntity.ok(response);
+    }
+
+
 
     @PostMapping("/selectpost/{postNo}/comment")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
-                                                          @RequestParam("commentContent") String commentContent) {
+                                                          @RequestParam("commentContent") String commentContent, Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
@@ -303,43 +324,107 @@ public class PostController {
         commentDTO.setUserNo(userNo);
         commentDTO.setPostNo(postNo);
 
+        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo);
+
         List<CommentDTO> existingComments = postService.getCommentsByPostNo(postNo);
         int index = existingComments.size();
 
         commentDTO.setTop(index * 150);
 
-
-        // 댓글 추가 후 응답 설정
         boolean isAdded = postService.addComment(commentDTO);
-        System.out.println("isAdded = " + isAdded);
         Map<String, Object> response = new HashMap<>();
 
         if (isAdded) {
-            // 댓글 추가 성공 후, 게시물의 댓글 수를 증가시킴
             boolean isCommentCountUpdated = postService.incrementCommentCount(postNo);
-
             if (isCommentCountUpdated) {
-                // 댓글 수 증가에 성공한 경우 최신 댓글 목록을 가져옴
                 List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
-                // 댓글에 index 값을 추가
-                for (int i = 0; i < comments.size(); i++) {
-                    comments.get(i).setIndex(i); // index 값 추가
+                List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+
+                for (CommentDTO comment : comments) {
+                    MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+                    Map<String, Object> commentWithProfile = new HashMap<>();
+                    commentWithProfile.put("comment", comment);
+                    commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+                    commentsWithProfile.add(commentWithProfile);
                 }
                 response.put("success", true);
-                response.put("comments", comments); // 생성된 댓글 정보 반환
+                response.put("userProfileImage", userInfo.getProfileImage());
+                response.put("comments", commentsWithProfile);
             } else {
                 response.put("success", false);
                 response.put("error", "댓글 수 업데이트에 실패했습니다.");
             }
         } else {
-            // 댓글 작성 실패 시
             response.put("success", false);
             response.put("error", "댓글 작성에 실패했습니다.");
         }
 
         return ResponseEntity.ok(response);
-
     }
+
+
+
+//    @PostMapping("/selectpost/{postNo}/comment")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
+//                                                          @RequestParam("commentContent") String commentContent,Model model) {
+//
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                    .body(Map.of("error", "로그인 후 댓글을 작성할 수 있습니다."));
+//        }
+//
+//        AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+//        int userNo = userDetails.getUserNo();
+//
+//        CommentDTO commentDTO = new CommentDTO();
+//        commentDTO.setCommentContent(commentContent);
+//        commentDTO.setUserNo(userNo);
+//        commentDTO.setPostNo(postNo);
+//
+//        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+//        model.addAttribute("userInfo", userInfo);
+//
+//        List<CommentDTO> existingComments = postService.getCommentsByPostNo(postNo);
+//        int index = existingComments.size();
+//
+//        commentDTO.setTop(index * 150);
+//
+//
+//        // 댓글 추가 후 응답 설정
+//        boolean isAdded = postService.addComment(commentDTO);
+//        System.out.println("isAdded = " + isAdded);
+//        Map<String, Object> response = new HashMap<>();
+//
+//        if (isAdded) {
+//            // 댓글 추가 성공 후, 게시물의 댓글 수를 증가시킴
+//            boolean isCommentCountUpdated = postService.incrementCommentCount(postNo);
+//
+//            if (isCommentCountUpdated) {
+//                // 댓글 수 증가에 성공한 경우 최신 댓글 목록을 가져옴
+//                List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+//                // 댓글에 index 값을 추가
+//                for (int i = 0; i < comments.size(); i++) {
+//                    comments.get(i).setIndex(i); // index 값 추가
+//                }
+//                response.put("success", true);
+//                response.put("userProfileImage", userInfo.getProfileImage());
+//                response.put("comments", comments); // 생성된 댓글 정보 반환
+//            } else {
+//                response.put("success", false);
+//                response.put("error", "댓글 수 업데이트에 실패했습니다.");
+//            }
+//        } else {
+//            // 댓글 작성 실패 시
+//            response.put("success", false);
+//            response.put("error", "댓글 작성에 실패했습니다.");
+//        }
+//
+//        return ResponseEntity.ok(response);
+//
+//    }
 
     @DeleteMapping("/selectpost/{postNo}/comment/{commentNo}/delete")
     @ResponseBody
@@ -354,7 +439,15 @@ public class PostController {
 
             // 최신 댓글 목록을 가져와서 포함
             List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
-            response.put("comments", comments);
+            List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+            for (CommentDTO comment : comments) {
+                MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+                Map<String, Object> commentWithProfile = new HashMap<>();
+                commentWithProfile.put("comment", comment);
+                commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+                commentsWithProfile.add(commentWithProfile);
+            }
+            response.put("comments", commentsWithProfile);
             return ResponseEntity.ok(response);
         } else {
             response.put("success", false);
@@ -362,6 +455,7 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
+
 
     @PutMapping("/selectpost/{postNo}/comment/{commentNo}/edit")
     @ResponseBody
@@ -377,15 +471,32 @@ public class PostController {
         boolean success = postService.updateComment(commentNo, commentContent, userNo);
         if (success) {
             List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+            List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+            for (CommentDTO comment : comments) {
+                MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+                Map<String, Object> commentWithProfile = new HashMap<>();
+                commentWithProfile.put("comment", comment);
+                commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+                commentsWithProfile.add(commentWithProfile);
+            }
             response.put("success", true);
-            response.put("comments", comments);
+            response.put("comments", commentsWithProfile);
         } else {
             response.put("success", false);
             response.put("error", "댓글 수정에 실패했습니다.");
         }
         return ResponseEntity.ok(response);
-
     }
+
+
+    private int getCurrentUserNo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            return ((AuthDetails) authentication.getPrincipal()).getUserNo();
+        } return -1;
+    }
+
+
 
     @GetMapping("/post/count")
     @ResponseBody

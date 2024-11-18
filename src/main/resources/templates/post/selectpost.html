@@ -53,17 +53,15 @@
 <body data-user-id="${user.id}">
 <header>
     <nav>
-        <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <!-- 네비바 -->
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
-        <span onclick="location.href='/mbti'">MBTI 검사</span>
-        <span id="mypageBtn">마이페이지</span>
-        <form th:action="@{/auth/logout}" method="post">
-            <button id="logoutNav" type="submit">로그아웃</button>
-        </form>
-        <span onclick="location.href='/auth/signupterms'">회원가입</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
     </nav>
 </header>
 
@@ -148,7 +146,8 @@
             </script>
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
-            <div th:if="${userInfo.userName} != ${post.postWriterName}">
+
+            <div th:if="${userInfo.userName} != ${post.postWriterName}" id="reports">
                 <img th:src="@{/images/post/selectpost/reportbtn.png}">
                 <span>신고</span>
             </div>
@@ -264,7 +263,15 @@
             <div id="comments-list" style="display: none;">
                 <div th:each="comment : ${comments}">
                     <div class="comment">
-                        <img th:src="@{/images/post/selectpost/profile-img.png}">
+                        <div th:if="${userInfo.userName} == ${post.postWriterName}">
+                            <img th:src="@{profileImage}"
+                                 alt="프로필 사진" class="profile-photo" id="profilePhoto2">
+                        </div>
+                        <div th:if="${userInfo.userName} != ${post.postWriterName}">
+                            <img th:src="@{profileImage}"
+                                 alt="프로필 사진" class="profile-photo" id="profilePhoto4">
+                        </div>
+
                         <span th:text="${comment.username}"></span>
                         <span th:text="${comment.userLevel}"></span>
                         <span th:text="${comment.commentContent}"></span>
@@ -286,8 +293,8 @@
                         </div>
 
 
-                        <div th:if="${comment.userNo} != ${userNo}">
-                            <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                        <div th:if="${comment.userNo} != ${userNo}" id="report">
+                            <img th:src="@{/images/post/selectpost/reportbtn.png}" >
                             <span>신고</span>
                         </div>
 
@@ -549,10 +556,33 @@
 </script>
 
 <script>
+    window.onload = function() {
+        fetchComments();
+    };
 
-
-
+    function fetchComments() {
+        const postNo = [[${post.postNo}]];  // 현재 게시물의 번호를 할당합니다.
+        fetch(`/api/comments/${postNo}`)
+            .then(response => response.json())
+            .then(data => {
+                addCommentToDOM(data.comments, data.userProfileImage);
+            })
+            .catch(error => {
+                console.error('Error fetching comments:', error);
+            });
+    }
 </script>
+
+    // // 삭제 버튼 클릭 이벤트 설정
+    // document.getElementById("deleteBtn").addEventListener("click", function () {
+    //     const postNo = document.getElementById("deleteBtn").getAttribute("data-post-no");
+    //     deletePost(postNo);
+    // });
+</script>
+
+<script>
+
+
 
 
 <script>
@@ -579,7 +609,7 @@
             .then(data => {
                 if (data.success) {
                     if (Array.isArray(data.comments)) {
-                        addCommentToDOM(data.comments);  // 댓글 목록을 DOM에 추가
+                        addCommentToDOM(data.comments,data.userProfileImage);  // 댓글 목록을 DOM에 추가
                     } else {
                         console.error("댓글 목록이 배열이 아닙니다:", data.comments);
                     }
@@ -748,26 +778,27 @@
     const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
     console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
-    function addCommentToDOM(comments) {
+
+
+    function addCommentToDOM(comments, userProfileImage) {
         const commentsList = document.getElementById("comments-list");
         commentsList.innerHTML = ""; // 기존 댓글 목록을 제거하고 새로운 목록을 추가
 
-        // comments가 배열인 경우만 처리
         if (Array.isArray(comments)) {
-            comments.forEach((comment,index) => {
-                const commentDiv = document.createElement("div");
-                commentDiv.classList.add("comment")
+            comments.forEach((commentWithProfile, index) => {
+                const comment = commentWithProfile.comment;
+                const profileImage = commentWithProfile.profileImage || '/images/mypageimages/profile.png';
 
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
                 commentDiv.style.position = "relative";
                 commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
 
-
-
                 // 댓글 간 간격 조절
-
                 // 댓글 내용 추가
+              
                 commentDiv.innerHTML = `
-                <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
+                <img src="${profileImage}" alt="Profile Image" class="profile-photo">
                 <span>${comment.username}</span>
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
@@ -791,12 +822,7 @@
             <span>좋아요</span>
         </div>
     </div>
-
-
-
             `;
-
-
 
                 // 콘솔에 userNo와 비교 결과 출력
                 console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
@@ -805,27 +831,27 @@
 
 
                 // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제 버튼을 보이게 함
+              
                 if (Number(comment.userNo) === Number(loggedInUserNo)) {
                     const deleteButton = document.createElement("button");
                     deleteButton.classList.add("delete-comment-btn");
                     deleteButton.textContent = "삭제";
                     deleteButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(deleteButton); // 삭제 버튼을 댓글에 추가
+                    commentDiv.appendChild(deleteButton);
 
                     const editButton = document.createElement("button");
                     editButton.classList.add("edit-comment-btn");
                     editButton.textContent = "수정";
                     editButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(editButton); // 수정 버튼을 댓글에 추가
-                }else {
-                    // 로그인한 사용자와 댓글 작성자가 다를 때 신고 버튼 추가
+                    commentDiv.appendChild(editButton);
+                } else {
                     const reportDiv = document.createElement("div");
-
                     reportDiv.innerHTML = `
+<div id="report">
                     <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
                     <span>신고</span>
+                    </div>
                 `;
-
                     commentDiv.appendChild(reportDiv);
                 }
 
@@ -844,6 +870,7 @@
             console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
         }
     }
+
 
 </script>
 
@@ -992,13 +1019,6 @@
         else {
             box.style.top = `${contentTop}px`;
         }
-        // // 박스와 푸터의 위치 설정
-        // setTimeout(() => {
-        //     const boxTop = box.getBoundingClientRect().top + window.scrollY;
-        //     const footerTop = boxTop + box.scrollHeight + 10;
-        //     footer.style.position = 'absolute';
-        //     footer.style.top = `${footerTop}px`;
-        // }, 100);
         adjustFooterPosition();
 
     });
