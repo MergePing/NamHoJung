@@ -248,7 +248,7 @@ main #mainlogo{
     position: absolute;
     width: 361px;
     top: 150px;
-    left: 750px;
+    left: 775px;
 }
 
 
@@ -269,7 +269,7 @@ main #introduce{
 main #introduce2{
     position: absolute;
     width: 1250px;
-    top: 670px;
+    top: 750px;
     font-family: 'SUIT';
     font-weight: 800;
     font-size: 30px;
@@ -288,7 +288,7 @@ main #btn{
     top: 889px;
     background: #0E2913;
     border-radius: 50px;
-    left: 825px;
+    left: 840px;
     transition: all 1s;
 }
 
@@ -334,3 +334,27 @@ footer .footer p{
     left: 750px;
     top: 20px;
 }
+
+#intro {
+    width: 150px;  /* 원하는 크기로 이미지 크기 조정 */
+    height: auto;
+    margin-right: 20px; /* 이미지와 텍스트 사이에 간격 추가 */
+    position: absolute;
+    top:350px;
+    left:270px;
+}
+
+/*#person {*/
+/*    width: 150px;  !* 원하는 크기로 이미지 크기 조정 *!*/
+/*    height: auto;*/
+/*    margin-right: 20px; !* 이미지와 텍스트 사이에 간격 추가 *!*/
+/*    position: absolute;*/
+/*}*/
+
+/*#people {*/
+/*    width: 150px;  !* 원하는 크기로 이미지 크기 조정 *!*/
+/*    height: auto;*/
+/*    margin-right: 20px; !* 이미지와 텍스트 사이에 간격 추가 *!*/
+/*    position: absolute;*/
+/*    top:400px;*/
+/*}*/
