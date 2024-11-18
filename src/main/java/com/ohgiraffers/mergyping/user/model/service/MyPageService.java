@@ -20,6 +20,7 @@ public class MyPageService {
 
     private final MyPageMapper myPageMapper;
     private final PasswordEncoder passwordEncoder;
+
     @Autowired
     public MyPageService(MyPageMapper myPageMapper, PasswordEncoder passwordEncoder) {
         this.myPageMapper = myPageMapper;
