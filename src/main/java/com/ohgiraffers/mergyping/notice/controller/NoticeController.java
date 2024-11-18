@@ -25,8 +25,6 @@ public class NoticeController {
     private final MyPageService myPageService;
 
 
-
-
     @Autowired
     public NoticeController(NoticeService noticeService, MyPageService myPageService) {
         this.noticeService = noticeService;
@@ -75,12 +73,9 @@ public class NoticeController {
             model.addAttribute("myPageDTO", myPageDTO);
 
 
-
-
             Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
             model.addAttribute("mbtiInfo", mbtiInfo);
         }
-
 
 
         return "notice/notice"; // 공지사항 리스트 페이지 반환
@@ -146,8 +141,6 @@ public class NoticeController {
             // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
             MyPageDTO myPageDTO = myPageService.findNickName(userNo);
             model.addAttribute("myPageDTO", myPageDTO);
-
-
 
 
             Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);

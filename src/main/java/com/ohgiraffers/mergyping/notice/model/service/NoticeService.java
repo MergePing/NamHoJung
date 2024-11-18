@@ -32,4 +32,5 @@ public class NoticeService {
     public NoticeDetailDTO getNoticeDetail(String noticeNo) {
         return noticeMapper.selectNoticeDetail(Integer.parseInt(noticeNo));
     }
+
 }
