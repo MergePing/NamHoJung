@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>게시판</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/post/selectpost.css}">
+    <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/post/selectpost-light.css}">
     <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
     <style>
         /*손전등*/
@@ -54,7 +54,7 @@
 <header>
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <img th:src="@{/images/main/nav-logo-light.png}" alt="상단 로고" onclick="window.location.href='/'" id="nav-logo">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
@@ -113,12 +113,22 @@
     </div>
 </div>
 <main>
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/main/folating-btn-light.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/main/folating-btn-click-light.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/main/top-btn-light.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/main/light-btn-light.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
+            <img th:src="@{/images/main/test-btn-light.png}" class="dn" id="test" alt="MBTI 테스트">
+        </div>
+    </div>
     <div class="post">
         <div id="header">
             <span>
-                <img th:src="@{/images/post/best-dark.png}" th:if="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/best-light.png}" th:if="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
                      class="favorite-icon" onclick="toggleFavorite(this)">
-                <img th:src="@{/images/post/best-none-dark.png}" th:unless="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/best-none-light.png}" th:unless="${post.postFavorite}" th:attr="data-postNo=${post.postNo}"
                      class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
             <span th:text="${post.postNo}" id="no"></span>
@@ -150,7 +160,7 @@
             <span th:text="${post.postDate}"></span>
 
             <div th:if="${userInfo.userName} != ${post.postWriterName}" id="reports">
-                <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                <img th:src="@{/images/post/selectpost/reportbtn-light.png}">
                 <span>신고</span>
             </div>
         </div>
@@ -221,12 +231,12 @@
             </div>
             </div>
             <div id="scary">
-                <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"
+                <img th:src="@{/images/post/selectpost/scary-btn-before-light.png}" th:if="${!post.scary}"
                      th:attr="data-postNo=${post.postNo}"
-                     class="scary-icon" onclick="toggleScary(this)">
-                <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"
+                     class="scary-icon" onclick="toggleScary(this)" id="sc-b">
+                <img th:src="@{/images/post/selectpost/scary-btn-after-light.png}" th:if="${post.scary}"
                      th:attr="data-postNo=${post.postNo}"
-                     class="scary-icon" onclick="toggleScary(this)">
+                     class="scary-icon" onclick="toggleScary(this)" id="sc-a">
                 <div>
                     <span>무서워요</span>
                 </div>
@@ -234,12 +244,12 @@
             </div>
 
             <div id="notscary">
-                <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}" th:if="${!post.notScary}"
+                <img th:src="@{/images/post/selectpost/not-scary-btn-before-light.png}" th:if="${!post.notScary}"
                      th:attr="data-postNo=${post.postNo}"
-                     class="notscary-icon" onclick="toggleNotScary(this)">
-                <img th:src="@{/images/post/selectpost/not-scary-btn-after.png}" th:if="${post.notScary}"
+                     class="notscary-icon" onclick="toggleNotScary(this)" id="nsc-b">
+                <img th:src="@{/images/post/selectpost/not-scary-btn-after-light.png}" th:if="${post.notScary}"
                      th:attr="data-postNo=${post.postNo}"
-                     class="notscary-icon" onclick="toggleNotScary(this)">
+                     class="notscary-icon" onclick="toggleNotScary(this)" id="nsc-a">
                 <div>
                     <span>안무서워요</span>
                 </div>
@@ -280,9 +290,9 @@
                         <span th:text="${comment.commentDate}"></span>
 
                         <div id="like">
-                            <img th:src="@{/images/post/selectpost/like-btn-before.png}" th:if="${!comment.like}"
+                            <img th:src="@{/images/post/selectpost/like-btn-before-light.png}" th:if="${!comment.like}"
                                  th:attr="data-comment-no=${comment.commentNo}"
-                                 class="likeImg" onclick="toggleLike(this)">
+                                 class="likeImg" onclick="toggleLike(this)" id="likes">
                             <img th:src="@{/images/post/selectpost/like-btn-after.png}" th:if="${comment.like}"
                                  th:attr="data-comment-no=${comment.commentNo}"
                                  class="likeImg" onclick="toggleLike(this)">
@@ -296,7 +306,7 @@
 
 
                         <div th:if="${comment.userNo} != ${userNo}" id="report">
-                            <img th:src="@{/images/post/selectpost/reportbtn.png}" >
+                            <img th:src="@{/images/post/selectpost/reportbtn-light.png}" class="report">
                             <span>신고</span>
                         </div>
 
@@ -574,79 +584,72 @@
             });
     }
 </script>
-
-
-
-
-
-
-    <script>
-        function submitComment() {
+<script>
+    function submitComment() {
         const commentInput = document.getElementById("comment-input");
         const commentContent = commentInput.value.trim();
 
         if (!commentContent) {
-        alert("댓글 내용을 입력해주세요.");
-        return;
-    }
+            alert("댓글 내용을 입력해주세요.");
+            return;
+        }
 
         const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
 
         fetch(`/selectpost/${postNo}/comment`, {
-        method: "POST",
-        body: new URLSearchParams({
-        commentContent: commentContent,
+            method: "POST",
+            body: new URLSearchParams({
+                commentContent: commentContent,
 
-    })
-    })
-        .then(response => response.json())
-        .then(data => {
-        if (data.success) {
-        if (Array.isArray(data.comments)) {
-        addCommentToDOM(data.comments,data.userProfileImage);  // 댓글 목록을 DOM에 추가
-    } else {
-        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
-    }
-        commentInput.value = "";
-    } else {
-        alert(data.error || "댓글 작성에 실패했습니다.");
-    }
-    })
-        .catch(error => console.error("Error:", error));
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (Array.isArray(data.comments)) {
+                        addCommentToDOM(data.comments,data.userProfileImage);  // 댓글 목록을 DOM에 추가
+                    } else {
+                        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+                    }
+                    commentInput.value = "";
+                } else {
+                    alert(data.error || "댓글 작성에 실패했습니다.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
     }
 
-        function deleteComment(commentNo) {
+    function deleteComment(commentNo) {
         const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
         if (confirm("댓글을 삭제하시겠습니까?")) {
-        fetch(`/selectpost/${postNo}/comment/${commentNo}/delete`, {
-        method: "DELETE"
-    })
-        .then(response => {
-        if (!response.ok) {
-        throw new Error("네트워크 응답이 실패했습니다.");
+            fetch(`/selectpost/${postNo}/comment/${commentNo}/delete`, {
+                method: "DELETE"
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("네트워크 응답이 실패했습니다.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        if (Array.isArray(data.comments)) {
+                            addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
+                        } else {
+                            console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+                        }
+                        adjustFooterPosition();
+                    } else {
+                        alert(data.error || "댓글 삭제에 실패했습니다.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
     }
-        return response.json();
-    })
-        .then(data => {
-        if (data.success) {
-        if (Array.isArray(data.comments)) {
-        addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
-    } else {
-        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
-    }
-        // 댓글 삭제 후 푸터 위치를 재조정
-        adjustFooterPosition();
-    } else {
-        alert(data.error || "댓글 삭제에 실패했습니다.");
-    }
-    })
-        .catch(error => console.error("Error:", error));
-    }
-    }
-        // 댓글 수정 함수
-        function editComment(commentNo) {
+    // 댓글 수정 함수
+    function editComment(commentNo) {
         // 수정할 댓글의 내용을 가져옴
         const commentDiv = document.querySelector(`.comment [data-comment-no="${commentNo}"]`).closest('.comment');
 
@@ -661,68 +664,66 @@
         const newContent = prompt("댓글을 수정하세요:", currentContent);
 
         if (newContent && newContent !== currentContent) {
-        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
+            const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
-        // 서버에 수정된 댓글 전송
-        fetch(`/selectpost/${postNo}/comment/${commentNo}/edit`, {
-        method: "PUT",
-        body: new URLSearchParams({
-        commentContent: newContent,
-    })
-    })
-        .then(response => response.json())
-        .then(data => {
-        if (data.success) {
-        if (Array.isArray(data.comments)) {
-        addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
-    } else {
-        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+            // 서버에 수정된 댓글 전송
+            fetch(`/selectpost/${postNo}/comment/${commentNo}/edit`, {
+                method: "PUT",
+                body: new URLSearchParams({
+                    commentContent: newContent,
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (Array.isArray(data.comments)) {
+                            addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
+                        } else {
+                            console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+                        }
+                    } else {
+                        alert(data.error || "댓글 수정에 실패했습니다.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
     }
-    } else {
-        alert(data.error || "댓글 수정에 실패했습니다.");
-    }
-    })
-        .catch(error => console.error("Error:", error));
-    }
-    }
-        // 이벤트 위임을 통해 삭제 버튼의 클릭 이벤트 처리
-        document.getElementById("comments-list").addEventListener("click", function (event) {
+    // 이벤트 위임을 통해 삭제 버튼의 클릭 이벤트 처리
+    document.getElementById("comments-list").addEventListener("click", function (event) {
         if (event.target.classList.contains("delete-comment-btn")) {
-        const commentNo = event.target.getAttribute("data-comment-no");
-        deleteComment(commentNo);
-    } else if (event.target.classList.contains("edit-comment-btn")) {
-        const commentNo = event.target.getAttribute("data-comment-no");
-        editComment(commentNo);
-    }
+            const commentNo = event.target.getAttribute("data-comment-no");
+            deleteComment(commentNo);
+        } else if (event.target.classList.contains("edit-comment-btn")) {
+            const commentNo = event.target.getAttribute("data-comment-no");
+            editComment(commentNo);
+        }
     });
-
-        function adjustFooterPosition() {
+    function adjustFooterPosition() {
         const commentsList = document.getElementById('comments-list'); // 댓글 리스트
         const footer = document.querySelector('footer .footer');       // 푸터
 
         // DOM 변경 이후 위치를 재계산하기 위해 약간의 지연을 추가
         setTimeout(() => {
-        if (commentsList.style.display === "none") {
-        // 댓글 목록이 숨겨져 있을 때: 푸터를 댓글 보기 버튼 바로 아래로 위치
-        const showMoreButton = document.querySelector(".show-more-comments");
-        const showMoreButtonBottom = showMoreButton.getBoundingClientRect().top + window.scrollY;
-        footer.style.position = 'absolute';
-        footer.style.top = `${showMoreButtonBottom + showMoreButton.offsetHeight + 600}px`; // 버튼 하단에 20px 간격
-    } else {
-        // 댓글 목록이 표시 중일 때: 댓글 하단에 푸터 위치
-        const commentsListBottom = commentsList.getBoundingClientRect().top + window.scrollY;
-        const footerTop = commentsListBottom + commentsList.scrollHeight + 20; // 댓글 목록 하단에서 20px 여백 추가
-        footer.style.position = 'absolute';
-        footer.style.top = `${footerTop}px`;
+            if (commentsList.style.display === "none") {
+                // 댓글 목록이 숨겨져 있을 때: 푸터를 댓글 보기 버튼 바로 아래로 위치
+                const showMoreButton = document.querySelector(".show-more-comments");
+                const showMoreButtonBottom = showMoreButton.getBoundingClientRect().top + window.scrollY;
+                footer.style.position = 'absolute';
+                footer.style.top = `${showMoreButtonBottom + showMoreButton.offsetHeight + 600}px`; // 버튼 하단에 20px 간격
+            } else {
+                // 댓글 목록이 표시 중일 때: 댓글 하단에 푸터 위치
+                const commentsListBottom = commentsList.getBoundingClientRect().top + window.scrollY;
+                const footerTop = commentsListBottom + commentsList.scrollHeight + 20; // 댓글 목록 하단에서 20px 여백 추가
+                footer.style.position = 'absolute';
+                footer.style.top = `${footerTop}px`;
+            }
+        }, 100); // 약간의 지연을 두어 DOM 업데이트 반영
     }
-    }, 100); // 약간의 지연을 두어 DOM 업데이트 반영
-    }
 
 
-
-
-        // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
-        function loadComments() {
+    // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
+    // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
+    function loadComments() {
         const commentsList = document.getElementById("comments-list");
         const showMoreButton = document.querySelector(".show-more-comments span");
 
@@ -730,36 +731,36 @@
         const commentDivs = commentsList.querySelectorAll(".comment");
 
         if (commentDivs.length === 0) {
-        alert("댓글이 없습니다.");
-        showMoreButton.style.pointerEvents = "none"; // 클릭 비활성화
-        showMoreButton.style.color = "gray"; // 비활성화된 버튼 색상 변경
-        return;
-    }
+            alert("댓글이 없습니다.");
+            showMoreButton.style.pointerEvents = "none"; // 클릭 비활성화
+            showMoreButton.style.color = "gray"; // 비활성화된 버튼 색상 변경
+            return;
+        }
 
         // 댓글 목록이 보이지 않으면 댓글을 로드하고, 보이면 숨깁니다.
         if (commentsList.style.display === "none") {
-        commentsList.style.display = "block";  // 댓글 목록을 보이게 함
-        showMoreButton.textContent = "댓글 숨기기";  // 버튼 텍스트 변경
+            commentsList.style.display = "block";  // 댓글 목록을 보이게 함
+            showMoreButton.textContent = "댓글 숨기기";  // 버튼 텍스트 변경
 
-        // 댓글들을 순차적으로 처리
-        const commentDivs = commentsList.querySelectorAll(".comment");
-        commentDivs.forEach((commentDiv, index) => {
-        // 댓글의 위치를 조정
-        commentDiv.style.position = "relative";
-        commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격을 150px로 설정
+            // 댓글들을 순차적으로 처리
+            const commentDivs = commentsList.querySelectorAll(".comment");
+            commentDivs.forEach((commentDiv, index) => {
+                // 댓글의 위치를 조정
+                commentDiv.style.position = "relative";
+                commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격을 150px로 설정
 
-    });
+            });
 
-        // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
-        showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
-        showMoreButton.style.color = ""; // 기본 색상 복구
+            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+            showMoreButton.style.color = ""; // 기본 색상 복구
 
-    } else {
-        commentsList.style.display = "none";  // 댓글 목록을 숨김
-        showMoreButton.textContent = "댓글 보기";  // 버튼 텍스트 변경
+        } else {
+            commentsList.style.display = "none";  // 댓글 목록을 숨김
+            showMoreButton.textContent = "댓글 보기";  // 버튼 텍스트 변경
 
 
-    }
+        }
 
         adjustFooterPosition();
 
@@ -767,176 +768,96 @@
 
     }
 
+    // userNo를 JavaScript 변수에 할당
+    const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+    console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
+    // addCommentToDOM을 외부로 이동
 
 
-        // userNo를 JavaScript 변수에 할당
-        const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
-        console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
-        // addCommentToDOM을 외부로 이동
-
-
-        function addCommentToDOM(comments, userProfileImage) {
+    function addCommentToDOM(comments, userProfileImage) {
         const commentsList = document.getElementById("comments-list");
         commentsList.innerHTML = ""; // 기존 댓글 목록을 제거하고 새로운 목록을 추가
 
         if (Array.isArray(comments)) {
-        comments.forEach((commentWithProfile, index) => {
-        const comment = commentWithProfile.comment;
-        const profileImage = commentWithProfile.profileImage || '/images/mypageimages/profile.png';
+            comments.forEach((commentWithProfile, index) => {
+                const comment = commentWithProfile.comment;
+                const profileImage = commentWithProfile.profileImage || '/images/mypageimages/profile.png';
 
-        const commentDiv = document.createElement("div");
-        commentDiv.classList.add("comment");
-        commentDiv.style.position = "relative";
-        commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
+                commentDiv.style.position = "relative";
+                commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
 
-        // 댓글 간 간격 조절
-        // 댓글 내용 추가
-
-        commentDiv.innerHTML = `
+                commentDiv.innerHTML = `
                 <img src="${profileImage}" alt="Profile Image" class="profile-photo2">
                 <span>${comment.username}</span>
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
                 <span>${comment.commentDate}</span>
-
                 <div id="like">
-        <img src="/images/post/selectpost/like-btn-before.png"
-             data-comment-no="${comment.commentNo}"
-             class="likeImg"
-             style="display: ${!comment.like ? 'inline' : 'none'};"
-             onclick="toggleLike(this)">
-        <img src="/images/post/selectpost/like-btn-after.png"
-             data-comment-no="${comment.commentNo}"
-             class="likeImg"
-             style="display: ${comment.like ? 'inline' : 'none'};"
-             onclick="toggleLike(this)">
-        <div class="like-count" style="display: ${comment.likeNumber > 0 ? 'block' : 'none'};">
-            <span>${comment.likeNumber}</span>
-        </div>
-        <div class="like-text" style="display: ${comment.likeNumber === 0 ? 'block' : 'none'};">
-            <span>좋아요</span>
-        </div>
-    </div>
+                    <img src="/images/post/selectpost/like-btn-before-light.png"
+                         data-comment-no="${comment.commentNo}"
+                         class="likeImg"
+                         style="display: ${!comment.like ? 'inline' : 'none'};"
+                         onclick="toggleLike(this)">
+                    <img src="/images/post/selectpost/like-btn-after.png"
+                         data-comment-no="${comment.commentNo}"
+                         class="likeImg"
+                         style="display: ${comment.like ? 'inline' : 'none'};"
+                         onclick="toggleLike(this)">
+                    <div class="like-count" style="display: ${comment.likeNumber > 0 ? 'block' : 'none'};">
+                        <span>${comment.likeNumber}</span>
+                    </div>
+                    <div class="like-text" style="display: ${comment.likeNumber === 0 ? 'block' : 'none'};">
+                        <span>좋아요</span>
+                    </div>
+                </div>
             `;
 
-        // 콘솔에 userNo와 비교 결과 출력
-        console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
-        console.log("loggedInUserNo:", loggedInUserNo);  // 로그인 사용자 userNo 확인
-        console.log("Comparison result:", Number(comment.userNo) === Number(loggedInUserNo));  // 비교 결과 확인
+                console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
+                console.log("loggedInUserNo:", loggedInUserNo);  // 로그인 사용자 userNo 확인
+                console.log("Comparison result:", Number(comment.userNo) === Number(loggedInUserNo));  // 비교 결과 확인
 
 
-        // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제 버튼을 보이게 함
 
-        if (Number(comment.userNo) === Number(loggedInUserNo)) {
-        const deleteButton = document.createElement("button");
-        deleteButton.classList.add("delete-comment-btn");
-        deleteButton.textContent = "삭제";
-        deleteButton.setAttribute("data-comment-no", comment.commentNo);
-        commentDiv.appendChild(deleteButton);
+                if (Number(comment.userNo) === Number(loggedInUserNo)) {
+                    const deleteButton = document.createElement("button");
+                    deleteButton.classList.add("delete-comment-btn");
+                    deleteButton.textContent = "삭제";
+                    deleteButton.setAttribute("data-comment-no", comment.commentNo);
+                    commentDiv.appendChild(deleteButton);
 
-        const editButton = document.createElement("button");
-        editButton.classList.add("edit-comment-btn");
-        editButton.textContent = "수정";
-        editButton.setAttribute("data-comment-no", comment.commentNo);
-        commentDiv.appendChild(editButton);
-    } else {
-        const reportDiv = document.createElement("div");
-        reportDiv.innerHTML = `
+                    const editButton = document.createElement("button");
+                    editButton.classList.add("edit-comment-btn");
+                    editButton.textContent = "수정";
+                    editButton.setAttribute("data-comment-no", comment.commentNo);
+                    commentDiv.appendChild(editButton);
+                } else {
+                    const reportDiv = document.createElement("div");
+                    reportDiv.innerHTML = `
 <div id="report">
-                    <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
+                    <img src="/images/post/selectpost/reportbtn-light.png" alt="Report Button">
                     <span>신고</span>
                     </div>
                 `;
-        commentDiv.appendChild(reportDiv);
-    }
-
-        commentsList.appendChild(commentDiv);
-    });
-
-        // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
-        const showMoreButton = document.querySelector(".show-more-comments span");
-        showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
-        showMoreButton.style.color = ""; // 기본 색상 복구
-
-        // 댓글 추가 후 푸터 위치 조정
-        adjustFooterPosition();
-
-    } else {
-        console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
-    }
-    }
-
-
-</script>
-
-
-<script>
-    function toggleFavorite(element) {
-        const postNo = element.getAttribute('data-postNo');
-        const isFavorite = element.getAttribute('src').includes('best-dark.png');
-        fetch(`/toggleFavorite`, {
-            method: 'POST', headers: {
-                'Content-Type': 'application/json'
-            }, body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite }) })
-            .then(response => response.json()) .then(data => { if (data.success) {
-            element.src = isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png';
-        } }) .catch(error => console.error('Error:', error)); }
-</script>
-
-<script>
-    function toggleLike(element) {
-        const commentNo = element.getAttribute('data-comment-no');
-        if (!commentNo) {
-            console.error('commentNo is null or undefined');
-            return;
-        }
-
-        const isLike = element.getAttribute('src').includes('like-btn-after.png');
-
-        fetch(`/toggleLike`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-                    const likeCountContainer = element.closest('#like').querySelector('div');
-                    if (data.likeNumber > 0) {
-                        likeCountContainer.textContent = data.likeNumber;
-                        likeCountContainer.style.left="1577px"
-                    } else {
-                        likeCountContainer.textContent = '좋아요';
-                        likeCountContainer.style.left="1560px"
-                    }
+                    commentDiv.appendChild(reportDiv);
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
 
-    // function toggleLike(element) {
-    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
-    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
-    //
-    //     fetch(`/toggleLike`, {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //         });
-    // }
+                commentsList.appendChild(commentDiv);
+            });
+
+            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+            const showMoreButton = document.querySelector(".show-more-comments span");
+            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+            showMoreButton.style.color = ""; // 기본 색상 복구
+
+            // 댓글 추가 후 푸터 위치 조정
+            adjustFooterPosition();
+
+        } else {
+            console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
+        }
+    }
 
 
 </script>
@@ -944,7 +865,7 @@
 <script>
     function toggleScary(element) {
         const postNo = element.getAttribute('data-postNo');
-        const isScary = element.getAttribute('src').includes('scary-btn-after.png');
+        const isScary = element.getAttribute('src').includes('scary-btn-after-light.png');
 
         fetch(`/toggleScary`, {
             method: 'POST',
@@ -954,7 +875,251 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    element.src = isScary ? '/images/post/selectpost/scary-btn-before.png' : '/images/post/selectpost/scary-btn-after.png';
+                    // 테마에 맞는 이미지로 변경
+                    updateScary(element, isScary);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function updateScary(element, isScary) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+        // 테마에 맞는 이미지 경로를 설정
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        if (mode === 'dark') {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/scary-btn-before-dark.png' : '/images/post/selectpost/scary-btn-after-dark.png');
+        } else {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/scary-btn-before-light.png' : '/images/post/selectpost/scary-btn-after-light.png');
+        }
+    }
+
+
+    function toggleNotScary(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isScary = element.getAttribute('src').includes('not-scary-btn-after-light.png');
+
+        fetch(`/toggleNotScary`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postNo: postNo, isScary: !isScary })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 테마에 맞는 이미지로 변경
+                    updateNotScary(element, isScary);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function updateNotScary(element, isScary) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+        // 테마에 맞는 이미지 경로를 설정
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        if (mode === 'dark') {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/not-scary-btn-before-dark.png' : '/images/post/selectpost/not-scary-btn-after-dark.png');
+        } else {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/not-scary-btn-before-light.png' : '/images/post/selectpost/not-scary-btn-after-light.png');
+        }
+    }
+
+
+
+    function toggleLike(element) {
+        const commentNo = element.getAttribute('data-comment-no');
+        const isLike = element.getAttribute('src').includes('like-btn-after.png');
+
+        fetch('/toggleLike', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 테마에 맞는 이미지로 변경
+                    updateLikeImage(element, isLike);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 테마 변경 시 좋아요 이미지 업데이트
+    function updateLikeImage(element, isLike) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+
+        if (mode === 'dark') {
+            element.setAttribute('src', isLike ? '/images/post/selectpost/like-btn-before-dark.png' : '/images/post/selectpost/like-btn-after.png');
+        } else {
+            element.setAttribute('src', isLike ? '/images/post/selectpost/like-btn-before-light.png' : '/images/post/selectpost/like-btn-after.png');
+        }
+
+        const likeCountContainer = element.closest('#like').querySelector('.like-count');
+        const likeTextContainer = element.closest('#like').querySelector('.like-text');
+        if (isLike) {
+            likeTextContainer.style.display = 'inline';
+            likeCountContainer.style.display = 'none';
+        } else {
+            likeCountContainer.style.display = 'inline';
+            likeTextContainer.style.display = 'none';
+        }
+    }
+
+
+    function toggleFavorite(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isFavorite = element.getAttribute('src').includes('best-light.png');
+
+        fetch('/toggleFavorite', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ postNo: postNo, isFavorite: !isFavorite })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 테마에 맞는 이미지로 변경
+                    updateFavoriteImage(element, isFavorite);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // 테마 변경 시 즐겨찾기 이미지 업데이트
+    function updateFavoriteImage(element, isFavorite) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+        // 테마에 맞는 이미지 경로를 설정
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        if (mode === 'dark') {
+            element.setAttribute('src', isFavorite ? '/images/post/best-none-dark.png' : '/images/post/best-dark.png');
+        } else {
+            element.setAttribute('src', isFavorite ? '/images/post/best-none-light.png' : '/images/post/best-light.png');
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMode = localStorage.getItem('theme-mode') || 'light';
+        const themeStylesheet = savedMode === 'dark' ? '/css/post/selectpost-dark.css' : '/css/post/selectpost-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        updateImages(savedMode);
+    });
+    function updateImages(mode) {
+        const cacheBuster = `?v=${new Date().getTime()}`;
+
+        const navLogo = document.getElementById('nav-logo');
+        if (navLogo) {
+            navLogo.setAttribute('src', mode === 'dark' ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
+        }
+
+        const light = document.getElementById('light');
+        if (light) {
+            light.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
+        }
+
+        const dark = document.getElementById('dark');
+        if (dark) {
+            dark.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+        }
+
+        const top = document.getElementById('top');
+        if (top) {
+            top.setAttribute('src', mode === 'dark' ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+        }
+
+        const modeImg = document.getElementById('mode');
+        if (modeImg) {
+            modeImg.setAttribute('src', mode === 'dark' ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+        }
+
+        const test = document.getElementById('test');
+        if (test) {
+            test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+        }
+
+        const scb = document.getElementById('sc-b');
+        if (scb) {
+            scb.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/scary-btn-before-dark.png${cacheBuster}` : `/images/post/selectpost/scary-btn-before-light.png${cacheBuster}`);
+        }
+
+        const sca = document.getElementById('sc-a');
+        if (sca) {
+            sca.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/scary-btn-after-dark.png${cacheBuster}` : `/images/post/selectpost/scary-btn-after-light.png${cacheBuster}`);
+        }
+
+        const nscb = document.getElementById('nsc-b');
+        if (nscb) {
+            nscb.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/not-scary-btn-before-dark.png${cacheBuster}` : `/images/post/selectpost/not-scary-btn-before-light.png${cacheBuster}`);
+        }
+
+        const nsca = document.getElementById('nsc-a');
+        if (nsca) {
+            nsca.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/not-scary-btn-after-dark.png${cacheBuster}` : `/images/post/selectpost/not-scary-btn-after-light.png${cacheBuster}`);
+        }
+
+        const fav = document.getElementById('fav');
+        if (fav) {
+            fav.setAttribute('src', mode === 'dark' ? `/images/post/best-dark.png${cacheBuster}` : `/images/post/best-light.png${cacheBuster}`);
+        }
+
+        const nofav = document.getElementById('nofav');
+        if (nofav) {
+            nofav.setAttribute('src', mode === 'dark' ? `/images/post/best-none-dark.png${cacheBuster}` : `/images/post/best-none-light.png${cacheBuster}`);
+        }
+
+        const likes = document.getElementById('likes');
+        if (likes) {
+            likes.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/like-btn-before-dark.png${cacheBuster}` : `/images/post/selectpost/like-btn-before-light.png${cacheBuster}`);
+        }
+
+        const report = document.querySelectorAll('.report');
+        if (report) {
+            report.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/reportbtn-dark.png${cacheBuster}` : `/images/post/selectpost/reportbtn-light.png${cacheBuster}`);
+        }
+
+
+    }
+
+    function toggleMode() {
+        const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        let newMode = '';
+        if (currentTheme.includes('selectpost-light.css')) {
+            newMode = 'dark';
+        } else {
+            newMode = 'light';
+        }
+        localStorage.setItem('theme-mode', newMode);
+        const newTheme = newMode === 'dark' ? '/css/post/selectpost-dark.css' : '/css/post/selectpost-light.css';
+        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        updateImages(newMode);
+    }
+</script>
+
+<script>
+    function toggleScary(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isScary = element.getAttribute('src').includes('scary-btn-after-light.png');
+
+        fetch(`/toggleScary`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postNo: postNo, isScary: !isScary })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    element.src = isScary ? '/images/post/selectpost/scary-btn-before-light.png' : '/images/post/selectpost/scary-btn-after-light.png';
                     document.querySelector('#scary>span').textContent = data.scaryNumber;
                 }
             })
@@ -962,7 +1127,7 @@
 
     function toggleNotScary(element) {
         const postNo = element.getAttribute('data-postNo');
-        const isNotScary = element.getAttribute('src').includes('not-scary-btn-after.png');
+        const isNotScary = element.getAttribute('src').includes('not-scary-btn-after-light.png');
 
         fetch(`/toggleNotScary`, {
             method: 'POST',
@@ -972,12 +1137,13 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    element.src = isNotScary ? '/images/post/selectpost/not-scary-btn-before.png' : '/images/post/selectpost/not-scary-btn-after.png';
+                    element.src = isNotScary ? '/images/post/selectpost/not-scary-btn-before-light.png' : '/images/post/selectpost/not-scary-btn-after-light.png';
                     document.querySelector('#notscary>span').textContent = data.notScaryNumber;
                 }
             })
     }
 </script>
+
 <script>
     window.addEventListener('load', () => {
         const box = document.getElementById('box');
@@ -1017,8 +1183,55 @@
         adjustFooterPosition();
 
     });
+</script>
+<script>
+    const floatBtn1 = document.getElementById("light");
+    const floatBtn2 = document.getElementById("dark");
+    const qickMenu1 =document.getElementById("top");
+    const qickMenu2 =document.getElementById("mode");
+    const qickMenu3 =document.getElementById("test");
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
+    floatBtn1.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+    });
 
 
+    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
+    floatBtn2.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+
+    });
+
+    <!--top 버튼 클릭시 화면 상단이동-->
+    setTimeout(function() {
+        qickMenu1.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }, 3000);
+
+</script>
+<script>
+    function update(e){
+        var x = e.clientX || e.touches[0].clientX
+        var y = e.clientY || e.touches[0].clientY
+
+        document.documentElement.style.setProperty('--cursorX', x + 'px')
+        document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+    document.addEventListener('mousemove',update)
+    document.addEventListener('touchmove',update)
 </script>
 </body>
 </html>
