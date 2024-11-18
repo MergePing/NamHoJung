@@ -327,7 +327,7 @@ nav span:nth-child(2) {
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #A3DA87;
+    color: #C9E6CA;
     transition: all 1s;
     cursor:pointer;
 }
@@ -415,7 +415,7 @@ nav span:nth-child(7){
     font-weight: 400;
     font-size: 20px;
     line-height: 21px;
-    color: #C9E6CA;
+    color: #A3DA87;
     transition: all 1s;
     cursor:pointer;
 }

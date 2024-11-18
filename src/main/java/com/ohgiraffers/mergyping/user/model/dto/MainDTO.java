@@ -3,14 +3,24 @@ package com.ohgiraffers.mergyping.user.model.dto;
 import java.util.Date;
 
 public class MainDTO {
+    private int postNumber;
     private String postTitle;
     private String postContent;
 
     public MainDTO() {}
 
-    public MainDTO(String postTitle, String postContent) {
+    public MainDTO(int postNumber, String postTitle, String postContent) {
+        this.postNumber = postNumber;
         this.postTitle = postTitle;
         this.postContent = postContent;
+    }
+
+    public int getPostNumber() {
+        return postNumber;
+    }
+
+    public void setPostNumber(int postNumber) {
+        this.postNumber = postNumber;
     }
 
     public String getPostTitle() {
@@ -32,7 +42,8 @@ public class MainDTO {
     @Override
     public String toString() {
         return "MainDTO{" +
-                "postTitle='" + postTitle + '\'' +
+                "postNumber=" + postNumber +
+                ", postTitle='" + postTitle + '\'' +
                 ", postContent='" + postContent + '\'' +
                 '}';
     }
