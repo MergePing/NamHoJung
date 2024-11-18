@@ -819,7 +819,7 @@ main input{
     line-height: 30px;
     letter-spacing: 0.05em;
     color: #FFFFFF;
-    top: 225px;
+    top: 150px;
     border: none;
     left: 450px;
 }
@@ -830,7 +830,8 @@ main label img{
     width: 39px;
     height: 39px;
     left: 1599px;
-    top: 230px;
+    top: 150px;
+    cursor: pointer;
 }
 
 
