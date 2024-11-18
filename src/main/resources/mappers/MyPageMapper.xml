@@ -53,6 +53,7 @@
 
     <select id="findWrittenComment" resultMap="mypageCommentResultMap">
         SELECT
+        POST_NO,
         COMMENT_NO,
         COMMENT_CONTENT,
         COMMENT_DATE,
