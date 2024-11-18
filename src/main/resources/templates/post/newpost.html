@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>게시글 작성</title>
   <link rel="stylesheet" th:href="@{/css/reset.css}">
-  <link rel="stylesheet" th:href="@{/css/post/newpost.css}">
+  <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/post/newpost-light.css}">
   <style>
     /*손전등*/
     /*:root {*/
@@ -45,7 +45,7 @@
 <header>
   <nav>
     <!--네비바-->
-    <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+    <img th:src="@{/images/main/nav-logo-light.png}" alt="상단 로고" onclick="location.href='/'" id="nav-logo">
     <span onclick="location.href='/intro'">소개</span>
     <span onclick="location.href='/notice'">공지사항</span>
     <span onclick="location.href='/post'">게시판</span>
@@ -60,12 +60,12 @@
 <main>
   <div class="qickBtn">
     <!--플로팅 버튼-->
-    <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
-    <img th:src="@{/images/notice/folating-btn-click-dark.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+    <img th:src="@{/images/main/folating-btn-light.png}" id="light" class="tr" alt="플로팅 버튼">
+    <img th:src="@{/images/main/folating-btn-click-light.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
     <div class="clikbtn tr">
-      <img th:src="@{/images/notice/top-btn-dark.png}" class="dn" id="top" alt="탑버튼">
-      <img th:src="@{/images/notice/light-btn-dark.png}" class="dn" id="mode" alt="테마 변경">
-      <img th:src="@{/images/notice/test-btn-dark.png}" class="dn" id="test" alt="MBTI 테스트">
+      <img th:src="@{/images/main/top-btn-light.png}" class="dn" id="top" alt="탑버튼">
+      <img th:src="@{/images/main/light-btn-light.png}" class="dn" id="mode"  onclick="toggleMode()" alt="테마 변경">
+      <img th:src="@{/images/main/test-btn-light.png}" class="dn" id="test" alt="MBTI 테스트">
     </div>
 
   </div>
@@ -113,8 +113,8 @@
 
         <input type="file" id="fileInput1" accept="image/*" name="fileFirst" style="display: none;" onchange="uploadFile(1)" alt="hhh"/>
         <input type="file" id="fileInput2" accept="image/*" name="fileSecond" style="display: none;" onchange="uploadFile(2)" alt="jjjj"/>
-        <img id="img1" th:src="@{${post.postImageFirst != null ? post.postImageFirst : '/images/post/newpost/img-insert.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
-        <img id="img2" th:src="@{${post.postImageSecond != null ? post.postImageSecond : '/images/post/newpost/img-insert.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" />
+        <img id="img1" th:src="@{${post.postImageFirst != null ? post.postImageFirst : '/images/post/newpost/img-insert-light.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
+        <img id="img2" th:src="@{${post.postImageSecond != null ? post.postImageSecond : '/images/post/newpost/img-insert-light.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" />
 
 
       </div>
@@ -123,7 +123,7 @@
 
       <div id="box">
         <div id="Writer">
-          <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+          <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/post/selectpost/profile-light.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
 
           <span id="level" th:text="${userInfo.level}"></span>
           <div class="wrapper">
@@ -154,6 +154,67 @@
     <p>ⓒ 2024 MergePing. All right reserved. </p>
   </div>
 </footer>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedMode = localStorage.getItem('theme-mode') || 'light';
+    const themeStylesheet = savedMode === 'dark' ? '/css/post/newpost-dark.css' : '/css/post/newpost-light.css';
+    document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+    document.getElementById('theme-stylesheet').addEventListener('load', () => {
+      updateImages(savedMode);
+    });
+    updateImages(savedMode);
+  });
+  function updateImages(mode) {
+    const cacheBuster = `?v=${new Date().getTime()}`;
+
+    const navLogo = document.getElementById('nav-logo');
+    if (navLogo) {
+      navLogo.setAttribute('src', mode === 'dark' ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
+    }
+
+    const light = document.getElementById('light');
+    if (light) {
+      light.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
+    }
+
+    const dark = document.getElementById('dark');
+    if (dark) {
+      dark.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+    }
+
+    const top = document.getElementById('top');
+    if (top) {
+      top.setAttribute('src', mode === 'dark' ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+    }
+
+    const modeImg = document.getElementById('mode');
+    if (modeImg) {
+      modeImg.setAttribute('src', mode === 'dark' ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+    }
+
+    const test = document.getElementById('test');
+    if (test) {
+      test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+    }
+
+
+  }
+
+  function toggleMode() {
+    const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+    let newMode = '';
+    if (currentTheme.includes('newpost-light.css')) {
+      newMode = 'dark';
+    } else {
+      newMode = 'light';
+    }
+    localStorage.setItem('theme-mode', newMode);
+    const newTheme = newMode === 'dark' ? '/css/post/newpost-dark.css' : '/css/post/newpost-light.css';
+    document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+    updateImages(newMode);
+  }
+</script>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {

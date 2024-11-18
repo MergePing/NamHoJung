@@ -35,7 +35,7 @@ button {
     height: 100%;
     position: fixed;
     pointer-events: none;
-    z-index: 999999;
+    z-index: 999999999999999999999999999999;
     background: radial-gradient(
             circle 20vmax at var(--cursorX) var(--cursorY),
             rgba(0,0,0,0) 0%,
@@ -952,7 +952,7 @@ div #editBtn{
     border: none;
     outline: none;
     background: #C8F2B3;
-    z-index: 9999999999999;
+    z-index: 99999999;
 
 }
 
@@ -975,7 +975,7 @@ div #deleteBtn{
     border-radius: 50px;
     border: none;
     outline: none;
-    z-index: 66666666666666;
+    z-index: 66666666;
 
 
 }
