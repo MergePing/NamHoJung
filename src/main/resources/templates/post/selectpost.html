@@ -904,43 +904,43 @@
 
 </script>
 
-<script>
-    function toggleScary(element) {
-        const postNo = element.getAttribute('data-postNo');
-        const isScary = element.getAttribute('src').includes('scary-btn-after.png');
+<!--<script>-->
+<!--    function toggleScary(element) {-->
+<!--        const postNo = element.getAttribute('data-postNo');-->
+<!--        const isScary = element.getAttribute('src').includes('scary-btn-after.png');-->
 
-        fetch(`/toggleScary`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postNo: postNo, isScary: !isScary })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    element.src = isScary ? '/images/post/selectpost/scary-btn-before.png' : '/images/post/selectpost/scary-btn-after.png';
-                    document.querySelector('#scary>span').textContent = data.scaryNumber;
-                }
-            })
-    }
+<!--        fetch(`/toggleScary`, {-->
+<!--            method: 'POST',-->
+<!--            headers: { 'Content-Type': 'application/json' },-->
+<!--            body: JSON.stringify({ postNo: postNo, isScary: !isScary })-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                if (data.success) {-->
+<!--                    element.src = isScary ? '/images/post/selectpost/scary-btn-before.png' : '/images/post/selectpost/scary-btn-after.png';-->
+<!--                    document.querySelector('#scary>span').textContent = data.scaryNumber;-->
+<!--                }-->
+<!--            })-->
+<!--    }-->
 
-    function toggleNotScary(element) {
-        const postNo = element.getAttribute('data-postNo');
-        const isNotScary = element.getAttribute('src').includes('not-scary-btn-after.png');
+<!--    function toggleNotScary(element) {-->
+<!--        const postNo = element.getAttribute('data-postNo');-->
+<!--        const isNotScary = element.getAttribute('src').includes('not-scary-btn-after.png');-->
 
-        fetch(`/toggleNotScary`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postNo: postNo, isNotScary: !isNotScary })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    element.src = isNotScary ? '/images/post/selectpost/not-scary-btn-before.png' : '/images/post/selectpost/not-scary-btn-after.png';
-                    document.querySelector('#notscary>span').textContent = data.notScaryNumber;
-                }
-            })
-    }
-</script>
+<!--        fetch(`/toggleNotScary`, {-->
+<!--            method: 'POST',-->
+<!--            headers: { 'Content-Type': 'application/json' },-->
+<!--            body: JSON.stringify({ postNo: postNo, isNotScary: !isNotScary })-->
+<!--        })-->
+<!--            .then(response => response.json())-->
+<!--            .then(data => {-->
+<!--                if (data.success) {-->
+<!--                    element.src = isNotScary ? '/images/post/selectpost/not-scary-btn-before.png' : '/images/post/selectpost/not-scary-btn-after.png';-->
+<!--                    document.querySelector('#notscary>span').textContent = data.notScaryNumber;-->
+<!--                }-->
+<!--            })-->
+<!--    }-->
+<!--</script>-->
 <script>
     window.addEventListener('load', () => {
         const box = document.getElementById('box');
