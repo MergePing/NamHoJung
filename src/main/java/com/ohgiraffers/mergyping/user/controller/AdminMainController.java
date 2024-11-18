@@ -1,5 +1,6 @@
 package com.ohgiraffers.mergyping.user.controller;
 
+import com.ohgiraffers.mergyping.user.model.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,37 +20,53 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+
 @Controller
 public class AdminMainController {
 
+    private final UserService userService; // final로 선언
+
+    // 생성자 주입
+    public AdminMainController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/admin")
     public String adminMainPage() {
-
         return "user/admin/admin";
     }
 
-
-
     @PostMapping("/admin/uploadProfile")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> uploadProfile(@RequestParam("profilePicture") MultipartFile file) {
+    public ResponseEntity<Map<String, Object>> uploadProfile(
+            @RequestParam("profilePicture") MultipartFile file,
+            @RequestParam("userId") String userId // 사용자 식별자
+    ) {
         Map<String, Object> response = new HashMap<>();
 
         try {
-            // resources/static/uploads/profile 경로 설정
-            String uploadDir = new File("src/main/resources/static/uploads/profile").getAbsolutePath();
+            // 저장 경로 설정
+            String uploadDir = "src/main/resources/static/uploads/profile/";
             File uploadDirFile = new File(uploadDir);
 
+            if (!uploadDirFile.exists()) {
+                uploadDirFile.mkdirs();
+            }
 
             // 파일 저장
             String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
             Path filePath = Paths.get(uploadDir, fileName);
             Files.write(filePath, file.getBytes());
 
-            // 반환할 URL 경로 (정적 리소스 핸들링)
+            // DB에 이미지 경로 저장
+            String dbPath = "/uploads/profile/" + fileName;
+            userService.updateUserImage(userId, dbPath); // UserService를 통해 업데이트
+
+            // 응답
             response.put("success", true);
-            response.put("filePath", "/uploads/profile/" + fileName);
+            response.put("filePath", dbPath);
             return ResponseEntity.ok(response);
+
         } catch (IOException e) {
             response.put("success", false);
             response.put("message", "파일 업로드 실패");
