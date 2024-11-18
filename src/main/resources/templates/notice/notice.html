@@ -122,8 +122,13 @@
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('theme-mode') || 'light';
         const themeStylesheet = savedMode === 'dark' ? '/css/notice/notice-dark.css' : '/css/notice/notice-light.css';
+        const themeStylesheetMypage = savedMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css'
         document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', themeStylesheetMypage);
         document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        document.getElementById('theme-stylesheet-mypage').addEventListener('load', () => {
             updateImages(savedMode);
         });
         updateImages(savedMode);
@@ -182,8 +187,9 @@
         }
         localStorage.setItem('theme-mode', newMode);
         const newTheme = newMode === 'dark' ? '/css/notice/notice-dark.css' : '/css/notice/notice-light.css';
-        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
         const newThemeM = newMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css';
+
+        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
         document.getElementById('theme-stylesheet-mypage').setAttribute('href', newThemeM);
 
         updateImages(newMode);

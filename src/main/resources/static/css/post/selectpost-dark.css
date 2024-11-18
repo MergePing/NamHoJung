@@ -19,7 +19,7 @@ body{
     pointer-events: none;
     z-index: 999999;
     background: radial-gradient(
-            circle 20vmax at var(--cursorX) var(--cursorY),
+            circle 30vmax at var(--cursorX) var(--cursorY),
             rgba(0,0,0,0) 0%,
             rgba(0,0,0,.5) 80%,
             rgba(0,0,0,.95) 100%)

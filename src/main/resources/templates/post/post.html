@@ -199,8 +199,13 @@
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('theme-mode') || 'light';
         const themeStylesheet = savedMode === 'dark' ? '/css/post/post-dark.css' : '/css/post/post-light.css';
+        const themeStylesheetMypage = savedMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css'
         document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', themeStylesheetMypage);
         document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        document.getElementById('theme-stylesheet-mypage').addEventListener('load', () => {
             updateImages(savedMode);
         });
         updateImages(savedMode);
@@ -271,9 +276,9 @@
         // selectpost와 mypage에 새로운 테마 파일을 적용
         const newTheme = newMode === 'dark' ? '/css/post/post-dark.css' : '/css/post/post-light.css';
         const newThemeM = newMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css';
-        document.getElementById('theme-stylesheet-mypage').setAttribute('href', newThemeM);
 
         document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', newThemeM);
 
         // 테마에 맞는 이미지들 업데이트
         updateImages(newMode);
