@@ -142,7 +142,7 @@
                          alt="프로필 사진" class="profile-photo" id="profilePhoto">
                 </div>
                 <div th:if="${userInfo.userName} != ${post.postWriterName}">
-                    <img th:src="@{${post.profileImage != null ? post.profileImage : '/images/post/selectpost/profile-light.png'}}"
+                    <img th:src="@{${post.profileImage != null ? post.profileImage : '/images/mypageimages/profile.png'}}"
                          alt="프로필 사진" class="profile-photo" id="profilePhoto1">
                 </div>
 
@@ -223,7 +223,7 @@
 
 
                         <div th:if="${comment.userNo} != ${userNo}" id="report">
-                            <img th:src="@{/images/post/selectpost/reportbtn-light.png}" >
+                            <img th:src="@{/images/post/selectpost/reportbtn-light.png}" class="report">
                             <span>신고</span>
                         </div>
 
@@ -586,7 +586,7 @@
                     const reportDiv = document.createElement("div");
                     reportDiv.innerHTML = `
 <div id="report">
-                    <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
+                    <img src="/images/post/selectpost/reportbtn-light.png" alt="Report Button">
                     <span>신고</span>
                     </div>
                 `;
@@ -758,6 +758,11 @@
         const likes = document.getElementById('likes');
         if (likes) {
             likes.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/like-btn-before-dark.png${cacheBuster}` : `/images/post/selectpost/like-btn-before-light.png${cacheBuster}`);
+        }
+
+        const report = document.querySelectorAll('.report');
+        if (report) {
+            report.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/reportbtn-dark.png${cacheBuster}` : `/images/post/selectpost/reportbtn-light.png${cacheBuster}`);
         }
 
 
