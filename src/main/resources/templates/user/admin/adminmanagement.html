@@ -8,10 +8,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <div class="background">
-        <img class="img" th:src="@{/images/admin/background.png}" alt="배경 이미지">
-    </div>
+<main class="mainContent">
+
+        <img th:src="@{/images/post/post-bg-dark.png}" id="bg">
 
     <header>
         <nav>
@@ -27,27 +26,32 @@
     </header>
 
     <!--검색 창-->
-    <div class="search-container">
-        <input type="text" placeholder="닉네임을 입력해주세요" id="searchInput" class="search-box">
-        <button onclick="searchUsers()" class="search-button">검색</button>
+    <div class="select">
+        <p>분류</p>
     </div>
+    <input id="searchInput" type="search" placeholder="검색어를 입력하세요">
+    <label>
+        <img id="searchButton" th:src="@{/images/post/Search-dark.png}" alt="검색 버튼">
+    </label>
 
     <!-- 분류 창 -->
-    <main class="main">
+
         <div class="top-nav">
             <span>회원번호</span>
-            <span>아이디</span>
-            <span>등급</span>
             <span>닉네임</span>
+            <span>등급</span>
+            <span>이름</span>
             <span>신고횟수</span>
             <span>탈퇴여부</span>
         </div>
 
         <!-- 회원 리스트 -->
-        <div class="member-list" id="userList"></div>
+        <div id="userContainer" class="user-list"></div>
 
         <!-- 페이지네이션 -->
-        <div class="pagination" id="pagination-links"></div>
+    <div id="pagination" class="pagination">
+        <!-- 페이지 버튼이 JavaScript로 동적으로 생성 -->
+    </div>
     </main>
 
     <!-- 상세조회 모달 창 -->
@@ -93,7 +97,7 @@
                 method: "GET",
                 success: function(data) {
                     renderUserList(data.userList);
-                    renderPagination(data.currentPage, data.totalPages, data.startPage, data.endPage);
+                    renderPagination(data.currentPage, data.totalPages);
                 },
                 error: function(error) {
                     console.error('Error fetching user page:', error);
@@ -106,29 +110,36 @@
             users.forEach(user => {
                 userListHtml += `
             <div class="member-item" data-user-no="${user.userNo}" onclick="openModal(this)">
-                <span>${user.userNo}</span>
-                <span>${user.userId}</span>
-                <span>${user.level}</span>
-                <span>${user.userName}</span>
-                <span>${user.reportCount}</span>
-                <span>${user.deleted ? '탈퇴됨' : '활성'}</span>
+                <span class="user-no">${user.userNo}</span>
+                <span class="user-id">${user.userId}</span>
+                <span class="user-level">${user.level}</span>
+                <span class="user-name">${user.userName}</span>
+                <span class="user-report">${user.reportCount}</span>
+                <span class="user-status">${user.deleted ? '탈퇴됨' : '활성'}</span>
             </div>
         `;
             });
-            $('#userList').html(userListHtml);
+            $('#userContainer').html(userListHtml); // 수정된 컨테이너 이름 반영
         }
 
-        function renderPagination(currentPage, totalPages, startPage, endPage) {
+        function renderPagination(currentPage, totalPages) {
             let paginationHtml = '';
-            for (let i = startPage; i <= endPage; i++) {
-                paginationHtml += `<a href="javascript:void(0);" onclick="fetchUserPage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</a> `;
+
+            if (totalPages > 1) {
+                for (let i = 1; i <= totalPages; i++) {
+                    paginationHtml += `
+                <button
+                    class="pagination-btn ${i === currentPage ? 'active' : ''}"
+                    onclick="fetchUserPage(${i})">
+                    ${i}
+                </button>
+            `;
+                }
             }
-            $('#pagination-links').html(paginationHtml);
+
+            $('#pagination').html(paginationHtml); // 수정된 페이지네이션 ID 반영
         }
 
-        $(document).ready(function() {
-            fetchUserPage(1);
-        });
         function openModal(element) {
             currentUserNo = element.getAttribute("data-user-no");
 
@@ -141,6 +152,7 @@
                 })
                 .catch(error => console.error('Error fetching user details:', error));
         }
+
         function searchUsers() {
             const nickname = document.getElementById("searchInput").value.trim();
 
@@ -155,11 +167,10 @@
                 .then(response => response.json())
                 .then(data => {
                     renderUserList(data.userList);
-                    renderPagination(data.currentPage, data.totalPages, data.startPage, data.endPage);
+                    renderPagination(data.currentPage, data.totalPages);
                 })
                 .catch(error => console.error('Error searching users:', error));
         }
-
 
         function closeModal() {
             document.getElementById("userModal").style.display = 'none';
@@ -189,10 +200,10 @@
                         closeDeleteConfirmModal();
                         closeModal();
 
-                        // 바로 탈퇴 상태로 표시 업데이트
-                        document.querySelector(`.member-item[data-user-no="${currentUserNo}"] span:nth-child(6)`).textContent = '탈퇴됨';
+                        // 탈퇴 상태 업데이트
+                        document.querySelector(`.member-item[data-user-no="${currentUserNo}"] .user-status`).textContent = '탈퇴됨';
 
-                        // 리스트를 새로 고침하여 변경된 상태 표시
+                        // 리스트를 새로 고침
                         fetchUserPage(1);
                     } else {
                         alert("탈퇴 처리에 실패했습니다.");
@@ -200,6 +211,7 @@
                 })
                 .catch(error => console.error('Error processing user deletion:', error));
         }
+
         function updateNickname() {
             const newNickname = document.getElementById("nicknameInput").value;
             if (!newNickname) {
@@ -225,6 +237,11 @@
                 })
                 .catch(error => console.error('Error updating nickname:', error));
         }
+
+        // 초기 데이터 로드
+        $(document).ready(function() {
+            fetchUserPage(1);
+        });
     </script>
 </div>
 </body>

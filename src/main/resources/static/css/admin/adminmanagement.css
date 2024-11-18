@@ -154,18 +154,20 @@ nav span:nth-child(8){
     top: 231px;
 }
 
-main {
-    /* Rectangle 84 */
-
-    position: absolute;
-    width: 1493px;
-    height: 748px;
-    left: calc(50% - 1493px/2 + 0.5px);
-    top: calc(50% - 748px/2 + 56px);
-
-    background: #3B572D;
-
+main{
+    transition: all 1s;
 }
+
+
+
+
+main #bg{
+    position: absolute;
+    width: 1920px;
+    top: 39px;
+    z-index: -5;
+}
+
 
 .search-container {
     position: absolute;
@@ -201,66 +203,76 @@ main {
     font-weight: bold;
 }
 
-.top-nav {
-    /* Rectangle 85 */
 
-    position: relative;
-    width: 1493px;
-    height: 73px;
-    left: calc(50% - 1493px/2 + 0.5px);
 
-    background: #0E2913;
-    box-shadow: 0px 4px 19.1px rgba(0, 0, 0, 0.25);
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center; /* 세로 정렬 */
-    background-color: #0E2913; /* 배경 색상 */
-    color: #C9E6CA; /* 글자 색상 */
-    padding: 10px 0; /* 상하 여백 */
-    font-size: 30px;
-    font-family: "BMJUA";
-}
-
-/* 회원 목록 스타일 */
-.member-list {
-    width: 100%;
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 /* 헤더와 같은 스타일의 회원 항목 */
 .member-item {
     display: flex;
     justify-content: space-around;
     width: 90%;
-    padding: 10px 0;
     font-size: 20px;
     font-family: 'Cafe24Ssurroundair';
     color: #C9E6CA;
     position: relative;
+    margin-top: 80px;
+
+}
+
+.member-item span:nth-child(1){
+    position: absolute;
+    top: 250px;
+    left: 340px;
+}
+
+.member-item span:nth-child(2){
+    position: absolute;
+    top: 250px;
+    left: 500px;
+}
+
+.member-item span:nth-child(3){
+    position: absolute;
+    top: 250px;
+    left: 700px;
+}
+
+.member-item span:nth-child(4){
+    position: absolute;
+    top: 250px;
+    left: 900px;
+}
+
+.member-item span:nth-child(5){
+    position: absolute;
+    top: 250px;
+    left: 1325px;
+}
+
+.member-item span:nth-child(6){
+    position: absolute;
+    top: 250px;
+    left: 1525px;
 }
 
 .pagination {
     display: flex;
     justify-content: center;
-    margin-top: 200px;
-    font-family: "BMJUA";
-    font-size: 30px;
+    align-items: center;
+    position: fixed; /* 페이지 위치 고정 */
+    left: 960px;
+    top: 950px;
+    z-index: 10; /* 다른 요소 위로 보이게 설정 */
 }
 
-.pagination a {
-    margin: 0 5px;
-    text-decoration: none;
-    color: #0E2913;
-    padding: 5px 10px;
+.pagination-btn {
+    margin: 0 5px; /* 버튼 간 간격 추가 */
+    padding: 10px 15px; /* 버튼 크기 조정 */
+    cursor: pointer;
 }
 
-.pagination a.active {
-    font-weight: bold;
-    color: white;
+.pagination-btn:hover {
+    background-color: #ddd;
 }
 
 /* CSS for modal */
@@ -441,9 +453,74 @@ main {
     cursor: pointer;;
 }
 
-.search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+
+
+
+main input {
+    position: absolute;
+    width: 1119px;
+    height: 53px;
+    background: #0A1611;
+    border-radius: 40px;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: lighter;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    top: 200px;
+    border: none;
+    left: 450px;
 }
 
+
+main label img{
+    position: absolute;
+    width: 39px;
+    height: 39px;
+    left: 1599px;
+    top: 210px;
+}
+
+.top-nav {
+    font-size: 25px;
+    font-family: BMJUA;
+    color: #FFFFFF;
+}
+
+
+.top-nav span:nth-child(1) {
+    position: absolute;
+    top: 275px;
+    left: 300px;
+}
+
+.top-nav span:nth-child(2) {
+    position: absolute;
+    top: 275px;
+    left: 500px;
+}
+
+.top-nav span:nth-child(3) {
+    position: absolute;
+    top: 275px;
+    left: 675px;
+}
+
+.top-nav span:nth-child(4) {
+    position: absolute;
+    top: 275px;
+    left: 910px;
+}
+
+.top-nav span:nth-child(5) {
+    position: absolute;
+    top: 275px;
+    left: 1300px;
+}
+
+.top-nav span:nth-child(6) {
+    position: absolute;
+    top: 275px;
+    left: 1500px;
+}
