@@ -521,9 +521,8 @@ nav span:hover{
     font-size: 25px;
     line-height: 32px;
     padding-left: 20px;
-    color: #3F3F3F;
     border:2px solid black;
-    color: #FFFFFF;
+    color: black;
 }
 
 .emailInput:focus{
@@ -652,6 +651,7 @@ option{
 }
 
 #domain-txt:focus{
+    color:black;
     background: #D9D9D9;
 }
 
