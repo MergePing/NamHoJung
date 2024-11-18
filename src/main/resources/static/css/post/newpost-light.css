@@ -445,8 +445,8 @@ main .bg{
     height: 120px;
     border-radius: 50%; /* 둥근 프로필 사진 */
     background-color: #ccc; /* 사진이 없을 때의 배경색 */
-    margin-left:12px;
-    margin-top: 10px;
+    margin-left:-580px;
+    margin-top: -80px;
 }
 
 

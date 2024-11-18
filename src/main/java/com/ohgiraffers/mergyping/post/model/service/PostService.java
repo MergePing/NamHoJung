@@ -241,18 +241,6 @@ public class PostService {
     }
 
 
-//    public boolean updateComment(int commentNo, int userNo, String commentContent) {
-//        // 해당 댓글의 작성자가 현재 로그인한 사용자인지 확인
-//        CommentDTO comment = postMapper.getCommentByNo(commentNo);
-//
-//        if (comment != null && comment.getUserNo() == userNo) {
-//            // 댓글 수정
-//            comment.setCommentContent(commentContent);
-//            int updateCount = postMapper.updateComment(comment);
-//            return updateCount > 0;
-//        } else {
-//            return false; // 작성자가 다르면 수정 불가
-//        }
-//    }
+
 
 }

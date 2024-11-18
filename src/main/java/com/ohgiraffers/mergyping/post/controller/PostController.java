@@ -56,14 +56,57 @@ public class PostController {
 
 
     //게시글 목록 반환
+    //게시글 목록 반환
     @GetMapping("/post")
     public String postList(Model model) {
 
-        // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
-        List<PostDTO> postList = postService.postList();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // 모델에 postList라는 이름으로 게시글 목롣 추가
-        model.addAttribute("postList", postList);
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
+            List<PostDTO> postList = postService.postList();
+
+            // 모델에 postList라는 이름으로 게시글 목롣 추가
+            model.addAttribute("postList", postList);
+
+            // 누적된 출석 수 가져오기
+            Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
+            model.addAttribute("attendanceCount", attendanceCount);
+
+            // 등급 기준 정해주기
+            int levelNo = myPageService.calculateLevel(attendanceCount);
+            System.out.println("levelNo = " + levelNo);
+
+            // 등급 기준과 출석수 기반으로 등급 업데이트하기
+            myPageService.updateUserLevel(userNo, levelNo);
+
+            // 유저의 등급 가져오기
+            String levelName = myPageService.getLevelName(levelNo);
+            model.addAttribute("userLevel", levelName);
+
+            // 유저의 다음 레벨 이름 가져오기
+            String nextLevelName = myPageService.getNextLevelName(levelNo);
+            model.addAttribute("nextLevelName", nextLevelName);
+
+            // 다음 등급에 필요한 출석 횟수 조회
+            int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+            model.addAttribute("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+
+
+            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
+            MyPageDTO myPageDTO = myPageService.findNickName(userNo);
+            model.addAttribute("myPageDTO", myPageDTO);
+
+
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
+
+            Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+            model.addAttribute("mbtiInfo", mbtiInfo);
+        }
 
         //뷰 반환
         return "/post/post";
@@ -159,6 +202,40 @@ public class PostController {
             userNo = userDetails.getUserNo();
 
         }
+        // 누적된 출석 수 가져오기
+        Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
+        model.addAttribute("attendanceCount", attendanceCount);
+
+        // 등급 기준 정해주기
+        int levelNo = myPageService.calculateLevel(attendanceCount);
+        System.out.println("levelNo = " + levelNo);
+
+        // 등급 기준과 출석수 기반으로 등급 업데이트하기
+        myPageService.updateUserLevel(userNo, levelNo);
+
+        // 유저의 등급 가져오기
+        String levelName = myPageService.getLevelName(levelNo);
+        model.addAttribute("userLevel", levelName);
+
+        // 유저의 다음 레벨 이름 가져오기
+        String nextLevelName = myPageService.getNextLevelName(levelNo);
+        model.addAttribute("nextLevelName", nextLevelName);
+
+        // 다음 등급에 필요한 출석 횟수 조회
+        int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+        model.addAttribute("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+
+
+        // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
+        MyPageDTO myPageDTO = myPageService.findNickName(userNo);
+        model.addAttribute("myPageDTO", myPageDTO);
+
+
+        MyPageDTO userInfo2 = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo2);
+
+        Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+        model.addAttribute("mbtiInfo", mbtiInfo);
 
         // 서비스를 통해 게시글 번호로 게시물 조회
         SelectPostDTO selected = postService.selectById(postNo);
@@ -286,68 +363,6 @@ public class PostController {
         return ResponseEntity.ok(response);
     }
 
-
-
-//    @PostMapping("/selectpost/{postNo}/comment")
-//    @ResponseBody
-//    public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
-//                                                          @RequestParam("commentContent") String commentContent,Model model) {
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-//                    .body(Map.of("error", "로그인 후 댓글을 작성할 수 있습니다."));
-//        }
-//
-//        AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
-//        int userNo = userDetails.getUserNo();
-//
-//        CommentDTO commentDTO = new CommentDTO();
-//        commentDTO.setCommentContent(commentContent);
-//        commentDTO.setUserNo(userNo);
-//        commentDTO.setPostNo(postNo);
-//
-//        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
-//        model.addAttribute("userInfo", userInfo);
-//
-//        List<CommentDTO> existingComments = postService.getCommentsByPostNo(postNo);
-//        int index = existingComments.size();
-//
-//        commentDTO.setTop(index * 150);
-//
-//
-//        // 댓글 추가 후 응답 설정
-//        boolean isAdded = postService.addComment(commentDTO);
-//        System.out.println("isAdded = " + isAdded);
-//        Map<String, Object> response = new HashMap<>();
-//
-//        if (isAdded) {
-//            // 댓글 추가 성공 후, 게시물의 댓글 수를 증가시킴
-//            boolean isCommentCountUpdated = postService.incrementCommentCount(postNo);
-//
-//            if (isCommentCountUpdated) {
-//                // 댓글 수 증가에 성공한 경우 최신 댓글 목록을 가져옴
-//                List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
-//                // 댓글에 index 값을 추가
-//                for (int i = 0; i < comments.size(); i++) {
-//                    comments.get(i).setIndex(i); // index 값 추가
-//                }
-//                response.put("success", true);
-//                response.put("userProfileImage", userInfo.getProfileImage());
-//                response.put("comments", comments); // 생성된 댓글 정보 반환
-//            } else {
-//                response.put("success", false);
-//                response.put("error", "댓글 수 업데이트에 실패했습니다.");
-//            }
-//        } else {
-//            // 댓글 작성 실패 시
-//            response.put("success", false);
-//            response.put("error", "댓글 작성에 실패했습니다.");
-//        }
-//
-//        return ResponseEntity.ok(response);
-//
-//    }
 
     @DeleteMapping("/selectpost/{postNo}/comment/{commentNo}/delete")
     @ResponseBody
@@ -637,6 +652,41 @@ public class PostController {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
             System.out.println("userNo = " + userNo);
+
+            // 누적된 출석 수 가져오기
+            Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
+            model.addAttribute("attendanceCount", attendanceCount);
+
+            // 등급 기준 정해주기
+            int levelNo = myPageService.calculateLevel(attendanceCount);
+            System.out.println("levelNo = " + levelNo);
+
+            // 등급 기준과 출석수 기반으로 등급 업데이트하기
+            myPageService.updateUserLevel(userNo, levelNo);
+
+            // 유저의 등급 가져오기
+            String levelName = myPageService.getLevelName(levelNo);
+            model.addAttribute("userLevel", levelName);
+
+            // 유저의 다음 레벨 이름 가져오기
+            String nextLevelName = myPageService.getNextLevelName(levelNo);
+            model.addAttribute("nextLevelName", nextLevelName);
+
+            // 다음 등급에 필요한 출석 횟수 조회
+            int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+            model.addAttribute("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+
+
+            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
+            MyPageDTO myPageDTO = myPageService.findNickName(userNo);
+            model.addAttribute("myPageDTO", myPageDTO);
+
+
+            MyPageDTO userInfo2 = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo2);
+
+            Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+            model.addAttribute("mbtiInfo", mbtiInfo);
 
             MyPageDTO userInfo = myPageService.findUserInfo(userNo);
             model.addAttribute("userInfo", userInfo);
