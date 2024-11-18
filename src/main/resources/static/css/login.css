@@ -234,13 +234,13 @@ nav span:hover{
 }
 
 
-#loginButton2{
+#jumpLogin{
     display: none;
     position: absolute;
     z-index: 999;
-    width: 253px;
-    height: 201px;
-    left: 1050px;
+    width: 720px;
+    height: 370px;
+    left: 600px;
     top: 577px;
 }
 
