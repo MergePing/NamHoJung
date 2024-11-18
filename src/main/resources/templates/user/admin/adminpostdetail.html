@@ -25,7 +25,7 @@
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
         <span onclick="location.href='/mbti'">MBTI 검사</span>
-        <span id="mypageBtn">마이페이지</span>
+        <span id="mypageBtn" onclick="location.href='/admin'">마이페이지</span>
         <form th:action="@{/auth/logout}" method="post">
             <button id="logoutNav" type="submit">로그아웃</button>
         </form>
@@ -103,74 +103,6 @@
                 });
             }
 
-<!--        <div id="box">-->
-<!--            <div id="writer">-->
-<!--                <img th:src="@{/images/post/selectpost/profile-login.png}">-->
-<!--                <span th:text="${postDetail.postWriter}"></span>-->
-<!--                <span th:text="${postDetail.postWriter}"></span>-->
-<!--                <span> <img th:src="@{/images/post/selectpost/badge.png}">-->
-<!--            </span> <div> <span th:text="${post.postCategory}"></span>-->
-<!--            </div>-->
-<!--            </div>-->
-<!--            <div id="scary">-->
-<!--                <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"-->
-<!--                     th:attr="data-postNo=${post.postNo}"-->
-<!--                     class="scary-icon" onclick="toggleScary(this)">-->
-<!--                <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"-->
-<!--                     th:attr="data-postNo=${post.postNo}"-->
-<!--                     class="scary-icon" onclick="toggleScary(this)">-->
-<!--                <div>-->
-<!--                    <span>무서워요</span>-->
-<!--                </div>-->
-<!--                <span th:text="${post.scaryNumber}"></span>-->
-<!--            </div>-->
-
-<!--            <div id="notscary">-->
-<!--                <img th:src="@{/images/post/selectpost/not-scary-btn-before.png}" th:if="${!post.notScary}"-->
-<!--                     th:attr="data-postNo=${post.postNo}"-->
-<!--                     class="notscary-icon" onclick="toggleNotScary(this)">-->
-<!--                <img th:src="@{/images/post/selectpost/not-scary-btn-after.png}" th:if="${post.notScary}"-->
-<!--                     th:attr="data-postNo=${post.postNo}"-->
-<!--                     class="notscary-icon" onclick="toggleNotScary(this)">-->
-<!--                <div>-->
-<!--                    <span>안무서워요</span>-->
-<!--                </div>-->
-<!--                <span th:text="${post.notScaryNumber}"></span>-->
-<!--            </div>-->
-
-
-
-<!--            <div class="line2"></div>-->
-<!--            <input type="text" value="&nbsp; &nbsp; &nbsp; 댓글을 작성해주세요">-->
-<!--            <button type="submit">댓글 작성</button>-->
-<!--            <div id="comment">-->
-<!--                <img th:src="@{/images/post/selectpost/profile-login.png}">-->
-<!--                <span th:text="${post.postWriter}"></span>-->
-<!--                <span>-->
-<!--                <img th:src="@{/images/post/selectpost/like-btn-before.png}">-->
-<!--            </span>-->
-<!--                <span>좋아요</span>-->
-<!--                <img th:src="@{/images/post/selectpost/reportbtn.png}">-->
-<!--                <span>신고</span>-->
-<!--                <span class="ellipsis" th:text="${post.postTitle}"></span>-->
-<!--            </div>-->
-<!--            <div id="recomment">-->
-<!--                <img  th:src="@{/images/post/selectpost/arrow.png}">-->
-<!--                <img th:src="@{/images/post/selectpost/profile-login.png}">-->
-<!--                <span th:text="${post.postWriter}"></span>-->
-<!--                <span>-->
-<!--                <img th:src="@{/images/post/selectpost/like-btn-before.png}">-->
-<!--            </span>-->
-<!--                <span>좋아요</span>-->
-<!--                <img th:src="@{/images/post/selectpost/reportbtn.png}">-->
-<!--                <span>신고</span>-->
-<!--                <span class=".ellipsis" th:text="${post.postTitle}"></span>-->
-<!--            </div>-->
-<!--            <div class="hidden">-->
-<!--                <span>댓글 더보기</span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
           
             document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.getElementById('delete-btn');
