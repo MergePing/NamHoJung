@@ -18,9 +18,7 @@
         <span onclick="location.href='/post'">게시판</span>
         <span onclick="location.href='/mbti'">MBTI 검사</span>
         <span id="mypageBtn">마이페이지</span>
-        <form th:action="@{/auth/logout}" method="post">
-            <button id="logoutNav" type="submit">로그아웃</button>
-        </form>
+        <button id="logoutNav" type="button" onclick="logout()">로그아웃</button>
         <span onclick="location.href='/auth/signupterms'">회원가입</span>
     </nav>
 
@@ -112,7 +110,28 @@
         </div>
     </div>
 </div>
-
+<script>
+    function logout() {
+        fetch('/auth/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            credentials: 'same-origin'
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 로그아웃 후 리디렉션할 페이지 설정
+                    window.location.href = '/login';
+                } else {
+                    console.error('로그아웃 실패:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('로그아웃 중 에러 발생:', error);
+            });
+    }
+</script>
 <!--__________________________img___________________________________-->
 
 <script>
