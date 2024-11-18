@@ -59,10 +59,9 @@
 </header>
 
 <aside id="myPageAside">
-
     <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
-    <p id="rank" class="rankfont">등급: 나는 최강</p>
+    <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
     <p class="infofont" id="info">개인 정보</p>
     <p class="activefont" id="active">활동 기록</p>
     <p class="MBTIfont" id="mbtiButton">MBTI</p>
@@ -70,24 +69,24 @@
         <div id="myMBTI" class="mbti-item">
             -- 나의 MBTI
         </div>
-        <div class="mbti-item2">-- MBTI 검사</div>
+        <div class="mbti-item2" onclick="location.href='/mbti'">-- MBTI 검사</div>
     </div>
     <form th:action="@{/auth/logout}" method="post">
         <button class="logoutFont" type="submit">로그아웃</button>
     </form>
 </aside>
 <div class="rankpopup" id="rank-popup">
-    <p class="scorefont">활동 점수 : </p>
-    <p class="nextfont">다음 등급 : </p>
-    <p class="needfont">필요 점수 : </p>
+    <p class="scorefont">출석 횟수 : <span th:text="${attendanceCount}"></span></p>
+    <p class="nextfont">다음 등급 : <span th:text="${nextLevelName}"></span></p>
+    <p class="needfont">필요 출석 : <span th:text="${nextLevelRequiredAttendance}"></span></p>
 </div>
 
 <div class="modal-background" id="modal-background">
     <div class="pwdpopup" id="pwd-popup">
         <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
         <div class="pwd-container">
-            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="비밀번호">
-            <span class="toggle-password" id="togglePassword">&#128065;</span>
+            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="영문,숫자,특수문자 8~12자리">
+            <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
         </div>
 
         <div class="popup-buttons">
@@ -97,7 +96,6 @@
 
     </div>
 </div>
-
 <div class="mbtipopup" id="mbtiPopup">
     <p class="horrormbti">나의 공포 MBTI</p>
     <p class="mbticategory" th:text="${mbtiInfo.MBTI_TYPE}"></p>
@@ -105,7 +103,6 @@
         <p class="mtbtiexp2" th:text="${mbtiInfo.MBTI_INFO}"></p>
     </div>
 </div>
-
 
 
 <main>
@@ -190,7 +187,7 @@
 
     <div id="commentContainer">
         <div id="commentsContent" class="comment" style="display: none;" th:each="comment : ${writtenCommentList}" >
-                <span th:text ="${comment.postNo}"></span>
+                <span th:text ="${comment.commentNo}"></span>
                 <span th:text="${comment.commentContent}"> </span>
                 <span th:text="${comment.commentDate}"></span>
                 <span>323</span>
@@ -360,8 +357,10 @@
             newComment.classList.add('comment');
             newComment.setAttribute('style', `top: ${index * 80}px`);
             newComment.innerHTML = `
-                <span>${comment.postNo}</span>
-                <span>${comment.commentContent}</span>
+                <span>${comment.commentNo}</span>
+                <a href="/selectpost/${comment.postNo}">
+                    <span>${comment.commentContent}</span>
+                </a>
                 <span>${comment.commentDate}</span>
                 <span>${comment.likeNumber}</span>
     `;
@@ -439,6 +438,13 @@
         // 페이지 변경 함수
         function changePage(newPage) {
             if (newPage < 1) return; // 첫 페이지보다 작을 수 없음
+
+            // 새로운 페이지를 로드하기 전에 기존 active 클래스 제거
+            const allPageButtons = document.querySelectorAll("#PostPageNumbers button");
+            allPageButtons.forEach(button => {
+                button.classList.remove("active");
+            });
+
             fetchPosts(newPage);
         }
 
@@ -790,6 +796,105 @@
     //     favoriteTab1.style.color = "#BEBEBE";
     // });
 
+    // JavaScript로 토글 기능 추가
+    const mypageBtn = document.getElementById("mypageBtn");
+    const myPageAside = document.getElementById("myPageAside");
+
+    // 버튼 클릭 시 aside 창 표시/숨김 전환
+    mypageBtn.addEventListener("click", () => {
+        if (myPageAside.classList.contains("show")) {
+            // 보이는 상태라면 숨기기
+            myPageAside.classList.remove("show");
+            setTimeout(() => {
+                myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로
+            }, 400); // transition과 동일한 시간 설정
+        } else {
+            // 숨겨진 상태라면 보이게 하기
+            myPageAside.style.display = "block"; // 먼저 display를 block으로 설정
+            setTimeout(() => {
+                myPageAside.classList.add("show");
+            }, 10); // 약간의 지연 시간 후에 show 클래스 추가
+        }
+    });
+
+    const gradeElement = document.getElementById('rank');
+    const popup = document.getElementById('rank-popup');
+
+    gradeElement.addEventListener('mouseenter', () => {
+        popup.style.display = 'block'; // 팝업 표시
+    });
+
+    gradeElement.addEventListener('mouseleave', () => {
+        popup.style.display = 'none'; // 팝업 숨기기
+    });
+
+    const personalInfoBtn = document.getElementById('info');
+    const passwordPopup = document.getElementById('pwd-popup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('pwdInput');
+    const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+    const modal = document.querySelector('.modal-background');
+    const passwordIcon = document.getElementById('passwordIcon');
+
+    //모달
+    personalInfoBtn.addEventListener('click', () => {
+        passwordPopup.style.display = 'block';// 비밀번호 팝업 표시
+        document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    });
+
+    personalInfoBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+        if (modal.style.display === "flex") {
+            closePopupBtn.addEventListener("click", () => {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+            });
+        }
+    });
+
+
+    // 비밀번호 보기/숨기기 토글
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
+    });
+
+
+    submitPasswordBtn.addEventListener('click', () => {
+        const inputPassword = passwordInput.value;
+
+        // 비밀번호 검증 요청
+        fetch('/verifyPassword', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ inputPassword })
+        })
+            .then(response => response.json())
+            .then(isPasswordCorrect => {
+                if (isPasswordCorrect) {
+                    // 비밀번호가 맞으면 개인정보 페이지로 이동
+                    location.href = '/userinfo';
+                } else {
+                    // 비밀번호가 틀리면 경고 메시지 표시
+                    alert('비밀번호가 일치하지 않습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('비밀번호 검증 요청 실패:', error);
+                alert('비밀번호 확인 중 오류가 발생했습니다.');
+            });
+    });
+
+    const activebtn = document.getElementById('active');
+    activebtn.addEventListener('click', () => {
+        // URL을 원하는 주소로 변경하세요
+        location.href = '/useractive';
+    });
+
     const mbtiButton = document.getElementById("mbtiButton");
     const mbtiContent = document.getElementById("mbtiContent");
     const myMBTI = document.getElementById("myMBTI");
@@ -810,6 +915,7 @@
     myMBTI.addEventListener("mouseleave", () => {
         mbtiPopup.style.display = "none";
     });
+
 </script>
 
 <!--<script>-->

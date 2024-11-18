@@ -203,6 +203,30 @@
         popup.style.display = 'none'; // 팝업 숨기기
     });
 
+    function updateRankPopup() {
+        fetch('/updateUserLevel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // 출석 횟수 업데이트
+                    document.querySelector('.scorefont span').textContent = data.attendanceCount;
+
+                    // 다음 등급명 업데이트
+                    document.querySelector('.nextfont span').textContent = data.nextLevelName;
+
+                    // 다음 등급에 필요한 출석 횟수 업데이트
+                    document.querySelector('.needfont span').textContent = data.nextLevelRequiredAttendance;
+                }
+            })
+            .catch(error => console.error("등급 업데이트 실패:", error));
+    }
+
+
     const personalInfoBtn = document.getElementById('info');
     const passwordPopup = document.getElementById('pwd-popup');
     const closePopupBtn = document.getElementById('closePopupBtn');
@@ -437,6 +461,9 @@
                             img.src = '/images/main/check mark.png';
                             todayDiv.appendChild(img);
                         }
+
+                        // 등급 정보 업데이트 호출
+                        updateRankPopup();
 
                     }
                 })
