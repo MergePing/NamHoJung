@@ -42,8 +42,6 @@ public class IntroController {
     }
 
 
-
-
     @GetMapping("/intro")
     public String introMypage(Model model) {
 
