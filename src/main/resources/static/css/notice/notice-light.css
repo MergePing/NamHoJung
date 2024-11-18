@@ -458,7 +458,7 @@ main .notice span:nth-of-type(3){
     font-size: 25px;
     letter-spacing: 0.05em;
     color: #000;
-    left: 350px;
+    left: 1175px;
 }
 
 main .notice span:nth-of-type(4){
@@ -700,7 +700,7 @@ main .pageNum img:nth-of-type(2){
     align-items: center;
     position: fixed; /* 페이지 위치 고정 */
     left: 960px;
-    top: 850px;
+    top: 950px;
     z-index: 100; /* 다른 요소 위로 보이게 설정 */
 }
 
