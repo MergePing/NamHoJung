@@ -72,7 +72,7 @@
 <aside id="myPageAside">
     <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
-    <p id="rank" class="rankfont" onclick="location.href='/level-info'">등급: <span th:text="${userLevel}"></span></p>
+    <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
     <p class="infofont" id="info">개인 정보</p>
     <p class="activefont" id="active">활동 기록</p>
     <p class="MBTIfont" id="mbtiButton">MBTI</p>
