@@ -342,7 +342,6 @@ main {
     position: absolute;
     width: 291px;
     height: 65px;
-    left: 1262px;
     top: 491px;
 
     background: #408D1C;
@@ -350,6 +349,14 @@ main {
     z-index: 10;
 }
 
+#profile-pic {
+    width: 168px;
+    height: 168px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    z-index: 100;
+}
 
 
 

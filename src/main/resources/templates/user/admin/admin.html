@@ -43,9 +43,9 @@
 
     <!-- 프로필 섹션 -->
     <div class="profile-section">
-        <div id="profile-pic"></div>
+        <div id="profile-pic" class="default-profile" style="background-image: url('/images/admin/defaultprofile.png');"></div>
         <button id="profile-button" onclick="openModal()">프로필 변경</button>
-        <p id="hello">OOO 관리자님 안녕하세요!</p>
+        <p id="hello">관리자님 안녕하세요!</p>
     </div>
 </main>
 
@@ -62,13 +62,76 @@
 </div>
 
 <script>
+    // 모달 열기
     function openModal() {
         document.getElementById("modal").style.display = "flex";
     }
 
+    // 모달 닫기
     function closeModal() {
         document.getElementById("modal").style.display = "none";
     }
+
+    // 파일 선택 시 미리보기
+    document.getElementById("fileInput").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            // 이미지 미리보기
+            reader.onload = function(e) {
+                document.getElementById("profile-pic").style.backgroundImage = `url('${e.target.result}')`;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+
+    // 프로필 사진 업로드
+    function uploadProfilePicture() {
+        const fileInput = document.getElementById("fileInput");
+        const file = fileInput.files[0];
+
+        if (!file) {
+            alert("파일을 선택해주세요.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("profilePicture", file);
+
+        // 서버로 업로드 요청
+        fetch("/admin/uploadProfile", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("프로필 사진이 성공적으로 업로드되었습니다.");
+
+                    // 서버에서 반환된 파일 경로로 프로필 사진 업데이트
+                    const profilePicElement = document.getElementById("profile-pic");
+                    profilePicElement.style.backgroundImage = `url('${data.filePath}')`;
+
+                    // 기본 프로필 사진 스타일 제거 (필요 시)
+                    profilePicElement.classList.remove("default-profile");
+
+                    // 모달 닫기
+                    closeModal();
+                } else {
+                    alert("업로드 실패: " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("업로드 중 오류 발생:", error);
+            });
+    }
+
+    // 업로드 버튼에 클릭 이벤트 추가
+    document.querySelector(".upload-btn").addEventListener("click", uploadProfilePicture);
 </script>
 </body>
 </html>
