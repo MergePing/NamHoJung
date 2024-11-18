@@ -134,37 +134,26 @@
         <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면">
         <div class="mainbox tr" id="mainbox" onclick="location.href='/mbti'"><p id="black">나의 공포 MBTI는?</p></div>
     </div>
-    <img th:src="@{/images/main/best/best.png}" class="ghost">
-    <img th:src="@{/images/main/best/best2.png}" class="ghost" style="left:930px; top:1660px">
-    <img th:src="@{/images/main/best/best3.png}" class="ghost" style="top:1970px">
-    <img th:src="@{/images/main/best/best4.png}" class="ghost" style="left:930px; top:1970px">
+    <div id="link" onclick="location.href='/post'"></div>
+<img th:src="@{/images/main/main2-best.png}" id="gost">
     <div class="main2">
         <h2>베스트 정원</h2>
         <img th:src="@{/images/main/main2-dark-bg.png}" alt="나뭇가지">
-        <div class="firstbest" style="position: relative">
-            <a class="best" th:href="@{'/selectpost/' + ${bestPosts[0].postNumber}}" style="position: absolute; top:-2560px; z-index: 99999">
-                <img th:src="@{/images/main/main2-img1.png}" alt="베스트 게시물 이미지1">
-                <p th:text="${bestPosts[0].postTitle}" class="ellipsis"></p>
-                <span class="multiline-ellipsis" th:text="${bestPosts[0].postContent}"> </span>
-            </a>
-
-            <a class="best" th:href="@{'/selectpost/' + ${bestPosts[1].postNumber}}" style="position: absolute; top:-2560px; left:780px; z-index: 99999">
-                <img th:src="@{/images/main/main2-img2.png}" alt="베스트 게시물 이미지2">
-                <p th:text="${bestPosts[1].postTitle}" class="ellipsis"></p>
-                <span class="multiline-ellipsis" th:text="${bestPosts[1].postContent}"> </span>
-            </a>
-
-            <a class="best" th:href="@{'/selectpost/' + ${bestPosts[2].postNumber}}" style="position: absolute; top:-2250px; z-index: 99999">
-                <img th:src="@{/images/main/main2-img3.png}" alt="베스트 게시물 이미지3">
-                <p th:text="${bestPosts[2].postTitle}" class="ellipsis"></p>
-                <span class="multiline-ellipsis"  th:text="${bestPosts[2].postContent}"></span>
-            </a>
-
-            <a class="best" th:href="@{'/selectpost/' + ${bestPosts[3].postNumber}}"style="position: absolute; top:-2250px; left:780px; z-index: 99999">
-                <img th:src="@{/images/main/main2-img4.png}" alt="베스트 게시물 이미지4">
-                <p th:text="${bestPosts[3].postTitle}" class="ellipsis"></p>
-                <span class="multiline-ellipsis"   th:text="${bestPosts[3].postContent}"></span>
-            </a>
+        <div class="fristbest">
+            <img th:src="@{/images/main/main2-img1.png}" alt="베스트 게시물 이미지1">
+            <p th:text="${bestPosts[0].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis" th:text="${bestPosts[0].postContent}"> </span>
+            <img th:src="@{/images/main/main2-img2.png}" alt="베스트 게시물 이미지2">
+            <p th:text="${bestPosts[1].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis" th:text="${bestPosts[1].postContent}"> </span>
+            <img th:src="@{/images/main/main2-img3.png}" alt="베스트 게시물 이미지3">
+            <p th:text="${bestPosts[2].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis"  th:text="${bestPosts[2].postContent}">
+            </span>
+            <img th:src="@{/images/main/main2-img4.png}" alt="베스트 게시물 이미지4">
+            <p th:text="${bestPosts[3].postTitle}" class="ellipsis"></p>
+            <span class="multiline-ellipsis"   th:text="${bestPosts[3].postContent}">
+            </span>
         </div>
     </div>
 

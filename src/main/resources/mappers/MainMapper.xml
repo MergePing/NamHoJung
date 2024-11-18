@@ -11,7 +11,6 @@
 
     <select id="bestPost" resultMap="bestPost">
         SELECT
-            POST_NO AS postNumber,
             POST_TITLE,
             POST_CONTENTS
         FROM TBL_POST
