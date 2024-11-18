@@ -19,6 +19,7 @@ button{
     cursor:pointer;
 }
 
+
 /*---------------nav------------------*/
 nav{
     position: fixed;
@@ -26,21 +27,20 @@ nav{
     height: 79px;
     left: 0px;
     top: 0px;
-    background: #0E2913;
+    background: #FFFEF6;
     box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 9999999999999;
 }
 
 
 nav img{
     /* 남호정 */
     position: absolute;
-    width: 82px;
+    width: 125px;
     height: 45px;
     left: 48px;
     top: 18px;
-    cursor:pointer;
-
+    cursor: pointer;
 }
 
 nav span:nth-child(2) {
@@ -54,9 +54,9 @@ nav span:nth-child(2) {
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
@@ -71,9 +71,9 @@ nav span:nth-child(3){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
@@ -89,9 +89,9 @@ nav span:nth-child(4){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #A3DA87;
+    color: #000000;
     transition: all 1s;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
@@ -107,9 +107,9 @@ nav span:nth-child(5){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
@@ -125,14 +125,13 @@ nav span:nth-child(6){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-
-nav span:nth-child(7){
-    /* 로그인 */
+/*nav span:nth-child(7){
+    !* 로그인 *!
     position: absolute;
     width: 49px;
     height: 21px;
@@ -144,9 +143,32 @@ nav span:nth-child(7){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
-    cursor:pointer;
+    cursor: pointer;
+}*/
+
+#logoutNav{
+    /* 로그아웃 */
+    position: absolute;
+    width: 100px;
+    height: 21px;
+    left: 1670px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #000000;
+    transition: all 1s;
+    background: none;
+    border:none;
+    text-align: center;
+    cursor: pointer;
 }
 
+#logoutNav:hover{
+    color: #4B9D21;
+    scale: 130%;
+}
 
 nav span:nth-child(8){
     /* 회원가입 */
@@ -160,31 +182,15 @@ nav span:nth-child(8){
     font-weight: 400;
     font-size: 20px;
     line-height: 21px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 
 nav span:hover{
     color: #A3DA87;
     scale: 130%;
-}
-
-
-/*---------------main------------------*/
-
-
-main{
-    transition: all 1s;
-}
-
-
-main #bg{
-    position: absolute;
-    width: 1920px;
-    top: 39px;
-    z-index: -5;
 }
 
 
@@ -244,13 +250,31 @@ main .qickBtn{
     z-index: 9999;
 }
 
+
+
+
+main{
+    transition: all 1s;
+}
+
+
+
+main #bg{
+    position: absolute;
+    width: 1920px;
+    top: 39px;
+    z-index: -5;
+}
+
+
+
 main .write{
     box-sizing: border-box;
     position: absolute;
     width: 254px;
     height: 53px;
-    background: #0E2913;
-    border: 2px solid #FFFFFF;
+    background: #fff;
+    border: 2px solid #000;
     border-radius: 20px;
     top: 180px;
     left: 210px;
@@ -266,21 +290,21 @@ main .write p{
     font-size: 25px;
     line-height: 30px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
 }
 
 main .select{
     position: absolute;
     width: 186px;
     height: 53px;
-    background: #0E2913;
+    background: #fff;
     border-radius: 40px;
     top: 180px;
     left: 730px;
 }
 
 main .select:active{
-    border: 3px solid #FFFFFF;
+    border: 3px solid #000;
 
 }
 
@@ -292,7 +316,7 @@ main .select button{
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
     background: none;
     border: none;
     outline: none;
@@ -303,8 +327,9 @@ main .modal{
     position: absolute;
     width: 1920px;
     height: 1080px;
-    background: rgba(14, 41, 19, 0.6);
+    background: rgba(255, 254, 246, 0.6);
     z-index: 6666666666;
+
 }
 
 main .modal button{
@@ -314,10 +339,10 @@ main .modal button{
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
-    border: 2px #fff solid;
+    color: #000;
+    border: 2px #000 solid;
     outline: none;
-    background: #0E2913;
+    background: #fff;
     border-radius: 40px;
     transition:  background 0.7s;
 
@@ -364,10 +389,10 @@ main .modalContent>button:nth-of-type(5){
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
-    border: 2px #fff solid;
+    color: #000;
+    border: 2px #000 solid;
     outline: none;
-    background: #0E2913;
+    background: #fff;
     border-radius: 40px;
     transition:  background 0.7s;
     z-index: 30;
@@ -400,16 +425,16 @@ main .modalContent>button:nth-of-type(5){
 
 
 main .modal button:active, main .modal button:hover{
-    border: 5px solid #FFFFFF;
+    border: 5px solid #000;
     background: #4B9D21;
-    color: #000;
+    color: #fff;
     font-weight: 600;
 }
 .modal .modalContent .categoryBox button:active,
 .modal .modalContent .categoryBox button:hover{
-    border: 5px solid #FFFFFF;
+    border: 5px solid #000;
     background: #4B9D21;
-    color: #000;
+    color: #fff;
     font-weight: 600;
 }
 
@@ -417,12 +442,12 @@ main input{
     position: absolute;
     width: 668px;
     height: 53px;
-    background: #0E2913;
+    background: #fff;
     border-radius: 40px;
     top: 180px;
     left: 930px;
     border: none;
-    color: #fff;
+    color: #000;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
@@ -445,7 +470,7 @@ main .sell span:nth-of-type(1){
     top: 280px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 260px;
 }
 
@@ -457,7 +482,7 @@ main .sell span:nth-of-type(2){
     top: 280px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 360px;
 }
 
@@ -469,7 +494,7 @@ main .sell span:nth-of-type(3){
     top: 280px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 500px;
 }
 
@@ -481,7 +506,7 @@ main .sell span:nth-of-type(4){
     top: 280px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 950px;
 }
 
@@ -493,7 +518,7 @@ main .sell span:nth-of-type(5){
     top: 280px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 1150px;
 }
 
@@ -505,7 +530,7 @@ main .sell span:nth-of-type(6){
     top: 280px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 1350px;
 }
 
@@ -517,7 +542,7 @@ main .sell span:nth-of-type(7){
     top: 280px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 1550px;
 }
 
@@ -525,6 +550,7 @@ main .sell span:nth-of-type(7){
 main .post{
     position: relative;
     gap: 60px;
+
 }
 
 
@@ -533,7 +559,7 @@ main .post span:nth-of-type(1){
     top: 380px;
     font-family: 'BMJUA';
     font-size: 30px;
-    color: #FFFFFF;
+    color: #000;
     left: 270px;
     text-align: center;
 }
@@ -546,7 +572,7 @@ main .post span:nth-of-type(3){
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
     width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -554,6 +580,7 @@ main .post span:nth-of-type(3){
     height:auto;
     padding-top: 5px;
     padding-bottom: 5px;
+    font-weight: 600;
 }
 
 
@@ -572,8 +599,8 @@ main .post div{
     height: 45px;
     left: 925px;
     top: 365px;
-    background: #0E2913;
-    border: 2px solid #FFFFFF;
+    background: #A3DA87;
+    border: 2px solid #000;
     border-radius: 50px;
 }
 
@@ -586,9 +613,10 @@ main .post div span:nth-of-type(1){
     font-size: 25px;
     text-align: center;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
     left: 19px;
     top: 10px;
+    font-weight: 600;
 }
 
 
@@ -599,7 +627,8 @@ main .post span:nth-of-type(4){
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
+    font-weight: 600;
 
 }
 
@@ -623,7 +652,8 @@ main .post span:nth-of-type(5){
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
+    font-weight: 600;
 
 }
 
@@ -635,19 +665,20 @@ main .post span:nth-of-type(6){
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
+    font-weight: 600;
 }
 
 
 
 .pageNum {
-     position: relative;
-     display: inline-block;
-     justify-content: center;
-     align-items: center;
+    position: relative;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
     top: 920px;
     z-index: 300;
- }
+}
 
 .pageNum img {
     cursor: pointer;
@@ -698,7 +729,7 @@ footer .footer{
     width: 1920px;
     height: 69px;
     top: 1080px;
-    background: #0E2913;
+    background: #6EBA4A;
     box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
     z-index: 55;
 }
@@ -711,7 +742,7 @@ footer .footer p{
     font-size: 25px;
     line-height: 31px;
     letter-spacing: 0.05em;
-    color: #D5D5D5;
+    color: #FFFFFF;
     left: 750px;
     top: 20px;
 }

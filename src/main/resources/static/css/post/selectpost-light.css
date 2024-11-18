@@ -50,7 +50,7 @@ nav{
     top: 0px;
     background: #FFFEF6;
     box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
-    z-index: 99999999999999999999999999999999999999999999999999999;
+    z-index: 9999999999999;
 }
 
 
@@ -945,7 +945,7 @@ div #editBtn{
     border: none;
     outline: none;
     background: #A3DA87;
-    z-index: 99999;
+    z-index: 999;
 
 }
 
@@ -968,7 +968,7 @@ div #deleteBtn{
     border-radius: 50px;
     border: none;
     outline: none;
-    z-index: 6666666;
+    z-index: 6666;
 
 
 }

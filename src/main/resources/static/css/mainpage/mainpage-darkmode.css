@@ -57,7 +57,7 @@ nav{
     top: 0px;
     background: #0E2913;
     box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 999999999999999999999;
 }
 
 
@@ -621,7 +621,7 @@ main .main3 #monthTitle{
     pointer-events: none;
     z-index: 99999999999999999999999999999999999999999999999;
     background: radial-gradient(
-            circle 20vmax at var(--cursorX) var(--cursorY),
+            circle 30vmax at var(--cursorX) var(--cursorY),
             rgba(0,0,0,0) 0%,
             rgba(0,0,0,.5) 80%,
             rgba(0,0,0,.95) 100%)

@@ -5,35 +5,8 @@
     <title>소개</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/intro/intro-light.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
-    <style>
-        /*:root {*/
-        /*    --cursorX: 70vw;*/
-        /*    --cursorY: 70vh;*/
-        /*}*/
-        /*:root:before {*/
-        /*    content: '';*/
-        /*    display: block;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    position: fixed;*/
-        /*    pointer-events: none;*/
-        /*    z-index: 999999;*/
-        /*    background: radial-gradient(*/
-        /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
-        /*            rgba(0,0,0,0) 0%,*/
-        /*            rgba(0,0,0,.5) 80%,*/
-        /*            rgba(0,0,0,.95) 100%)*/
-        /*}*/
+    <link rel="stylesheet" id="theme-stylesheet-mypage" th:href="@{/css/mypage/mypage-light.css}">
 
-        /** {*/
-        /*    box-sizing: border-box;*/
-        /*    text-rendering: optimizeLegibility;*/
-        /*    -webkit-font-smoothing: antialiased;*/
-        /*    -moz-osx-font-smoothing: grayscale;*/
-        /*    font-kerning: auto;*/
-        /*}*/
-    </style>
 </head>
 <body>
 
@@ -349,8 +322,13 @@
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('theme-mode') || 'light';
         const themeStylesheet = savedMode === 'dark' ? '/css/intro/intro-dark.css' : '/css/intro/intro-light.css';
+        const themeStylesheetMypage = savedMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css'
         document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', themeStylesheetMypage);
         document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        document.getElementById('theme-stylesheet-mypage').addEventListener('load', () => {
             updateImages(savedMode);
         });
         updateImages(savedMode);
@@ -401,6 +379,7 @@
 
     function toggleMode() {
         const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        const currentThemeM = document.getElementById('theme-stylesheet-mypage').getAttribute('href');
         let newMode = '';
         if (currentTheme.includes('intro-light.css')) {
             newMode = 'dark';
@@ -409,7 +388,11 @@
         }
         localStorage.setItem('theme-mode', newMode);
         const newTheme = newMode === 'dark' ? '/css/intro/intro-dark.css' : '/css/intro/intro-light.css';
+        const newThemeM = newMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css';
+
         document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', newThemeM);
+
         updateImages(newMode);
     }
 </script>

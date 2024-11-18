@@ -1,0 +1,517 @@
+/* Rectangle 183 */
+
+/*body{*/
+/*    width:1920px;*/
+/*    height:1080px;*/
+/*    !*pointer-events: none; !* 기본적으로 클릭, 호버 불가 *!*!*/
+/*}*/
+
+/*body * {*/
+/*    pointer-events: auto; !* 예외적으로 요소들은 호버, 클릭 가능 *!*/
+/*}*/
+
+aside{
+    width:492px;
+    height:100%;
+
+    display: none;
+    /*margin-left:1428px;*/
+    /*margin-top:79px;*/
+    background-color: #0E2913;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+
+    /* 초기 위치와 애니메이션 */
+    position: fixed;
+    left :1427px;
+    margin-top: 70px;
+    z-index: 999999;
+
+
+
+    transform: translateX(100%); /* 처음엔 오른쪽 밖에 위치 */
+    transition: transform 0.4s ease; /* 스르륵 애니메이션 */
+
+}
+
+/* aside가 보일 때 */
+aside.show {
+    /*display: block; !* aside 표시 *!*/
+
+    transform: translateX(0); /* 화면에 표시 */
+}
+
+.mypagefont{
+    width:140px;
+    height:33px;
+    margin-left:59px;
+    margin-top:57px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 33px;
+    color:#A3DA87;
+
+}
+
+
+.rank-photo{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #3B572D; /* 사진이 없을 때의 배경색 */
+    position: absolute;
+    left:150px;
+    top:450px;
+
+
+}
+
+.profile-photo {
+    width: 164px;
+    height: 164px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left: 59px;
+    margin-top: 73px;
+}
+
+.nicknamefont{
+    width:300px;
+    height:33px;
+    margin-left:59px;
+    margin-top:57px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 33px;
+    color:#C9E5CA;
+}
+.rankfont{
+    width:500px;
+    height:33px;
+    margin-left:59px;
+    margin-top:57px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 33px;
+    color:#C9E5CA;
+    cursor: pointer;
+}
+.infofont{
+    width:180px;
+    height:33px;
+    margin-left:59px;
+    margin-top:57px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 33px;
+    color:#C9E5CA;
+    cursor:pointer;
+}
+.activefont{
+    width:180px;
+    height:33px;
+    margin-left:59px;
+    margin-top:57px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 33px;
+    color:#C9E5CA;
+    cursor: pointer;
+}
+.MBTIfont{
+    width:180px;
+    height:33px;
+    margin-left:59px;
+    margin-top:57px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 33px;
+    color:#C9E5CA;
+    cursor: pointer;
+}
+.logoutFont{
+    width:180px;
+    height:33px;
+    margin-left:59px;
+    margin-top:130px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 33px;
+    color:#C9E5CA;
+    cursor: pointer;
+    background: none;
+    border:none;
+}
+
+
+
+.rankpopup{
+    width:450px;
+    height:292px;
+    background-color: #3B572D;
+    border-radius: 20px;
+    display:none;
+    border: 2px solid #FFFFFF;
+
+    margin-top:400px;
+    margin-right:20px;
+    position: fixed;
+    left:950px;
+    z-index: 9999999;
+
+
+}
+.rankfont:hover{
+    color:#A3DA87;
+}
+.infofont:hover{
+    color:#A3DA87;
+}
+.activefont:hover{
+    color:#A3DA87;
+}
+.MBTIfont:hover{
+    color:#A3DA87;
+}
+.logoutFont:hover{
+    color:#A3DA87;
+}
+.mbti-item:hover{
+    color:#A3DA87;
+}
+.mbti-item2:hover{
+    color:#A3DA87;
+}
+
+.scorefont{
+    width: 500px;
+    height: 31px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    color: #FFFFFF;
+    margin-left: 60px;
+    margin-top: 60px;
+
+}
+.nextfont{
+    width: 500px;
+    height: 31px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    margin-left: 60px;
+    margin-top: 40px;
+    color: #FFFFFF;
+}
+.needfont{
+    width: 500px;
+    height: 31px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    margin-left: 60px;
+    margin-top: 40px;
+    color: #FFFFFF;
+}
+.pwdpopup{
+    width:767px;
+    height:351px;
+
+    margin-top:400px;
+    margin-right:20px;
+    background-color: #1C6C2B;
+    border-radius: 10px;
+    display: none;
+    position: fixed;
+    left: 600px;
+    z-index: 999999999999999;
+    /*z-index: 1000; !* 오버레이보다 위에 표시 *!*/
+    /*pointer-events: auto; !* 모달 클릭 가능 *!*/
+
+}
+.pwdfont{
+    width: 600px;
+    height: 78px;
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 30px;
+    line-height: 39px;
+    margin-left: 100px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+    color: #FFFFFF;
+
+}
+.pwdfont2{
+    position: absolute;
+    left:120px;
+    top:150px;
+    width: 81px;
+    height: 26px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #FFFFFF;
+}
+
+#pwdInput{
+    position: absolute;
+    left:230px;
+    top:140px;
+    width: 400px;
+    height: 49px;
+    border-radius: 10px;
+    font-family: 'Cafe24SsurroundAir';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 25px;
+    line-height: 32px;
+    padding-left: 20px;
+}
+
+.popup-buttons{
+    margin-left: 200px;
+    margin-top: 50px;
+}
+
+.cancle-btn{
+    position: absolute;
+    left:200px;
+    top:240px;
+    width: 117px;
+    height: 58px;
+    background: #3F781A;
+    border-radius: 50px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    border: 1px solid #FFFFFF;
+
+    color: #000000;
+}
+
+.confirm-btn{
+    position: absolute;
+    left:460px;
+    top:240px;
+    width: 117px;
+    height: 58px;
+    background: #9CC787;
+    border-radius: 50px;
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    border: 1px solid #FFFFFF;
+
+
+    color: #000000;
+}
+
+.modal-background{
+    position:fixed;
+    display:none;
+
+    justify-content: center;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.4);
+    z-index:999999999;
+}
+
+.mbtipopup{
+    position: fixed;
+    width: 504px;
+    height: 292px;
+    left: 900px;
+    top: 700px;
+
+    background: #3B572D;
+    border-radius: 20px;
+    display: none;
+    z-index: 99;
+    border: 2px solid #FFFFFF;
+}
+.mbti-item{
+    position: absolute;
+    width: 131px;
+    height: 26px;
+    left: 60px;
+    top: 710px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.mbti-item2{
+    position: absolute;
+    width: 131px;
+    height: 26px;
+    left: 60px;
+    top: 760px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.horrormbti{
+    position: absolute;
+    width: 177px;
+    height: 31px;
+    left: 160px;
+    top: 30px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+.mbticategory{
+    position: absolute;
+    width: 177px;
+    height: 31px;
+    left: 210px;
+    top: 80px;
+
+    font-family: 'BMJUA';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 31px;
+    /* identical to box height */
+
+    color: #FFFFFF;
+}
+
+.mbtiexp{
+    position: absolute;
+    width: 459px;
+    height: 143px;
+    left: 20px;
+    top: 130px;
+
+    background: #FFFFFF;
+    border-radius: 10px;
+}
+
+.mtbtiexp2{
+    position: absolute;
+    width: 441px;
+    height: 160px;
+    left: 10px;
+    top: 10px;
+
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 40px;
+    /* or 160% */
+
+    color: #000000;
+}
+
+#passwordIcon{
+    position: absolute;
+    left:600px;
+    top:145px;
+    width:50px;
+    height:50px;
+    cursor:pointer;
+}
+
+
+/* 당신은 위험한 순간에 신중하지만 사람보다 귀신을 무서워하면서도 공포의 스릴을 즐기는 특이한 사람입니다. */
+
+
+
+
+/* Rectangle 268 */
+
+
+
+
+/*.pwd-container input[type="password"]{*/
+/*    width: 100%;*/
+
+
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    font-size: 14px;*/
+/*}*/
+
+/*.modal-overlay{*/
+/*    display: none;*/
+/*    width: 100%;*/
+/*    height:100%;*/
+/*    background-color: rgba(0, 0, 0, 0.5); !* 어두운 투명 배경 *!*/
+/*    z-index: 999; !* 팝업 위에 오버레이 *!*/
+/*}*/
+
+
+/* Group 113 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

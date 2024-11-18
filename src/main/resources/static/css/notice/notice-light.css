@@ -29,7 +29,7 @@ nav{
     top: 0px;
     background: #FFFEF6;
     box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 99999999999999;
 }
 
 
@@ -294,7 +294,7 @@ main input{
     top: 180px;
     border: none;
     left: 450px;
-    z-index: 999999999999;
+    z-index: 99999;
 }
 
 
@@ -304,7 +304,7 @@ main label img{
     height: 50px;
     left: 1599px;
     top: 175px;
-    z-index: 999999999999;
+    z-index: 99999;
 }
 
 
@@ -769,7 +769,7 @@ footer .footer{
     background: #6EBA4A;
     box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
     left: 0px;
-    z-index: 99999999;
+    z-index: 9999;
 }
 
 footer .footer p{

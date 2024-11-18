@@ -6,7 +6,7 @@
     <title>공지사항 상세보기</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/admin/adminnoticedetail-light.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
+    <link rel="stylesheet" id="theme-stylesheet-mypage" th:href="@{/css/mypage/mypage-light.css}">
 </head>
 <body>
 
@@ -234,8 +234,13 @@
     document.addEventListener('DOMContentLoaded', () => {
         const savedMode = localStorage.getItem('theme-mode') || 'light';
         const themeStylesheet = savedMode === 'dark' ? '/css/admin/adminnoticedetail-dark.css' : '/css/admin/adminnoticedetail-light.css';
+        const themeStylesheetMypage = savedMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css'
         document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', themeStylesheetMypage);
         document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        document.getElementById('theme-stylesheet-mypage').addEventListener('load', () => {
             updateImages(savedMode);
         });
         updateImages(savedMode);
@@ -286,15 +291,28 @@
 
     function toggleMode() {
         const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        const currentThemeM = document.getElementById('theme-stylesheet-mypage').getAttribute('href');
+
         let newMode = '';
+
+        // 현재 테마에 따라 새 테마 결정
         if (currentTheme.includes('adminnoticedetail-light.css')) {
             newMode = 'dark';
         } else {
             newMode = 'light';
         }
+
+        // 테마 모드 저장
         localStorage.setItem('theme-mode', newMode);
-        const newTheme = newMode === 'dark' ? '/css/admin/adminnoticedetail-dark.css' : '/css/admin/adminnoticedetail-light.css';
+
+        // selectpost와 mypage에 새로운 테마 파일을 적용
+        const newTheme = newMode === 'dark' ? '/css/post/adminnoticedetail-dark.css' : '/css/post/adminnoticedetail-light.css';
+        const newThemeM = newMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css';
+
         document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', newThemeM);
+
+        // 테마에 맞는 이미지들 업데이트
         updateImages(newMode);
     }
 </script>
