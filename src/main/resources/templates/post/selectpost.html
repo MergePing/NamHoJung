@@ -222,10 +222,10 @@
             </div>
             <div id="scary">
                 <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"
-                     data-postNo=${post.postNo}
+                     th:attr="data-postNo=${post.postNo}"
                      class="scary-icon" onclick="toggleScary(this)">
                 <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"
-                     data-postNo=${post.postNo}
+                     th:attr="data-postNo=${post.postNo}"
                      class="scary-icon" onclick="toggleScary(this)">
                 <div>
                     <span>무서워요</span>
