@@ -372,7 +372,7 @@
     };
 
     function fetchComments() {
-        const postNo = [[${post.postNo}]];  // 현재 게시물의 번호를 할당합니다.
+        const postNo = /*[[${post.postNo}]]*/ '0';  // 현재 게시물의 번호를 할당합니다.
         fetch(`/api/comments/${postNo}`)
             .then(response => response.json())
             .then(data => {
@@ -525,7 +525,7 @@
     }
 
     // userNo를 JavaScript 변수에 할당
-    const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+    const loggedInUserNo = /*[[${userNo}]]*/ '0' ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
     console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
 
@@ -605,6 +605,69 @@
 
 
 <script>
+    function toggleScary(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isScary = element.getAttribute('src').includes('scary-btn-after-light.png');
+
+        fetch(`/toggleScary`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postNo: postNo, isScary: !isScary })
+        })
+        then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 테마에 맞는 이미지로 변경
+                    updateScary(element, isFavorite);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function updateScary(element, isFavorite) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+        // 테마에 맞는 이미지 경로를 설정
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        if (mode === 'dark') {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/scary-btn-before-dark.png' : '/images/post/selectpost/scary-btn-after-dark.png');
+        } else {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/scary-btn-before-light.png' : '/images/post/selectpost/scary-btn-after-light.png');
+        }
+    }
+
+
+    function toggleNotScary(element) {
+        const postNo = element.getAttribute('data-postNo');
+        const isScary = element.getAttribute('src').includes('no-scary-btn-after-light.png');
+
+        fetch(`/toggleNotScary`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postNo: postNo, isScary: !isScary })
+        })
+        then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 테마에 맞는 이미지로 변경
+                    updateNotScary(element, isFavorite);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function updateNotScary(element, isFavorite) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+        // 테마에 맞는 이미지 경로를 설정
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        if (mode === 'dark') {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/no-scary-btn-before-dark.png' : '/images/post/selectpost/no-scary-btn-after-dark.png');
+        } else {
+            element.setAttribute('src', isScary ? '/images/post/selectpost/no-scary-btn-before-light.png' : '/images/post/selectpost/no-scary-btn-after-light.png');
+        }
+    }
+
     function toggleLike(element) {
         const commentNo = element.getAttribute('data-comment-no');
         const isLike = element.getAttribute('src').includes('like-btn-after.png');
