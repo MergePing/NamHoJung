@@ -683,15 +683,19 @@
     function adjustFooterPosition() {
         const commentsList = document.getElementById('comments-list'); // 댓글 리스트
         const footer = document.querySelector('footer .footer');       // 푸터
+        const showMoreButton = document.querySelector(".show-more-comments");
 
         // DOM 변경 이후 위치를 재계산하기 위해 약간의 지연을 추가
         setTimeout(() => {
-            if (commentsList.style.display === "none") {
+            if (commentsList.children.length === 0) {
+                // 댓글이 비어 있는 경우: 푸터를 페이지 하단에 고정
+                footer.style.position = 'absolute';
+                footer.style.top = `${window.innerHeight + window.scrollY - footer.offsetHeight}px`;
+            } else if (commentsList.style.display === "none") {
                 // 댓글 목록이 숨겨져 있을 때: 푸터를 댓글 보기 버튼 바로 아래로 위치
-                const showMoreButton = document.querySelector(".show-more-comments");
                 const showMoreButtonBottom = showMoreButton.getBoundingClientRect().top + window.scrollY;
                 footer.style.position = 'absolute';
-                footer.style.top = `${showMoreButtonBottom + showMoreButton.offsetHeight + 600}px`; // 버튼 하단에 20px 간격
+                footer.style.top = `${showMoreButtonBottom + showMoreButton.offsetHeight + 600}px`;
             } else {
                 // 댓글 목록이 표시 중일 때: 댓글 하단에 푸터 위치
                 const commentsListBottom = commentsList.getBoundingClientRect().top + window.scrollY;
@@ -701,6 +705,7 @@
             }
         }, 100); // 약간의 지연을 두어 DOM 업데이트 반영
     }
+
 
 
     // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
