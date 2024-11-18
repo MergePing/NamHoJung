@@ -231,30 +231,39 @@
             </div>
             </div>
             <div id="scary">
-                <img th:src="@{/images/post/selectpost/scary-btn-before-light.png}" th:if="${!post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/selectpost/scary-btn-before-light.png}"
+                     th:if="${!post.scary}"
+                     th:attr="data-postNo=${post.postNo}, data-state='before'"
                      class="scary-icon" onclick="toggleScary(this)" id="sc-b">
-                <img th:src="@{/images/post/selectpost/scary-btn-after-light.png}" th:if="${post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/selectpost/scary-btn-after-light.png}"
+                     th:if="${post.scary}"
+                     th:attr="data-postNo=${post.postNo}, data-state='after'"
                      class="scary-icon" onclick="toggleScary(this)" id="sc-a">
                 <div>
                     <span>무서워요</span>
                 </div>
-                <span th:text="${post.scaryNumber}"></span>
+                <span id="scary-number-${post.postNo}" th:text="${post.scaryNumber}"></span>
             </div>
 
             <div id="notscary">
-                <img th:src="@{/images/post/selectpost/not-scary-btn-before-light.png}" th:if="${!post.notScary}"
-                     th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/selectpost/not-scary-btn-before-light.png}"
+                     th:if="${!post.notScary}"
+                     th:attr="data-postNo=${post.postNo}, data-state='before'"
                      class="notscary-icon" onclick="toggleNotScary(this)" id="nsc-b">
-                <img th:src="@{/images/post/selectpost/not-scary-btn-after-light.png}" th:if="${post.notScary}"
-                     th:attr="data-postNo=${post.postNo}"
+                <img th:src="@{/images/post/selectpost/not-scary-btn-after-light.png}"
+                     th:if="${post.notScary}"
+                     th:attr="data-postNo=${post.postNo}, data-state='after'"
                      class="notscary-icon" onclick="toggleNotScary(this)" id="nsc-a">
                 <div>
                     <span>안무서워요</span>
                 </div>
-                <span th:text="${post.notScaryNumber}"></span>
+                <span id="not-scary-number-${post.postNo}" th:text="${post.notScaryNumber}"></span>
+
             </div>
+
+
+
+
 
 
 
@@ -863,10 +872,12 @@
 </script>
 
 <script>
+    // 무서워요 버튼 상태 변경
     function toggleScary(element) {
         const postNo = element.getAttribute('data-postNo');
-        const isScary = element.getAttribute('src').includes('scary-btn-after-light.png');
+        const isScary = element.getAttribute('src').includes('scary-btn-after-light.png'); // 현재 상태
 
+        // 서버에 상태 전송
         fetch(`/toggleScary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -875,58 +886,79 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // 테마에 맞는 이미지로 변경
-                    updateScary(element, isScary);
+                    // 이미지 및 숫자 상태 업데이트
+                    updateScary(element, !isScary);
+                    updateScaryNumber(postNo, data.scaryNumber); // 숫자 업데이트
                 }
             })
             .catch(error => console.error('Error:', error));
     }
-    function updateScary(element, isScary) {
-        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
 
-        // 테마에 맞는 이미지 경로를 설정
-        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
-
-        if (mode === 'dark') {
-            element.setAttribute('src', isScary ? '/images/post/selectpost/scary-btn-before-dark.png' : '/images/post/selectpost/scary-btn-after-dark.png');
-        } else {
-            element.setAttribute('src', isScary ? '/images/post/selectpost/scary-btn-before-light.png' : '/images/post/selectpost/scary-btn-after-light.png');
-        }
-    }
-
-
+    // 안무서워요 버튼 상태 변경
     function toggleNotScary(element) {
         const postNo = element.getAttribute('data-postNo');
-        const isScary = element.getAttribute('src').includes('not-scary-btn-after-light.png');
+        const isNotScary = element.getAttribute('src').includes('not-scary-btn-after-light.png'); // 현재 상태
 
+        // 서버에 상태 전송
         fetch(`/toggleNotScary`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postNo: postNo, isScary: !isScary })
+            body: JSON.stringify({ postNo: postNo, isNotScary: !isNotScary })
         })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // 테마에 맞는 이미지로 변경
-                    updateNotScary(element, isScary);
+                    // 이미지 및 숫자 상태 업데이트
+                    updateNotScary(element, !isNotScary);
+                    updateNotScaryNumber(postNo, data.notScaryNumber); // 숫자 업데이트
                 }
             })
             .catch(error => console.error('Error:', error));
     }
-    function updateNotScary(element, isScary) {
-        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
 
-        // 테마에 맞는 이미지 경로를 설정
-        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
-
-        if (mode === 'dark') {
-            element.setAttribute('src', isScary ? '/images/post/selectpost/not-scary-btn-before-dark.png' : '/images/post/selectpost/not-scary-btn-after-dark.png');
-        } else {
-            element.setAttribute('src', isScary ? '/images/post/selectpost/not-scary-btn-before-light.png' : '/images/post/selectpost/not-scary-btn-after-light.png');
+    // 무서워요 숫자 업데이트
+    function updateScaryNumber(postNo, newScaryNumber) {
+        const scaryNumberElement = document.querySelector(`#scary-number-${postNo}`);
+        if (scaryNumberElement) {
+            scaryNumberElement.textContent = newScaryNumber;
         }
     }
 
+    // 안무서워요 숫자 업데이트
+    function updateNotScaryNumber(postNo, newNotScaryNumber) {
+        const notScaryNumberElement = document.querySelector(`#not-scary-number-${postNo}`);
+        if (notScaryNumberElement) {
+            notScaryNumberElement.textContent = newNotScaryNumber;
+        }
+    }
 
+    // 무서워요 버튼 상태 업데이트
+    function updateScary(element, isScary) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        // 이미지를 테마와 상태에 맞게 업데이트
+        if (mode === 'dark') {
+            element.setAttribute('src', isScary ? `/images/post/selectpost/scary-btn-after-dark.png${cacheBuster}` : `/images/post/selectpost/scary-btn-before-dark.png${cacheBuster}`);
+
+        } else {
+            element.setAttribute('src', isScary ? `/images/post/selectpost/scary-btn-after-light.png${cacheBuster}` : `/images/post/selectpost/scary-btn-before-light.png${cacheBuster}`);
+        }
+    }
+
+    // 안무서워요 버튼 상태 업데이트
+    function updateNotScary(element, isNotScary) {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+        const cacheBuster = `?v=${new Date().getTime()}`;  // 캐시 우회를 위한 쿼리 문자열
+
+        // 이미지를 테마와 상태에 맞게 업데이트
+        if (mode === 'dark') {
+            element.setAttribute('src', isNotScary ? `/images/post/selectpost/not-scary-btn-after-dark.png${cacheBuster}` : `/images/post/selectpost/not-scary-btn-before-dark.png${cacheBuster}`);
+
+        } else {
+            element.setAttribute('src', isNotScary ? `/images/post/selectpost/not-scary-btn-after-light.png${cacheBuster}` : `/images/post/selectpost/not-scary-btn-before-light.png${cacheBuster}`);
+        }
+    }
 
     function toggleLike(element) {
         const commentNo = element.getAttribute('data-comment-no');
@@ -942,6 +974,25 @@
                 if (data.success) {
                     // 테마에 맞는 이미지로 변경
                     updateLikeImage(element, isLike);
+
+                    // 좋아요 수 업데이트
+                    const likeCountContainer = element.closest('#like').querySelector('.like-count');
+                    const likeTextContainer = element.closest('#like').querySelector('.like-text');
+
+                    // 서버에서 받아온 최신 좋아요 수 반영
+                    const newLikeNumber = data.likeNumber;
+
+                    // 새로운 좋아요 수를 화면에 반영
+                    likeCountContainer.querySelector('span').textContent = newLikeNumber;
+
+                    // 텍스트와 카운트 표시 상태 전환
+                    if (newLikeNumber > 0) {
+                        likeTextContainer.style.display = 'none';
+                        likeCountContainer.style.display = 'inline';
+                    } else {
+                        likeTextContainer.style.display = 'inline';
+                        likeCountContainer.style.display = 'none';
+                    }
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -950,12 +1001,11 @@
     // 테마 변경 시 좋아요 이미지 업데이트
     function updateLikeImage(element, isLike) {
         const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
-
-
+        const cacheBuster = `?v=${new Date().getTime()}`;
         if (mode === 'dark') {
-            element.setAttribute('src', isLike ? '/images/post/selectpost/like-btn-before-dark.png' : '/images/post/selectpost/like-btn-after.png');
+            element.setAttribute('src', isLike ? `/images/post/selectpost/like-btn-before-dark.png${cacheBuster}` : `/images/post/selectpost/like-btn-after.png${cacheBuster}`);
         } else {
-            element.setAttribute('src', isLike ? '/images/post/selectpost/like-btn-before-light.png' : '/images/post/selectpost/like-btn-after.png');
+            element.setAttribute('src', isLike ? `/images/post/selectpost/like-btn-before-light.png${cacheBuster}` : `/images/post/selectpost/like-btn-after.png${cacheBuster}`);
         }
 
         const likeCountContainer = element.closest('#like').querySelector('.like-count');
@@ -1048,22 +1098,22 @@
             test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
         }
 
+
+
         const scb = document.getElementById('sc-b');
+        const sca = document.getElementById('sc-a');
+        const nscb = document.getElementById('nsc-b');
+        const nsca = document.getElementById('nsc-a');
+
         if (scb) {
             scb.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/scary-btn-before-dark.png${cacheBuster}` : `/images/post/selectpost/scary-btn-before-light.png${cacheBuster}`);
         }
-
-        const sca = document.getElementById('sc-a');
         if (sca) {
             sca.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/scary-btn-after-dark.png${cacheBuster}` : `/images/post/selectpost/scary-btn-after-light.png${cacheBuster}`);
         }
-
-        const nscb = document.getElementById('nsc-b');
         if (nscb) {
             nscb.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/not-scary-btn-before-dark.png${cacheBuster}` : `/images/post/selectpost/not-scary-btn-before-light.png${cacheBuster}`);
         }
-
-        const nsca = document.getElementById('nsc-a');
         if (nsca) {
             nsca.setAttribute('src', mode === 'dark' ? `/images/post/selectpost/not-scary-btn-after-dark.png${cacheBuster}` : `/images/post/selectpost/not-scary-btn-after-light.png${cacheBuster}`);
         }
@@ -1106,6 +1156,42 @@
     }
 </script>
 
+<script>
+    function updateThemeMode() {
+        const mode = localStorage.getItem('theme-mode') || 'light'; // 현재 테마 상태 (light 또는 dark)
+
+        // 모든 scary 버튼의 상태 업데이트
+        const scaryIcons = document.querySelectorAll('.scary-icon');
+        scaryIcons.forEach(icon => {
+            const isScary = icon.getAttribute('data-state') === 'after';  // 현재 상태 확인
+            updateScary(icon, isScary); // 이미지를 테마에 맞게 업데이트
+        });
+
+        // 모든 not scary 버튼의 상태 업데이트
+        const notScaryIcons = document.querySelectorAll('.notscary-icon');
+        notScaryIcons.forEach(icon => {
+            const isNotScary = icon.getAttribute('data-state') === 'after';  // 현재 상태 확인
+            updateNotScary(icon, isNotScary); // 이미지를 테마에 맞게 업데이트
+        });
+    }
+
+    // 페이지 로드 시 테마 모드에 맞게 이미지 상태를 업데이트
+    updateThemeMode();
+
+    // 테마 변경 시 호출
+    function changeThemeMode(newMode) {
+        localStorage.setItem('theme-mode', newMode); // 테마 모드 저장
+        updateThemeMode(); // 이미지 상태 업데이트
+    }
+
+    // 예시: 다크 모드로 변경
+    changeThemeMode('dark');
+
+    // 예시: 라이트 모드로 변경
+    changeThemeMode('light');
+
+
+</script>
 <script>
     function toggleScary(element) {
         const postNo = element.getAttribute('data-postNo');
