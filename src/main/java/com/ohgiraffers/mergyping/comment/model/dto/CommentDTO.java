@@ -14,10 +14,11 @@ public class CommentDTO {
     private int index;
     private int likeNumber;
     private boolean like;
+    private String profileImage;
 
     public CommentDTO() {}
 
-    public CommentDTO(int commentNo, String commentContent, int userNo, LocalDate commentDate, String username, String userLevel, int postNo, int top, int index, int likeNumber, boolean like) {
+    public CommentDTO(int commentNo, String commentContent, int userNo, LocalDate commentDate, String username, String userLevel, int postNo, int top, int index, int likeNumber, boolean like, String profileImage) {
         this.commentNo = commentNo;
         this.commentContent = commentContent;
         this.userNo = userNo;
@@ -29,6 +30,7 @@ public class CommentDTO {
         this.index = index;
         this.likeNumber = likeNumber;
         this.like = like;
+        this.profileImage = profileImage;
     }
 
     public int getCommentNo() {
@@ -119,6 +121,14 @@ public class CommentDTO {
         this.like = like;
     }
 
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
     @Override
     public String toString() {
         return "CommentDTO{" +
@@ -133,6 +143,7 @@ public class CommentDTO {
                 ", index=" + index +
                 ", likeNumber=" + likeNumber +
                 ", like=" + like +
+                ", profileImage='" + profileImage + '\'' +
                 '}';
     }
 }

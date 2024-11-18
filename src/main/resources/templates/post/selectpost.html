@@ -5,6 +5,7 @@
     <title>게시판</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" th:href="@{/css/post/selectpost.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
     <style>
         /*손전등*/
         /*:root {*/
@@ -52,19 +53,63 @@
 <body data-user-id="${user.id}">
 <header>
     <nav>
-        <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <!-- 네비바 -->
+        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
-        <span onclick="location.href='/mbti'">MBTI 검사</span>
-        <span id="mypageBtn">마이페이지</span>
-        <form th:action="@{/auth/logout}" method="post">
-            <button id="logoutNav" type="submit">로그아웃</button>
-        </form>
-        <span onclick="location.href='/auth/signupterms'">회원가입</span>
+        <span>MBTI 검사</span>
+        <span>마이페이지</span>
+        <span>로그인</span>
+        <span>회원가입</span>
     </nav>
 </header>
+
+<aside id="myPageAside">
+    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto2">
+    <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
+    <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
+    <p class="infofont" id="info">개인 정보</p>
+    <p class="activefont" id="active">활동 기록</p>
+    <p class="MBTIfont" id="mbtiButton">MBTI</p>
+    <div id="mbtiContent" style="display: none;">
+        <div id="myMBTI" class="mbti-item">
+            -- 나의 MBTI
+        </div>
+        <div class="mbti-item2" onclick="location.href='/mbti'">-- MBTI 검사</div>
+    </div>
+    <form th:action="@{/auth/logout}" method="post">
+        <button class="logoutFont" type="submit">로그아웃</button>
+    </form>
+</aside>
+<div class="rankpopup" id="rank-popup">
+    <p class="scorefont">출석 횟수 : <span th:text="${attendanceCount}"></span></p>
+    <p class="nextfont">다음 등급 : <span th:text="${nextLevelName}"></span></p>
+    <p class="needfont">필요 출석 : <span th:text="${nextLevelRequiredAttendance}"></span></p>
+</div>
+
+<div class="modal-background" id="modal-background">
+    <div class="pwdpopup" id="pwd-popup">
+        <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
+        <div class="pwd-container">
+            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="영문,숫자,특수문자 8~12자리">
+            <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
+        </div>
+
+        <div class="popup-buttons">
+            <button id="closePopupBtn" class="cancle-btn">취소</button>
+            <button id="submitPasswordBtn" class="confirm-btn">확인</button>
+        </div>
+
+    </div>
+</div>
+<div class="mbtipopup" id="mbtiPopup">
+    <p class="horrormbti">나의 공포 MBTI</p>
+    <p class="mbticategory" th:text="${mbtiInfo.MBTI_TYPE}"></p>
+    <div class="mbtiexp">
+        <p class="mtbtiexp2" th:text="${mbtiInfo.MBTI_INFO}"></p>
+    </div>
+</div>
 <main>
     <div class="post">
         <div id="header">
@@ -102,6 +147,10 @@
             <span>작성날짜 : </span>
             <span th:text="${post.postDate}"></span>
 
+            <div th:if="${userInfo.userName} != ${post.postWriterName}" id="reports">
+                <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                <span>신고</span>
+            </div>
         </div>
         <div class="line"></div>
         <div id="content">
@@ -113,8 +162,6 @@
 
 
         </div>
-
-
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const img1 = document.getElementById('img1');
@@ -158,11 +205,11 @@
 
                 <div th:if="${userInfo.userName} == ${post.postWriterName}">
                     <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : post.profileImage}}"
-                         alt="프로필 사진" class="profile-photo" id="profilePhoto">
+                         alt="프로필 사진" class="profile-photo2" id="profilePhoto">
                 </div>
                 <div th:if="${userInfo.userName} != ${post.postWriterName}">
                     <img th:src="@{${post.profileImage != null ? post.profileImage : '/images/mypageimages/profile.png'}}"
-                         alt="프로필 사진" class="profile-photo" id="profilePhoto1">
+                         alt="프로필 사진" class="profile-photo2" id="profilePhoto1">
                 </div>
 
                 <span th:text="${userInfo.level}"></span>
@@ -173,10 +220,10 @@
             </div>
             <div id="scary">
                 <img th:src="@{/images/post/selectpost/scary-btn-before.png}" th:if="${!post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                     data-postNo=${post.postNo}
                      class="scary-icon" onclick="toggleScary(this)">
                 <img th:src="@{/images/post/selectpost/scary-btn-after.png}" th:if="${post.scary}"
-                     th:attr="data-postNo=${post.postNo}"
+                     data-postNo=${post.postNo}
                      class="scary-icon" onclick="toggleScary(this)">
                 <div>
                     <span>무서워요</span>
@@ -198,6 +245,7 @@
             </div>
 
 
+
             <div class="line2"></div>
 
             <!-- 댓글 작성 영역 -->
@@ -206,11 +254,24 @@
                 <button onclick="submitComment()">댓글 작성</button>
             </div>
 
+            <!-- 댓글 더보기 버튼 -->
+            <div class="show-more-comments">
+                <span onclick="loadComments()">댓글 보기</span>
+            </div>
+
             <!-- 댓글 목록 -->
             <div id="comments-list" style="display: none;">
                 <div th:each="comment : ${comments}">
                     <div class="comment">
-                        <img th:src="@{/images/post/selectpost/profile-img.png}">
+                        <div th:if="${userInfo.userName} == ${post.postWriterName}">
+                            <img th:src="@{profileImage}"
+                                 alt="프로필 사진" class="profile-photo" id="profilePhoto2">
+                        </div>
+                        <div th:if="${userInfo.userName} != ${post.postWriterName}">
+                            <img th:src="@{profileImage}"
+                                 alt="프로필 사진" class="profile-photo" id="profilePhoto4">
+                        </div>
+
                         <span th:text="${comment.username}"></span>
                         <span th:text="${comment.userLevel}"></span>
                         <span th:text="${comment.commentContent}"></span>
@@ -232,37 +293,34 @@
                         </div>
 
 
-                        <div th:if="${comment.userNo} != ${userNo}">
-                            <img th:src="@{/images/post/selectpost/reportbtn.png}">
+                        <div th:if="${comment.userNo} != ${userNo}" id="report">
+                            <img th:src="@{/images/post/selectpost/reportbtn.png}" >
                             <span>신고</span>
                         </div>
 
                         <button class="delete-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                                삭제
+                            삭제
                         </button>
 
                         <button class="edit-comment-btn"
                                 th:data-comment-no="${comment.commentNo}"
                                 th:if="${comment.userNo == userNo}">
-                                수정
+                            수정
                         </button>
                     </div>
                 </div>
             </div>
 
 
-            <!-- 댓글 더보기 버튼 -->
-            <div class="show-more-comments">
-                <span onclick="loadComments()">댓글 보기</span>
-            </div>
+
         </div>
     </div>
     <div class="bg"></div>
 
-<!--    <button type="button" onclick="editPost()" id="editBtn">수정</button>-->
-<!--    <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>-->
+    <!--    <button type="button" onclick="editPost()" id="editBtn">수정</button>-->
+    <!--    <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}">삭제</button>-->
 
     <div th:if="${userInfo.userName} == ${post.postWriterName}">
         <div class="modifyModal">
@@ -278,33 +336,154 @@
             </div>
         </div>
         <div class="deleteModal">
-            <!— 삭제 버튼 —>
+            <!-- 삭제 버튼 -->
             <button type="button" id="deleteBtn" th:data-post-no="${post.postNo}" onclick="showDeleteModal()">삭제</button>
 
-            <!— 모달 —>
+            <!-- 모달 -->
             <div class="delete1 dn">
                 <div class="modal-bg">
                     <p>게시물을 삭제 하시겠습니까?</p>
 
-                    <!— 삭제 확인 버튼 —>
+                    <!-- 삭제 확인 버튼 -->
                     <button type="button" class="yes" id="yesDelete" onclick="confirmDelete()">확인</button>
 
-                    <!— 삭제 취소 버튼 —>
+                    <!-- 삭제 취소 버튼 -->
                     <button class="return" onclick="closeDeleteModal()">취소</button>
                 </div>
             </div>
         </div>
+
+
     </div>
-
-
-
-
 </main>
+
+
 <footer>
     <div class="footer">
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
+<script>
+    // JavaScript로 토글 기능 추가
+    const mypageBtn = document.getElementById("mypageBtn");
+    const myPageAside = document.getElementById("myPageAside");
+
+    // 버튼 클릭 시 aside 창 표시/숨김 전환
+    mypageBtn.addEventListener("click", () => {
+        if (myPageAside.classList.contains("show")) {
+            // 보이는 상태라면 숨기기
+            myPageAside.classList.remove("show");
+            setTimeout(() => {
+                myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로
+            }, 400); // transition과 동일한 시간 설정
+        } else {
+            // 숨겨진 상태라면 보이게 하기
+            myPageAside.style.display = "block"; // 먼저 display를 block으로 설정
+            setTimeout(() => {
+                myPageAside.classList.add("show");
+            }, 10); // 약간의 지연 시간 후에 show 클래스 추가
+        }
+    });
+
+    const gradeElement = document.getElementById('rank');
+    const popup = document.getElementById('rank-popup');
+
+    gradeElement.addEventListener('mouseenter', () => {
+        popup.style.display = 'block'; // 팝업 표시
+    });
+
+    gradeElement.addEventListener('mouseleave', () => {
+        popup.style.display = 'none'; // 팝업 숨기기
+    });
+
+    const personalInfoBtn = document.getElementById('info');
+    const passwordPopup = document.getElementById('pwd-popup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('pwdInput');
+    const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+    const modal = document.querySelector('.modal-background');
+    const passwordIcon = document.getElementById('passwordIcon');
+
+    //모달
+    personalInfoBtn.addEventListener('click', () => {
+        passwordPopup.style.display = 'block';// 비밀번호 팝업 표시
+        document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    });
+
+    personalInfoBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+        if (modal.style.display === "flex") {
+            closePopupBtn.addEventListener("click", () => {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+            });
+        }
+    });
+
+
+    // 비밀번호 보기/숨기기 토글
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
+    });
+
+
+    submitPasswordBtn.addEventListener('click', () => {
+        const inputPassword = passwordInput.value;
+
+        // 비밀번호 검증 요청
+        fetch('/verifyPassword', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ inputPassword })
+        })
+            .then(response => response.json())
+            .then(isPasswordCorrect => {
+                if (isPasswordCorrect) {
+                    // 비밀번호가 맞으면 개인정보 페이지로 이동
+                    location.href = '/userinfo';
+                } else {
+                    // 비밀번호가 틀리면 경고 메시지 표시
+                    alert('비밀번호가 일치하지 않습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('비밀번호 검증 요청 실패:', error);
+                alert('비밀번호 확인 중 오류가 발생했습니다.');
+            });
+    });
+
+    const activebtn = document.getElementById('active');
+    activebtn.addEventListener('click', () => {
+        // URL을 원하는 주소로 변경하세요
+        location.href = '/useractive';
+    });
+
+    const mbtiButton = document.getElementById("mbtiButton");
+    const mbtiContent = document.getElementById("mbtiContent");
+    const myMBTI = document.getElementById("myMBTI");
+    const mbtiPopup = document.getElementById("mbtiPopup");
+
+    // MBTI 버튼 클릭 시 MBTI 콘텐츠 표시
+    mbtiButton.addEventListener("click", () => {
+        // 콘텐츠 표시 상태를 토글
+        mbtiContent.style.display = mbtiContent.style.display === "none" ? "block" : "none";
+    });
+
+    // 나의 MBTI 요소에 마우스 올렸을 때 팝업 표시
+    myMBTI.addEventListener("mouseenter", () => {
+        mbtiPopup.style.display = "block";
+    });
+
+    // 나의 MBTI 요소에서 마우스 나갔을 때 팝업 숨기기
+    myMBTI.addEventListener("mouseleave", () => {
+        mbtiPopup.style.display = "none";
+    });
+</script>
 <script>
     const editBtn = document.getElementById("editBtn");
     const modify = document.querySelector(".modify");
@@ -313,7 +492,7 @@
 
     function showEditModal() {
         console.log("showEditModal called");
-        closeDeleteModal(); // 다른 모달창 닫기
+        // closeDeleteModal(); // 다른 모달창 닫기
         modify.classList.remove("dn");
         console.log("modify.classList:", modify.classList);
     }
@@ -356,6 +535,19 @@
         }
     }
 
+    function showDeleteModal() {
+        // console.log(showDeleteModal());
+        // closeEditModal(); // 다른 모달창 닫기
+        delete1.classList.remove("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
+
+    function closeDeleteModal() {
+        // console.log(closeDeleteModal());
+        delete1.classList.add("dn");
+        console.log("delete1.classList:", delete1.classList);
+    }
+
     // // 삭제 버튼 클릭 이벤트 설정
     // document.getElementById("deleteBtn").addEventListener("click", function () {
     //     const postNo = document.getElementById("deleteBtn").getAttribute("data-post-no");
@@ -364,79 +556,33 @@
 </script>
 
 <script>
-    function toggleLike(element) {
-        const commentNo = element.getAttribute('data-comment-no');
-        if (!commentNo) {
-            console.error('commentNo is null or undefined');
-            return;
-        }
+    window.onload = function() {
+        fetchComments();
+    };
 
-        const isLike = element.getAttribute('src').includes('like-btn-after.png');
-
-        fetch(`/toggleLike`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
-        })
+    function fetchComments() {
+        const postNo = [[${post.postNo}]];  // 현재 게시물의 번호를 할당합니다.
+        fetch(`/api/comments/${postNo}`)
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-                    const likeCountContainer = element.closest('#like').querySelector('div');
-                    console.log(likeCountContainer);
-                    if (data.likeNumber > 0) {
-                        likeCountContainer.textContent = data.likeNumber;
-                        likeCountContainer.style.left="1577px"
-                    } else {
-                        likeCountContainer.textContent = '좋아요';
-                        likeCountContainer.style.left="1560px"
-                    }
-                }
+                addCommentToDOM(data.comments, data.userProfileImage);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error fetching comments:', error);
             });
     }
-
-    // function toggleLike(element) {
-    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
-    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
-    //
-    //     fetch(`/toggleLike`, {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             if (data.success) {
-    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
-    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error('Error:', error);
-    //         });
-    // }
-
-
 </script>
+
+    // // 삭제 버튼 클릭 이벤트 설정
+    // document.getElementById("deleteBtn").addEventListener("click", function () {
+    //     const postNo = document.getElementById("deleteBtn").getAttribute("data-post-no");
+    //     deletePost(postNo);
+    // });
+</script>
+
 <script>
-    function showDeleteModal() {
-        console.log("showDeleteModal called");
-        closeEditModal(); // 다른 모달창 닫기
-        delete1.classList.remove("dn");
-        console.log("delete1.classList:", delete1.classList);
-    }
-
-    function closeDeleteModal() {
-        console.log("closeDeleteModal called");
-        delete1.classList.add("dn");
-        console.log("delete1.classList:", delete1.classList);
-    }
 
 
-</script>
 
 
 <script>
@@ -449,38 +595,6 @@
             return;
         }
 
-        // 게시물 번호 가져오기 (예: favorite-icon의 data-postNo 속성)
-        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");/* 게시물 번호 */;
-
-        function addCommentToDOM(comments) {
-            const commentsList = document.getElementById("comments-list");
-
-            // 기존 댓글 목록을 제거하고 새로운 댓글 목록을 추가
-            commentsList.innerHTML = "";
-
-            // comments가 배열인 경우만 처리
-            if (Array.isArray(comments)) {
-                comments.forEach((comment,index) => {
-                    const commentDiv = document.createElement("div");
-                    commentDiv.classList.add("comment");
-
-                    // 각 댓글의 위치를 동적으로 설정
-                    commentDiv.style.position = "relative";
-                    commentDiv.style.margintop = `${index * 150}px`;  // 댓글 간 간격 조절
-
-
-                    // 댓글 내용 추가 (사용자 이름, 레벨, 댓글 날짜 등 포함)
-                    commentDiv.innerHTML = `
-                        <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
-                        <span>${comment.username}</span>
-                        <span>${comment.userLevel}</span>
-                        <span>${comment.commentContent}</span>
-                        <span>${comment.commentDate}</span>
-                        <img src="/images/post/selectpost/like-btn-before.png" alt="Like Button">
-                        <span>좋아요</span>
-                        <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
-                        <span>신고</span>
-                        
         const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
 
@@ -495,7 +609,7 @@
             .then(data => {
                 if (data.success) {
                     if (Array.isArray(data.comments)) {
-                        addCommentToDOM(data.comments);  // 댓글 목록을 DOM에 추가
+                        addCommentToDOM(data.comments,data.userProfileImage);  // 댓글 목록을 DOM에 추가
                     } else {
                         console.error("댓글 목록이 배열이 아닙니다:", data.comments);
                     }
@@ -527,6 +641,8 @@
                         } else {
                             console.error("댓글 목록이 배열이 아닙니다:", data.comments);
                         }
+                        // 댓글 삭제 후 푸터 위치를 재조정
+                        adjustFooterPosition();
                     } else {
                         alert(data.error || "댓글 삭제에 실패했습니다.");
                     }
@@ -544,6 +660,8 @@
         const currentContent = commentDiv.querySelector("span:nth-child(4)").textContent;
 
         console.log(currentContent);
+
+
         // 댓글 수정 창을 띄우기 위해 prompt를 사용
         const newContent = prompt("댓글을 수정하세요:", currentContent);
 
@@ -583,10 +701,45 @@
         }
     });
 
+    function adjustFooterPosition() {
+        const commentsList = document.getElementById('comments-list'); // 댓글 리스트
+        const footer = document.querySelector('footer .footer');       // 푸터
+
+        // DOM 변경 이후 위치를 재계산하기 위해 약간의 지연을 추가
+        setTimeout(() => {
+            if (commentsList.style.display === "none") {
+                // 댓글 목록이 숨겨져 있을 때: 푸터를 댓글 보기 버튼 바로 아래로 위치
+                const showMoreButton = document.querySelector(".show-more-comments");
+                const showMoreButtonBottom = showMoreButton.getBoundingClientRect().top + window.scrollY;
+                footer.style.position = 'absolute';
+                footer.style.top = `${showMoreButtonBottom + showMoreButton.offsetHeight + 600}px`; // 버튼 하단에 20px 간격
+            } else {
+                // 댓글 목록이 표시 중일 때: 댓글 하단에 푸터 위치
+                const commentsListBottom = commentsList.getBoundingClientRect().top + window.scrollY;
+                const footerTop = commentsListBottom + commentsList.scrollHeight + 20; // 댓글 목록 하단에서 20px 여백 추가
+                footer.style.position = 'absolute';
+                footer.style.top = `${footerTop}px`;
+            }
+        }, 100); // 약간의 지연을 두어 DOM 업데이트 반영
+    }
+
+
+
+
     // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
     function loadComments() {
         const commentsList = document.getElementById("comments-list");
         const showMoreButton = document.querySelector(".show-more-comments span");
+
+        // 댓글 목록에서 댓글 개수 확인
+        const commentDivs = commentsList.querySelectorAll(".comment");
+
+        if (commentDivs.length === 0) {
+            alert("댓글이 없습니다.");
+            showMoreButton.style.pointerEvents = "none"; // 클릭 비활성화
+            showMoreButton.style.color = "gray"; // 비활성화된 버튼 색상 변경
+            return;
+        }
 
         // 댓글 목록이 보이지 않으면 댓글을 로드하고, 보이면 숨깁니다.
         if (commentsList.style.display === "none") {
@@ -599,43 +752,59 @@
                 // 댓글의 위치를 조정
                 commentDiv.style.position = "relative";
                 commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격을 150px로 설정
+
             });
+
+            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+            showMoreButton.style.color = ""; // 기본 색상 복구
 
         } else {
             commentsList.style.display = "none";  // 댓글 목록을 숨김
             showMoreButton.textContent = "댓글 보기";  // 버튼 텍스트 변경
+
+
         }
+
+        adjustFooterPosition();
+
+
+
     }
+
+
 
     // userNo를 JavaScript 변수에 할당
     const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
     console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
     // addCommentToDOM을 외부로 이동
-    function addCommentToDOM(comments) {
+
+
+    function addCommentToDOM(comments, userProfileImage) {
         const commentsList = document.getElementById("comments-list");
         commentsList.innerHTML = ""; // 기존 댓글 목록을 제거하고 새로운 목록을 추가
 
-        // comments가 배열인 경우만 처리
         if (Array.isArray(comments)) {
-            comments.forEach((comment,index) => {
-                const commentDiv = document.createElement("div");
-                commentDiv.classList.add("comment")
+            comments.forEach((commentWithProfile, index) => {
+                const comment = commentWithProfile.comment;
+                const profileImage = commentWithProfile.profileImage || '/images/mypageimages/profile.png';
 
+                const commentDiv = document.createElement("div");
+                commentDiv.classList.add("comment");
                 commentDiv.style.position = "relative";
                 commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
 
-
-
                 // 댓글 간 간격 조절
-
-                // 댓글 내용 추가.
+                // 댓글 내용 추가
+              
                 commentDiv.innerHTML = `
-                <img src="/images/post/selectpost/profile-img.png" alt="Profile Image">
+                <img src="${profileImage}" alt="Profile Image" class="profile-photo">
                 <span>${comment.username}</span>
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
                 <span>${comment.commentDate}</span>
-                 <div id="like">
+
+                <div id="like">
         <img src="/images/post/selectpost/like-btn-before.png"
              data-comment-no="${comment.commentNo}"
              class="likeImg"
@@ -653,11 +822,7 @@
             <span>좋아요</span>
         </div>
     </div>
-
-
-
             `;
-
 
                 // 콘솔에 userNo와 비교 결과 출력
                 console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
@@ -666,37 +831,46 @@
 
 
                 // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제 버튼을 보이게 함
+              
                 if (Number(comment.userNo) === Number(loggedInUserNo)) {
                     const deleteButton = document.createElement("button");
                     deleteButton.classList.add("delete-comment-btn");
                     deleteButton.textContent = "삭제";
                     deleteButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(deleteButton); // 삭제 버튼을 댓글에 추가
+                    commentDiv.appendChild(deleteButton);
 
                     const editButton = document.createElement("button");
                     editButton.classList.add("edit-comment-btn");
                     editButton.textContent = "수정";
                     editButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(editButton); // 수정 버튼을 댓글에 추가
-                }else {
-                    // 로그인한 사용자와 댓글 작성자가 다를 때 신고 버튼 추가
+                    commentDiv.appendChild(editButton);
+                } else {
                     const reportDiv = document.createElement("div");
-
                     reportDiv.innerHTML = `
+<div id="report">
                     <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
                     <span>신고</span>
+                    </div>
                 `;
-
                     commentDiv.appendChild(reportDiv);
                 }
 
                 commentsList.appendChild(commentDiv);
             });
 
+            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+            const showMoreButton = document.querySelector(".show-more-comments span");
+            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+            showMoreButton.style.color = ""; // 기본 색상 복구
+
+            // 댓글 추가 후 푸터 위치 조정
+            adjustFooterPosition();
+
         } else {
             console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
         }
     }
+
 
 </script>
 
@@ -714,6 +888,63 @@
         } }) .catch(error => console.error('Error:', error)); }
 </script>
 
+<script>
+    function toggleLike(element) {
+        const commentNo = element.getAttribute('data-comment-no');
+        if (!commentNo) {
+            console.error('commentNo is null or undefined');
+            return;
+        }
+
+        const isLike = element.getAttribute('src').includes('like-btn-after.png');
+
+        fetch(`/toggleLike`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ commentNo: parseInt(commentNo), isLike: !isLike })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+                    const likeCountContainer = element.closest('#like').querySelector('div');
+                    if (data.likeNumber > 0) {
+                        likeCountContainer.textContent = data.likeNumber;
+                        likeCountContainer.style.left="1577px"
+                    } else {
+                        likeCountContainer.textContent = '좋아요';
+                        likeCountContainer.style.left="1560px"
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // function toggleLike(element) {
+    //     const commentNo = parseInt(element.getAttribute('data-comment-no'));
+    //     const isLike = element.getAttribute('src').includes('like-btn-after.png');
+    //
+    //     fetch(`/toggleLike`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ commentNo: commentNo, isLike: !isLike })
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.success) {
+    //                 element.src = isLike ? '/images/post/selectpost/like-btn-before.png' : '/images/post/selectpost/like-btn-after.png';
+    //                 element.closest('.comment').querySelector('.like-count').innerText = data.likeNumber;
+    //             }
+    //         })
+    //         .catch(error => {
+    //             console.error('Error:', error);
+    //         });
+    // }
+
+
+</script>
 
 <script>
     function toggleScary(element) {
@@ -788,102 +1019,11 @@
         else {
             box.style.top = `${contentTop}px`;
         }
-        // 박스와 푸터의 위치 설정
-        setTimeout(() => {
-            const boxTop = box.getBoundingClientRect().top + window.scrollY;
-            const footerTop = boxTop + box.scrollHeight + 10;
-            footer.style.position = 'absolute';
-            footer.style.top = `${footerTop}px`;
-        }, 100);
+        adjustFooterPosition();
+
     });
 
 
-
-</script>
-
-
-<div id="reportModal" class="modal dn">
-    <div class="modalContent">
-        <p>신고 사유를 선택해주세요</p>
-        <form id="reportForm">
-            <div>
-                <input type="radio" id="reason1" name="reason" value="성적이거나 불쾌감을 유발하는 콘텐츠 배포">
-                <label for="reason1">성적이거나 불쾌감을 유발하는 콘텐츠 배포</label>
-            </div>
-            <div>
-                <input type="radio" id="reason2" name="reason" value="폭력적 또는 심한 혐오감을 유발하는 콘텐츠">
-                <label for="reason2">폭력적 또는 심한 혐오감을 유발하는 콘텐츠</label>
-            </div>
-            <div>
-                <input type="radio" id="reason3" name="reason" value="특정 사용자를 괴롭히거나 폭력을 조장하는 콘텐츠">
-                <label for="reason3">특정 사용자를 괴롭히거나 폭력을 조장하는 콘텐츠</label>
-            </div>
-            <div>
-                <input type="radio" id="reason4" name="reason" value="스팸 또는 사기에 관련된 콘텐츠">
-                <label for="reason4">스팸 또는 사기에 관련된 콘텐츠</label>
-            </div>
-        </form>
-        <div class="modalActions">
-            <button id="cancelReport">취소</button>
-            <button id="submitReport">신고</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const reportModal = document.getElementById('reportModal');
-        const submitReportBtn = document.getElementById('submitReport');
-        const cancelReportBtn = document.getElementById('cancelReport');
-        const reportForm = document.getElementById('reportForm');
-
-        let currentPostNo = null;
-
-        // 신고 버튼 클릭 시 모달 표시
-        document.querySelectorAll('.report-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                currentPostNo = this.getAttribute('data-postNo'); // 현재 게시물 번호 저장
-                reportModal.classList.remove('dn'); // 모달 표시
-            });
-        });
-
-        // 신고 제출 버튼 클릭
-        submitReportBtn.addEventListener('click', function () {
-            const selectedReason = document.querySelector('input[name="reason"]:checked');
-
-            if (!selectedReason) {
-                alert('신고 사유를 선택해주세요.');
-                return;
-            }
-
-            // 서버로 신고 데이터 전송
-            fetch('/post/report', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    postNo: currentPostNo,
-                    reason: selectedReason.value, // 선택된 신고 사유
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('신고가 접수되었습니다.');
-                        reportModal.classList.add('dn'); // 모달 닫기
-                    } else {
-                        alert('신고 접수에 실패했습니다.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        });
-
-        // 신고 취소 버튼 클릭
-        cancelReportBtn.addEventListener('click', function () {
-            reportModal.classList.add('dn'); // 모달 닫기
-        });
-    });
 </script>
 </body>
 </html>
