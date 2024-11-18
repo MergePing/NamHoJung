@@ -248,7 +248,7 @@ main #mainlogo{
     position: absolute;
     width: 361px;
     top: 150px;
-    left: 750px;
+    left: 775px;
 }
 
 
@@ -256,7 +256,7 @@ main #introduce{
     position: absolute;
     width: 1500px;
     top: 420px;
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-weight: 800;
     font-size: 30px;
     line-height: 162%;
@@ -270,14 +270,14 @@ main #introduce2{
     position: absolute;
     width: 1250px;
     top: 750px;
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-weight: 800;
     font-size: 30px;
     line-height: 162%;
     letter-spacing: 0.05em;
     color: #FFFFFF;
     text-align: center;
-    left: 300px;
+    left: 315px;
 }
 
 
@@ -288,7 +288,7 @@ main #btn{
     top: 889px;
     background: #0E2913;
     border-radius: 50px;
-    left: 840px;
+    left: 845px;
     transition: all 1s;
 }
 
@@ -296,7 +296,7 @@ main #btn p{
     /* 확인 */
     position: absolute;
     width: 90px;
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-weight: 700;
     font-size: 40px;
     line-height: 50px;
@@ -325,7 +325,7 @@ footer .footer{
 footer .footer p{
     position: absolute;
     height: 31px;
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-weight: 500;
     font-size: 25px;
     line-height: 31px;
