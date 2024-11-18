@@ -86,7 +86,9 @@
 
 
     <select id="findNickName"   resultMap="mypageResultMap" >
-        SELECT USER_NAME
+        SELECT USER_NAME,
+                USER_ID,
+                EMAIL
         FROM TBL_USER
         WHERE USER_NO= #{userNo}
     </select>

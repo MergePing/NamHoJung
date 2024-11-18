@@ -19,6 +19,14 @@ body{
     margin-left:-594px;
     margin-top: -75px;
 }
+.profile-photo2 {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
 
 button {
     cursor:pointer;
@@ -725,13 +733,13 @@ main .bg{
 }
 .show-more-comments span:nth-of-type(1){
     position: absolute;
-    width: 200px;
+    width: 180px;
     height: 30px;
-    top: 750px;
+    top: 310px;
     font-family: 'BMJUA';
-    font-size: 40px;
+    font-size: 35px;
     text-align: center;
-    letter-spacing: 0.05em;
+    /*letter-spacing: 0.05em;*/
     color: #FFFFFF;
     left: 900px;
     border-bottom: #fff solid 3px;
@@ -1079,6 +1087,15 @@ footer .footer{
     z-index: 55;
     margin-top: 50px;
 }
+/*footer .footer {*/
+/*    position: relative; !* 푸터가 컨텐츠 아래에 따라감 *!*/
+/*    width: 1920px; !* 푸터 너비를 화면 전체로 확장 *!*/
+/*    height: 69px; !* 고정된 높이 *!*/
+/*    background: #0E2913; !* 기존 배경색 유지 *!*/
+/*    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25); !* 그림자 효과 *!*/
+/*    z-index: 55; !* 기존 z-index 유지 *!*/
+/*    margin-top: 50px; !* 컨텐츠와 푸터 사이 여백 *!*/
+/*}*/
 
 footer .footer p{
     position: absolute;
@@ -1092,6 +1109,19 @@ footer .footer p{
     left: 750px;
     top: 20px;
 }
+/*footer .footer p {*/
+/*    position: relative; !* 텍스트도 상대 위치로 수정 *!*/
+/*    height: 31px;*/
+/*    font-family: 'SUIT';*/
+/*    font-weight: 500;*/
+/*    font-size: 25px;*/
+/*    line-height: 31px;*/
+/*    letter-spacing: 0.05em;*/
+/*    color: #D5D5D5;*/
+/*    text-align: center; !* 텍스트를 중앙 정렬 *!*/
+/*    margin: 0; !* 기본 마진 제거 *!*/
+/*    padding-top: 20px; !* 위쪽 여백 추가 *!*/
+/*}*/
 
 .report-btn {
     cursor: pointer; /* 포인터 효과 추가 */

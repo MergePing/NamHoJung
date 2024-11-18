@@ -144,7 +144,7 @@ public class MainController {
     }
 
 
-    @GetMapping("/intro")
-    public String intro(){return "/main/intro/intro";}
+//    @GetMapping("/intro")
+//    public String intro(){return "/main/intro/intro";}
 
 }

@@ -75,6 +75,7 @@ aside.show {
     margin-left: 59px;
     margin-top: 73px;
 }
+
 .nicknamefont{
     width:180px;
     height:33px;
@@ -189,6 +190,9 @@ aside.show {
     color:#A3DA87;
 }
 .mbti-item:hover{
+    color:#A3DA87;
+}
+.mbti-item2:hover{
     color:#A3DA87;
 }
 
@@ -390,6 +394,7 @@ aside.show {
     /* identical to box height */
 
     color: #FFFFFF;
+    cursor: pointer;
 }
 .horrormbti{
     position: absolute;
