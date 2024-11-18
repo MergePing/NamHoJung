@@ -542,28 +542,56 @@ public class PostController {
     @PostMapping("/toggleScary")
     @ResponseBody
     public Map<String, Object> toggleScary(@RequestBody Map<String, Object> payload) {
-        int postNo = Integer.parseInt((String) payload.get("postNo"));
-        boolean isScary = (Boolean) payload.get("isScary");
-
-        postService.updateScaryStatus(postNo, isScary);
-
         Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("scaryNumber", postService.getScaryNumber(postNo));
+        try {
+            // postNo와 isScary 값에 대한 null 체크
+            if (payload.get("postNo") == null || payload.get("isScary") == null) {
+                response.put("success", false);
+                response.put("message", "Missing postNo or isScary value");
+                return response;
+            }
+
+            int postNo = Integer.parseInt(payload.get("postNo").toString());  // postNo는 숫자로 변환
+            boolean isScary = (Boolean) payload.get("isScary");
+
+            // 데이터베이스 업데이트
+            postService.updateScaryStatus(postNo, isScary);
+
+            // 업데이트된 scaryNumber 반환
+            response.put("success", true);
+            response.put("scaryNumber", postService.getScaryNumber(postNo));
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Error processing request: " + e.getMessage());
+        }
         return response;
     }
 
     @PostMapping("/toggleNotScary")
     @ResponseBody
     public Map<String, Object> toggleNotScary(@RequestBody Map<String, Object> payload) {
-        int postNo = Integer.parseInt((String) payload.get("postNo"));
-        boolean isNotScary = (Boolean) payload.get("isNotScary");
-
-        postService.updateNotScaryStatus(postNo, isNotScary);
-
         Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
+        try {
+            // postNo와 isNotScary 값에 대한 null 체크
+            if (payload.get("postNo") == null || payload.get("isNotScary") == null) {
+                response.put("success", false);
+                response.put("message", "Missing postNo or isNotScary value");
+                return response;
+            }
+
+            int postNo = Integer.parseInt(payload.get("postNo").toString());  // postNo는 숫자로 변환
+            boolean isNotScary = (Boolean) payload.get("isNotScary");
+
+            // 데이터베이스 업데이트
+            postService.updateNotScaryStatus(postNo, isNotScary);
+
+            // 업데이트된 notScaryNumber 반환
+            response.put("success", true);
+            response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Error processing request: " + e.getMessage());
+        }
         return response;
     }
 
@@ -576,22 +604,27 @@ public class PostController {
 
         if (commentNoObj instanceof Integer) {
             commentNo = (Integer) commentNoObj;
-            System.out.println("commentNo 111111111= " + commentNo);
         } else if (commentNoObj instanceof String) {
             commentNo = Integer.parseInt((String) commentNoObj);
-            System.out.println("commentN22222222222o = " + commentNo);
         } else {
             throw new IllegalArgumentException("Invalid type for commentNo");
         }
 
         boolean isLike = (Boolean) payload.get("isLike");
+
+        // 좋아요 상태 업데이트
         postService.updateLikeStatus(commentNo, isLike);
 
+        // 업데이트된 좋아요 수 가져오기
+        int updatedLikeNumber = postService.getLikeNumber(commentNo);
+
+        // 응답 반환
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
-        response.put("likeNumber", postService.getLikeNumber(commentNo));
+        response.put("likeNumber", updatedLikeNumber);  // 서버에서 가져온 좋아요 수
         return response;
     }
+
 
 
     // 게시물 수정 페이지 이동
