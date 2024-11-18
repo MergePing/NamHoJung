@@ -265,11 +265,11 @@
                     <div class="comment">
                         <div th:if="${userInfo.userName} == ${post.postWriterName}">
                             <img th:src="@{profileImage}"
-                                 alt="프로필 사진" class="profile-photo" id="profilePhoto2">
+                                 alt="프로필 사진" class="profile-photo2" id="profilePhoto3">
                         </div>
                         <div th:if="${userInfo.userName} != ${post.postWriterName}">
                             <img th:src="@{profileImage}"
-                                 alt="프로필 사진" class="profile-photo" id="profilePhoto4">
+                                 alt="프로필 사진" class="profile-photo2" id="profilePhoto4">
                         </div>
 
                         <span th:text="${comment.username}"></span>
@@ -363,6 +363,7 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
+
 <script>
     // JavaScript로 토글 기능 추가
     const mypageBtn = document.getElementById("mypageBtn");
@@ -573,14 +574,8 @@
     }
 </script>
 
-    // // 삭제 버튼 클릭 이벤트 설정
-    // document.getElementById("deleteBtn").addEventListener("click", function () {
-    //     const postNo = document.getElementById("deleteBtn").getAttribute("data-post-no");
-    //     deletePost(postNo);
-    // });
-</script>
 
-<script>
+
 
 
 
@@ -798,7 +793,7 @@
                 // 댓글 내용 추가
               
                 commentDiv.innerHTML = `
-                <img src="${profileImage}" alt="Profile Image" class="profile-photo">
+                <img src="${profileImage}" alt="Profile Image" class="profile-photo2">
                 <span>${comment.username}</span>
                 <span>${comment.userLevel}</span>
                 <span>${comment.commentContent}</span>
