@@ -222,7 +222,7 @@ main {
     width: 168px;
     height: 168px;
     margin: 0 auto;
-    background: url("/static/images/admin/defaultprofile.png") no-repeat center center;
+    background: url("/images/admin/defaultprofile.png") no-repeat center center;
     background-size: cover;
     border-radius: 100px;
 }
@@ -254,7 +254,7 @@ main {
     font-weight: 300;
     font-size: 25px;
     line-height: 32px;
-    margin-top: auto;
+    margin-top: 200px;
     margin-bottom: 23px;
 
     color: #FFFFFF;
@@ -342,12 +342,10 @@ main {
     position: absolute;
     width: 291px;
     height: 65px;
-    left: 1262px;
-    top: 491px;
+    left: 125px;
 
     background: #408D1C;
     border-radius: 50px;
-    z-index: 10;
 }
 
 
