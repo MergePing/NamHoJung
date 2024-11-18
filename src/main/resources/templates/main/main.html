@@ -70,7 +70,7 @@
 </header>
 
 <aside id="myPageAside">
-    <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
     <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
     <p class="infofont" id="info">개인 정보</p>
@@ -134,6 +134,7 @@
         <img class="bg" th:src="@{/images/main/main-dark-bg.png}" alt="다크모드 메인페이지 배경화면">
         <div class="mainbox tr" id="mainbox" onclick="location.href='/mbti'"><p id="black">나의 공포 MBTI는?</p></div>
     </div>
+    <div id="link" onclick="location.href='/post'"></div>
 <img th:src="@{/images/main/main2-best.png}" id="gost">
     <div class="main2">
         <h2>베스트 정원</h2>
@@ -201,6 +202,30 @@
     gradeElement.addEventListener('mouseleave', () => {
         popup.style.display = 'none'; // 팝업 숨기기
     });
+
+    function updateRankPopup() {
+        fetch('/updateUserLevel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    // 출석 횟수 업데이트
+                    document.querySelector('.scorefont span').textContent = data.attendanceCount;
+
+                    // 다음 등급명 업데이트
+                    document.querySelector('.nextfont span').textContent = data.nextLevelName;
+
+                    // 다음 등급에 필요한 출석 횟수 업데이트
+                    document.querySelector('.needfont span').textContent = data.nextLevelRequiredAttendance;
+                }
+            })
+            .catch(error => console.error("등급 업데이트 실패:", error));
+    }
+
 
     const personalInfoBtn = document.getElementById('info');
     const passwordPopup = document.getElementById('pwd-popup');
@@ -436,6 +461,9 @@
                             img.src = '/images/main/check mark.png';
                             todayDiv.appendChild(img);
                         }
+
+                        // 등급 정보 업데이트 호출
+                        updateRankPopup();
 
                     }
                 })

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +37,7 @@ public class SecurityConfig  {
         http.authorizeHttpRequests( auth -> {
             auth.requestMatchers( "/auth/**",
                     "/", "/main", "/css/**", "/img/**", "/error/**",
-                    "/userinfo/**", "/useractive/**", "/intro", "/notice/*", "/selectnotice", "/selectpost","/writepost", "/find/**",
+                    "/userinfo/**", "/useractive/**", "/intro/*", "/notice/*", "/selectnotice", "/selectpost","/writepost", "/find/**",
                     "/checknickname/**", "/admin/**", "/toggleFavorite", "/post/**","selectpost/**","/toggleScary/**","/toggleNotScary/**").permitAll();
             auth.requestMatchers("/admin/*").hasAnyAuthority(UserRole.ADMIN.getRole());
             auth.requestMatchers("/user/*").hasAnyAuthority(UserRole.USER.getRole());
@@ -48,7 +47,7 @@ public class SecurityConfig  {
             login.loginPage("/auth/login");
             login.usernameParameter("userId");
             login.passwordParameter("userPass");
-            login.defaultSuccessUrl("/", true);
+            login.defaultSuccessUrl("/main", true);
             login.failureHandler(authFailHandler);
 
         }).logout( logout -> {
@@ -58,8 +57,8 @@ public class SecurityConfig  {
             logout.logoutSuccessUrl("/");
 
         }).sessionManagement( session -> {
-            session.maximumSessions(1);
-            session.invalidSessionUrl("/");
+            session.maximumSessions(5);
+            session.invalidSessionUrl("/auth/login");
 
         }).csrf( csrf -> csrf.disable());
 

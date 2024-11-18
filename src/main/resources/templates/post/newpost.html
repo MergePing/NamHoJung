@@ -5,6 +5,7 @@
   <title>게시글 작성</title>
   <link rel="stylesheet" th:href="@{/css/reset.css}">
   <link rel="stylesheet" th:href="@{/css/post/newpost.css}">
+  <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
   <style>
     /*손전등*/
     /*:root {*/
@@ -44,17 +45,68 @@
 <body>
 <header>
   <nav>
-    <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+    <!--네비바-->
+    <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
     <span onclick="location.href='/intro'">소개</span>
     <span onclick="location.href='/notice'">공지사항</span>
     <span onclick="location.href='/post'">게시판</span>
-    <span>MBTI 검사</span>
-    <span>마이페이지</span>
-    <span>로그인</span>
-    <span>회원가입</span>
+    <span onclick="location.href='/mbti'">MBTI 검사</span>
+    <span id="mypageBtn">마이페이지</span>
+    <form th:action="@{/auth/logout}" method="post">
+      <button id="logoutNav" type="submit">로그아웃</button>
+    </form>
+    <span onclick="location.href='/auth/signupterms'">회원가입</span>
   </nav>
 </header>
+
+
 <main>
+
+  <aside id="myPageAside">
+    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto2">
+    <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
+    <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
+    <p class="infofont" id="info">개인 정보</p>
+    <p class="activefont" id="active">활동 기록</p>
+    <p class="MBTIfont" id="mbtiButton">MBTI</p>
+    <div id="mbtiContent" style="display: none;">
+      <div id="myMBTI" class="mbti-item">
+        -- 나의 MBTI
+      </div>
+      <div class="mbti-item2" onclick="location.href='/mbti'">-- MBTI 검사</div>
+    </div>
+    <form th:action="@{/auth/logout}" method="post">
+      <button class="logoutFont" type="submit">로그아웃</button>
+    </form>
+  </aside>
+  <div class="rankpopup" id="rank-popup">
+    <p class="scorefont">출석 횟수 : <span th:text="${attendanceCount}"></span></p>
+    <p class="nextfont">다음 등급 : <span th:text="${nextLevelName}"></span></p>
+    <p class="needfont">필요 출석 : <span th:text="${nextLevelRequiredAttendance}"></span></p>
+  </div>
+
+  <div class="modal-background" id="modal-background">
+    <div class="pwdpopup" id="pwd-popup">
+      <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
+      <div class="pwd-container">
+        <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="영문,숫자,특수문자 8~12자리">
+        <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
+      </div>
+
+      <div class="popup-buttons">
+        <button id="closePopupBtn" class="cancle-btn">취소</button>
+        <button id="submitPasswordBtn" class="confirm-btn">확인</button>
+      </div>
+
+    </div>
+  </div>
+  <div class="mbtipopup" id="mbtiPopup">
+    <p class="horrormbti">나의 공포 MBTI</p>
+    <p class="mbticategory" th:text="${mbtiInfo.MBTI_TYPE}"></p>
+    <div class="mbtiexp">
+      <p class="mtbtiexp2" th:text="${mbtiInfo.MBTI_INFO}"></p>
+    </div>
+  </div>
   <div class="qickBtn">
     <!--플로팅 버튼-->
     <img th:src="@{/images/notice/folating-btn-dark.png}" id="light" class="tr" alt="플로팅 버튼">
@@ -107,38 +159,39 @@
         <textarea  name="postContent" id="postContent" rows="1">
    이곳에 게시글을 작성 해주세요
       </textarea>
+
         <input type="file" id="fileInput1" accept="image/*" name="fileFirst" style="display: none;" onchange="uploadFile(1)" alt="hhh"/>
         <input type="file" id="fileInput2" accept="image/*" name="fileSecond" style="display: none;" onchange="uploadFile(2)" alt="jjjj"/>
-        <img id="img1" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
-        <img id="img2" th:src="@{/images/post/newpost/img-insert.png}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" /> </div>
+        <img id="img1" th:src="@{${post.postImageFirst != null ? post.postImageFirst : '/images/post/newpost/img-insert.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
+        <img id="img2" th:src="@{${post.postImageSecond != null ? post.postImageSecond : '/images/post/newpost/img-insert.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" />
+
+
+      </div>
       <input type="hidden" id="postNo" name="postNo" th:value="${post.postNo}">
 
 
       <div id="box">
         <div id="Writer">
-          <img th:src="@{/images/post/selectpost/profile-img.png}">
-<!--          <span th:text="${userLevel}"></span>-->
-          <span id="level">최고의 정원사</span>
-          <div class="wrapper">
-<!--            <p class="username"><span th:text="${myPageDTO.userName}"></span></p>-->
-            <input type="text" id="postWriter" name="postWriter" value="작성자 이름을 입력해주세요"/>
-<!--          <span id="level" th:text="${writer.level}"></span>-->
-<!--          <div class="wrapper">-->
-<!--            <input type="text" id="postWriter" name="postWriter" readonly th:value="${writer.userName}"/>-->
-<!--            <img th:src="@{/images/post/selectpost/badge.png}">-->
-<!--          </div>-->
-        </div>
+          <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
 
-        <div class="line2"></div>
-        <div id="category">
-          <span>카테고리</span>
-          <input id="SF" type="button" value="SF" onclick="selectCategory(this)" />
-          <input id="real" type="button" value="실화" onclick="selectCategory(this)" />
-          <input id="horror" type="button" value="괴담" onclick="selectCategory(this)" />
-          <input id="thrill" type="button" value="스릴러" onclick="selectCategory(this)" />
-          <input id="mystery" type="button" value="미스테리" onclick="selectCategory(this)" />
+          <span id="level" th:text="${userInfo.level}"></span>
+          <div class="wrapper">
+            <span id="postWriterName"  th:text="${userInfo.userName}"></span>
+            <input type="hidden" id="postWriter" name="postWriter" th:value="${userInfo.userNo}" />
+            <img th:src="@{/images/post/selectpost/badge.png}">
+          </div>
+
+          <div class="line2"></div>
+          <div id="category">
+            <span>카테고리</span>
+            <input id="SF" type="button" value="SF" onclick="selectCategory(this)" />
+            <input id="real" type="button" value="실화" onclick="selectCategory(this)" />
+            <input id="horror" type="button" value="괴담" onclick="selectCategory(this)" />
+            <input id="thrill" type="button" value="스릴러" onclick="selectCategory(this)" />
+            <input id="mystery" type="button" value="미스테리" onclick="selectCategory(this)" />
+          </div>
+          <input type="hidden" id="postCategory" name="postCategory" value=""/>
         </div>
-        <input type="hidden" id="postCategory" name="postCategory" value=""/>
       </div>
     </form>
   </div>
@@ -151,9 +204,150 @@
   </div>
 </footer>
 
+<script>
+  // JavaScript로 토글 기능 추가
+  const mypageBtn = document.getElementById("mypageBtn");
+  const myPageAside = document.getElementById("myPageAside");
+
+  // 버튼 클릭 시 aside 창 표시/숨김 전환
+  mypageBtn.addEventListener("click", () => {
+    if (myPageAside.classList.contains("show")) {
+      // 보이는 상태라면 숨기기
+      myPageAside.classList.remove("show");
+      setTimeout(() => {
+        myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로
+      }, 400); // transition과 동일한 시간 설정
+    } else {
+      // 숨겨진 상태라면 보이게 하기
+      myPageAside.style.display = "block"; // 먼저 display를 block으로 설정
+      setTimeout(() => {
+        myPageAside.classList.add("show");
+      }, 10); // 약간의 지연 시간 후에 show 클래스 추가
+    }
+  });
+
+  const gradeElement = document.getElementById('rank');
+  const popup = document.getElementById('rank-popup');
+
+  gradeElement.addEventListener('mouseenter', () => {
+    popup.style.display = 'block'; // 팝업 표시
+  });
+
+  gradeElement.addEventListener('mouseleave', () => {
+    popup.style.display = 'none'; // 팝업 숨기기
+  });
+
+  const personalInfoBtn = document.getElementById('info');
+  const passwordPopup = document.getElementById('pwd-popup');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('pwdInput');
+  const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+  const modal = document.querySelector('.modal-background');
+  const passwordIcon = document.getElementById('passwordIcon');
+
+  //모달
+  personalInfoBtn.addEventListener('click', () => {
+    passwordPopup.style.display = 'block';// 비밀번호 팝업 표시
+    document.body.style.overflow = "hidden"; // 스크롤 비활성화
+  });
+
+  personalInfoBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+    if (modal.style.display === "flex") {
+      closePopupBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+      });
+    }
+  });
+
+
+  // 비밀번호 보기/숨기기 토글
+  togglePassword.addEventListener('click', () => {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
+  });
+
+
+  submitPasswordBtn.addEventListener('click', () => {
+    const inputPassword = passwordInput.value;
+
+    // 비밀번호 검증 요청
+    fetch('/verifyPassword', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({ inputPassword })
+    })
+            .then(response => response.json())
+            .then(isPasswordCorrect => {
+              if (isPasswordCorrect) {
+                // 비밀번호가 맞으면 개인정보 페이지로 이동
+                location.href = '/userinfo';
+              } else {
+                // 비밀번호가 틀리면 경고 메시지 표시
+                alert('비밀번호가 일치하지 않습니다.');
+              }
+            })
+            .catch(error => {
+              console.error('비밀번호 검증 요청 실패:', error);
+              alert('비밀번호 확인 중 오류가 발생했습니다.');
+            });
+  });
+
+  const activebtn = document.getElementById('active');
+  activebtn.addEventListener('click', () => {
+    // URL을 원하는 주소로 변경하세요
+    location.href = '/useractive';
+  });
+
+  const mbtiButton = document.getElementById("mbtiButton");
+  const mbtiContent = document.getElementById("mbtiContent");
+  const myMBTI = document.getElementById("myMBTI");
+  const mbtiPopup = document.getElementById("mbtiPopup");
+
+  // MBTI 버튼 클릭 시 MBTI 콘텐츠 표시
+  mbtiButton.addEventListener("click", () => {
+    // 콘텐츠 표시 상태를 토글
+    mbtiContent.style.display = mbtiContent.style.display === "none" ? "block" : "none";
+  });
+
+  // 나의 MBTI 요소에 마우스 올렸을 때 팝업 표시
+  myMBTI.addEventListener("mouseenter", () => {
+    mbtiPopup.style.display = "block";
+  });
+
+  // 나의 MBTI 요소에서 마우스 나갔을 때 팝업 숨기기
+  myMBTI.addEventListener("mouseleave", () => {
+    mbtiPopup.style.display = "none";
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const img1 = document.getElementById('img1');
+    const img2 = document.getElementById('img2');
+
+    // 이미지가 없으면 기본 이미지로 설정
+    if (!img1.src || img1.src.includes('img-insert.png')) {
+      img1.src = '/images/post/newpost/img-insert.png';
+    }
+
+    if (!img2.src || img2.src.includes('img-insert.png')) {
+      img2.src = '/images/post/newpost/img-insert.png';
+    }
+  });
+
+</script>
+
+
+
 <script> // 서버에서 유저 정보를 받아오는 함수
 function fetchUserInfo() {
-  fetch('/auth/user-info')
+  fetch('/user-info')
           .then(response => response.json())
           .then(data => {
             // 받아온 데이터에서 유저 이름과 레벨을 설정
@@ -178,15 +372,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
   function selectCategory(button) {
-    // 모든 버튼의 배경색을 초기화합니다.
     document.querySelectorAll('#category input').forEach(btn => {
       btn.style.backgroundColor = ''; // 기본 배경색으로 초기화
     });
 
-    // 클릭된 버튼의 배경색을 변경합니다.
+    // 클릭된 버튼의 배경색을 변경
     button.style.backgroundColor = '#4B9D21';
 
-    // 선택된 카테고리 값을 숨겨진 입력 필드에 설정합니다.
+    // 선택된 카테고리 값을 숨겨진 입력 필드에 설정
     document.getElementById('postCategory').value = button.value;
   }
 
@@ -194,11 +387,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 <script>
-  let images ={};
+  let images = {};
+
   function uploadFile(index) {
     const fileInput = document.getElementById(`fileInput${index}`);
     const file = fileInput.files[0];
-    // parseInt = 문자열을 정수로 반환하는 함수 (바꾸려는 값, 진수(10진수)
+
+    if (!file) {
+      return;
+    }
+
     const postNo = parseInt(document.getElementById('postNo').value, 10); // 문자열에서 정수로 변환
     const formData = new FormData();
     formData.append('file', file);
@@ -216,12 +414,25 @@ document.addEventListener("DOMContentLoaded", function() {
             });
   }
 
-
   function submitForm() {
     const form = document.getElementById('postForm');
     const formData = new FormData(form);
-    formData.append('img1', images[`img1`] || '');
-    formData.append('img2', images[`img2`] || '');
+
+    // 이미지가 수정되지 않은 경우 기존 이미지를 유지
+    if (!images['img1']) {
+      const img1Src = document.getElementById('img1').src;
+      formData.append('img1', img1Src.includes('img-insert.png') ? '' : img1Src);
+    } else {
+      formData.append('img1', images['img1']);
+    }
+
+    if (!images['img2']) {
+      const img2Src = document.getElementById('img2').src;
+      formData.append('img2', img2Src.includes('img-insert.png') ? '' : img2Src);
+    } else {
+      formData.append('img2', images['img2']);
+    }
+
     fetch(form.action, {
       method: 'POST',
       body: formData,
@@ -239,6 +450,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
     return false;
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const img1 = document.getElementById('img1');
+    const img2 = document.getElementById('img2');
+
+    // 이미지가 없으면 기본 이미지로 설정
+    if (!img1.src || img1.src.includes('img-insert.png')) {
+      img1.src = '/images/post/newpost/img-insert.png';
+    }
+
+    if (!img2.src || img2.src.includes('img-insert.png')) {
+      img2.src = '/images/post/newpost/img-insert.png';
+    }
+  });
 
 
 </script>

@@ -1,10 +1,11 @@
-/*
 package com.ohgiraffers.mergyping.user.controller;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import java.security.AllPermission;
 
 @ControllerAdvice
 public class ExceptionController {
@@ -26,4 +27,3 @@ public class ExceptionController {
         return "/user/error/server";
     }
 }
-*/

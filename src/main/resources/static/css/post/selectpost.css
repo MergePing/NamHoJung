@@ -7,12 +7,29 @@ body{
     overflow-x: hidden;
 }
 
-.dn{
-    display: none;
-}
 
 .tr{
     transition: all 0.7s;
+}
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
+.profile-photo2 {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
+
+button {
+    cursor:pointer;
 }
 
 /*---------------nav------------------*/
@@ -35,6 +52,7 @@ nav img{
     height: 45px;
     left: 48px;
     top: 18px;
+    cursor:pointer;
 
 }
 
@@ -51,6 +69,7 @@ nav span:nth-child(2) {
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor:pointer;
 }
 
 
@@ -67,6 +86,7 @@ nav span:nth-child(3){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor:pointer;
 }
 
 
@@ -84,6 +104,7 @@ nav span:nth-child(4){
     line-height: 26px;
     color: #A3DA87;
     transition: all 1s;
+    cursor:pointer;
 }
 
 
@@ -101,6 +122,7 @@ nav span:nth-child(5){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor:pointer;
 }
 
 
@@ -118,6 +140,7 @@ nav span:nth-child(6){
     line-height: 26px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor:pointer;
 }
 
 
@@ -134,6 +157,7 @@ nav span:nth-child(7){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor:pointer;
 }
 
 
@@ -151,6 +175,7 @@ nav span:nth-child(8){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor:pointer;
 }
 
 
@@ -158,17 +183,6 @@ nav span:hover{
     color: #A3DA87;
     scale: 130%;
 }
-
-
-.logo img{
-    position: absolute;
-    width: 451px;
-    height: 250px;
-    left: 169px;
-    top: 231px;
-}
-
-
 
 /*---------------main------------------*/
 
@@ -316,15 +330,21 @@ main .bg{
     top: -25px;
 }
 
-#header span:nth-of-type(7){
+#header div span:nth-of-type(1){
     position: absolute;
     font-family: 'BMJUA';
     font-weight: 400;
     font-size: 25px;
     text-align: center;
     color: #FFFFFF;
-    left: 1535px;
+    left: 1515px;
     top: 50px;
+}
+
+#header div img{
+    position: absolute;
+    left: 1507px;
+    top: -26px;
 }
 
 .post .line{
@@ -555,36 +575,53 @@ main .bg{
     font-size: 25px;
     letter-spacing: 0.05em;
 }
-
-.post #comment{
-    position: absolute;
-    width: 1572px;
-    height: 143px;
-    left: 145px;
-    top: 360px;
+#comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 100px; /* 댓글 간 간격 */
+    padding: 10px;
 }
 
-.comment img:nth-of-type(1){
+.comment>img:nth-of-type(1){
     width: 73px;
     height: 73px;
     position: absolute;
-    top:350px;
-    left:150px;
+    top:423px;
+    left:740px;
 }
-.comment img:nth-of-type(2){
+.comment #like img:nth-of-type(1){
     width: 73px;
     height: 73px;
     position: absolute;
     top:350px;
     left:1550px;
 }
-.comment img:nth-of-type(3){
+.comment div img{
     width: 73px;
     height: 73px;
     position: absolute;
-    top:350px;
-    left:1650px;
+    top:423px;
+    left:740px;
 }
+
+.comment  #report img{
+    width: 73px;
+    height: 73px;
+    position: absolute;
+    top:345px;
+    left:1642px;
+}
+.comment  #report span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 429px;
+    left: 1660px;
+}
+
+
 
 .comment span:nth-of-type(1){
     position: absolute;
@@ -622,7 +659,55 @@ main .bg{
     top: 375px;
     left: 1300px;
 }
-.comment span:nth-of-type(5){
+.comment #like .like-count{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 430px;
+    left: 1577px;
+}
+
+.comment #like .like-text span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 0;
+    left: -76px;
+    width: 200px;
+}
+.comment #like .likeImg{
+    left: 1550px;
+    top: 350px;
+
+}
+.comment #like .like-text{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 430px;
+    left: 1560px;
+    text-align: center;
+
+}
+
+.comment #like .like-count span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #FFFFFF;
+    top: 0;
+    left: 6px;
+    width: 30px;
+
+}
+.comment #like span:nth-of-type(2){
     position: absolute;
     font-family: 'SUIT';
     font-weight: 700;
@@ -631,7 +716,8 @@ main .bg{
     top: 430px;
     left: 1560px;
 }
-.comment span:nth-of-type(6){
+
+.comment div:nth-of-type(2) span{
     position: absolute;
     font-family: 'SUIT';
     font-weight: 700;
@@ -639,6 +725,47 @@ main .bg{
     color: #FFFFFF;
     top: 430px;
     left: 1665px;
+}
+.comment button:nth-of-type(1){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    color: #FFFFFF;
+    top: 360px;
+    left: 700px;
+    width: 100px;
+    height: 65px;
+    background: #0E2913;
+    border: 4px solid #C9E5CA;
+    border-radius: 50px;
+}
+.comment button:nth-of-type(2){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    color: #FFFFFF;
+    top: 360px;
+    left: 850px;
+    width: 100px;
+    height: 65px;
+    background: #0E2913;
+    border: 4px solid #C9E5CA;
+    border-radius: 50px;
+}
+.show-more-comments span:nth-of-type(1){
+    position: absolute;
+    width: 180px;
+    height: 30px;
+    top: 310px;
+    font-family: 'BMJUA';
+    font-size: 35px;
+    text-align: center;
+    /*letter-spacing: 0.05em;*/
+    color: #FFFFFF;
+    left: 900px;
+    border-bottom: #fff solid 3px;
 }
 
 
@@ -788,6 +915,204 @@ main .hidden{
 }
 
 
+div #editBtn{
+    position: absolute;
+    width: 120px;
+    height: 48px;
+    left: 1587px;
+    top: 193px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: #C8F2B3;
+    z-index: 23;
+
+}
+
+
+
+div #deleteBtn{
+    position: absolute;
+    width: 120px;
+    height: 48px;
+    left: 1427px;
+    top: 193px;
+    background: #66934F;
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    z-index: 23;
+
+
+}
+
+.deleteModal .delete1 .modal-bg {
+    position: absolute;
+    width: 1106px;
+    height: 326px;
+    top: 490px;
+    background: #1C6C2B;
+    box-shadow: 0px 7px 24.4px 7px rgba(0, 0, 0, 0.25);
+    border-radius: 70px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    color: #FFFFFF;
+    left: 370px;
+}
+
+.modifyModal .modify .modal-bg {
+    position: absolute;
+    width: 1106px;
+    height: 326px;
+    top: 490px;
+    background: #1C6C2B;
+    box-shadow: 0px 7px 24.4px 7px rgba(0, 0, 0, 0.25);
+    border-radius: 70px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    color: #FFFFFF;
+    left: 370px;
+}
+
+.modifyModal .modify .modal-bg p{
+    position: relative;
+    text-align: center;
+    top: 80px;
+    left: 0px;
+    font-family: 'Cafe24Ssurroundair';
+}
+
+.deleteModal .delete1 .modal-bg p{
+    position: relative;
+    text-align: center;
+    top: 80px;
+    left: 0px;
+    font-family: 'Cafe24Ssurroundair';
+}
+
+
+.modifyModal .modify .modal-bg a button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #3F781A;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 630px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+.deleteModal .delete1 .modal-bg form button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #3F781A;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 630px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+
+
+.modifyModal .modify .modal-bg button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #9CC787;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 340px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+
+
+.deleteModal .delete1 .modal-bg button:nth-of-type(2){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #9CC787;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 330px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+.deleteModal .delete1 .modal-bg button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #3F781A;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 640px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -803,6 +1128,15 @@ footer .footer{
     z-index: 55;
     margin-top: 50px;
 }
+/*footer .footer {*/
+/*    position: relative; !* 푸터가 컨텐츠 아래에 따라감 *!*/
+/*    width: 1920px; !* 푸터 너비를 화면 전체로 확장 *!*/
+/*    height: 69px; !* 고정된 높이 *!*/
+/*    background: #0E2913; !* 기존 배경색 유지 *!*/
+/*    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25); !* 그림자 효과 *!*/
+/*    z-index: 55; !* 기존 z-index 유지 *!*/
+/*    margin-top: 50px; !* 컨텐츠와 푸터 사이 여백 *!*/
+/*}*/
 
 footer .footer p{
     position: absolute;
@@ -816,6 +1150,19 @@ footer .footer p{
     left: 750px;
     top: 20px;
 }
+/*footer .footer p {*/
+/*    position: relative; !* 텍스트도 상대 위치로 수정 *!*/
+/*    height: 31px;*/
+/*    font-family: 'SUIT';*/
+/*    font-weight: 500;*/
+/*    font-size: 25px;*/
+/*    line-height: 31px;*/
+/*    letter-spacing: 0.05em;*/
+/*    color: #D5D5D5;*/
+/*    text-align: center; !* 텍스트를 중앙 정렬 *!*/
+/*    margin: 0; !* 기본 마진 제거 *!*/
+/*    padding-top: 20px; !* 위쪽 여백 추가 *!*/
+/*}*/
 
 .report-btn {
     cursor: pointer; /* 포인터 효과 추가 */

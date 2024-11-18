@@ -58,4 +58,9 @@
         FROM TBL_POST
         WHERE POST_NO = #{postNo}
     </select>
+
+    <delete id="deletePost" parameterType="int">
+        DELETE FROM tbl_post
+        WHERE post_no = #{postNo}
+    </delete>
 </mapper>

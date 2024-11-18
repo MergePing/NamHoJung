@@ -9,6 +9,7 @@
 /*body * {*/
 /*    pointer-events: auto; !* 예외적으로 요소들은 호버, 클릭 가능 *!*/
 /*}*/
+
 aside{
     width:492px;
     height:100%;
@@ -49,7 +50,7 @@ aside.show {
     font-weight: 400;
     font-size: 32px;
     line-height: 33px;
-    color:#C9E5CA;
+    color:#A3DA87;
 
 }
 
@@ -74,8 +75,9 @@ aside.show {
     margin-left: 59px;
     margin-top: 73px;
 }
+
 .nicknamefont{
-    width:180px;
+    width:300px;
     height:33px;
     margin-left:59px;
     margin-top:57px;
@@ -188,6 +190,9 @@ aside.show {
     color:#A3DA87;
 }
 .mbti-item:hover{
+    color:#A3DA87;
+}
+.mbti-item2:hover{
     color:#A3DA87;
 }
 
@@ -389,6 +394,7 @@ aside.show {
     /* identical to box height */
 
     color: #FFFFFF;
+    cursor: pointer;
 }
 .horrormbti{
     position: absolute;
@@ -457,6 +463,7 @@ aside.show {
     top:145px;
     width:50px;
     height:50px;
+    cursor:pointer;
 }
 
 

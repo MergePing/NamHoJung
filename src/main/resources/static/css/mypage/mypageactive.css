@@ -1,3 +1,39 @@
+button{
+    cursor:pointer;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 30px;
+    color: #BEBEBE;
+    border: none;
+    outline: none;
+    background: none;
+    /*margin-left: 10px;*/
+}
+/* active 클래스가 적용된 페이지 버튼에 대한 스타일 */
+button.active {
+
+    color: white;               /* 텍스트 색을 흰색으로 */
+
+}
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color:#C9E6CA;
+    transition: all 1s;
+    cursor:pointer;
+}
+
 main .write1, main .write2, main .write3 {
     box-sizing: border-box;
     position: absolute;
@@ -103,9 +139,9 @@ main .comment span:nth-of-type(1){
     font-size: 30px;
     color: #FFFFFF;
     left: 270px;
-    text-align: center;
+
 }
-main .comment span:nth-of-type(2){
+main .comment a span:nth-of-type(1){
     position: absolute;
     left: 400px;
     top:380px;
@@ -116,9 +152,9 @@ main .comment span:nth-of-type(2){
     width: 800px; /* 원하는 너비로 설정 */
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+
 }
-main .comment span:nth-of-type(3){
+main .comment span:nth-of-type(2){
     position: absolute;
     left: 1300px;
     top: 380px;
@@ -127,9 +163,9 @@ main .comment span:nth-of-type(3){
 
     color: #FFFFFF;
 }
-main .comment span:nth-of-type(4){
+main .comment span:nth-of-type(3){
     position: absolute;
-    left: 1560px;
+    left: 1580px;
     top: 380px;
     font-family: 'BMJUA';
     font-size: 25px;
@@ -172,7 +208,7 @@ main .myp a span:nth-of-type(1){
     font-size: 30px;
     color: #FFFFFF;
 
-    text-align: center;
+
 }
 main .myp span:nth-of-type(3){
     position: absolute;
@@ -200,6 +236,25 @@ main .myp span:nth-of-type(5){
     color: #FFFFFF;
     left: 1560px;
     text-align: center;
+}
+
+.postPagination{
+    position: absolute;
+    top:950px;
+    left:850px;
+}
+
+.commentPagination{
+    position: absolute;
+    top:950px;
+    left:850px;
+
+}
+.favoritePagination{
+    position: absolute;
+    top:950px;
+    left:850px;
+
 }
 /*main .myp span:nth-of-type(6){*/
 /*    position: absolute;*/

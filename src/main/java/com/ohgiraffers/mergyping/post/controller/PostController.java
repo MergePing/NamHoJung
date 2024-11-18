@@ -2,21 +2,25 @@ package com.ohgiraffers.mergyping.post.controller;
 
 import com.ohgiraffers.mergyping.auth.model.AuthDetails;
 import com.ohgiraffers.mergyping.comment.model.dto.CommentDTO;
+import com.ohgiraffers.mergyping.post.model.dto.InsertPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.PostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.SelectPostDTO;
 import com.ohgiraffers.mergyping.post.model.dto.WriterNameDTO;
 import com.ohgiraffers.mergyping.post.model.service.PostService;
 import com.ohgiraffers.mergyping.user.model.dto.MyPageDTO;
+import com.ohgiraffers.mergyping.user.model.service.MyPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -34,18 +38,20 @@ public class PostController {
     // 필드 정의
     // 서비스 주입받는 필드
     private final PostService postService;
+    private final MyPageService myPageService;
 
     // 이미지가 저장될 경로
     private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
 
     // 이미지 파일만 받기 위한 허용되는 확장자 목록
-    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png","gif","webp");
+    private static final List<String> ALLOWED_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png", "gif", "webp");
 
 
     // 서비스 생성자
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, MyPageService myPageService) {
         this.postService = postService;
+        this.myPageService = myPageService;
     }
 
 
@@ -53,15 +59,93 @@ public class PostController {
     @GetMapping("/post")
     public String postList(Model model) {
 
-        // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
-        List<PostDTO> postList = postService.postList();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // 모델에 postList라는 이름으로 게시글 목롣 추가
-        model.addAttribute("postList", postList);
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            int userNo = userDetails.getUserNo();
+
+            // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
+            List<PostDTO> postList = postService.postList();
+
+            // 모델에 postList라는 이름으로 게시글 목롣 추가
+            model.addAttribute("postList", postList);
+
+            // 누적된 출석 수 가져오기
+            Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
+            model.addAttribute("attendanceCount", attendanceCount);
+
+            // 등급 기준 정해주기
+            int levelNo = myPageService.calculateLevel(attendanceCount);
+            System.out.println("levelNo = " + levelNo);
+
+            // 등급 기준과 출석수 기반으로 등급 업데이트하기
+            myPageService.updateUserLevel(userNo, levelNo);
+
+            // 유저의 등급 가져오기
+            String levelName = myPageService.getLevelName(levelNo);
+            model.addAttribute("userLevel", levelName);
+
+            // 유저의 다음 레벨 이름 가져오기
+            String nextLevelName = myPageService.getNextLevelName(levelNo);
+            model.addAttribute("nextLevelName", nextLevelName);
+
+            // 다음 등급에 필요한 출석 횟수 조회
+            int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+            model.addAttribute("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+
+
+            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
+            MyPageDTO myPageDTO = myPageService.findNickName(userNo);
+            model.addAttribute("myPageDTO", myPageDTO);
+
+
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
+
+            Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+            model.addAttribute("mbtiInfo", mbtiInfo);
+        }
 
         //뷰 반환
         return "/post/post";
     }
+
+    // 게시글 삭제 요청 처리
+    @DeleteMapping("/post/{postNo}/delete")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> deletePost(@PathVariable int postNo, Authentication authentication) {
+        // 로그인된 유저와 게시글 작성자가 일치하는지 확인
+        AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+        int userNo = userDetails.getUserNo();
+
+        SelectPostDTO post = postService.selectPostWriter(postNo);
+        System.out.println("post.getPostWriter() = " + post.getPostWriter());
+        System.out.println("post = " + post);
+        System.out.println("userNo = " + userNo);
+
+        Map<String, Object> response = new HashMap<>();
+        if (post != null && post.getPostWriter() == userNo) {
+
+            // 게시글 삭제 수행
+            boolean isDeleted = postService.deletePost(postNo);
+            if (isDeleted) {
+                response.put("success", true);
+                response.put("message", "게시글이 삭제되었습니다.");
+                return ResponseEntity.ok(response);
+            } else {
+                response.put("success", false);
+                response.put("error", "게시글 삭제에 실패했습니다.");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+            }
+        } else {
+            response.put("success", false);
+            response.put("error", "삭제 권한이 없습니다.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+    }
+
+
 
 
     // 게시글 정렬
@@ -71,10 +155,10 @@ public class PostController {
             @RequestParam(required = false) String category,
             @RequestParam("page") int page,
             @RequestParam("pageSize") int pagSize
-            ) {
+    ) {
 
         // 서비스를 통해 PostDTO에 있는 게시글 목록 가져옴
-        List<PostDTO> posts = postService.postListSort(orderBy,category,page,pagSize);
+        List<PostDTO> posts = postService.postListSort(orderBy, category, page, pagSize);
 
         //뷰 반환
         return ResponseEntity.ok(posts);
@@ -110,57 +194,125 @@ public class PostController {
     }
 
 
-
     @GetMapping("/selectpost/{postNo}")
     public String selectById(@PathVariable("postNo") int postNo, Model model) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        int userNo=-1;
+        int userNo = -1;
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             userNo = userDetails.getUserNo();
+
         }
 
+
+
+        // 누적된 출석 수 가져오기
+        Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
+        model.addAttribute("attendanceCount", attendanceCount);
+
+        // 등급 기준 정해주기
+        int levelNo = myPageService.calculateLevel(attendanceCount);
+        System.out.println("levelNo = " + levelNo);
+
+        // 등급 기준과 출석수 기반으로 등급 업데이트하기
+        myPageService.updateUserLevel(userNo, levelNo);
+
+        // 유저의 등급 가져오기
+        String levelName = myPageService.getLevelName(levelNo);
+        model.addAttribute("userLevel", levelName);
+
+        // 유저의 다음 레벨 이름 가져오기
+        String nextLevelName = myPageService.getNextLevelName(levelNo);
+        model.addAttribute("nextLevelName", nextLevelName);
+
+        // 다음 등급에 필요한 출석 횟수 조회
+        int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+        model.addAttribute("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+
+
+        // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
+        MyPageDTO myPageDTO = myPageService.findNickName(userNo);
+        model.addAttribute("myPageDTO", myPageDTO);
+
+
+        MyPageDTO userInfo2 = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo2);
+
+        Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+        model.addAttribute("mbtiInfo", mbtiInfo);
 
         // 서비스를 통해 게시글 번호로 게시물 조회
         SelectPostDTO selected = postService.selectById(postNo);
 
-        // 게시물을 찾지 목한 경우 404 에러 반환
-        //HttpStatus.NOT_FOUND - 404 에러
+        // 게시물을 찾지 못한 경우 404 에러 반환
         if (selected == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
         }
 
         // 이미지의 null 여부 확인 후 이미지 경로 설정
         if (selected.getPostImageFirst() != null) {
-
-            // PostImageFirst의 현재 값을 다시 PostImageFirst 필드에 추가
             selected.setPostImageFirst(selected.getPostImageFirst());
         }
 
         if (selected.getPostImageSecond() != null) {
-
-            // PostImageSecond의 현재 값을 다시 PostImageSecond 필드에 추가
             selected.setPostImageSecond(selected.getPostImageSecond());
         }
-        System.out.println("selected11111111111111111 = " + selected);
 
         // 모델에 post라는 이름으로 선택한 게시글 추가
         model.addAttribute("post", selected);
 
+        // 댓글 목록 및 사용자 정보 추가
         List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
-
         model.addAttribute("comments", comments);
         model.addAttribute("userNo", userNo);
+        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo);
 
-        // 뷰 반환
+
+        // 프로필 이미지 추가
+        String profileImage = null;
+        if (selected.getPostWriter() == userNo) {
+            profileImage = myPageService.getProfileImageByUserNo(userNo);
+        }
+        model.addAttribute("profileImage", profileImage);
+
+        // 작성자의 등급 및 이름 설정
+        MyPageDTO level = myPageService.findUserInfo(userNo);
+        model.addAttribute("level", level);
+
+        MyPageDTO userName = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userName);
+
+
         return "post/selectpost";
     }
+
+    @GetMapping("/api/comments/{postNo}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getComments(@PathVariable("postNo") int postNo) {
+        List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+        List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+
+        for (CommentDTO comment : comments) {
+            MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+            Map<String, Object> commentWithProfile = new HashMap<>();
+            commentWithProfile.put("comment", comment);
+            commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+            commentsWithProfile.add(commentWithProfile);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("comments", commentsWithProfile);
+
+        return ResponseEntity.ok(response);
+    }
+
+
 
     @PostMapping("/selectpost/{postNo}/comment")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
-                                                          @RequestParam("commentContent") String commentContent) {
+                                                          @RequestParam("commentContent") String commentContent, Model model) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
@@ -176,35 +328,177 @@ public class PostController {
         commentDTO.setUserNo(userNo);
         commentDTO.setPostNo(postNo);
 
-        // 댓글 추가 후 응답 설정
+        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo);
+
+        List<CommentDTO> existingComments = postService.getCommentsByPostNo(postNo);
+        int index = existingComments.size();
+
+        commentDTO.setTop(index * 150);
+
         boolean isAdded = postService.addComment(commentDTO);
-        System.out.println("isAdded = " + isAdded);
         Map<String, Object> response = new HashMap<>();
 
         if (isAdded) {
-            // 댓글 추가 성공 후, 게시물의 댓글 수를 증가시킴
             boolean isCommentCountUpdated = postService.incrementCommentCount(postNo);
-
             if (isCommentCountUpdated) {
-                // 댓글 수 증가에 성공한 경우 최신 댓글 목록을 가져옴
                 List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+                List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+
+                for (CommentDTO comment : comments) {
+                    MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+                    Map<String, Object> commentWithProfile = new HashMap<>();
+                    commentWithProfile.put("comment", comment);
+                    commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+                    commentsWithProfile.add(commentWithProfile);
+                }
                 response.put("success", true);
-                response.put("comments", comments); // 생성된 댓글 정보 반환
+                response.put("userProfileImage", userInfo.getProfileImage());
+                response.put("comments", commentsWithProfile);
             } else {
                 response.put("success", false);
                 response.put("error", "댓글 수 업데이트에 실패했습니다.");
             }
         } else {
-            // 댓글 작성 실패 시
             response.put("success", false);
             response.put("error", "댓글 작성에 실패했습니다.");
         }
 
         return ResponseEntity.ok(response);
-
     }
 
 
+
+//    @PostMapping("/selectpost/{postNo}/comment")
+//    @ResponseBody
+//    public ResponseEntity<Map<String, Object>> addComment(@PathVariable("postNo") int postNo,
+//                                                          @RequestParam("commentContent") String commentContent,Model model) {
+//
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || !(authentication.getPrincipal() instanceof AuthDetails)) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                    .body(Map.of("error", "로그인 후 댓글을 작성할 수 있습니다."));
+//        }
+//
+//        AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+//        int userNo = userDetails.getUserNo();
+//
+//        CommentDTO commentDTO = new CommentDTO();
+//        commentDTO.setCommentContent(commentContent);
+//        commentDTO.setUserNo(userNo);
+//        commentDTO.setPostNo(postNo);
+//
+//        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+//        model.addAttribute("userInfo", userInfo);
+//
+//        List<CommentDTO> existingComments = postService.getCommentsByPostNo(postNo);
+//        int index = existingComments.size();
+//
+//        commentDTO.setTop(index * 150);
+//
+//
+//        // 댓글 추가 후 응답 설정
+//        boolean isAdded = postService.addComment(commentDTO);
+//        System.out.println("isAdded = " + isAdded);
+//        Map<String, Object> response = new HashMap<>();
+//
+//        if (isAdded) {
+//            // 댓글 추가 성공 후, 게시물의 댓글 수를 증가시킴
+//            boolean isCommentCountUpdated = postService.incrementCommentCount(postNo);
+//
+//            if (isCommentCountUpdated) {
+//                // 댓글 수 증가에 성공한 경우 최신 댓글 목록을 가져옴
+//                List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+//                // 댓글에 index 값을 추가
+//                for (int i = 0; i < comments.size(); i++) {
+//                    comments.get(i).setIndex(i); // index 값 추가
+//                }
+//                response.put("success", true);
+//                response.put("userProfileImage", userInfo.getProfileImage());
+//                response.put("comments", comments); // 생성된 댓글 정보 반환
+//            } else {
+//                response.put("success", false);
+//                response.put("error", "댓글 수 업데이트에 실패했습니다.");
+//            }
+//        } else {
+//            // 댓글 작성 실패 시
+//            response.put("success", false);
+//            response.put("error", "댓글 작성에 실패했습니다.");
+//        }
+//
+//        return ResponseEntity.ok(response);
+//
+//    }
+
+    @DeleteMapping("/selectpost/{postNo}/comment/{commentNo}/delete")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> deleteComment(@PathVariable int postNo, @PathVariable int commentNo) {
+        boolean isDeleted = postService.deleteComment(commentNo);
+
+        Map<String, Object> response = new HashMap<>();
+        if (isDeleted) {
+            postService.decreaseCommentCount(postNo);
+            response.put("success", true);
+            response.put("message", "댓글이 삭제되었습니다.");
+
+            // 최신 댓글 목록을 가져와서 포함
+            List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+            List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+            for (CommentDTO comment : comments) {
+                MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+                Map<String, Object> commentWithProfile = new HashMap<>();
+                commentWithProfile.put("comment", comment);
+                commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+                commentsWithProfile.add(commentWithProfile);
+            }
+            response.put("comments", commentsWithProfile);
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            response.put("error", "댓글 삭제에 실패했습니다.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+
+    @PutMapping("/selectpost/{postNo}/comment/{commentNo}/edit")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> editComment(
+            @PathVariable("postNo") int postNo,
+            @PathVariable("commentNo") int commentNo,
+            @RequestParam("commentContent") String commentContent,
+            @AuthenticationPrincipal AuthDetails authDetails) {
+
+        Map<String, Object> response = new HashMap<>();
+        int userNo = authDetails.getUserNo();
+
+        boolean success = postService.updateComment(commentNo, commentContent, userNo);
+        if (success) {
+            List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+            List<Map<String, Object>> commentsWithProfile = new ArrayList<>();
+            for (CommentDTO comment : comments) {
+                MyPageDTO commenterInfo = myPageService.findUserInfo(comment.getUserNo());
+                Map<String, Object> commentWithProfile = new HashMap<>();
+                commentWithProfile.put("comment", comment);
+                commentWithProfile.put("profileImage", commenterInfo.getProfileImage());
+                commentsWithProfile.add(commentWithProfile);
+            }
+            response.put("success", true);
+            response.put("comments", commentsWithProfile);
+        } else {
+            response.put("success", false);
+            response.put("error", "댓글 수정에 실패했습니다.");
+        }
+        return ResponseEntity.ok(response);
+    }
+
+
+    private int getCurrentUserNo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            return ((AuthDetails) authentication.getPrincipal()).getUserNo();
+        } return -1;
+    }
 
 
 
@@ -243,112 +537,240 @@ public class PostController {
     }
 
 
+    // 무서워요 토글
+    // 무서워요 토글
     @PostMapping("/toggleScary")
     @ResponseBody
     public Map<String, Object> toggleScary(@RequestBody Map<String, Object> payload) {
-
-        // 요청 본문에서 게시물 번호를 가져와서 정수형으로 형변환
         int postNo = Integer.parseInt((String) payload.get("postNo"));
-
-        // 요청 본문에서 무서워요 여부를 불리언 값으로 가져옴
         boolean isScary = (Boolean) payload.get("isScary");
 
-        // 서비스를 통해 게시물 번호와 무서워요 여부로 무서워요 상태 업데이트
         postService.updateScaryStatus(postNo, isScary);
 
-        // 응답 데이터를 담을 새로운 맵 생성
         Map<String, Object> response = new HashMap<>();
-
-        // 응답 맵에 성공 상태 추가
         response.put("success", true);
-
-        // scaryNumber라는 이름으로 응답 맵에 서비스를 통해 게시글의 무서워요 수 추가
         response.put("scaryNumber", postService.getScaryNumber(postNo));
-
-        // 응답 반환
         return response;
     }
-
 
     @PostMapping("/toggleNotScary")
     @ResponseBody
     public Map<String, Object> toggleNotScary(@RequestBody Map<String, Object> payload) {
-
-        // 요청 본문에서 게시물 번호를 가져와서 정수형으로 형변환
         int postNo = Integer.parseInt((String) payload.get("postNo"));
-
-        // 요청 본문에서 안무서워요 여부를 불리언 값으로 가져옴
         boolean isNotScary = (Boolean) payload.get("isNotScary");
 
-        // 서비스를 통해 게시물 번호와 안무서워요 여부로 무서워요 상태 업데이트
         postService.updateNotScaryStatus(postNo, isNotScary);
 
-        // 응답 데이터를 담을 새로운 맵 생성
         Map<String, Object> response = new HashMap<>();
-
-        // 응답 맵에 성공 상태 추가
         response.put("success", true);
-
-        // notScaryNumber라는 이름으로 응답 맵에 서비스를 통해 게시글의  안무서워요 수 추가
         response.put("notScaryNumber", postService.getNotScaryNumber(postNo));
-
-        // 응답 맵 반환
         return response;
     }
 
 
+    @PostMapping("/toggleLike")
+    @ResponseBody
+    public Map<String, Object> toggleLike(@RequestBody Map<String, Object> payload) {
+        Object commentNoObj = payload.get("commentNo");
+        int commentNo;
+
+        if (commentNoObj instanceof Integer) {
+            commentNo = (Integer) commentNoObj;
+            System.out.println("commentNo 111111111= " + commentNo);
+        } else if (commentNoObj instanceof String) {
+            commentNo = Integer.parseInt((String) commentNoObj);
+            System.out.println("commentN22222222222o = " + commentNo);
+        } else {
+            throw new IllegalArgumentException("Invalid type for commentNo");
+        }
+
+        boolean isLike = (Boolean) payload.get("isLike");
+        postService.updateLikeStatus(commentNo, isLike);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("likeNumber", postService.getLikeNumber(commentNo));
+        return response;
+    }
+
+
+    // 게시물 수정 페이지 이동
+    @GetMapping("/edit/{postNo}")
+    public String editPostPage(@PathVariable("postNo") int postNo, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        int userNo = -1;
+        if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
+            AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
+            userNo = userDetails.getUserNo();
+
+        }
+
+        // 서비스를 통해 게시글 번호로 게시물 조회
+        SelectPostDTO selected = postService.selectById(postNo);
+
+        // 게시물을 찾지 못한 경우 404 에러 반환
+        if (selected == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post not found");
+        }
+
+        // 이미지의 null 여부 확인 후 이미지 경로 설정
+        if (selected.getPostImageFirst() != null) {
+            selected.setPostImageFirst(selected.getPostImageFirst());
+        }
+
+        if (selected.getPostImageSecond() != null) {
+            selected.setPostImageSecond(selected.getPostImageSecond());
+        }
+
+        // 모델에 post라는 이름으로 선택한 게시글 추가
+        model.addAttribute("post", selected);
+
+
+        // 댓글 목록 및 사용자 정보 추가
+        List<CommentDTO> comments = postService.getCommentsByPostNo(postNo);
+        MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("userInfo", userInfo);
+        model.addAttribute("comments", comments);
+        model.addAttribute("userNo", userNo);
+
+
+        // 프로필 이미지 추가
+        String profileImage = null;
+        if (selected.getPostWriter() == userNo) {
+            profileImage = myPageService.getProfileImageByUserNo(userNo);
+        }
+        model.addAttribute("profileImage", profileImage);
+
+        // 작성자의 등급 및 이름 설정
+        MyPageDTO level = myPageService.findUserInfo(userNo);
+        model.addAttribute("level", level);
+
+        MyPageDTO userName = myPageService.findUserInfo(userNo);
+        model.addAttribute("userInfo", userName);
+
+        return "post/edit";
+
+    }
+
+
+    // 게시물 수정 처리
+    @PostMapping("/edit/{postNo}")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> editPost(@PathVariable("postNo") int postNo,
+                                                        @RequestParam("postTitle") String postTitle,
+                                                        @RequestParam("postContent") String postContent,
+                                                        @RequestParam("postCategory") String postCategory,
+                                                        @RequestParam("postWriter") int postWriter,
+                                                        @RequestParam(value = "fileFirst", required = false) MultipartFile fileFirst,
+                                                        @RequestParam(value = "fileSecond", required = false) MultipartFile fileSecond) {
+
+        Map<String, Object> response = new HashMap<>();
+        try {
+            InsertPostDTO insertPostDTO = new InsertPostDTO();
+            insertPostDTO.setPostTitle(postTitle);
+            insertPostDTO.setPostContent(postContent);
+            insertPostDTO.setPostCategory(postCategory);
+            insertPostDTO.setPostWriter(postWriter);
+            insertPostDTO.setPostNo(postNo);
+
+            SelectPostDTO selected = postService.selectById(postNo);
+            if (selected == null) {
+                response.put("status", "error");
+                response.put("message", "Post not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            }
+
+            if (fileFirst != null && !fileFirst.isEmpty()) {
+                String firstImagePath = saveFile(fileFirst, postNo, 1);
+                insertPostDTO.setPostImageFirst("/uploads/" + firstImagePath);
+            } else {
+                insertPostDTO.setPostImageFirst(selected.getPostImageFirst());
+            }
+
+            if (fileSecond != null && !fileSecond.isEmpty()) {
+                String secondImagePath = saveFile(fileSecond, postNo, 2);
+                insertPostDTO.setPostImageSecond("/uploads/" + secondImagePath);
+            } else {
+                insertPostDTO.setPostImageSecond(selected.getPostImageSecond());
+            }
+
+            postService.updatePost(insertPostDTO);
+
+            response.put("status", "success");
+            response.put("updatedPost", insertPostDTO);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+
     @GetMapping("/newpost")
-    public String newPostPage(Model model,WriterNameDTO writer) {
+    public String newPostPage(Model model, WriterNameDTO writer) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.getPrincipal() instanceof AuthDetails) {
             AuthDetails userDetails = (AuthDetails) authentication.getPrincipal();
             int userNo = userDetails.getUserNo();
-
-/*
-            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
-            MyPageDTO myPageDTO = postService.findNickName(userNo);
-            model.addAttribute("myPageDTO", myPageDTO);
+            System.out.println("userNo = " + userNo);
 
             // 누적된 출석 수 가져오기
-            Integer attendanceCount = postService.getUserAttendanceCount(userNo);
+            Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
             model.addAttribute("attendanceCount", attendanceCount);
 
             // 등급 기준 정해주기
-            int levelNo = postService.calculateLevel(attendanceCount);
+            int levelNo = myPageService.calculateLevel(attendanceCount);
             System.out.println("levelNo = " + levelNo);
-*/
 
-//    public String newPostPage(Model model,WriterNameDTO writer) {
-
-/*            // 등급 기준과 출석수 기반으로 등급 업데이트하기
-            postService.updateUserLevel(userNo, levelNo);
+            // 등급 기준과 출석수 기반으로 등급 업데이트하기
+            myPageService.updateUserLevel(userNo, levelNo);
 
             // 유저의 등급 가져오기
-            String levelName = postService.getLevelName(levelNo);
-            model.addAttribute("userLevel", levelName);*/
+            String levelName = myPageService.getLevelName(levelNo);
+            model.addAttribute("userLevel", levelName);
+
+            // 유저의 다음 레벨 이름 가져오기
+            String nextLevelName = myPageService.getNextLevelName(levelNo);
+            model.addAttribute("nextLevelName", nextLevelName);
+
+            // 다음 등급에 필요한 출석 횟수 조회
+            int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+            model.addAttribute("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+
+
+            // MyPageDTO에 userNo를 전달하여 사용자 정보를 가져옵니다.
+            MyPageDTO myPageDTO = myPageService.findNickName(userNo);
+            model.addAttribute("myPageDTO", myPageDTO);
+
+
+            MyPageDTO userInfo2 = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo2);
+
+            Map<String, Object> mbtiInfo = myPageService.findUserMBTIInfo(userNo);
+            model.addAttribute("mbtiInfo", mbtiInfo);
+
+            MyPageDTO userInfo = myPageService.findUserInfo(userNo);
+            model.addAttribute("userInfo", userInfo);
+
+//            MyPageDTO writerNo = myPageService.findUserInfo(userNo);
+//            model.addAttribute("writerNo", writerNo);
+
+            SelectPostDTO newPost = new SelectPostDTO();
+            newPost.setPostNo(generateNewPostNo());
+            model.addAttribute("post", newPost);
 
 
         } else {
             // 인증되지 않은 경우 로그인 페이지로 리다이렉트
             return "redirect:/login";
         }
-
-        // 새로운 데이터를 저장할 DTO 생성
-        SelectPostDTO newPost = new SelectPostDTO();
-
-        // 새로운 게시물 번호를 generateNewPostNo에서 가져와서 새로만든 DTO에 주입
-        newPost.setPostNo(generateNewPostNo());
-
-        // 모델에 post라는 키 값으로 newPost라는 DTO값을 추가
-        // 뷰 파일에서 post 객체를 쓰기 위해서
-        model.addAttribute("post", newPost);
-        model.addAttribute("writer", writer);
-
         return "post/newpost";
     }
-
 
 
     // 새 게시물 번호를 생성하는 메서드 예시
@@ -363,7 +785,7 @@ public class PostController {
 
 
     //파일 업로드를 처리하는 핸들러 메소드
-    private Map<String, String> handleFileUpload(MultipartFile file,int postNo, int imageNo) {
+    private Map<String, String> handleFileUpload(MultipartFile file, int postNo, int imageNo) {
 
         // 응답할 데이터를 저장할 새로운 맵 생성
         Map<String, String> response = new HashMap<>();
@@ -381,8 +803,8 @@ public class PostController {
 
         // 허용된 확장자를 가져와서 소문자로 바꿈 PNG -> png
         // 만약 허용되어 있지 않은 확장자라면 에러 메세지 출력
-        if (!ALLOWED_EXTENSIONS.contains(fileExtension.toLowerCase())){
-            response.put("error","이미지 파일만 업로드 가능합니다");
+        if (!ALLOWED_EXTENSIONS.contains(fileExtension.toLowerCase())) {
+            response.put("error", "이미지 파일만 업로드 가능합니다");
 
             return response;
         }
@@ -390,15 +812,13 @@ public class PostController {
         try {
 
             //파일 저장 및 경로 저장
-            String filePath = saveFile(file,postNo,imageNo);
+            String filePath = saveFile(file, postNo, imageNo);
 
             // 파일경로를 응답 맵에 추가및 출렫
-            response.put("filPath",filePath);
+            response.put("filPath", filePath);
 
             return response;
-        }
-
-        catch (IOException e){
+        } catch (IOException e) {
 
             // 예외 발생 시 에러 메세지를 응답에 추가 및 출력
             e.printStackTrace();
@@ -411,21 +831,20 @@ public class PostController {
     // 첫 번째 이미지 업로드
     @PostMapping("/uploadFirstImage")
     @ResponseBody
-    public Map<String, String> uploadFirstImage(@RequestParam("file") MultipartFile file,int postNo) {
+    public Map<String, String> uploadFirstImage(@RequestParam("file") MultipartFile file, int postNo) {
 
         // 파일이라는 매개변수를 받아서 첫번째 이미지를 업로드 하는 핸들러메소드 호출
-        return handleFileUpload(file, postNo,1);
+        return handleFileUpload(file, postNo, 1);
     }
 
     // 두 번째 이미지 업로드
     @PostMapping("/uploadSecondImage")
     @ResponseBody
-    public Map<String, String> uploadSecondImage(@RequestParam("file") MultipartFile file ,int postNo) {
+    public Map<String, String> uploadSecondImage(@RequestParam("file") MultipartFile file, int postNo) {
 
         // 파일이라는 매개변수를 받아서 두번째 이미지를 업로드 하는 핸들러메소드 호출
-        return handleFileUpload(file, postNo,2);
+        return handleFileUpload(file, postNo, 2);
     }
-
 
 
     //새 게시물 생성
@@ -435,7 +854,7 @@ public class PostController {
             @RequestParam("postTitle") String postTitle,
             @RequestParam("postContent") String postContent,
             @RequestParam("postCategory") String postCategory,
-            @RequestParam("postWriter") String postWriter,
+            @RequestParam("postWriter") int postWriter,
             @RequestParam("postNo") int postNo,
 
             // required = flase로 매개변수가 필수가 아님을 표시
@@ -448,12 +867,12 @@ public class PostController {
         Map<String, String> response = new HashMap<>();
         try {
             // 새로 생성된 게시물의 데이터들을 저장할 새로운 selectPostDTO 생성, setter로 값 주입
-            SelectPostDTO selectPostDTO = new SelectPostDTO();
-            selectPostDTO.setPostTitle(postTitle);
-            selectPostDTO.setPostContent(postContent);
-            selectPostDTO.setPostCategory(postCategory);
-            selectPostDTO.setPostWriter(postWriter);
-            selectPostDTO.setPostNo(postNo);
+            InsertPostDTO insertPostDTO = new InsertPostDTO();
+            insertPostDTO.setPostTitle(postTitle);
+            insertPostDTO.setPostContent(postContent);
+            insertPostDTO.setPostCategory(postCategory);
+            insertPostDTO.setPostWriter(postWriter);
+            insertPostDTO.setPostNo(postNo);
 
             // 첫번째 파일이 null이 아니고 비어있지 않은 경우 파일, 게시글 번호, 이미지번호를 저장
             if (fileFirst != null && !fileFirst.isEmpty()) {
@@ -461,12 +880,12 @@ public class PostController {
 
                 // 첫번째 이미지의 확장자 주입
                 String firstFileExtension = getFileExtension(fileFirst.getOriginalFilename());
-                selectPostDTO.setPostImageFirstExtension(firstFileExtension);
+                insertPostDTO.setPostImageFirstExtension(firstFileExtension);
                 System.out.println("firstFileExtension = " + firstFileExtension);
 
                 // 첫번째 파일에 클라이언트가 접근할수있는 경로 주입
-                selectPostDTO.setPostImageFirst("/uploads/"+firstImagePath);
-            }else {
+                insertPostDTO.setPostImageFirst("/uploads/" + firstImagePath);
+            } else {
                 System.out.println("fileFirst is null or empty");
             }
 
@@ -475,17 +894,17 @@ public class PostController {
                 String secondImagePath = saveFile(fileSecond, postNo, 2);
 
                 String secondFileExtension = getFileExtension(fileSecond.getOriginalFilename());
-                selectPostDTO.setPostImageSecondExtension(secondFileExtension);
+                insertPostDTO.setPostImageSecondExtension(secondFileExtension);
                 System.out.println("secondFileExtension = " + secondFileExtension);
 
                 // 두번째 파일에 클라이언트가 접근할수있는 경로 주입
-                selectPostDTO.setPostImageSecond("/uploads/"+secondImagePath);
-            }else {
+                insertPostDTO.setPostImageSecond("/uploads/" + secondImagePath);
+            } else {
                 System.out.println("fileSecond is null or empty");
             }
 
             //게시물을 생성하는서비스 메소드 호출
-            postService.createPost(selectPostDTO);
+            postService.createPost(insertPostDTO);
 
             //--여기는 잘 모르겠음--
             // 대충 아까 만들어둔 응답 맵에 성공적인 상태라고 저장하는거 같음
@@ -507,7 +926,6 @@ public class PostController {
     }
 
 
-
     //파일의 이름을 날짜/게시글 번호/이미지 번호로 바꾸고 업로드 폴더에 리턴
     private String saveFile(MultipartFile file, int postNo, int imageNo) throws IOException {
         // 오늘 날짜를 yyyy-mm-dd 형식으로 포맷
@@ -516,7 +934,7 @@ public class PostController {
         // 파일 확장자 추출 아래 getFileExtension 메소드 참고
         //file.getOriginalFilename()는 img1.png 반환, getFileExtension(img1.png)는 png 반환
         String fileExtension = getFileExtension(file.getOriginalFilename());
-        System.out.println("111111111111111"+fileExtension);
+        System.out.println("111111111111111" + fileExtension);
 
         // 파일 이름을 위에서 설정한 날짜, 게시글 번호, 이미지 번호. 추출한 확장자로 바꿈 ex) 2024-11-08_13_1.jpg
         String fileName = date + "_" + postNo + "_" + imageNo + "." + fileExtension;
@@ -529,7 +947,7 @@ public class PostController {
 
         //이미지 서버 경로 설정 ex) src/main/resources/static/uploads/2024-11-08/2024-11-08_13_1.jpg
         // 서버경로 - 서버에 있는 내 파일에 저장되는 경로
-        Path path = Paths.get(UPLOAD_DIR +imagePath);
+        Path path = Paths.get(UPLOAD_DIR + imagePath);
 
         // 파일을 저장할 디렉토리 생성, 이미 있는경우 생성하지 않음
         // 이미지 1번을 저장할때는 2024-11-08/ 디렉토리 생성, 2번은 그냥 그 하위로 들어감
@@ -546,10 +964,9 @@ public class PostController {
 
         // 클라이언트가 이미지를 볼수있게 이미지 경로 반환
 
-        System.out.println("222222222222"+imagePath);
+        System.out.println("222222222222" + imagePath);
         return imagePath;
     }
-
 
 
     // 파일 확장자 추출 .이 있으면 .뒤에 오는 확장자(png,jpg)를 추출하고 없는 경우 빈 문자열 반환
@@ -557,7 +974,7 @@ public class PostController {
 
         // 파일에서 마지막.의 인덱스를 찾음
         // 인덱스에 .이 없는 경우 -1 을 반환함(인데스는 0번부터 시적하기 때문에 -1 반환) -1일 경우 빈 문자열 반환
-        if (fileName==null||fileName.lastIndexOf('.') == -1) {
+        if (fileName == null || fileName.lastIndexOf('.') == -1) {
             return "";
         }
 
@@ -593,9 +1010,7 @@ public class PostController {
             // 검색 결과를 맵에 담기
             response.put("posts", posts);
             System.out.println("response = " + response);
-        }
-
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // 키워드가 없을 경우 에러 처리
             response.put("error", e.getMessage());
             return response;
@@ -608,5 +1023,3 @@ public class PostController {
         return response; // JSON 형식으로 응답을 반환
     }
 }
-
-

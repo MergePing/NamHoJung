@@ -203,7 +203,7 @@ main #bg {
     height: 52px;
     left: 427px;
     top: 373px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 40px;
@@ -217,7 +217,7 @@ main #bg {
     left: 427px;
     max-width: 40em;
     padding: 10px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -233,7 +233,7 @@ main #bg {
     height: 33px;
     left: 1420px;
     top: 240px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -248,7 +248,7 @@ main #bg {
     height: 30px;
     left: 789px;
     top: 240px;
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 25px;
@@ -405,7 +405,7 @@ main #bg {
 }
 
 .modal-content p {
-    font-family: 'Cafe24 Ssurround air';
+    font-family: 'Cafe24Ssurroundair';
     font-style: normal;
     font-weight: 300;
     font-size: 40px;

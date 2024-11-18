@@ -44,23 +44,24 @@
 
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/notice/nav-logo-dark.png}" alt="상단 로고" onclick="window.location.href='/'">
+        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
-        <span>MBTI 검사</span>
+        <span onclick="location.href='/mbti'">MBTI 검사</span>
         <span id="mypageBtn">마이페이지</span>
-        <span>로그인</span>
-        <span>회원가입</span>
+        <form th:action="@{/auth/logout}" method="post">
+            <button id="logoutNav" type="submit">로그아웃</button>
+        </form>
+        <span onclick="location.href='/auth/signupterms'">회원가입</span>
     </nav>
 
 </header>
 
 <aside id="myPageAside">
-
-    <img th:src="@{/images/mypageimages/profile.png}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
-    <p id="rank" class="rankfont">등급: 나는 최강</p>
+    <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
     <p class="infofont" id="info">개인 정보</p>
     <p class="activefont" id="active">활동 기록</p>
     <p class="MBTIfont" id="mbtiButton">MBTI</p>
@@ -68,24 +69,24 @@
         <div id="myMBTI" class="mbti-item">
             -- 나의 MBTI
         </div>
-        <div class="mbti-item2">-- MBTI 검사</div>
+        <div class="mbti-item2" onclick="location.href='/mbti'">-- MBTI 검사</div>
     </div>
     <form th:action="@{/auth/logout}" method="post">
         <button class="logoutFont" type="submit">로그아웃</button>
     </form>
 </aside>
 <div class="rankpopup" id="rank-popup">
-    <p class="scorefont">활동 점수 : </p>
-    <p class="nextfont">다음 등급 : </p>
-    <p class="needfont">필요 점수 : </p>
+    <p class="scorefont">출석 횟수 : <span th:text="${attendanceCount}"></span></p>
+    <p class="nextfont">다음 등급 : <span th:text="${nextLevelName}"></span></p>
+    <p class="needfont">필요 출석 : <span th:text="${nextLevelRequiredAttendance}"></span></p>
 </div>
 
 <div class="modal-background" id="modal-background">
     <div class="pwdpopup" id="pwd-popup">
         <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
         <div class="pwd-container">
-            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="비밀번호">
-            <span class="toggle-password" id="togglePassword">&#128065;</span>
+            <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="영문,숫자,특수문자 8~12자리">
+            <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
         </div>
 
         <div class="popup-buttons">
@@ -95,7 +96,6 @@
 
     </div>
 </div>
-
 <div class="mbtipopup" id="mbtiPopup">
     <p class="horrormbti">나의 공포 MBTI</p>
     <p class="mbticategory" th:text="${mbtiInfo.MBTI_TYPE}"></p>
@@ -103,7 +103,6 @@
         <p class="mtbtiexp2" th:text="${mbtiInfo.MBTI_INFO}"></p>
     </div>
 </div>
-
 
 
 <main>
@@ -179,13 +178,27 @@
         </div>
     </div>
 
+    <!-- 페이징 버튼 영역 -->
+    <div id="postPagination" class="postPagination">
+        <button onclick="changePage(currentPage - 1)" id="postPrevButton">이전</button>
+        <span id="PostPageNumbers"></span>
+        <button onclick="changePage(currentPage + 1)" id="postNextButton">다음</button>
+    </div>
+
     <div id="commentContainer">
         <div id="commentsContent" class="comment" style="display: none;" th:each="comment : ${writtenCommentList}" >
-                <span th:text ="${comment.postNo}"></span>
+                <span th:text ="${comment.commentNo}"></span>
                 <span th:text="${comment.commentContent}"> </span>
                 <span th:text="${comment.commentDate}"></span>
                 <span>323</span>
         </div>
+    </div>
+
+    <!-- 페이징 버튼 영역 -->
+    <div id="commentPagination" class="commentPagination">
+        <button onclick="commentChangePage(currentPage - 1)" id="commentPrevButton">이전</button>
+        <span id="commentPageNumbers"></span>
+        <button onclick="commentChangePage(currentPage + 1)" id="commentNextButton">다음</button>
     </div>
 
     <div id="favoriteContainer" class="myp">
@@ -203,6 +216,12 @@
             <span th:text="${post2.scaryNumber}"></span>
             <span th:text="${post2.commentsNumber}"></span>
         </div>
+    </div>
+    <!-- 페이징 버튼 영역 -->
+    <div id="favoritePagination" class="favoritePagination">
+        <button onclick="favoriteChangePage(currentPage - 1)" id="favoritePrevButton">이전</button>
+        <span id="favoritePageNumbers"></span>
+        <button onclick="favoriteChangePage(currentPage + 1)" id="favoriteNextButton">다음</button>
     </div>
 
 
@@ -230,6 +249,12 @@
         const commentsContent = document.querySelectorAll('.comment');
         const favoritesContent = document.getElementById("favoritesContent");
 
+
+        const postPagination = document.getElementById('postPagination');
+        const commentPagination = document.getElementById('commentPagination');
+        const favoritePagination = document.getElementById('favoritePagination');
+
+
         // 버튼 색 초기화 함수
         function resetButtonStyles() {
             write1.classList.remove("active");
@@ -243,6 +268,10 @@
             if (sellCommentsContent) sellCommentsContent.style.display = "none";
             if (sellFavoriteContent) sellFavoriteContent.style.display = "none";
 
+            if (postPagination) postPagination.style.display="none";
+            if (commentPagination) commentPagination.style.display="none";
+            if (favoritePagination) favoritePagination.style.display="none";
+
             if (postsContent) postsContent.innerHTML = "";  // 이전 게시글들 초기화
             // 댓글들을 하나씩 숨기기
             if (commentsContent) {
@@ -251,6 +280,7 @@
                 });
             }
             if (favoritesContent) favoritesContent.innerHTML = "";   // 이전 즐겨찾기들 초기화
+
 
             // 동적으로 추가된 요소들을 모두 삭제
             const postContainer = document.getElementById('postContainer');
@@ -266,6 +296,34 @@
                 favoriteContainer.innerHTML = ""; // 추가된 즐겨찾기를 모두 제거
             }
         }
+
+        // 게시글 초기화 함수
+        function resetPostsContent() {
+            if (postsContent) postsContent.innerHTML = ""; // 게시글 초기화
+            const postContainer = document.getElementById('postContainer');
+            if (postContainer) {
+                postContainer.innerHTML = ""; // 추가된 게시글 제거
+            }
+        }
+        function resetCommentContent() {
+            if (commentsContent) {
+                commentsContent.forEach(comment => {
+                    comment.style.display = "none";
+                });
+            }
+            const commentContainer = document.getElementById('commentContainer');
+            if (commentContainer) {
+                commentContainer.innerHTML = ""; // 추가된 댓글을 모두 제거
+            }
+        }
+
+        function resetFavoriteContent() {
+            if (favoritesContent) favoritesContent.innerHTML = "";
+            const favoriteContainer = document.getElementById('favoriteContainer');
+            if (favoriteContainer) {
+                favoriteContainer.innerHTML = ""; // 추가된 즐겨찾기를 모두 제거
+            }
+        }
         // 게시글 추가 함수
         function addNewPost(post, index) {
             const postContainer = document.getElementById('postContainer');
@@ -274,7 +332,7 @@
             postContainer.style.position = 'relative';
 
             newPost.classList.add('post');
-            newPost.setAttribute('style', `position: absolute; margin-top: ${index * 80}px`);
+            newPost.setAttribute('style', `top: ${index * 80}px`);
             newPost.innerHTML = `
                 <span>${post.postNo}</span>
                 <span>
@@ -287,7 +345,7 @@
                 <div><span>${post.postCategory}</span></div>
                 <span>${post.postDate}</span>
                 <span>${post.scaryNumber}</span>
-                <span>${post.commentNumber}</span>
+                <span>${post.commentsNumber}</span>
     `;
             postContainer.appendChild(newPost);
         }
@@ -299,10 +357,12 @@
             newComment.classList.add('comment');
             newComment.setAttribute('style', `top: ${index * 80}px`);
             newComment.innerHTML = `
-                <span>${comment.postNo}</span>
-                <span>${comment.commentContent}</span>
+                <span>${comment.commentNo}</span>
+                <a href="/selectpost/${comment.postNo}">
+                    <span>${comment.commentContent}</span>
+                </a>
                 <span>${comment.commentDate}</span>
-                <span>${comment.likes}</span>
+                <span>${comment.likeNumber}</span>
     `;
             commentContainer.appendChild(newComment);
         }
@@ -325,50 +385,164 @@
         <div><span>${post.postCategory}</span></div>
         <span>${post.postDate}</span>
         <span>${post.scaryNumber}</span>
-        <span>${post.commentNumber}</span>
+        <span>${post.commentsNumber}</span>
     `;
             favoriteContainer.appendChild(newFavorite);
         }
+        let currentPage = 1; // 현재 페이지 번호
+        const pageSize = 7;  // 페이지당 게시글 수
 
-        // fetch로 데이터 가져오기
-        function fetchPosts() {
-            fetch('/getPosts')
+        // 게시글 데이터 가져오기 함수
+        function fetchPosts(page = 1) {
+            fetch(`/getPosts?page=${page}&size=${pageSize}`)
                 .then(response => response.json())
-                .then(posts => {
-                    if (Array.isArray(posts)) {
-                        posts.forEach((post, index) => addNewPost(post,index));
+                .then(data => {
+                    const posts = data.writtenPostList;
+                    const totalPostCount = data.totalPostCount;
+
+                    resetPostsContent();
+                    if (Array.isArray(posts) && posts.length > 0) {
+                        posts.forEach((post, index) => addNewPost(post, index));
+                        currentPage = page;
+                        updatePagination(totalPostCount); // 총 게시글 개수를 기반으로 페이징 업데이트
                     } else {
-                        console.error("잘못된 데이터 형식:", posts);
+                        console.error("더 이상 게시글이 없습니다.");
                     }
                 })
-                .catch(error => console.error("에러 발생:", error)); // 에러 처리
+                .catch(error => console.error("에러 발생:", error));
         }
 
-        function fetchComments() {
-            fetch('/getComments')
+        // 페이지 버튼 업데이트 함수
+        function updatePagination(totalPostCount) {
+            const pageNumbers = document.getElementById("PostPageNumbers");
+            const totalPages = Math.ceil(totalPostCount / pageSize);
+
+            pageNumbers.innerHTML = ""; // 페이지 번호 초기화
+
+            // 페이지 번호 생성
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement("button");
+                pageButton.textContent = i;
+                pageButton.onclick = () => changePage(i);
+                if (i === currentPage) {
+                    pageButton.classList.add("active"); // 현재 페이지 강조
+                }
+                pageNumbers.appendChild(pageButton);
+            }
+
+            // 이전, 다음 버튼 활성화/비활성화
+            document.getElementById("postPrevButton").disabled = currentPage === 1;
+            document.getElementById("postNextButton").disabled = currentPage === totalPages;
+        }
+
+        // 페이지 변경 함수
+        function changePage(newPage) {
+            if (newPage < 1) return; // 첫 페이지보다 작을 수 없음
+
+            // 새로운 페이지를 로드하기 전에 기존 active 클래스 제거
+            const allPageButtons = document.querySelectorAll("#PostPageNumbers button");
+            allPageButtons.forEach(button => {
+                button.classList.remove("active");
+            });
+
+            fetchPosts(newPage);
+        }
+
+
+        function fetchComments(page = 1) {
+            fetch(`/getComments?page=${page}&size=${pageSize}`)
                 .then(response => response.json())
-                .then(comments => {
-                    if (Array.isArray(comments)) {
+                .then(data => {
+                    const comments = data.writtenCommentList;
+                    const totalCommentCount = data.totalCommentCount;
+
+                    resetCommentContent();
+                    if (Array.isArray(comments) && comments.length > 0) {
                         comments.forEach((comment,index) => addNewComment(comment,index));
+                        currentPage = page;
+                        commentUpdatePagination(totalCommentCount); // 총 게시글 개수를 기반으로 페이징 업데이트
                     } else {
-                        console.error("잘못된 데이터 형식:", comments);
+                        console.error("더 이상 게시글이 없습니다.");
                     }
                 })
                 .catch(error => console.error("에러 발생:", error)); // 에러 처리
         }
 
-        function fetchFavorites() {
-            fetch('/getFavorites')
+        // 페이지 버튼 업데이트 함수
+        function commentUpdatePagination(totalCommentCount) {
+            const pageNumbers = document.getElementById("commentPageNumbers");
+            const totalPages = Math.ceil(totalCommentCount / pageSize);
+
+            pageNumbers.innerHTML = ""; // 페이지 번호 초기화
+
+            // 페이지 번호 생성
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement("button");
+                pageButton.textContent = i;
+                pageButton.onclick = () => commentChangePage(i);
+                if (i === currentPage) {
+                    pageButton.classList.add("active"); // 현재 페이지 강조
+                }
+                pageNumbers.appendChild(pageButton);
+            }
+
+            // 이전, 다음 버튼 활성화/비활성화
+            document.getElementById("commentPrevButton").disabled = currentPage === 1;
+            document.getElementById("commentNextButton").disabled = currentPage === totalPages;
+        }
+
+        // 페이지 변경 함수
+        function commentChangePage(newPage) {
+            if (newPage < 1) return; // 첫 페이지보다 작을 수 없음
+            fetchComments(newPage);
+        }
+
+        function fetchFavorites(page = 1) {
+            fetch(`/getFavorites?page=${page}&size=${pageSize}`)
                 .then(response => response.json())
-                .then(favorites => {
+                .then(data => {
+                    const favorites = data.writtenFavoriteList;
+                    const totalFavoriteCount = data.totalFavoriteCount;
+
+                    resetFavoriteContent();
                     if (Array.isArray(favorites)) {
                         favorites.forEach((favorite,index) => addNewFavorite(favorite,index));
+                        currentPage = page;
+                        favoriteUpdatePagination(totalFavoriteCount);
                     } else {
                         console.error("잘못된 데이터 형식:", favorites);
                     }
                 })
                 .catch(error => console.error("에러 발생:", error)); // 에러 처리
         }
+        function favoriteUpdatePagination(totalFavoriteCount) {
+            const pageNumbers = document.getElementById("favoritePageNumbers");
+            const totalPages = Math.ceil(totalFavoriteCount / pageSize);
+
+            pageNumbers.innerHTML = ""; // 페이지 번호 초기화
+
+            // 페이지 번호 생성
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement("button");
+                pageButton.textContent = i;
+                pageButton.onclick = () => favoriteChangePage(i);
+                if (i === currentPage) {
+                    pageButton.classList.add("active"); // 현재 페이지 강조
+                }
+                pageNumbers.appendChild(pageButton);
+            }
+
+            // 이전, 다음 버튼 활성화/비활성화
+            document.getElementById("favoritePrevButton").disabled = currentPage === 1;
+            document.getElementById("favoriteNextButton").disabled = currentPage === totalPages;
+        }
+
+        // 페이지 변경 함수
+        function favoriteChangePage(newPage) {
+            if (newPage < 1) return; // 첫 페이지보다 작을 수 없음
+            fetchFavorites(newPage);
+        }
+
 
         // 작성한 게시글 버튼 클릭 이벤트
         write1.addEventListener("click", function () {
@@ -378,7 +552,8 @@
             write1.classList.add("active"); // 버튼 색 변경
             if (sellPostsContent) sellPostsContent.style.display = "block";
             if (postsContent) postsContent.style.display = "block";
-            fetchPosts();
+            if (postPagination) postPagination.style.display="block";
+            fetchPosts(1);
         });
 
         // 작성한 댓글 버튼 클릭 이벤트
@@ -395,7 +570,8 @@
                 });
 
             }
-            fetchComments();
+            if (commentPagination) commentPagination.style.display="block";
+            fetchComments(1);
         });
 
         // 즐겨찾기 버튼 클릭 이벤트
@@ -406,8 +582,9 @@
             write3.classList.add("active"); // 버튼 색 변경
             if (sellFavoriteContent) sellFavoriteContent.style.display = "block";
             if (favoritesContent) favoritesContent.style.display = "block";
+            if (favoritePagination) favoritePagination.style.display="block";
 
-            fetchFavorites();
+            fetchFavorites(1);
         });
 
         // 페이지 로드 시 기본으로 '작성한 게시글'이 보이도록 설정
@@ -619,6 +796,105 @@
     //     favoriteTab1.style.color = "#BEBEBE";
     // });
 
+    // JavaScript로 토글 기능 추가
+    const mypageBtn = document.getElementById("mypageBtn");
+    const myPageAside = document.getElementById("myPageAside");
+
+    // 버튼 클릭 시 aside 창 표시/숨김 전환
+    mypageBtn.addEventListener("click", () => {
+        if (myPageAside.classList.contains("show")) {
+            // 보이는 상태라면 숨기기
+            myPageAside.classList.remove("show");
+            setTimeout(() => {
+                myPageAside.style.display = "none"; // 애니메이션 후 display를 none으로
+            }, 400); // transition과 동일한 시간 설정
+        } else {
+            // 숨겨진 상태라면 보이게 하기
+            myPageAside.style.display = "block"; // 먼저 display를 block으로 설정
+            setTimeout(() => {
+                myPageAside.classList.add("show");
+            }, 10); // 약간의 지연 시간 후에 show 클래스 추가
+        }
+    });
+
+    const gradeElement = document.getElementById('rank');
+    const popup = document.getElementById('rank-popup');
+
+    gradeElement.addEventListener('mouseenter', () => {
+        popup.style.display = 'block'; // 팝업 표시
+    });
+
+    gradeElement.addEventListener('mouseleave', () => {
+        popup.style.display = 'none'; // 팝업 숨기기
+    });
+
+    const personalInfoBtn = document.getElementById('info');
+    const passwordPopup = document.getElementById('pwd-popup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('pwdInput');
+    const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+    const modal = document.querySelector('.modal-background');
+    const passwordIcon = document.getElementById('passwordIcon');
+
+    //모달
+    personalInfoBtn.addEventListener('click', () => {
+        passwordPopup.style.display = 'block';// 비밀번호 팝업 표시
+        document.body.style.overflow = "hidden"; // 스크롤 비활성화
+    });
+
+    personalInfoBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+        if (modal.style.display === "flex") {
+            closePopupBtn.addEventListener("click", () => {
+                modal.style.display = "none";
+                document.body.style.overflow = "auto"; // 스크롤 다시 활성화
+            });
+        }
+    });
+
+
+    // 비밀번호 보기/숨기기 토글
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        passwordIcon.src = type === 'password' ? '/images/icon/closeEye.png' : '/images/icon/openEye.png';
+    });
+
+
+    submitPasswordBtn.addEventListener('click', () => {
+        const inputPassword = passwordInput.value;
+
+        // 비밀번호 검증 요청
+        fetch('/verifyPassword', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ inputPassword })
+        })
+            .then(response => response.json())
+            .then(isPasswordCorrect => {
+                if (isPasswordCorrect) {
+                    // 비밀번호가 맞으면 개인정보 페이지로 이동
+                    location.href = '/userinfo';
+                } else {
+                    // 비밀번호가 틀리면 경고 메시지 표시
+                    alert('비밀번호가 일치하지 않습니다.');
+                }
+            })
+            .catch(error => {
+                console.error('비밀번호 검증 요청 실패:', error);
+                alert('비밀번호 확인 중 오류가 발생했습니다.');
+            });
+    });
+
+    const activebtn = document.getElementById('active');
+    activebtn.addEventListener('click', () => {
+        // URL을 원하는 주소로 변경하세요
+        location.href = '/useractive';
+    });
+
     const mbtiButton = document.getElementById("mbtiButton");
     const mbtiContent = document.getElementById("mbtiContent");
     const myMBTI = document.getElementById("myMBTI");
@@ -639,6 +915,7 @@
     myMBTI.addEventListener("mouseleave", () => {
         mbtiPopup.style.display = "none";
     });
+
 </script>
 
 <!--<script>-->

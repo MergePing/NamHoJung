@@ -8,15 +8,18 @@ public class MypageCommentDTO {
     private int userNo;
     private String commentDate;
     private int postNo;
+    private int likeNumber;
+
 
     public MypageCommentDTO() {}
 
-    public MypageCommentDTO(int commentNo, String commentContent, int userNo, String commentDate, int postNo) {
+    public MypageCommentDTO(int commentNo, String commentContent, int userNo, String commentDate, int postNo, int likeNumber) {
         this.commentNo = commentNo;
         this.commentContent = commentContent;
         this.userNo = userNo;
         this.commentDate = commentDate;
         this.postNo = postNo;
+        this.likeNumber = likeNumber;
     }
 
     public int getCommentNo() {
@@ -59,6 +62,14 @@ public class MypageCommentDTO {
         this.postNo = postNo;
     }
 
+    public int getLikeNumber() {
+        return likeNumber;
+    }
+
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
     @Override
     public String toString() {
         return "MypageCommentDTO{" +
@@ -67,6 +78,7 @@ public class MypageCommentDTO {
                 ", userNo=" + userNo +
                 ", commentDate='" + commentDate + '\'' +
                 ", postNo=" + postNo +
+                ", likeNumber=" + likeNumber +
                 '}';
     }
 }
