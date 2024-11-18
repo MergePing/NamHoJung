@@ -1,0 +1,1171 @@
+@charset "UTF-8";
+body{
+    width: 100%;
+    max-width: 1920px;
+    height: auto;
+    color: #000000;
+    overflow-x: hidden;
+}
+
+
+.tr{
+    transition: all 0.7s;
+}
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
+
+button {
+    cursor:pointer;
+}
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
+.profile-photo2 {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* 둥근 프로필 사진 */
+    background-color: #ccc; /* 사진이 없을 때의 배경색 */
+    margin-left:-594px;
+    margin-top: -75px;
+}
+
+
+/*---------------nav------------------*/
+nav{
+    position: fixed;
+    width: 1920px;
+    height: 79px;
+    left: 0px;
+    top: 0px;
+    background: #FFFEF6;
+    box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
+    z-index: 99999999999999999999999999999999999999999999999999999;
+}
+
+
+nav img{
+    /* 남호정 */
+    position: absolute;
+    width: 125px;
+    height: 45px;
+    left: 48px;
+    top: 18px;
+    cursor: pointer;
+}
+
+nav span:nth-child(2) {
+    /* 소개 */
+    position: absolute;
+    width: 42px;
+    height: 26px;
+    left: 1036px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #000000;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+
+nav span:nth-child(3){
+    /* 공지사항 */
+    position: absolute;
+    width: 82px;
+    height: 26px;
+    left: 1135px;
+    top: 27px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #000000;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+
+nav span:nth-child(4){
+    /* 게시판 */
+    position: absolute;
+    width: 62px;
+    height: 26px;
+    left: 1274px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #000000;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+
+nav span:nth-child(5){
+    /* mbti검사 */
+    position: absolute;
+    width: 101px;
+    height: 26px;
+    left: 1393px;
+    top: 27px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #000000;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+
+nav span:nth-child(6){
+    /* 마이페이지 */
+    position: absolute;
+    width: 102px;
+    height: 26px;
+    left: 1536px;
+    top: 26px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    color: #000000;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+nav span:nth-child(7){
+    /* 로그인 */
+    position: absolute;
+    width: 49px;
+    height: 21px;
+    left: 1692px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #000;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+#logoutNav{
+    /* 로그아웃 */
+    position: absolute;
+    width: 100px;
+    height: 21px;
+    left: 1670px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #000000;
+    transition: all 1s;
+    background: none;
+    border:none;
+    text-align: center;
+    cursor: pointer;
+}
+
+#logoutNav:hover{
+    color: #4B9D21;
+    scale: 130%;
+}
+
+nav span:nth-child(8){
+    /* 회원가입 */
+    position: absolute;
+    width: 67px;
+    height: 21px;
+    left: 1772px;
+    top: 29px;
+
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #000000;
+    transition: all 1s;
+    cursor: pointer;
+}
+
+
+nav span:hover{
+    color: #A3DA87;
+    scale: 130%;
+}
+
+
+main .qickBtn img{
+    position: absolute;
+    width: 109px;
+    height: 109px;
+    left: 1759px;
+    top: 780px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+
+
+main .qickBtn img:first-child{
+    z-index: 55;
+    top: 780px;
+}
+
+
+main .qickBtn .clikbtn img:first-child{
+    /* Upward Arrow */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 664px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(2){
+    /* Sun */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 560px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+
+main .qickBtn .clikbtn img:nth-child(3){
+    /* Test Results */
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    left: 1768px;
+    top: 456px;
+    filter: drop-shadow(0px 8px 5.1px rgba(0, 0, 0, 0.25));
+}
+
+main #bg{
+    position: absolute;
+    width: 1920px;
+    top: 39px;
+    z-index: -5;
+}
+
+main .qickBtn{
+    position: sticky;
+    top: -50px;
+    z-index: 9999;
+}
+
+main .bg{
+    width: 1920px;
+    position: fixed;
+    height: 100%;
+    background: #FFFEF6;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+
+.post #header{
+    position: absolute;
+    width: 1575px;
+    height: 80px;
+    left: 145px;
+    top: 175px;
+    z-index: 22;
+}
+
+#header span:nth-of-type(1){
+    width: 56px;
+    height: 56px;
+    position: absolute;
+    top: -5px;
+}
+
+#header span:nth-of-type(2){
+    position: absolute;
+    width: 70px;
+    height: 62px;
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 50px;
+    color: #000;
+    left:90px;
+}
+
+#header span:nth-of-type(3) {
+    display: inline-block;
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 50px;
+    color: #000;
+    margin-right: 30px;
+    margin-left: 190px;
+}
+
+#header span:nth-of-type(4) {
+    display: inline-block;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 300;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #000;
+    margin-left: 10px;
+}
+
+#header span:nth-of-type(5){
+    display: inline-block;
+    font-family: 'Cafe24Ssurroundair';
+    font-weight: 300;
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #000;
+    margin-left: 10px;
+}
+
+#header span:nth-of-type(6){
+    position: absolute;
+    width: 55px;
+    height: 80px;
+    left: 1520px;
+    top: -25px;
+}
+
+#header div span:nth-of-type(1){
+    position: absolute;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+    color: #000;
+    left: 1515px;
+    top: 50px;
+}
+
+#header div img{
+    position: absolute;
+    left: 1507px;
+    top: -26px;
+}
+
+.post .line{
+    position: absolute;
+    width: 1575px;
+    height: 7px;
+    top: 270px;
+    background: #6EBA4A;
+    left: 145px;
+}
+
+#content{
+    position: relative;
+}
+#content span{
+    display: inline-block;
+    width: 937px;
+    margin-left: 145px;
+    margin-top: 324px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    line-height: 48px;
+    color: #000;
+}
+
+#content img:nth-of-type(1){
+    position: absolute;
+    width: 579px;
+    height: 526px;
+    top: 324px;
+    left: 1140px;
+}
+
+#content img:nth-of-type(2){
+    position: absolute;
+    width: 579px;
+    height: 526px;
+    top: 900px;
+    left: 1140px;
+}
+
+#box {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+
+.post #writer{
+    position: absolute;
+    width: 1650px;
+    left: 145px;
+}
+
+#writer img{
+    position: absolute;
+    top: 10px;
+}
+
+#writer span:nth-of-type(1){
+    position: absolute;
+    width: 165px;
+    height: 33px;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+    color: #000;
+    left: 130px;
+    top: 20px;
+}
+
+#writer span:nth-of-type(2){
+    position: absolute;
+    width: 350px;
+    font-family: 'SUIT';
+    font-weight: 800;
+    font-size: 50px;
+    color: #000;
+    top: 60px;
+    left: 130px;
+}
+
+#writer span:nth-of-type(3){
+    position: absolute;
+    width: 115px;
+    left: 470px;
+    top: 5px;
+}
+
+#writer div{
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 50px;
+    top: 70px;
+    left: 580px;
+}
+
+#writer div span:nth-of-type(1){
+    position: absolute;
+    height: 30px;
+    font-family: 'Cafe24 Ssurround air';
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: #000;
+    left: -42px;
+    top: 5px;
+}
+
+.post #scary{
+    position: absolute;
+    width: 544px;
+    height: 90px;
+    left: 1140px;
+    top: 10px;
+}
+
+#scary div{
+    position: absolute;
+    width: 136px;
+    height: 43px;
+    background: #FF7C7C;
+    border: 3px solid #000;
+    border-radius: 50px;
+    top: 0px;
+    left: 110px;
+}
+
+#scary div span{
+    position: absolute;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    top: 8px;
+    left: 18px;
+}
+
+#scary>span{
+    position: absolute;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: #000;
+    top: 70px;
+    left: 150px;
+}
+
+
+.post #notscary{
+    position: absolute;
+    width: 544px;
+    height: 90px;
+    left: 1420px;
+    top: 10px;
+
+}
+
+#notscary div{
+    position: absolute;
+    width: 180px;
+    height: 43px;
+    background: #6EBA4A;
+    border: 3px solid #000;
+    border-radius: 50px;
+    top: 0px;
+    left: 120px;
+}
+
+#notscary div span{
+    position: absolute;
+    font-family: 'BMJUA';
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    top: 8px;
+    left: 25px;
+}
+
+#notscary>span{
+    position: absolute;
+    font-family: 'Cafe24Ssurroundair';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    text-align: center;
+    color: #000;
+    top: 70px;
+    left: 190px;
+}
+
+.line2{
+    position: absolute;
+    width: 1575px;
+    height: 7px;
+    background: #6EBA4A;
+    left: 145px;
+    top: 150px;
+}
+
+.post input{
+    position: absolute;
+    width: 1307px;
+    height: 85px;
+    top: 200px;
+    background: #D9D9D9;
+    border-radius: 50px;
+    left: 145px;
+    color: #3F3F3F;
+    font-family: Cafe24SsurroundAir;
+    font-size: 30px;
+}
+
+.post button{
+    position: absolute;
+    width: 198px;
+    height: 65px;
+    background: #6EBA4A;
+    border: 4px solid #000;
+    border-radius: 50px;
+    top: 210px;
+    left: 1500px;
+    color: #000;
+    font-family: 'Cafe24Ssurroundair';
+    font-size: 25px;
+    letter-spacing: 0.05em;
+}
+#comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 100px; /* 댓글 간 간격 */
+    padding: 10px;
+}
+
+.comment>img:nth-of-type(1){
+    width: 73px;
+    height: 73px;
+    position: absolute;
+    top:423px;
+    left:740px;
+}
+.comment #like img:nth-of-type(1){
+    width: 73px;
+    height: 73px;
+    position: absolute;
+    top:350px;
+    left:1550px;
+}
+.comment div img{
+    width: 73px;
+    height: 73px;
+    position: absolute;
+    top:423px;
+    left:740px;
+}
+
+.comment  #report img{
+    width: 73px;
+    height: 73px;
+    position: absolute;
+    top:345px;
+    left:1642px;
+}
+.comment  #report span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    top: 429px;
+    left: 1660px;
+}
+
+
+
+.comment span:nth-of-type(1){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 45px;
+    color: #000;
+    top: 360px;
+    left: 250px;
+}
+.comment span:nth-of-type(2){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    color: #000;
+    top: 370px;
+    left: 400px;
+}
+.comment span:nth-of-type(3){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    color: #000;
+    top: 460px;
+    left: 160px;
+}
+.comment span:nth-of-type(4){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 25px;
+    color: #000;
+    top: 375px;
+    left: 1300px;
+}
+.comment #like .like-count{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    top: 430px;
+    left: 1577px;
+}
+
+.comment #like .like-text span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    top: 0;
+    left: -76px;
+    width: 200px;
+}
+.comment #like .likeImg{
+    left: 1550px;
+    top: 350px;
+
+}
+.comment #like .like-text{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    top: 430px;
+    left: 1560px;
+    text-align: center;
+
+}
+
+.comment #like .like-count span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    top: 0;
+    left: 6px;
+    width: 30px;
+
+}
+.comment #like span:nth-of-type(2){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    top: 430px;
+    left: 1560px;
+}
+
+.comment div:nth-of-type(2) span{
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+    top: 430px;
+    left: 1665px;
+}
+.comment button:nth-of-type(1){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    color: #000;
+    top: 360px;
+    left: 700px;
+    width: 100px;
+    height: 65px;
+    background: #6EBA4A;
+    border: 4px solid #fff;
+    border-radius: 50px;
+}
+.comment button:nth-of-type(2){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    color: #000;
+    top: 360px;
+    left: 850px;
+    width: 100px;
+    height: 65px;
+    background: #6EBA4A;
+    border: 4px solid #fff;
+    border-radius: 50px;
+}
+.show-more-comments span:nth-of-type(1){
+    position: absolute;
+    width: 180px;
+    height: 30px;
+    top: 310px;
+    font-family: 'BMJUA';
+    font-size: 35px;
+    text-align: center;
+    /*letter-spacing: 0.05em;*/
+    color: #000;
+    left: 900px;
+    border-bottom: #000 solid 3px;
+}
+
+
+
+#comment span img:nth-of-type(1){
+    position: absolute;
+    width: 59px;
+    height: 59px;
+    left: 1380px;
+    top: -25px;
+}
+
+#comment span:nth-of-type(3) {
+    position: absolute;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+    color: #000;
+    left: 1380px;
+    top: 45px;
+}
+
+#comment img:nth-of-type(2){
+    position: absolute;
+    width: 70px;
+    left: 1478px;
+    top: -28px;
+}
+
+#comment span:nth-of-type(4) {
+    position: absolute;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    text-align: center;
+    color: #000;
+    left: 1492px;
+    top: 45px;
+}
+
+#comment span:nth-of-type(5){
+    position: absolute;
+    width: 1563px;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    color: #000;
+    left: 0px;
+    top: 100px;
+}
+
+
+.post #recomment{
+    position: absolute;
+    width: 1700px;
+    height: 143px;
+    left: 170px;
+    top: 530px;
+}
+
+#recomment>img:nth-of-type(1){
+    position: absolute;
+    width: 50px;
+    left: 0px;
+    top: 0px;
+}
+
+#recomment>img:nth-of-type(2){
+    position: absolute;
+    width: 58px;
+    left: 80px;
+    top: 10px;
+}
+
+#recomment span:nth-of-type(1){
+    position: absolute;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 40px;
+    color: #000;
+    top: 20px;
+    left: 160px;
+}
+
+#recomment span img:nth-of-type(1){
+    position: absolute;
+    width: 47px;
+    height: 47px;
+    left: 1360px;
+    top: -20px;
+}
+
+#recomment span:nth-of-type(3){
+    position: absolute;
+    left: 1360px;
+    top: 40px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#recomment>img:nth-of-type(3){
+    position: absolute;
+    width: 55px;
+    left: 1460px;
+    top: -23px;
+}
+
+#recomment span:nth-of-type(4){
+    position: absolute;
+    left: 1472px;
+    top: 40px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#recomment span:nth-of-type(5){
+    position: absolute;
+    width: 1436px;
+    left: 80px;
+    font-family: 'SUIT';
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    top: 100px;
+}
+
+
+
+
+div #editBtn{
+    position: absolute;
+    width: 120px;
+    height: 48px;
+    left: 1587px;
+    top: 193px;
+
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: #A3DA87;
+    z-index: 99999;
+
+}
+
+
+
+div #deleteBtn{
+    position: absolute;
+    width: 120px;
+    height: 48px;
+    left: 1427px;
+    top: 193px;
+    background: #C8F2B3;
+    font-family: 'BM JUA_OTF';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    z-index: 6666666;
+
+
+}
+
+.deleteModal .delete1 .modal-bg {
+    position: absolute;
+    width: 1106px;
+    height: 326px;
+    top: 490px;
+    background: #FFFCE7;
+    box-shadow: 0px 7px 24.4px 7px rgba(0, 0, 0, 0.25);
+    border-radius: 70px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    color: #000;
+    left: 370px;
+}
+
+.modifyModal .modify .modal-bg {
+    position: absolute;
+    width: 1106px;
+    height: 326px;
+    top: 490px;
+    background: #FFFCE7;
+    box-shadow: 0px 7px 24.4px 7px rgba(0, 0, 0, 0.25);
+    border-radius: 70px;
+    font-family: 'Cafe24 Ssurround air';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    color: #000;
+    left: 370px;
+}
+
+.modifyModal .modify .modal-bg p{
+    position: relative;
+    text-align: center;
+    top: 80px;
+    left: 0px;
+    font-family: 'Cafe24Ssurroundair';
+}
+
+.deleteModal .delete1 .modal-bg p{
+    position: relative;
+    text-align: center;
+    top: 80px;
+    left: 0px;
+    font-family: 'Cafe24Ssurroundair';
+}
+
+
+.modifyModal .modify .modal-bg a button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #6EBA4A;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 630px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+.deleteModal .delete1 .modal-bg button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    left: 630px;
+    background: #6EBA4A;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 630px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+    top: 200px;
+}
+
+
+
+.modifyModal .modify .modal-bg button:nth-of-type(1){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #9CC787;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 340px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+
+
+.deleteModal .delete1 .modal-bg button:nth-of-type(2){
+    box-sizing: border-box;
+    position: absolute;
+    width: 161px;
+    height: 48px;
+    top: 200px;
+    background: #9CC787;
+    border: 2px solid #FFFFFF;
+    border-radius: 50px;
+    left: 340px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 25px;
+    line-height: 26px;
+    text-align: center;
+    color: #000000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*---------------footer------------------*/
+footer .footer{
+    position: absolute;
+    width: 1920px;
+    height: 69px;
+    top: 2350px;
+    background: #6EBA4A;
+    box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
+    z-index: 55;
+    margin-top: 50px;
+}
+
+footer .footer p{
+    position: absolute;
+    height: 31px;
+    font-family: 'SUIT';
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 31px;
+    letter-spacing: 0.05em;
+    color: #FFFFFF;
+    left: 750px;
+    top: 20px;
+}
+
+.report-btn {
+    cursor: pointer; /* 포인터 효과 추가 */
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 254, 246, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    width: 300px;
+}
+
+.modalActions button {
+    margin: 10px;
+}
+
+.dn {
+    display: none;
+}
