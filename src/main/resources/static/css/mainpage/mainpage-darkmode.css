@@ -48,7 +48,7 @@ button {
         transform: scale(0.9);
     }
 }
-        /*---------------nav------------------*/
+/*---------------nav------------------*/
 nav{
     position: fixed;
     width: 1920px;
@@ -366,7 +366,7 @@ main .main2 h2{
 }
 
 main .main2 img{
-   position: absolute;
+    position: absolute;
     top: 1400px;
     z-index: 77;
 }
@@ -521,10 +521,10 @@ main .main3 #calendarbg{
     left: 185px;
 }
 
- #calendar .day-cell {
+#calendar .day-cell {
     padding: 20px;
     text-align: center;
-     position: relative;
+    position: relative;
 }
 #calendar .day-header{
     padding-top: 20px;
