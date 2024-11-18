@@ -42,6 +42,7 @@
         COMMENTS_NUMBER
         FROM TBL_POST
         WHERE POST_WRITER = #{userNo}
+        ORDER BY POST_DATE DESC
         LIMIT #{offset}, #{size}
 
     </select>
@@ -52,12 +53,13 @@
 
     <select id="findWrittenComment" resultMap="mypageCommentResultMap">
         SELECT
-        POST_NO,
+        COMMENT_NO,
         COMMENT_CONTENT,
         COMMENT_DATE,
         LIKE_NUMBER
         FROM TBL_COMMENT
         WHERE USER_NO = #{userNo}
+        ORDER BY COMMENT_DATE DESC, COMMENT_NO DESC
         LIMIT #{offset}, #{size}
     </select>
 
@@ -77,6 +79,7 @@
         FROM TBL_POST
         WHERE POST_WRITER = #{userNo}
         AND POST_FAVORITE = true
+        ORDER BY POST_DATE DESC
         LIMIT #{offset}, #{size}
     </select>
 

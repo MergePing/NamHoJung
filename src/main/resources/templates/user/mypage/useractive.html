@@ -187,7 +187,7 @@
 
     <div id="commentContainer">
         <div id="commentsContent" class="comment" style="display: none;" th:each="comment : ${writtenCommentList}" >
-                <span th:text ="${comment.postNo}"></span>
+                <span th:text ="${comment.commentNo}"></span>
                 <span th:text="${comment.commentContent}"> </span>
                 <span th:text="${comment.commentDate}"></span>
                 <span>323</span>
@@ -357,7 +357,7 @@
             newComment.classList.add('comment');
             newComment.setAttribute('style', `top: ${index * 80}px`);
             newComment.innerHTML = `
-                <span>${comment.postNo}</span>
+                <span>${comment.commentNo}</span>
                 <a href="/selectpost/${comment.postNo}">
                     <span>${comment.commentContent}</span>
                 </a>

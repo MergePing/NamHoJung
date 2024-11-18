@@ -611,6 +611,8 @@
                         } else {
                             console.error("댓글 목록이 배열이 아닙니다:", data.comments);
                         }
+                        // 댓글 삭제 후 푸터 위치를 재조정
+                        adjustFooterPosition();
                     } else {
                         alert(data.error || "댓글 삭제에 실패했습니다.");
                     }
@@ -699,6 +701,16 @@
         const commentsList = document.getElementById("comments-list");
         const showMoreButton = document.querySelector(".show-more-comments span");
 
+        // 댓글 목록에서 댓글 개수 확인
+        const commentDivs = commentsList.querySelectorAll(".comment");
+
+        if (commentDivs.length === 0) {
+            alert("댓글이 없습니다.");
+            showMoreButton.style.pointerEvents = "none"; // 클릭 비활성화
+            showMoreButton.style.color = "gray"; // 비활성화된 버튼 색상 변경
+            return;
+        }
+
         // 댓글 목록이 보이지 않으면 댓글을 로드하고, 보이면 숨깁니다.
         if (commentsList.style.display === "none") {
             commentsList.style.display = "block";  // 댓글 목록을 보이게 함
@@ -712,6 +724,10 @@
                 commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격을 150px로 설정
 
             });
+
+            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+            showMoreButton.style.color = ""; // 기본 색상 복구
 
         } else {
             commentsList.style.display = "none";  // 댓글 목록을 숨김
@@ -815,6 +831,11 @@
 
                 commentsList.appendChild(commentDiv);
             });
+
+            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+            const showMoreButton = document.querySelector(".show-more-comments span");
+            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+            showMoreButton.style.color = ""; // 기본 색상 복구
 
             // 댓글 추가 후 푸터 위치 조정
             adjustFooterPosition();

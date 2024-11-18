@@ -366,7 +366,7 @@
         WHERE
         C.POST_NO = #{postNo}
         ORDER BY
-        C.COMMENT_DATE ASC
+        C.COMMENT_DATE DESC
     </select>
 
     <update id="incrementCommentCount">

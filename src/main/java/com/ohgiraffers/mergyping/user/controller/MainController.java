@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -90,6 +92,39 @@ public class MainController {
         }
         return  "main/main";
     }
+
+    @PostMapping("/updateUserLevel")
+    @ResponseBody
+    public Map<String, Object> updateUserLevel(@AuthenticationPrincipal AuthDetails userDetails) {
+        Map<String, Object> response = new HashMap<>();
+
+        if (userDetails != null) {
+            int userNo = userDetails.getUserNo();
+
+            // 누적 출석 수 가져오기
+            Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
+            response.put("attendanceCount", attendanceCount);
+
+            // 등급 계산
+            int levelNo = myPageService.calculateLevel(attendanceCount);
+
+            // 등급 업데이트
+            myPageService.updateUserLevel(userNo, levelNo);
+
+            // 등급명 및 다음 등급 정보 가져오기
+            String levelName = myPageService.getLevelName(levelNo);
+            response.put("levelName", levelName);
+
+            String nextLevelName = myPageService.getNextLevelName(levelNo);
+            response.put("nextLevelName", nextLevelName);
+
+            int nextLevelRequiredAttendance = myPageService.getNextLevelRequiredAttendance(levelNo, attendanceCount);
+            response.put("nextLevelRequiredAttendance", nextLevelRequiredAttendance);
+        }
+
+        return response;
+    }
+
 
     // 개인정보 들어갈때 비밀번호 입력
     @PostMapping("/verifyPassword")
