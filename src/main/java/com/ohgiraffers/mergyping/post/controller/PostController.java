@@ -146,6 +146,8 @@ public class PostController {
     }
 
 
+
+
     // 게시글 정렬
     @GetMapping("/post/sort")
     public ResponseEntity<List<PostDTO>> postListSort(
@@ -201,6 +203,8 @@ public class PostController {
             userNo = userDetails.getUserNo();
 
         }
+
+
 
         // 누적된 출석 수 가져오기
         Integer attendanceCount = myPageService.getUserAttendanceCount(userNo);
