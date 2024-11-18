@@ -68,7 +68,7 @@
 </header>
 
 <aside id="myPageAside">
-    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto2">
+    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto3">
     <p id="nickname" class="nicknamefont">닉네임 : <span th:text="${myPageDTO.userName}"></span></p>
     <p id="rank" class="rankfont">등급: <span th:text="${userLevel}"></span></p>
     <p class="infofont" id="info">개인 정보</p>
@@ -267,7 +267,7 @@
                     <div class="comment">
                         <div th:if="${userInfo.userName} == ${post.postWriterName}">
                             <img th:src="@{profileImage}"
-                                 alt="프로필 사진" class="profile-photo2" id="profilePhoto3">
+                                 alt="프로필 사진" class="profile-photo2" id="profilePhoto2">
                         </div>
                         <div th:if="${userInfo.userName} != ${post.postWriterName}">
                             <img th:src="@{profileImage}"
@@ -365,7 +365,6 @@
         <p>ⓒ 2024 MergePing. All right reserved. </p>
     </div>
 </footer>
-
 <script>
     // JavaScript로 토글 기능 추가
     const mypageBtn = document.getElementById("mypageBtn");
@@ -564,7 +563,7 @@
     };
 
     function fetchComments() {
-        const postNo = /*[[${post.postNo}]]*/ '0';  // 현재 게시물의 번호를 할당합니다.
+        const postNo = [[${post.postNo}]];  // 현재 게시물의 번호를 할당합니다.
         fetch(`/api/comments/${postNo}`)
             .then(response => response.json())
             .then(data => {
@@ -576,73 +575,78 @@
     }
 </script>
 
-<script>
-    function submitComment() {
+
+
+
+
+
+    <script>
+        function submitComment() {
         const commentInput = document.getElementById("comment-input");
         const commentContent = commentInput.value.trim();
 
         if (!commentContent) {
-            alert("댓글 내용을 입력해주세요.");
-            return;
-        }
+        alert("댓글 내용을 입력해주세요.");
+        return;
+    }
 
         const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
 
         fetch(`/selectpost/${postNo}/comment`, {
-            method: "POST",
-            body: new URLSearchParams({
-                commentContent: commentContent,
+        method: "POST",
+        body: new URLSearchParams({
+        commentContent: commentContent,
 
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    if (Array.isArray(data.comments)) {
-                        addCommentToDOM(data.comments,data.userProfileImage);  // 댓글 목록을 DOM에 추가
-                    } else {
-                        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
-                    }
-                    commentInput.value = "";
-                } else {
-                    alert(data.error || "댓글 작성에 실패했습니다.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+    })
+    })
+        .then(response => response.json())
+        .then(data => {
+        if (data.success) {
+        if (Array.isArray(data.comments)) {
+        addCommentToDOM(data.comments,data.userProfileImage);  // 댓글 목록을 DOM에 추가
+    } else {
+        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+    }
+        commentInput.value = "";
+    } else {
+        alert(data.error || "댓글 작성에 실패했습니다.");
+    }
+    })
+        .catch(error => console.error("Error:", error));
     }
 
-    function deleteComment(commentNo) {
+        function deleteComment(commentNo) {
         const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
         if (confirm("댓글을 삭제하시겠습니까?")) {
-            fetch(`/selectpost/${postNo}/comment/${commentNo}/delete`, {
-                method: "DELETE"
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("네트워크 응답이 실패했습니다.");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        if (Array.isArray(data.comments)) {
-                            addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
-                        } else {
-                            console.error("댓글 목록이 배열이 아닙니다:", data.comments);
-                        }
-                        // 댓글 삭제 후 푸터 위치를 재조정
-                        adjustFooterPosition();
-                    } else {
-                        alert(data.error || "댓글 삭제에 실패했습니다.");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
+        fetch(`/selectpost/${postNo}/comment/${commentNo}/delete`, {
+        method: "DELETE"
+    })
+        .then(response => {
+        if (!response.ok) {
+        throw new Error("네트워크 응답이 실패했습니다.");
     }
-    // 댓글 수정 함수
-    function editComment(commentNo) {
+        return response.json();
+    })
+        .then(data => {
+        if (data.success) {
+        if (Array.isArray(data.comments)) {
+        addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
+    } else {
+        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
+    }
+        // 댓글 삭제 후 푸터 위치를 재조정
+        adjustFooterPosition();
+    } else {
+        alert(data.error || "댓글 삭제에 실패했습니다.");
+    }
+    })
+        .catch(error => console.error("Error:", error));
+    }
+    }
+        // 댓글 수정 함수
+        function editComment(commentNo) {
         // 수정할 댓글의 내용을 가져옴
         const commentDiv = document.querySelector(`.comment [data-comment-no="${commentNo}"]`).closest('.comment');
 
@@ -657,68 +661,68 @@
         const newContent = prompt("댓글을 수정하세요:", currentContent);
 
         if (newContent && newContent !== currentContent) {
-            const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
+        const postNo = document.querySelector(".favorite-icon").getAttribute("data-postNo");
 
-            // 서버에 수정된 댓글 전송
-            fetch(`/selectpost/${postNo}/comment/${commentNo}/edit`, {
-                method: "PUT",
-                body: new URLSearchParams({
-                    commentContent: newContent,
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        if (Array.isArray(data.comments)) {
-                            addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
-                        } else {
-                            console.error("댓글 목록이 배열이 아닙니다:", data.comments);
-                        }
-                    } else {
-                        alert(data.error || "댓글 수정에 실패했습니다.");
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-        }
+        // 서버에 수정된 댓글 전송
+        fetch(`/selectpost/${postNo}/comment/${commentNo}/edit`, {
+        method: "PUT",
+        body: new URLSearchParams({
+        commentContent: newContent,
+    })
+    })
+        .then(response => response.json())
+        .then(data => {
+        if (data.success) {
+        if (Array.isArray(data.comments)) {
+        addCommentToDOM(data.comments);  // 최신 댓글 목록으로 갱신
+    } else {
+        console.error("댓글 목록이 배열이 아닙니다:", data.comments);
     }
-    // 이벤트 위임을 통해 삭제 버튼의 클릭 이벤트 처리
-    document.getElementById("comments-list").addEventListener("click", function (event) {
+    } else {
+        alert(data.error || "댓글 수정에 실패했습니다.");
+    }
+    })
+        .catch(error => console.error("Error:", error));
+    }
+    }
+        // 이벤트 위임을 통해 삭제 버튼의 클릭 이벤트 처리
+        document.getElementById("comments-list").addEventListener("click", function (event) {
         if (event.target.classList.contains("delete-comment-btn")) {
-            const commentNo = event.target.getAttribute("data-comment-no");
-            deleteComment(commentNo);
-        } else if (event.target.classList.contains("edit-comment-btn")) {
-            const commentNo = event.target.getAttribute("data-comment-no");
-            editComment(commentNo);
-        }
+        const commentNo = event.target.getAttribute("data-comment-no");
+        deleteComment(commentNo);
+    } else if (event.target.classList.contains("edit-comment-btn")) {
+        const commentNo = event.target.getAttribute("data-comment-no");
+        editComment(commentNo);
+    }
     });
 
-    function adjustFooterPosition() {
+        function adjustFooterPosition() {
         const commentsList = document.getElementById('comments-list'); // 댓글 리스트
         const footer = document.querySelector('footer .footer');       // 푸터
 
         // DOM 변경 이후 위치를 재계산하기 위해 약간의 지연을 추가
         setTimeout(() => {
-            if (commentsList.style.display === "none") {
-                // 댓글 목록이 숨겨져 있을 때: 푸터를 댓글 보기 버튼 바로 아래로 위치
-                const showMoreButton = document.querySelector(".show-more-comments");
-                const showMoreButtonBottom = showMoreButton.getBoundingClientRect().top + window.scrollY;
-                footer.style.position = 'absolute';
-                footer.style.top = `${showMoreButtonBottom + showMoreButton.offsetHeight + 600}px`; // 버튼 하단에 20px 간격
-            } else {
-                // 댓글 목록이 표시 중일 때: 댓글 하단에 푸터 위치
-                const commentsListBottom = commentsList.getBoundingClientRect().top + window.scrollY;
-                const footerTop = commentsListBottom + commentsList.scrollHeight + 20; // 댓글 목록 하단에서 20px 여백 추가
-                footer.style.position = 'absolute';
-                footer.style.top = `${footerTop}px`;
-            }
-        }, 100); // 약간의 지연을 두어 DOM 업데이트 반영
+        if (commentsList.style.display === "none") {
+        // 댓글 목록이 숨겨져 있을 때: 푸터를 댓글 보기 버튼 바로 아래로 위치
+        const showMoreButton = document.querySelector(".show-more-comments");
+        const showMoreButtonBottom = showMoreButton.getBoundingClientRect().top + window.scrollY;
+        footer.style.position = 'absolute';
+        footer.style.top = `${showMoreButtonBottom + showMoreButton.offsetHeight + 600}px`; // 버튼 하단에 20px 간격
+    } else {
+        // 댓글 목록이 표시 중일 때: 댓글 하단에 푸터 위치
+        const commentsListBottom = commentsList.getBoundingClientRect().top + window.scrollY;
+        const footerTop = commentsListBottom + commentsList.scrollHeight + 20; // 댓글 목록 하단에서 20px 여백 추가
+        footer.style.position = 'absolute';
+        footer.style.top = `${footerTop}px`;
+    }
+    }, 100); // 약간의 지연을 두어 DOM 업데이트 반영
     }
 
 
 
 
-    // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
-    function loadComments() {
+        // 댓글 더보기 버튼 클릭 시 댓글 목록을 로드하거나 숨기는 함수
+        function loadComments() {
         const commentsList = document.getElementById("comments-list");
         const showMoreButton = document.querySelector(".show-more-comments span");
 
@@ -726,36 +730,36 @@
         const commentDivs = commentsList.querySelectorAll(".comment");
 
         if (commentDivs.length === 0) {
-            alert("댓글이 없습니다.");
-            showMoreButton.style.pointerEvents = "none"; // 클릭 비활성화
-            showMoreButton.style.color = "gray"; // 비활성화된 버튼 색상 변경
-            return;
-        }
+        alert("댓글이 없습니다.");
+        showMoreButton.style.pointerEvents = "none"; // 클릭 비활성화
+        showMoreButton.style.color = "gray"; // 비활성화된 버튼 색상 변경
+        return;
+    }
 
         // 댓글 목록이 보이지 않으면 댓글을 로드하고, 보이면 숨깁니다.
         if (commentsList.style.display === "none") {
-            commentsList.style.display = "block";  // 댓글 목록을 보이게 함
-            showMoreButton.textContent = "댓글 숨기기";  // 버튼 텍스트 변경
+        commentsList.style.display = "block";  // 댓글 목록을 보이게 함
+        showMoreButton.textContent = "댓글 숨기기";  // 버튼 텍스트 변경
 
-            // 댓글들을 순차적으로 처리
-            const commentDivs = commentsList.querySelectorAll(".comment");
-            commentDivs.forEach((commentDiv, index) => {
-                // 댓글의 위치를 조정
-                commentDiv.style.position = "relative";
-                commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격을 150px로 설정
+        // 댓글들을 순차적으로 처리
+        const commentDivs = commentsList.querySelectorAll(".comment");
+        commentDivs.forEach((commentDiv, index) => {
+        // 댓글의 위치를 조정
+        commentDiv.style.position = "relative";
+        commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격을 150px로 설정
 
-            });
+    });
 
-            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
-            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
-            showMoreButton.style.color = ""; // 기본 색상 복구
+        // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+        showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+        showMoreButton.style.color = ""; // 기본 색상 복구
 
-        } else {
-            commentsList.style.display = "none";  // 댓글 목록을 숨김
-            showMoreButton.textContent = "댓글 보기";  // 버튼 텍스트 변경
+    } else {
+        commentsList.style.display = "none";  // 댓글 목록을 숨김
+        showMoreButton.textContent = "댓글 보기";  // 버튼 텍스트 변경
 
 
-        }
+    }
 
         adjustFooterPosition();
 
@@ -765,30 +769,30 @@
 
 
 
-    // userNo를 JavaScript 변수에 할당
-    const loggedInUserNo = /*[[${userNo}]]*/ '0';  // ${userNo} 값이 없을 경우 0으로 기본값 설정
-    console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
-    // addCommentToDOM을 외부로 이동
+        // userNo를 JavaScript 변수에 할당
+        const loggedInUserNo = [[${userNo}]] ;  // ${userNo} 값이 없을 경우 0으로 기본값 설정
+        console.log("Logged In UserNo:", loggedInUserNo);  // 로그인한 사용자의 userNo 확인
+        // addCommentToDOM을 외부로 이동
 
 
-    function addCommentToDOM(comments, userProfileImage) {
+        function addCommentToDOM(comments, userProfileImage) {
         const commentsList = document.getElementById("comments-list");
         commentsList.innerHTML = ""; // 기존 댓글 목록을 제거하고 새로운 목록을 추가
 
         if (Array.isArray(comments)) {
-            comments.forEach((commentWithProfile, index) => {
-                const comment = commentWithProfile.comment;
-                const profileImage = commentWithProfile.profileImage || '/images/mypageimages/profile.png';
+        comments.forEach((commentWithProfile, index) => {
+        const comment = commentWithProfile.comment;
+        const profileImage = commentWithProfile.profileImage || '/images/mypageimages/profile.png';
 
-                const commentDiv = document.createElement("div");
-                commentDiv.classList.add("comment");
-                commentDiv.style.position = "relative";
-                commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
+        const commentDiv = document.createElement("div");
+        commentDiv.classList.add("comment");
+        commentDiv.style.position = "relative";
+        commentDiv.style.top = `${index * 200}px`;  // 댓글 간 간격 조절
 
-                // 댓글 간 간격 조절
-                // 댓글 내용 추가
-              
-                commentDiv.innerHTML = `
+        // 댓글 간 간격 조절
+        // 댓글 내용 추가
+
+        commentDiv.innerHTML = `
                 <img src="${profileImage}" alt="Profile Image" class="profile-photo2">
                 <span>${comment.username}</span>
                 <span>${comment.userLevel}</span>
@@ -815,51 +819,51 @@
     </div>
             `;
 
-                // 콘솔에 userNo와 비교 결과 출력
-                console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
-                console.log("loggedInUserNo:", loggedInUserNo);  // 로그인 사용자 userNo 확인
-                console.log("Comparison result:", Number(comment.userNo) === Number(loggedInUserNo));  // 비교 결과 확인
+        // 콘솔에 userNo와 비교 결과 출력
+        console.log("comment.userNo:", comment.userNo);  // 댓글 작성자 userNo 확인
+        console.log("loggedInUserNo:", loggedInUserNo);  // 로그인 사용자 userNo 확인
+        console.log("Comparison result:", Number(comment.userNo) === Number(loggedInUserNo));  // 비교 결과 확인
 
 
-                // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제 버튼을 보이게 함
-              
-                if (Number(comment.userNo) === Number(loggedInUserNo)) {
-                    const deleteButton = document.createElement("button");
-                    deleteButton.classList.add("delete-comment-btn");
-                    deleteButton.textContent = "삭제";
-                    deleteButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(deleteButton);
+        // 로그인한 사용자와 댓글 작성자가 같을 때만 삭제 버튼을 보이게 함
 
-                    const editButton = document.createElement("button");
-                    editButton.classList.add("edit-comment-btn");
-                    editButton.textContent = "수정";
-                    editButton.setAttribute("data-comment-no", comment.commentNo);
-                    commentDiv.appendChild(editButton);
-                } else {
-                    const reportDiv = document.createElement("div");
-                    reportDiv.innerHTML = `
+        if (Number(comment.userNo) === Number(loggedInUserNo)) {
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-comment-btn");
+        deleteButton.textContent = "삭제";
+        deleteButton.setAttribute("data-comment-no", comment.commentNo);
+        commentDiv.appendChild(deleteButton);
+
+        const editButton = document.createElement("button");
+        editButton.classList.add("edit-comment-btn");
+        editButton.textContent = "수정";
+        editButton.setAttribute("data-comment-no", comment.commentNo);
+        commentDiv.appendChild(editButton);
+    } else {
+        const reportDiv = document.createElement("div");
+        reportDiv.innerHTML = `
 <div id="report">
                     <img src="/images/post/selectpost/reportbtn.png" alt="Report Button">
                     <span>신고</span>
                     </div>
                 `;
-                    commentDiv.appendChild(reportDiv);
-                }
+        commentDiv.appendChild(reportDiv);
+    }
 
-                commentsList.appendChild(commentDiv);
-            });
+        commentsList.appendChild(commentDiv);
+    });
 
-            // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
-            const showMoreButton = document.querySelector(".show-more-comments span");
-            showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
-            showMoreButton.style.color = ""; // 기본 색상 복구
+        // 댓글 목록이 성공적으로 표시된 후 버튼 활성화
+        const showMoreButton = document.querySelector(".show-more-comments span");
+        showMoreButton.style.pointerEvents = "auto"; // 클릭 가능하게 변경
+        showMoreButton.style.color = ""; // 기본 색상 복구
 
-            // 댓글 추가 후 푸터 위치 조정
-            adjustFooterPosition();
+        // 댓글 추가 후 푸터 위치 조정
+        adjustFooterPosition();
 
-        } else {
-            console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
-        }
+    } else {
+        console.error("댓글 목록을 표시할 수 없습니다. comments 배열이 아닙니다.", comments);
+    }
     }
 
 

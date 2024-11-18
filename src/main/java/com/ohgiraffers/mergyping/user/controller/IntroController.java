@@ -93,7 +93,7 @@ public class IntroController {
         }
 
         //뷰 반환
-        return "main/intro/intro";
+        return "/intro/intro";
     }
 
 
