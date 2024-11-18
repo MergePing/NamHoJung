@@ -31,7 +31,7 @@
             <img id="loginButton" class="loginBox" th:src="@{/images/login/loginBox.png}" alt="로그인박스">
         </button>
         <button type="submit">
-            <img id="jumpLogin" class="loginBox" th:src="@{/images/login/loginBox7.png}" alt="로그인박스">
+            <img id="loginButton2" class="loginBox" th:src="@{/images/login/loginBox7.png}" alt="로그인박스">
         </button>
         <p class="search" onclick="location.href='/find/select'">ID / 비밀번호 찾기</p>
         <label class="id" for="inputId">아이디 : </label><input class="idDiv" type="text" id="inputId" name="userId" placeholder="아이디를 입력해주세요.">
@@ -98,13 +98,13 @@
         } else if (failCount === 5) {
             buttonImage.src = '/images/login/loginBox6.png';
         } else if (failCount === 6) {
-            document.getElementById('jumpLogin').style.display="flex";
+            document.getElementById('loginButton2').style.display="flex";
             buttonImage.style.display="none";
             buttonImage.style.zindex = "999";
         } else if (failCount === 7 ) {
             buttonImage.style.display="flex";
             buttonImage.src = '/images/login/loginBoxLast.png';
-            document.getElementById('jumpLogin').style.display="none";
+            document.getElementById('loginButton2').style.display="none";
             document.getElementById('findButton').style.display="flex";
             document.querySelector('.search').style.display="none";
         }

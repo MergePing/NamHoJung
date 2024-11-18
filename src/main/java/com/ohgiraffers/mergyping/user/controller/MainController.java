@@ -40,7 +40,7 @@ public class MainController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping({"/", "/main"})
+    @GetMapping({"/", "/main", "/mypage"})
     public String bestPost(Model model) {
         List<MainDTO> bestPostList = mainService.bestPost();
         model.addAttribute("bestPosts", bestPostList);
