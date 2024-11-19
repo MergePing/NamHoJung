@@ -1255,7 +1255,7 @@ z
 
         // `footer`를 페이지 하단에 고정시키되, 너무 멀리 내려가지 않도록 조정
         footer.style.position = "absolute";
-        footer.style.top = `${contentBottom}+200px`;
+        footer.style.top = `${Math.max(footerTop, pageHeight - footer.offsetHeight-200)}px`;
 
         // 댓글이 없을 경우에도 기본 높이 유지
         if (!commentsList || commentsList.children.length === 0) {
