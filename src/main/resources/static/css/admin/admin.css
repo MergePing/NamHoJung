@@ -222,7 +222,7 @@ main {
     width: 168px;
     height: 168px;
     margin: 0 auto;
-    background: url("/static/images/admin/defaultprofile.png") no-repeat center center;
+    background: url("/images/admin/defaultprofile.png") no-repeat center center;
     background-size: cover;
     border-radius: 100px;
 }
@@ -254,7 +254,7 @@ main {
     font-weight: 300;
     font-size: 25px;
     line-height: 32px;
-    margin-top: auto;
+    margin-top: 200px;
     margin-bottom: 23px;
     position: absolute;
     top: 300px;
@@ -339,9 +339,6 @@ main {
 }
 
 #profile-button {
-
-    /* Rectangle 122 */
-
     position: absolute;
     width: 291px;
     height: 65px;

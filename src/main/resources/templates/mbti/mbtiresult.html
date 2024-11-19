@@ -12,7 +12,7 @@
   <title>Title</title>
   <link rel="stylesheet" th:href="@{/css/mbti.css}">
   <link rel="stylesheet" th:href="@{/css/reset.css}">
-  <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
+  <link rel="stylesheet" th:href="@{/css/mypage/mypage-dark.css}">
 <!-- 카톡 공유용 -->
 <!--  <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>-->
 <!-- 스크린샷 공유로 변경 -->
@@ -337,5 +337,16 @@
     document.body.removeChild(link);
   }
 
+</script>
+<script>
+  function update(e){
+    var x = e.clientX || e.touches[0].clientX
+    var y = e.clientY || e.touches[0].clientY
+
+    document.documentElement.style.setProperty('--cursorX', x + 'px')
+    document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+  document.addEventListener('mousemove',update)
+  document.addEventListener('touchmove',update)
 </script>
 </html>

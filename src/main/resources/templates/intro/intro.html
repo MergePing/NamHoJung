@@ -4,43 +4,16 @@
     <meta charset="UTF-8">
     <title>소개</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/intro/intro.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
-    <style>
-        /*:root {*/
-        /*    --cursorX: 70vw;*/
-        /*    --cursorY: 70vh;*/
-        /*}*/
-        /*:root:before {*/
-        /*    content: '';*/
-        /*    display: block;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    position: fixed;*/
-        /*    pointer-events: none;*/
-        /*    z-index: 999999;*/
-        /*    background: radial-gradient(*/
-        /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
-        /*            rgba(0,0,0,0) 0%,*/
-        /*            rgba(0,0,0,.5) 80%,*/
-        /*            rgba(0,0,0,.95) 100%)*/
-        /*}*/
+    <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/intro/intro-light.css}">
+    <link rel="stylesheet" id="theme-stylesheet-mypage" th:href="@{/css/mypage/mypage-light.css}">
 
-        /** {*/
-        /*    box-sizing: border-box;*/
-        /*    text-rendering: optimizeLegibility;*/
-        /*    -webkit-font-smoothing: antialiased;*/
-        /*    -moz-osx-font-smoothing: grayscale;*/
-        /*    font-kerning: auto;*/
-        /*}*/
-    </style>
 </head>
 <body>
 
 <header>
     <nav>
         <!--네비바-->
-        <img th:src="@{/images/main/nav-logo-dark.png}" alt="상단 로고" onclick="location.href='/'">
+        <img th:src="@{/images/main/nav-logo-light.png}" alt="상단 로고" onclick="location.href='/'">
         <span onclick="location.href='/intro'">소개</span>
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
@@ -101,8 +74,18 @@
 </div>
 
 <main>
-<img th:src="@{/images/intro/intro-dark-bg.png}" id="bg">
-<img th:src="@{/images/intro/intro-logo-dark.png}" id="mainlogo">
+    <div class="qickBtn">
+        <!--플로팅 버튼-->
+        <img th:src="@{/images/main/folating-btn-light.png}" id="light" class="tr" alt="플로팅 버튼">
+        <img th:src="@{/images/main/folating-btn-click-light.png}" class="dn tr" id="dark" alt="플로팅 버튼 클릭">
+        <div class="clikbtn tr">
+            <img th:src="@{/images/main/top-btn-light.png}" class="dn" id="top" alt="탑버튼">
+            <img th:src="@{/images/main/light-btn-light.png}" class="dn" id="mode" onclick="toggleMode()" alt="테마 변경">
+            <img th:src="@{/images/main/test-btn-light.png}" class="dn" id="test" onclick="location.href='/mbti'" alt="MBTI 테스트">
+        </div>
+    </div>
+<img th:src="@{/images/intro/intro-light-bg.png}" id="bg">
+<img th:src="@{/images/intro/intro-logo-light.png}" id="mainlogo">
 
     <img th:src="@{/images/intro/intro.png}" id="intro">
     <p id="introduce">
@@ -124,7 +107,44 @@
 </footer>
 
 </body>
+<script>
+    const floatBtn1 = document.getElementById("light");
+    const floatBtn2 = document.getElementById("dark");
+    const qickMenu1 =document.getElementById("top");
+    const qickMenu2 =document.getElementById("mode");
+    const qickMenu3 =document.getElementById("test");
 
+    <!--플로팅 버튼 클릭시 퀵메뉴 display block-->
+    floatBtn1.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+    });
+
+
+    <!--플로팅 버튼 클릭시 퀵메뉴 display none-->
+    floatBtn2.addEventListener('click',function (){
+        floatBtn1.classList.toggle('dn');
+        floatBtn2.classList.toggle('dn');
+        qickMenu1.classList.toggle('dn');
+        qickMenu2.classList.toggle('dn');
+        qickMenu3.classList.toggle('dn');
+
+    });
+
+    <!--top 버튼 클릭시 화면 상단이동-->
+    setTimeout(function() {
+        qickMenu1.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }, 3000);
+
+</script>
 <script>
     // JavaScript로 토글 기능 추가
     const mypageBtn = document.getElementById("mypageBtn");
@@ -297,4 +317,84 @@
     document.addEventListener('mousemove',update)
     document.addEventListener('touchmove',update)
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedMode = localStorage.getItem('theme-mode') || 'light';
+        const themeStylesheet = savedMode === 'dark' ? '/css/intro/intro-dark.css' : '/css/intro/intro-light.css';
+        const themeStylesheetMypage = savedMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css'
+        document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', themeStylesheetMypage);
+        document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        document.getElementById('theme-stylesheet-mypage').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        updateImages(savedMode);
+    });
+    function updateImages(mode) {
+        const cacheBuster = `?v=${new Date().getTime()}`;
+
+        const navLogo = document.getElementById('nav-logo');
+        if (navLogo) {
+            navLogo.setAttribute('src', mode === 'dark' ? `/images/main/nav-logo-dark.png${cacheBuster}` : `/images/main/nav-logo-light.png${cacheBuster}`);
+        }
+
+        const light = document.getElementById('light');
+        if (light) {
+            light.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-dark.png${cacheBuster}` : `/images/main/folating-btn-light.png${cacheBuster}`);
+        }
+
+        const dark = document.getElementById('dark');
+        if (dark) {
+            dark.setAttribute('src', mode === 'dark' ? `/images/main/folating-btn-click-dark.png${cacheBuster}` : `/images/main/folating-btn-click-light.png${cacheBuster}`);
+        }
+
+        const top = document.getElementById('top');
+        if (top) {
+            top.setAttribute('src', mode === 'dark' ? `/images/main/top-btn-dark.png${cacheBuster}` : `/images/main/top-btn-light.png${cacheBuster}`);
+        }
+
+        const modeImg = document.getElementById('mode');
+        if (modeImg) {
+            modeImg.setAttribute('src', mode === 'dark' ? `/images/main/light-btn-dark.png${cacheBuster}` : `/images/main/light-btn-light.png${cacheBuster}`);
+        }
+
+        const test = document.getElementById('test');
+        if (test) {
+            test.setAttribute('src', mode === 'dark' ? `/images/main/test-btn-dark.png${cacheBuster}` : `/images/main/test-btn-light.png${cacheBuster}`);
+        }
+
+        const bg = document.getElementById('bg');
+        if (bg) {
+            bg.setAttribute('src', mode === 'dark' ? `/images/intro/intro-dark-bg.png${cacheBuster}` : `/images/intro/intro-light-bg.png${cacheBuster}`);
+        }
+
+        const mainlogo = document.getElementById('mainlogo');
+        if (mainlogo) {
+            mainlogo.setAttribute('src', mode === 'dark' ? `/images/intro/intro-logo-dark.png${cacheBuster}` : `/images/intro/intro-logo-light.png${cacheBuster}`);
+        }
+    }
+
+    function toggleMode() {
+        const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        const currentThemeM = document.getElementById('theme-stylesheet-mypage').getAttribute('href');
+        let newMode = '';
+        if (currentTheme.includes('intro-light.css')) {
+            newMode = 'dark';
+        } else {
+            newMode = 'light';
+        }
+        localStorage.setItem('theme-mode', newMode);
+        const newTheme = newMode === 'dark' ? '/css/intro/intro-dark.css' : '/css/intro/intro-light.css';
+        const newThemeM = newMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css';
+
+        document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', newThemeM);
+
+        updateImages(newMode);
+    }
+</script>
+
 </html>

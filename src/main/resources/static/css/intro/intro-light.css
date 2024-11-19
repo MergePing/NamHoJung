@@ -15,6 +15,10 @@ body{
     transition: all 0.7s;
 }
 
+button {
+    cursor: pointer;
+}
+
 /*---------------nav------------------*/
 nav{
     position: fixed;
@@ -22,7 +26,7 @@ nav{
     height: 79px;
     left: 0px;
     top: 0px;
-    background: #0E2913;
+    background: #FFFEF6;
     box-shadow: 0px 4px 10.9px rgba(0, 0, 0, 0.5);
     z-index: 99999999999999;
 }
@@ -31,11 +35,11 @@ nav{
 nav img{
     /* 남호정 */
     position: absolute;
-    width: 82px;
+    width: 125px;
     height: 45px;
     left: 48px;
     top: 18px;
-
+    cursor: pointer;
 }
 
 nav span:nth-child(2) {
@@ -49,8 +53,9 @@ nav span:nth-child(2) {
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -65,8 +70,9 @@ nav span:nth-child(3){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #A3DA87;
+    color: #000000;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -82,8 +88,9 @@ nav span:nth-child(4){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -99,8 +106,9 @@ nav span:nth-child(5){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -116,13 +124,13 @@ nav span:nth-child(6){
     font-weight: 400;
     font-size: 25px;
     line-height: 26px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
+    cursor: pointer;
 }
 
-
-nav span:nth-child(7){
-    /* 로그인 */
+/*nav span:nth-child(7){
+    !* 로그인 *!
     position: absolute;
     width: 49px;
     height: 21px;
@@ -134,8 +142,32 @@ nav span:nth-child(7){
     line-height: 21px;
     color: #C9E6CA;
     transition: all 1s;
+    cursor: pointer;
+}*/
+
+#logoutNav{
+    /* 로그아웃 */
+    position: absolute;
+    width: 100px;
+    height: 21px;
+    left: 1670px;
+    top: 29px;
+    font-family: 'BMJUA';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 21px;
+    color: #000000;
+    transition: all 1s;
+    background: none;
+    border:none;
+    text-align: center;
+    cursor: pointer;
 }
 
+#logoutNav:hover{
+    color: #4B9D21;
+    scale: 130%;
+}
 
 nav span:nth-child(8){
     /* 회원가입 */
@@ -149,8 +181,9 @@ nav span:nth-child(8){
     font-weight: 400;
     font-size: 20px;
     line-height: 21px;
-    color: #C9E6CA;
+    color: #000000;
     transition: all 1s;
+    cursor: pointer;
 }
 
 
@@ -158,41 +191,6 @@ nav span:hover{
     color: #A3DA87;
     scale: 130%;
 }
-
-
-.logo img{
-    position: absolute;
-    width: 451px;
-    height: 250px;
-    left: 169px;
-    top: 231px;
-}
-
-
-
-/*---------------main------------------*/
-
-
-main{
-    transition: all 1s;
-}
-
-
-main #box{
-    position: absolute;
-    width: 1707px;
-    top: 200px;
-    z-index: -1;
-}
-
-
-main #bg{
-    position: absolute;
-    width: 1920px;
-    top: 39px;
-    z-index: -5;
-}
-
 
 
 main .qickBtn img{
@@ -252,111 +250,98 @@ main .qickBtn{
 }
 
 
+/*---------------main------------------*/
 
-main span:nth-of-type(1){
+#intro {
+    width: 150px;  /* 원하는 크기로 이미지 크기 조정 */
+    height: auto;
+    margin-right: 20px; /* 이미지와 텍스트 사이에 간격 추가 */
     position: absolute;
-    top: 240px;
-    font-family: 'BMJUA';
-    font-weight: 400;
+    top:350px;
+    left:270px;
+}
+
+main{
+    transition: all 1s;
+}
+
+
+main #bg{
+    position: absolute;
+    width: 2066px;
+    top: 39px;
+    z-index: -5;
+}
+
+
+main #mainlogo{
+    /* 남호정 */
+    position: absolute;
+    width: 514px;
+    top: 154px;
+    left: 734px;
+}
+
+
+main #introduce{
+    position: absolute;
+    width: 1500px;
+    top: 420px;
+    font-family: 'SUIT-Regular';
+    font-weight: 800;
     font-size: 30px;
-    color: #FFFFFF;
-    left: 257px;
+    line-height: 162%;
+    letter-spacing: 0.05em;
+    color: #000;
+    text-align: center;
+    left: 200px;
+}
+
+main #introduce2{
+    position: absolute;
+    width: 1250px;
+    top: 750px;
+    font-family: 'SUIT-Regular';
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 162%;
+    letter-spacing: 0.05em;
+    color: #000;
+    text-align: center;
+    left: 315px;
 }
 
 
-main div:nth-of-type(2){
+main #btn{
     position: absolute;
-    width: 80px;
-    height: 39px;
-    left: 338px;
-    top: 230px;
-    background: #0E2913;
-    border: 2px solid #FFFFFF;
+    width: 235px;
+    height: 84px;
+    top: 889px;
+    background: #FFFEF6;
     border-radius: 50px;
+    left: 845px;
+    transition: all 1s;
 }
 
-
-main div span:first-child{
+main #btn p{
+    /* 확인 */
     position: absolute;
-    width: 50px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 300;
-    font-size: 25px;
-    line-height: 30px;
-    letter-spacing: 0.05em;
-    top:6px;
-    color: #FFFFFF;
-    left: 17px;
-}
-
-
-main span:nth-of-type(2){
-    position: absolute;
-    left: 689px;
-    top: 242px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 500;
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    width: 550px;
-}
-
-
-main span:nth-of-type(3){
-    position: absolute;
-    top: 242px;
-    font-family: 'Cafe24Ssurroundair';
-    font-weight: 500;
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    left: 1410px;
-}
-
-main .text span:nth-of-type(1){
-    position: absolute;
-    width: 720px;
-    top: 380px;
-    font-family: 'Cafe24Ssurroundair';
+    width: 90px;
+    font-family: 'SUIT-Regular';
+    font-weight: 700;
     font-size: 40px;
-    font-weight: 600;
+    line-height: 50px;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: #000;
     z-index: 2;
-    left: 380px;
+    left: 77px;
+    top: 18px;
 }
 
-main .text span:nth-of-type(2){
-    position: absolute;
-    width: 80px;
-    top: 390px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    left: 1150px;
+main #btn:hover{
+    color: black;
+    background: #6EBA4A;
 }
-
-
-main .text span:nth-of-type(3){
-    left: 1350px;
-    top: 390px;
-}
-
-
-main .text p{
-    position: absolute;
-    width: 1150px;
-    font-family: 'Cafe24Ssurroundair';
-    font-size: 25px;
-    line-height: 210%;
-    letter-spacing: 0.05em;
-    color: #FFFFFF;
-    top: 470px;
-    left: 380px;
-}
-
 
 /*---------------footer------------------*/
 footer .footer{
@@ -364,15 +349,14 @@ footer .footer{
     width: 1920px;
     height: 69px;
     top: 1080px;
-    background: #0E2913;
+    background: #6EBA4A;
     box-shadow: 0px -8px 22.4px rgba(0, 0, 0, 0.25);
-    z-index: 55;
 }
 
 footer .footer p{
     position: absolute;
     height: 31px;
-    font-family: 'SUIT';
+    font-family: 'SUIT-Regular';
     font-weight: 500;
     font-size: 25px;
     line-height: 31px;

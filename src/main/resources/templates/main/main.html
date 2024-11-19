@@ -5,36 +5,8 @@
     <title>남호정</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
     <link rel="stylesheet" id="theme-stylesheet" th:href="@{/css/mainpage/mainpage-lightmode.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
-    <!--    <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-lightmode.css}">-->
+    <link rel="stylesheet" id="theme-stylesheet-mypage" th:href="@{/css/mypage/mypage-light.css}">
     <style>
-        /* 손전등 */
-        /*:root {*/
-        /*    --cursorX: 70vw;*/
-        /*    --cursorY: 70vh;*/
-        /*}*/
-        /*:root:before {*/
-        /*    content: '';*/
-        /*    display: block;*/
-        /*    width: 100%;*/
-        /*    height: 100%;*/
-        /*    position: fixed;*/
-        /*    pointer-events: none;*/
-        /*    z-index: 999999;*/
-        /*    background: radial-gradient(*/
-        /*            circle 15vmax at var(--cursorX) var(--cursorY),*/
-        /*            rgba(0,0,0,0) 0%,*/
-        /*            rgba(0,0,0,.5) 80%,*/
-        /*            rgba(0,0,0,.95) 100%)*/
-        /*}*/
-
-        /** {*/
-        /*    box-sizing: border-box;*/
-        /*    text-rendering: optimizeLegibility;*/
-        /*    -webkit-font-smoothing: antialiased;*/
-        /*    -moz-osx-font-smoothing: grayscale;*/
-        /*    font-kerning: auto;*/
-        /*}*/
 
         .multiline-ellipsis {
             display: -webkit-box;
@@ -523,8 +495,13 @@
         const savedMode = localStorage.getItem('theme-mode') || 'light';
 
         const themeStylesheet = savedMode === 'dark' ? '/css/mainpage/mainpage-darkmode.css' : '/css/mainpage/mainpage-lightmode.css';
+        const themeStylesheetMypage = savedMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css'
         document.getElementById('theme-stylesheet').setAttribute('href', themeStylesheet);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', themeStylesheetMypage);
         document.getElementById('theme-stylesheet').addEventListener('load', () => {
+            updateImages(savedMode);
+        });
+        document.getElementById('theme-stylesheet-mypage').addEventListener('load', () => {
             updateImages(savedMode);
         });
         updateImages(savedMode);
@@ -597,6 +574,7 @@
     function toggleMode() {
         // 현재 설정된 스타일시트의 경로를 확인
         const currentTheme = document.getElementById('theme-stylesheet').getAttribute('href');
+        const currentThemeM = document.getElementById('theme-stylesheet-mypage').getAttribute('href');
 
         // 새 테마 모드를 결정 ('dark' 또는 'light')
         let newMode = '';
@@ -609,7 +587,10 @@
         localStorage.setItem('theme-mode', newMode);
         // 테마에 맞는 스타일시트를 로드
         const newTheme = newMode === 'dark' ? '/css/mainpage/mainpage-darkmode.css' : '/css/mainpage/mainpage-lightmode.css';
+        const newThemeM = newMode === 'dark' ? '/css/mypage/mypage-dark.css' : '/css/mypage/mypage-light.css';
         document.getElementById('theme-stylesheet').setAttribute('href', newTheme);
+        document.getElementById('theme-stylesheet-mypage').setAttribute('href', newThemeM);
+
 
         updateImages(newMode);
     }

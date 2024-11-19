@@ -388,13 +388,14 @@ main .bg{
     background: #d32f2f;
     border: 4px solid #C9E5CA;
     border-radius: 50px;
-    top: 210px;
-    left: 1750px;
+    top: 10px;
+    left: 1400px;
     color: #fff;
     font-family: 'Cafe24Ssurroundair';
     font-size: 25px;
     letter-spacing: 0.05em;
     cursor: pointer;
+    position: absolute;
 }
 
 
@@ -522,8 +523,14 @@ footer .footer p{
 
 #confirmDeleteButton {
     background-color: #d32f2f;
+    position: absolute;
+    left: 800px;
+    top: 250px;
 }
 
 #cancelDeleteButton {
     background-color: #3B572D;
+    position: absolute;
+    left: 300px;
+    top: 250px;
 }

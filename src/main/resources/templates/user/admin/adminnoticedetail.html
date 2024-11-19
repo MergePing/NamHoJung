@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 상세보기</title>
     <link rel="stylesheet" th:href="@{/css/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/admin/adminnoticedetail.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/adminnoticedetail-dark.css}">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
         <span onclick="location.href='/notice'">공지사항</span>
         <span onclick="location.href='/post'">게시판</span>
         <span onclick="location.href='/mbti'">MBTI 검사</span>
-        <span id="mypageBtn">마이페이지</span>
+        <span id="mypageBtn" onclick="location.href='/admin'">마이페이지</span>
         <form th:action="@{/auth/logout}" method="post">
             <button id="logoutNav" type="submit">로그아웃</button>
         </form>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/signup/reset.css}">
-    <link rel="stylesheet" th:href="@{/css/mypage/mypage.css}">
+    <link rel="stylesheet" th:href="@{/css/mypage/mypage-dark.css}">
     <link rel="stylesheet" th:href="@{/css/mainpage/mainpage-darkmode.css}">
 </head>
 <body>
@@ -331,6 +331,16 @@
 <!--        document.addEventListener('mousemove',update)-->
 <!--        document.addEventListener('touchmove',update)-->
 <!--    </script>-->
+    <script>
+        function update(e){
+            var x = e.clientX || e.touches[0].clientX
+            var y = e.clientY || e.touches[0].clientY
 
+            document.documentElement.style.setProperty('--cursorX', x + 'px')
+            document.documentElement.style.setProperty('--cursorY', y + 'px')}
+
+        document.addEventListener('mousemove',update)
+        document.addEventListener('touchmove',update)
+    </script>
 </body>
 </html>
