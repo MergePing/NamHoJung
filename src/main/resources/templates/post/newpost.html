@@ -84,10 +84,18 @@
    이곳에 게시글을 작성 해주세요
       </textarea>
 
-        <input type="file" id="fileInput1" accept="image/*" name="fileFirst" style="display: none;" onchange="uploadFile(1)" alt="hhh"/>
-        <input type="file" id="fileInput2" accept="image/*" name="fileSecond" style="display: none;" onchange="uploadFile(2)" alt="jjjj"/>
-        <img id="img1" th:src="@{${post.postImageFirst != null ? post.postImageFirst : '/images/post/newpost/img-insert-light.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
-        <img id="img2" th:src="@{${post.postImageSecond != null ? post.postImageSecond : '/images/post/newpost/img-insert-light.png'}}" alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" />
+        <input type="file" id="fileInput1" accept="image/*"
+               name="fileFirst" style="display: none;"
+               onchange="uploadFile(1)" alt="hhh"/>
+        <input type="file" id="fileInput2" accept="image/*"
+               name="fileSecond" style="display: none;"
+               onchange="uploadFile(2)" alt="jjjj"/>
+        <img id="img1" th:src="@{${post.postImageFirst != null ?
+        post.postImageFirst : '/images/post/newpost/img-insert-light.png'}}"
+             alt="이미지 선택" onclick="document.getElementById('fileInput1').click();" />
+        <img id="img2" th:src="@{${post.postImageSecond != null ?
+        post.postImageSecond : '/images/post/newpost/img-insert-light.png'}}"
+             alt="이미지 선택" onclick="document.getElementById('fileInput2').click();" />
 
 
       </div>
