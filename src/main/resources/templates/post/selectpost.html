@@ -1225,43 +1225,47 @@ z
 <script>
     window.addEventListener('load', () => {
         const box = document.getElementById('box');
-        const footer = document.querySelector('footer .footer');
-
+        const footer = document.querySelector('footer');
+        const content = document.getElementById('content');
         const img1 = document.getElementById('img1');
         const img2 = document.getElementById('img2');
-        const content = document.getElementById('content');
+        const commentsList = document.getElementById('comments-list');
 
-        let imgBottom;
-        // 이미지가 두 개 다 있는 경우
-        if (img1 && img1.src && img2 && img2.src) {
-            imgBottom = Math.max(img1.getBoundingClientRect().bottom, img2.getBoundingClientRect().bottom);
-        } else if (img1 && img1.src) {
-            // 이미지가 한 개만 있는 경우
+        let imgBottom = 0;
+
+        // 이미지 바텀 계산
+        if (img1 && img1.src) {
             imgBottom = img1.getBoundingClientRect().bottom;
-        } else if (img2 && img2.src) {
-            // 이미지가 한 개만 있는 경우
-            imgBottom = img2.getBoundingClientRect().bottom;
-        } else {
-            // 이미지가 없는 경우
-            imgBottom = 0;
+        }
+        if (img2 && img2.src) {
+            imgBottom = Math.max(imgBottom, img2.getBoundingClientRect().bottom);
         }
 
         const contentBottom = content.getBoundingClientRect().bottom;
 
-        const minTop = imgBottom + 10; // 이미지 바텀 기준 값
-        const contentTop = contentBottom + 10; // 콘텐츠 바텀 기준 값
+        // 게시글의 최종 기준 바텀 계산
+        const targetBottom = Math.max(contentBottom, imgBottom) + 80;
 
-        // 콘텐츠 바텀과 이미지 바텀을 비교하여 box 위치 설정
-        if (contentBottom < imgBottom) {
-            box.style.top = `${minTop}px`;
-        }
-        else {
-            box.style.top = `${contentTop}px`;
-        }
-        adjustFooterPosition();
+        // `box`의 위치 설정
+        box.style.top = `${targetBottom}px`;
 
+        // 페이지 높이를 기준으로 `footer` 위치 설정
+        const pageHeight = document.documentElement.clientHeight;
+        const footerTop = box.getBoundingClientRect().bottom + 20;
+
+        // `footer`를 페이지 하단에 고정시키되, 너무 멀리 내려가지 않도록 조정
+        footer.style.position = "absolute";
+        footer.style.top = `${contentBottom}+200px`;
+
+        // 댓글이 없을 경우에도 기본 높이 유지
+        if (!commentsList || commentsList.children.length === 0) {
+            commentsList.style.minHeight = "50px"; // 댓글 없는 상태 공간 확보
+            commentsList.style.display = "block";
+        }
     });
 </script>
+
+
 <script>
     const floatBtn1 = document.getElementById("light");
     const floatBtn2 = document.getElementById("dark");
