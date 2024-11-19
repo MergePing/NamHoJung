@@ -134,7 +134,7 @@
 
 #### [목차로 이동](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#%EB%AA%A9%EC%B0%A8)
 
-## 7. Development period (개발 기간) / 수정예정
+## 7. Development period (개발 기간)
 ### 전체 개발 기간
 24-10-17 ~ 11-19
 ### 기획 (초안)
