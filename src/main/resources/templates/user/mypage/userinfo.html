@@ -27,7 +27,7 @@
     <img class="infobackground" th:src="@{/images/mypageimages/background.png}" alt="다크모드 메인페이지 배경화면">
     <div class="infopopup">
         <p class="userfont">개인 정보</p>
-        <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/mypageimages/profile.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
+        <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/post/selectpost/profile-img-dark.png'}}" alt="프로필 사진" class="profile-photo" id="profilePhoto">
         <button class="btn-upload" onclick="document.getElementById('fileInput').click()">사진수정</button>
         <input type="file" id="fileInput" onchange="uploadProfilePhoto()">
         <button class="btn-delete" id="btndelete">탈퇴</button>

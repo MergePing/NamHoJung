@@ -189,11 +189,11 @@
             <div id="writer" class="post-user">
 
                 <div th:if="${userInfo.userName} == ${post.postWriterName}">
-                    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : post.profileImage}}"
+                    <img th:src="@{${userInfo.profileImage != null ? userInfo.profileImage : '/images/post/selectpost/profile-img-dark.png'}}"
                          alt="프로필 사진" class="profile-photo2" id="profilePhoto">
                 </div>
                 <div th:if="${userInfo.userName} != ${post.postWriterName}">
-                    <img th:src="@{${post.profileImage != null ? post.profileImage : '/images/mypageimages/profile.png'}}"
+                    <img th:src="@{${post.profileImage != null ? post.profileImage : '/images/post/selectpost/profile-img-dark.png'}}"
                          alt="프로필 사진" class="profile-photo2" id="profilePhoto1">
                 </div>
 
@@ -864,7 +864,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // 이미지 및 숫자 상태 업데이트
+z
                     updateScary(element, !isScary);
                     updateScaryNumber(postNo, data.scaryNumber); // 숫자 업데이트
                 }
