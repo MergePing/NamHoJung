@@ -56,7 +56,7 @@
 
 #### [목차로 이동](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#%EB%AA%A9%EC%B0%A8)
 
-## 4. Development environment (개발 환경) / 수정예정
+## 4. Development environment (개발 환경)
 
 ### Front
 
