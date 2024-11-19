@@ -13,7 +13,7 @@
         NOTICE_CATEGORY AS category,
         NOTICE_DATE AS noticeDate
         FROM TBL_NOTICE
-        ORDER BY NOTICE_DATE DESC
+        ORDER BY NOTICE_NO DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 

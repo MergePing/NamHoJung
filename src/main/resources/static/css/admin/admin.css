@@ -256,6 +256,9 @@ main {
     line-height: 32px;
     margin-top: 200px;
     margin-bottom: 23px;
+    position: absolute;
+    top: 300px;
+    left: 150px;
 
     color: #FFFFFF;
 
@@ -336,18 +339,24 @@ main {
 }
 
 #profile-button {
-
-    /* Rectangle 122 */
-
     position: absolute;
     width: 291px;
     height: 65px;
-    left: 125px;
+    top: 200px;
 
     background: #408D1C;
     border-radius: 50px;
+    left : 130px
 }
 
+#profile-pic {
+    width: 168px;
+    height: 168px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    z-index: 100;
+}
 
 
 
