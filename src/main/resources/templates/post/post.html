@@ -335,7 +335,7 @@
             newPost.innerHTML = `
             <span>${post.postNo}</span>
             <span>
-                <img src="/images/post/best-${post.postFavorite ? 'dark-light' : 'none-dark-light'}.png"
+                <img src="/images/post/best-${post.postFavorite ? 'light' : 'none-light'}.png"
                      data-postNo="${post.postNo}" class="favorite-icon" onclick="toggleFavorite(this)">
             </span>
             <a href="/selectpost/${post.postNo}">
