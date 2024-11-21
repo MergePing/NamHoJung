@@ -70,7 +70,6 @@
 - Discord
 - Kakaotalk
 - Notion
-- Git wiki? -> 회의록 만들거면 사용
 
 ### Designed
 - Figma
