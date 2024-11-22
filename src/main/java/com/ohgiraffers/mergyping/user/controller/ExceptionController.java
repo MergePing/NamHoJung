@@ -10,7 +10,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @ControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler(AccessDeniedException.class)
+/*    @ExceptionHandler(AccessDeniedException.class)
     public String handleAccessDeniedException(AccessDeniedException ex, Model model) {
         model.addAttribute("errorMessage", ex.getMessage());
         return "/user/error/permission";
@@ -28,5 +28,5 @@ public class ExceptionController {
         ModelAndView modelAndView = new ModelAndView("/user/error/server");
         modelAndView.addObject("errorMessage", ex.getMessage());
         return modelAndView;
-    }
+    }*/
 }
