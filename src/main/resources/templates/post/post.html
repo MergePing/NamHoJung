@@ -60,7 +60,7 @@
         <p class="pwdfont">비밀번호를 입력하여 본인임을 확인해 주세요!</p>
         <div class="pwd-container">
             <span class="pwdfont2">비밀번호</span> <input type="password" id="pwdInput" placeholder="영문,숫자,특수문자 8~12자리">
-            <span class="toggle-password" id="togglePassword"><img id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
+            <span class="toggle-password" id="togglePassword"><img loading="lazy" id="passwordIcon" src="/images/icon/closeEye.png" alt="eye-icon" /></span>
         </div>
 
         <div class="popup-buttons">
@@ -90,7 +90,7 @@
             <img th:src="@{/images/main/test-btn-light.png}" class="dn" id="test" alt="MBTI 테스트">
         </div>
     </div>
-    <img th:src="@{/images/post/post-bg-light.png}" id="bg">
+    <img loading="eager" th:src="@{/images/post/post-bg-light.png}" id="bg">
 
     <div class="write" onclick="location.href='/newpost'">
         <p >게시글 작성</p>
