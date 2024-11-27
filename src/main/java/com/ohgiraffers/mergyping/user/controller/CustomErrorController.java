@@ -19,13 +19,13 @@ public class CustomErrorController implements ErrorController {
 
             if (statusCode == 404) {
                 model.addAttribute("errorMessage", "Page not found");
-                return "user/error/permission";
+                return "user/error/page";
             } else if (statusCode == 500) {
                 model.addAttribute("errorMessage", "Internal server error");
                 return "user/error/server";
             }
         }
         model.addAttribute("errorMessage", "Unknown error occurred");
-        return "user/error/page";
+        return "user/error/permission";
     }
 }
