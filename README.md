@@ -5,7 +5,7 @@
 ### 1. [개요](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#1-over-view-of-the-project-%EA%B0%9C%EC%9A%94)
 ### 2. [목적](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#2-goals-of-the-project-%EB%AA%A9%EC%A0%81)
 ### 3. [팀 소개](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#3-team-member-%ED%8C%80)
-### 4. [개발 환경](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#4-development-environment-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
+### 4. [개발 환경](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#4-development-environment-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD)
 ### 5. [팀 규칙](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#5-%ED%8C%80-%EA%B0%80%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B8--%EA%B7%9C%EC%B9%99)
 ### 6. [업무 구분](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#6-project-work-division-%EC%97%85%EB%AC%B4-%EA%B5%AC%EB%B6%84--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
 ### 7. [개발 기간](https://github.com/MergePing/NamHoJung?tab=readme-ov-file#7-development-period-%EA%B0%9C%EB%B0%9C-%EA%B8%B0%EA%B0%84--%EC%88%98%EC%A0%95%EC%98%88%EC%A0%95)
